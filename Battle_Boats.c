@@ -83,12 +83,18 @@ int main( int argc, char* args[] )
     /** ANIMATION **/
     t_animation PETIT_BATEAU = { "./images/XnT4umX.bmp", 48, 64, 3, 12, 3, NULL };
     init_animation( &PETIT_BATEAU, pRenderer);
+    t_animation PETIT_BATEAU_2 = { "./images/XnT4umX_2.bmp", 48, 64, 3, 12, 3, NULL };
+    init_animation( &PETIT_BATEAU_2, pRenderer);
 
     /** SPRITE **/
     int ENNEMI_NB = 300;
     t_sprite *ENNEMI[ENNEMI_NB];   //tableau de pointeurs
     for (a = 0; a < ENNEMI_NB; a++) {
-        ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 1, 1, 5, 3, &PETIT_BATEAU, false, (GAME_FPS/10 * a)+1 );
+        if ( a%2 == 1 ) {
+            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 1, 1, 5, 3, &PETIT_BATEAU, false, (GAME_FPS * a)+1 );
+        } else {
+            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 1, 1, 5, 3, &PETIT_BATEAU_2, false, (GAME_FPS * a)+1 );
+        }
     }
 
     /******************************************************************************************************************
