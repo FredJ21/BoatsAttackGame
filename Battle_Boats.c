@@ -23,7 +23,7 @@ int main( int argc, char* args[] )
 
     // Création de la fenêtre
     SDL_Window *pWindow = NULL;
-//    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_SHOWN );
+ //   pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_SHOWN );
     pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
     if(!pWindow) {                          printf( "SDL_Window ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
@@ -91,9 +91,9 @@ int main( int argc, char* args[] )
     t_sprite *ENNEMI[ENNEMI_NB];   //tableau de pointeurs
     for (a = 0; a < ENNEMI_NB; a++) {
         if ( a%2 == 1 ) {
-            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 1, 1, 5, 3, &PETIT_BATEAU, false, (GAME_FPS * a)+1 );
+            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 2, 2, 5, 3, &PETIT_BATEAU, false, (GAME_FPS/20 * a)+1 );
         } else {
-            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 1, 1, 5, 3, &PETIT_BATEAU_2, false, (GAME_FPS * a)+1 );
+            ENNEMI[a] = init_sprite( 0 , rand()%700, 2, 2, 5, 1, &PETIT_BATEAU_2, false, (GAME_FPS/20 * a)+1 );
         }
     }
 
@@ -186,6 +186,7 @@ int main( int argc, char* args[] )
     }
 
     SDL_DestroyTexture(PETIT_BATEAU.texture);
+    SDL_DestroyTexture(PETIT_BATEAU_2.texture);
 
     SDL_DestroyTexture(my_level.pTexture_MAP);
     SDL_DestroyTexture(pTexture);

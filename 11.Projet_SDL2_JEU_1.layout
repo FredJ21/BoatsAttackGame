@@ -3,7 +3,7 @@
 	<ActiveTarget name="Debug" />
 	<File name="Battle_Boats.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3542" topLine="66" />
+			<Cursor1 position="7869" topLine="163" />
 		</Cursor>
 	</File>
 	<File name="Battle_boats.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -18,7 +18,7 @@
 	</File>
 	<File name="anim.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1231" topLine="0" />
+			<Cursor1 position="1166" topLine="14" />
 		</Cursor>
 	</File>
 	<File name="config.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
