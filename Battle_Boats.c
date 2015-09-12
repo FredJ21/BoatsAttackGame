@@ -85,6 +85,8 @@ int main( int argc, char* args[] )
     init_animation( &PETIT_BATEAU, pRenderer);
     t_animation PETIT_BATEAU_2 = { "./images/XnT4umX_2.bmp", 48, 64, 3, 12, 3, NULL };
     init_animation( &PETIT_BATEAU_2, pRenderer);
+    t_animation DRAPEAU = { "./images/flag.bmp", 31, 40, 11, 11, 11, NULL };
+    init_animation( &DRAPEAU, pRenderer);
 
     /** SPRITE **/
     int ENNEMI_NB = 20;
@@ -98,6 +100,9 @@ int main( int argc, char* args[] )
             ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 2, 2, 5, 3, &PETIT_BATEAU_2, false, (GAME_FPS * a)+1 );
         }
     }
+
+    t_sprite *ARRIVE;
+    ARRIVE = init_sprite (TILE_TAILLE_X*4, TILE_TAILLE_Y*10, 0, 0, 3, 0, &DRAPEAU, 1, 0);
 
     /******************************************************************************************************************
                                                 BOUCLE PRINCIPALE
@@ -173,6 +178,10 @@ int main( int argc, char* args[] )
         // Affichage des obstacles (mode Debug)
          affiche_obstacle    (pRenderer, &my_level);
 
+        // Affichage de l'arrivé
+        anime_sprite(ARRIVE);
+        affiche_sprite (pRenderer, ARRIVE);
+
         // Affichage des Sprites
         for (a = 0; a < ENNEMI_NB; a++) {
             anime_sprite    (ENNEMI[a]);
@@ -198,6 +207,7 @@ int main( int argc, char* args[] )
 
     SDL_DestroyTexture(PETIT_BATEAU.texture);
     SDL_DestroyTexture(PETIT_BATEAU_2.texture);
+    SDL_DestroyTexture(DRAPEAU.texture);
 
     SDL_DestroyTexture(my_level.pTexture_MAP);
     SDL_DestroyTexture(pTexture);
