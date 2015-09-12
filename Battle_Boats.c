@@ -77,8 +77,6 @@ int main( int argc, char* args[] )
     SDL_Surface *pSurface_TUILE = SDL_LoadBMP (TILE_FILE);
     if(!pSurface_TUILE) { printf( "SDL_Surface_TUILE ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
-    init_level(&my_level, current_level, pSurface_TUILE, pRenderer);
-    init_texture_obstacle(pRenderer, &my_level);
 
     /** ANIMATION **/
     t_animation PETIT_BATEAU = { "./images/XnT4umX.bmp", 48, 64, 3, 12, 3, NULL };
@@ -89,7 +87,7 @@ int main( int argc, char* args[] )
     init_animation( &DRAPEAU, pRenderer);
 
     /** SPRITE **/
-    int ENNEMI_NB = 20;
+    int ENNEMI_NB = 1;
     t_sprite *ENNEMI[ENNEMI_NB];   //tableau de pointeurs
     for (a = 0; a < ENNEMI_NB; a++) {
         if ( a%2 == 1 ) {
@@ -102,7 +100,14 @@ int main( int argc, char* args[] )
     }
 
     t_sprite *ARRIVE;
-    ARRIVE = init_sprite (TILE_TAILLE_X*4, TILE_TAILLE_Y*10, 0, 0, 3, 0, &DRAPEAU, 1, 0);
+    ARRIVE = init_sprite (0, 0, 0, 0, 3, 0, &DRAPEAU, 1, 0);
+
+
+    /** LEVEL **/
+    init_level(&my_level, current_level, pSurface_TUILE, pRenderer);
+    init_texture_obstacle(pRenderer, &my_level);
+    place_sprite(ARRIVE, my_level.cibleX, my_level.cibleY);
+
 
     /******************************************************************************************************************
                                                 BOUCLE PRINCIPALE
@@ -157,8 +162,11 @@ int main( int argc, char* args[] )
 
                             if (current_level == 0) { current_level = 1; } else { current_level = 0; }
                             printf ("Change Level to %d\n", current_level);
+                            /* Change LEVEL */
                             init_level(&my_level, current_level, pSurface_TUILE, pRenderer);
                             init_texture_obstacle(pRenderer, &my_level);
+                            place_sprite(ARRIVE, my_level.cibleX, my_level.cibleY);
+
 
                         default:
                             printf ("KEY\n");

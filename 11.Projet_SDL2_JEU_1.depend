@@ -706,7 +706,7 @@
 	"config.h"
 	"level.h"
 
-1442052153 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.c
+1442072067 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.c
 	<SDL2/SDL.h>
 	<stdio.h>
 	<stdlib.h>
@@ -1054,9 +1054,9 @@
 
 1441518669 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.h
 
-1442049478 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.h
+1442071544 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.h
 
-1442049533 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.c
+1442072242 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.c
 	<SDL2/SDL.h>
 	<stdio.h>
 	<stdlib.h>
@@ -1064,11 +1064,12 @@
 	"config.h"
 	"level.h"
 
-1442032849 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\anim.c
+1442071838 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\anim.c
 	<SDL2/SDL.h>
 	<stdio.h>
 	<stdlib.h>
+	"config.h"
 	"anim.h"
 
-1442032849 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\anim.h
+1442071703 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\anim.h
 

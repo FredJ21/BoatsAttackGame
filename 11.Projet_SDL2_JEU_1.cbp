@@ -45,6 +45,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Battle_boats.h" />
+		<Unit filename="README.txt" />
 		<Unit filename="anim.c">
 			<Option compilerVar="CC" />
 		</Unit>

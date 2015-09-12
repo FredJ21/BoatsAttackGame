@@ -76,14 +76,14 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     switch(level_number) {
         case 0 :
             strcpy(pLevel->name, "LEVEL 1");
-            pLevel->cibleX = 10;
-            pLevel->cibleY = 10;
+            pLevel->cibleX = 4;
+            pLevel->cibleY = 9;
             break;
 
         case 1 :
             strcpy(pLevel->name, "LEVEL 2");
-            pLevel->cibleX = 5;
-            pLevel->cibleY = 15;
+            pLevel->cibleX = 8;
+            pLevel->cibleY = 14;
             break;
     }
 
@@ -117,11 +117,13 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
                     pLevel->my_map[a] == 375 ||
                     pLevel->my_map[a] == 376 ||
                     pLevel->my_map[a] == 377 ||
+                    pLevel->my_map[a] == 381 ||
                     pLevel->my_map[a] == 398 ||
                     pLevel->my_map[a] == 400 ||
                     pLevel->my_map[a] == 421 ||
                     pLevel->my_map[a] == 422 ||
                     pLevel->my_map[a] == 423 ||
+                    pLevel->my_map[a] == 433 ||
                     pLevel->my_map[a] == 440 ||
                     pLevel->my_map[a] == 441 ||
                     pLevel->my_map[a] == 443 ||
@@ -157,7 +159,6 @@ void affiche_map   (SDL_Renderer *pRenderer, t_level *pLevel) {
     SDL_RenderCopy (pRenderer, pLevel->pTexture_MAP, NULL, NULL);
 
 }
-
 /*****************************************************************
 *****************************************************************/
 void init_texture_obstacle  (SDL_Renderer *pRenderer, t_level *pLevel) {
