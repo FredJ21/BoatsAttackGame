@@ -28,7 +28,7 @@ t_sprite *init_sprite(int posx, int posy,
 	int nbtour, int dir,
 	t_animation *a,
 	bool actif,
-	bool time_before_ativiation)
+	int time_before_ativiation)
 {
 	t_sprite *s = (t_sprite*)malloc(sizeof(t_sprite));
 	s->x = posx;

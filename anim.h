@@ -34,7 +34,7 @@ typedef struct {
 
 void init_animation(t_animation *a, SDL_Renderer *r);
 
-t_sprite*   init_sprite(int posx, int posy, int dx, int dy, int nbtour, int dir, t_animation*a, bool actif, bool time_before_ativiation);
+t_sprite*   init_sprite(int posx, int posy, int dx, int dy, int nbtour, int dir, t_animation*a, bool actif, int time_before_ativiation);
 void        avance_sprite(t_sprite *s);
 void        anime_sprite(t_sprite *s);
 void        affiche_sprite(SDL_Renderer *r, t_sprite *s);

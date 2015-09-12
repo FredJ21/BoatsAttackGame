@@ -23,8 +23,8 @@ int main( int argc, char* args[] )
 
     // Création de la fenêtre
     SDL_Window *pWindow = NULL;
- //   pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_SHOWN );
-    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
+    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_SHOWN );
+ //   pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
     if(!pWindow) {                          printf( "SDL_Window ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
 
@@ -34,7 +34,7 @@ int main( int argc, char* args[] )
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
     // permet d'obtenir les redimensionnements plus doux.
-    SDL_RenderSetLogicalSize(pRenderer, MAP_TAILLE_X, MAP_TAILLE_Y);
+   // SDL_RenderSetLogicalSize(pRenderer, MAP_TAILLE_X, MAP_TAILLE_Y);
 
 
     // Chargement de l'image
@@ -78,7 +78,7 @@ int main( int argc, char* args[] )
     if(!pSurface_TUILE) { printf( "SDL_Surface_TUILE ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
     init_level(&my_level, current_level, pSurface_TUILE, pRenderer);
-
+    init_texture_obstacle(pRenderer, &my_level);
 
     /** ANIMATION **/
     t_animation PETIT_BATEAU = { "./images/XnT4umX.bmp", 48, 64, 3, 12, 3, NULL };
@@ -87,13 +87,15 @@ int main( int argc, char* args[] )
     init_animation( &PETIT_BATEAU_2, pRenderer);
 
     /** SPRITE **/
-    int ENNEMI_NB = 300;
+    int ENNEMI_NB = 20;
     t_sprite *ENNEMI[ENNEMI_NB];   //tableau de pointeurs
     for (a = 0; a < ENNEMI_NB; a++) {
         if ( a%2 == 1 ) {
-            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 2, 2, 5, 3, &PETIT_BATEAU, false, (GAME_FPS/20 * a)+1 );
+
+            //  init_sprite ->  PositionX, PositionY, VitesseX, VitesseY, NbTour pour l'anim, Direction, &ANIMATION, actif, temps avant départ ;
+            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 2, 2, 5, 3, &PETIT_BATEAU, false, (GAME_FPS * a)+1 );
         } else {
-            ENNEMI[a] = init_sprite( 0 , rand()%700, 2, 2, 5, 1, &PETIT_BATEAU_2, false, (GAME_FPS/20 * a)+1 );
+            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 2, 2, 5, 3, &PETIT_BATEAU_2, false, (GAME_FPS * a)+1 );
         }
     }
 
@@ -151,6 +153,7 @@ int main( int argc, char* args[] )
                             if (current_level == 0) { current_level = 1; } else { current_level = 0; }
                             printf ("Change Level to %d\n", current_level);
                             init_level(&my_level, current_level, pSurface_TUILE, pRenderer);
+                            init_texture_obstacle(pRenderer, &my_level);
 
                         default:
                             printf ("KEY\n");
@@ -164,15 +167,23 @@ int main( int argc, char* args[] )
 
 
         SDL_RenderClear     (pRenderer);
+        // Affichage de la map
         SDL_RenderCopy      (pRenderer, my_level.pTexture_MAP, NULL, NULL);
 
+        // Affichage des obstacles (mode Debug)
+         affiche_obstacle    (pRenderer, &my_level);
+
+        // Affichage des Sprites
         for (a = 0; a < ENNEMI_NB; a++) {
             anime_sprite    (ENNEMI[a]);
             avance_sprite   (ENNEMI[a]);
             affiche_sprite  (pRenderer, ENNEMI[a]);
         }
+
+        // Mise a jour de l'affichage
         SDL_RenderPresent   (pRenderer);
 
+        // Calcul du temps de traitement et pause
         t_Apres_Traitement = clock();
         SDL_Delay( 1000 / GAME_FPS - (t_Avant_Traitement - t_Apres_Traitement));
     }

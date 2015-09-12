@@ -6,7 +6,8 @@
 #include "config.h"
 #include "level.h"
 
-
+/*****************************************************************
+*****************************************************************/
 void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile, SDL_Renderer *pRenderer) {
 
     int a, x, y;
@@ -75,10 +76,14 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     switch(level_number) {
         case 0 :
             strcpy(pLevel->name, "LEVEL 1");
+            pLevel->cibleX = 10;
+            pLevel->cibleY = 10;
             break;
 
         case 1 :
             strcpy(pLevel->name, "LEVEL 2");
+            pLevel->cibleX = 5;
+            pLevel->cibleY = 15;
             break;
     }
 
@@ -88,6 +93,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     }
 
 
+    // Creation de la texture de la map
     a = 0;
     for (y = 0; y < MAP_NB_TILE_Y; y++ ) {
         for (x = 0; x < MAP_NB_TILE_X; x++ ) {
@@ -95,11 +101,43 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
             Rect_source.y = (pLevel->my_map[a]-1) / TILE_FILE_NB_COLONNE  * (TILE_TAILLE_Y + 1) + 1;
             Rect_source.x = ((pLevel->my_map[a]-1) % TILE_FILE_NB_COLONNE)  * (TILE_TAILLE_Y + 1) + 1;
 
-            //printf("x=%d - y=%d - val=%d - valx=%d - valy=%d\n ", x, y, pLevel->my_map[a], Rect_source.x, Rect_source.y );
-
             Rect_Dest.x = x * TILE_TAILLE_X;
             Rect_Dest.y = y * TILE_TAILLE_Y;
+
             SDL_BlitSurface(pSurface_Tuile, &Rect_source, pSurface_TMP, &Rect_Dest);
+
+            //printf("x=%d - y=%d - val=%d - valx=%d - valy=%d\n ", x, y, pLevel->my_map[a], Rect_source.x, Rect_source.y );
+
+
+            // creation du tableau des obstacles
+            if ( pLevel->my_map[a] == 369 ||
+                    pLevel->my_map[a] == 370 ||
+                    pLevel->my_map[a] == 371 ||
+                    pLevel->my_map[a] == 372 ||
+                    pLevel->my_map[a] == 375 ||
+                    pLevel->my_map[a] == 376 ||
+                    pLevel->my_map[a] == 377 ||
+                    pLevel->my_map[a] == 398 ||
+                    pLevel->my_map[a] == 400 ||
+                    pLevel->my_map[a] == 421 ||
+                    pLevel->my_map[a] == 422 ||
+                    pLevel->my_map[a] == 423 ||
+                    pLevel->my_map[a] == 440 ||
+                    pLevel->my_map[a] == 441 ||
+                    pLevel->my_map[a] == 443 ||
+                    pLevel->my_map[a] == 463 ||
+                    pLevel->my_map[a] == 464 ||
+                    pLevel->my_map[a] == 466 ||
+                    pLevel->my_map[a] == 486 ||
+                    pLevel->my_map[a] == 487 ||
+                    pLevel->my_map[a] == 499 ||
+                    pLevel->my_map[a] == 489 ) {
+                // ce n'est pas obstacle
+                pLevel->my_map_Obstacle[x][y] = 0;
+            } else {
+                // c'est un obstacle
+                pLevel->my_map_Obstacle[x][y] = 1;
+            }
 
             a++;
         }
@@ -111,4 +149,59 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
 
 
     SDL_FreeSurface(pSurface_TMP);
+}
+/*****************************************************************
+*****************************************************************/
+void affiche_map   (SDL_Renderer *pRenderer, t_level *pLevel) {
+
+    SDL_RenderCopy (pRenderer, pLevel->pTexture_MAP, NULL, NULL);
+
+}
+
+/*****************************************************************
+*****************************************************************/
+void init_texture_obstacle  (SDL_Renderer *pRenderer, t_level *pLevel) {
+
+    int x, y;
+    SDL_Rect Rect_Dest   = { 0, 0, TILE_TAILLE_X, TILE_TAILLE_Y};
+    SDL_Surface *pSurface_CroixRouge;
+    SDL_Surface *pSurface_TMP;
+
+    // charge l'image
+    pSurface_CroixRouge = SDL_LoadBMP ( "images/CroixRouge32x32.bmp" );
+            if(!pSurface_CroixRouge) { printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
+
+    // création d'une surface temporaire de la taille de la map
+    pSurface_TMP = SDL_CreateRGBSurface(0,MAP_TAILLE_X,MAP_TAILLE_Y,32,0,0,0,0);
+
+
+    // creation de la texture MAP_Obstacle
+    for (y = 0; y < MAP_NB_TILE_Y; y++ ) {
+        for (x = 0; x < MAP_NB_TILE_X; x++ ) {
+
+            if ( pLevel->my_map_Obstacle[x][y] == 1 ) {
+
+                Rect_Dest.x = x * TILE_TAILLE_X;
+                Rect_Dest.y = y * TILE_TAILLE_Y;
+                SDL_BlitSurface(pSurface_CroixRouge, NULL, pSurface_TMP, &Rect_Dest);
+            }
+        }
+    }
+
+    SDL_SetColorKey(pSurface_TMP, SDL_TRUE, SDL_MapRGB(pSurface_TMP->format, 0, 0, 0));
+
+
+    pLevel->pTexture_MAP_Obstacles = SDL_CreateTextureFromSurface(pRenderer, pSurface_TMP);
+        if(!pLevel->pTexture_MAP_Obstacles) { printf( "SDL_Texture_MAP ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit (-1);}
+
+
+   SDL_FreeSurface(pSurface_CroixRouge);
+   SDL_FreeSurface(pSurface_TMP);
+}
+/*****************************************************************
+*****************************************************************/
+void affiche_obstacle   (SDL_Renderer *pRenderer, t_level *pLevel) {
+
+    SDL_RenderCopy (pRenderer, pLevel->pTexture_MAP_Obstacles, NULL, NULL);
+
 }
