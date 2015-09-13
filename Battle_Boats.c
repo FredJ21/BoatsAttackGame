@@ -7,6 +7,7 @@
 #include "Battle_boats.h"
 #include "level.h"
 #include "anim.h"
+#include "Algo_A_star.h"
 
 
 int main( int argc, char* args[] )
@@ -95,7 +96,7 @@ int main( int argc, char* args[] )
             //  init_sprite ->  PositionX, PositionY, VitesseX, VitesseY, NbTour pour l'anim, Direction, &ANIMATION, actif, temps avant départ ;
             ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 2, 2, 5, 3, &PETIT_BATEAU, false, (GAME_FPS * a)+1 );
         } else {
-            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 2, 2, 5, 3, &PETIT_BATEAU_2, false, (GAME_FPS * a)+1 );
+            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 10, 10, 5, 3, &PETIT_BATEAU_2, false, (GAME_FPS * a)+1 );
         }
     }
 
@@ -135,28 +136,26 @@ int main( int argc, char* args[] )
                             printf ("By By !!\n");
                             break;
                         case SDLK_UP:
-                            printf ("UP\n");
-                            R.y -= 10;
-                                                            ENNEMI[0]->direction = 0;
-                                                            ENNEMI[0]->compte_tour = 999;
+                                        ENNEMI[0]->direction = 0;
+                                        ENNEMI[0]->compte_tour = 999;
+                                        avance_sprite(ENNEMI[0]);
+
                             break;
                         case SDLK_DOWN:
-                            printf ("DOWN\n");
-                            R.y += 10;
-                                                            ENNEMI[0]->direction = 2;
-                                                            ENNEMI[0]->compte_tour = 999;
+                                        ENNEMI[0]->direction = 2;
+                                        ENNEMI[0]->compte_tour = 999;
+                                        avance_sprite(ENNEMI[0]);
+
                             break;
                         case SDLK_LEFT:
-                            printf ("LEFT\n");
-                            R.x -= 10;
-                                                            ENNEMI[0]->direction = 3;
-                                                            ENNEMI[0]->compte_tour = 999;
+                                        ENNEMI[0]->direction = 3;
+                                        ENNEMI[0]->compte_tour = 999;
+                                        avance_sprite(ENNEMI[0]);
                             break;
                         case SDLK_RIGHT:
-                            printf ("RIGHT\n");
-                            R.x += 10;
-                                                           ENNEMI[0]->direction = 1;
-                                                           ENNEMI[0]->compte_tour = 999;
+                                        ENNEMI[0]->direction = 1;
+                                        ENNEMI[0]->compte_tour = 999;
+                                        avance_sprite(ENNEMI[0]);
                              break;
                         case SDLK_SPACE:
 
@@ -166,7 +165,12 @@ int main( int argc, char* args[] )
                             init_level(&my_level, current_level, pSurface_TUILE, pRenderer);
                             init_texture_obstacle(pRenderer, &my_level);
                             place_sprite(ARRIVE, my_level.cibleX, my_level.cibleY);
+                             break;
 
+                        case SDLK_c:
+
+                            calcul_chemin(ENNEMI[0]->x, ENNEMI[0]->y, my_level.cibleX, my_level.cibleY, my_level.my_map_Obstacle);
+                            break;
 
                         default:
                             printf ("KEY\n");
@@ -184,18 +188,21 @@ int main( int argc, char* args[] )
         SDL_RenderCopy      (pRenderer, my_level.pTexture_MAP, NULL, NULL);
 
         // Affichage des obstacles (mode Debug)
-         affiche_obstacle    (pRenderer, &my_level);
+        affiche_obstacle    (pRenderer, &my_level);
 
         // Affichage de l'arrivé
         anime_sprite(ARRIVE);
         affiche_sprite (pRenderer, ARRIVE);
 
         // Affichage des Sprites
-        for (a = 0; a < ENNEMI_NB; a++) {
+  /*      for (a = 0; a < ENNEMI_NB; a++) {
             anime_sprite    (ENNEMI[a]);
             avance_sprite   (ENNEMI[a]);
             affiche_sprite  (pRenderer, ENNEMI[a]);
         }
+*/
+        anime_sprite(ENNEMI[0]);
+        affiche_sprite(pRenderer, ENNEMI[0]);
 
         // Mise a jour de l'affichage
         SDL_RenderPresent   (pRenderer);
