@@ -17,7 +17,7 @@ typedef struct {
 } t_position;
 
 
-void calcul_chemin ( int depart_x, int depart_y, int arrive_x, int arrive_y, int mapO[MAP_NB_TILE_X][MAP_NB_TILE_Y] );
+void calcul_chemin ( int depart_x, int depart_y, int arrive_x, int arrive_y, int mapO[MAP_NB_TILE_X][MAP_NB_TILE_Y], SDL_Renderer *pRenderer );
 
 void affiche_map_console (void);
 
@@ -30,7 +30,9 @@ void add_in_close_list  (t_position t);
 
 t_position cherche_meilleur_position (void);
 
-void retrouve_chemin_vers_depart (int depart_x, int depart_y);
+void retrouve_chemin_vers_depart (int depart_x, int depart_y, SDL_Renderer *pRenderer);
+
+void clear_list(void);
 
 
 #endif // ALGO_A_STAR_H_INCLUDED

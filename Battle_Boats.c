@@ -24,8 +24,8 @@ int main( int argc, char* args[] )
 
     // Création de la fenêtre
     SDL_Window *pWindow = NULL;
-    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_SHOWN );
- //   pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
+ //   pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_SHOWN );
+    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
     if(!pWindow) {                          printf( "SDL_Window ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
 
@@ -35,7 +35,7 @@ int main( int argc, char* args[] )
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
     // permet d'obtenir les redimensionnements plus doux.
-   // SDL_RenderSetLogicalSize(pRenderer, MAP_TAILLE_X, MAP_TAILLE_Y);
+    SDL_RenderSetLogicalSize(pRenderer, MAP_TAILLE_X, MAP_TAILLE_Y);
 
 
     // Chargement de l'image
@@ -66,11 +66,6 @@ int main( int argc, char* args[] )
 
     t_level my_level;
 
-    SDL_Rect R;
-    R.h = 100;
-    R.w = 100;
-    R.x = 100;
-    R.y = 100;
 
     /******************************************************************************************************************
                                                 INIT GAME
@@ -169,7 +164,7 @@ int main( int argc, char* args[] )
 
                         case SDLK_c:
 
-                            calcul_chemin(ENNEMI[0]->x, ENNEMI[0]->y, my_level.cibleX, my_level.cibleY, my_level.my_map_Obstacle);
+                            calcul_chemin(ENNEMI[0]->x, ENNEMI[0]->y, my_level.cibleX, my_level.cibleY, my_level.my_map_Obstacle, pRenderer);
                             break;
 
                         default:

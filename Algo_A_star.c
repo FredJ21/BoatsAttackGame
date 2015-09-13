@@ -1,3 +1,4 @@
+#include <SDL2/SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -18,7 +19,7 @@ int derniere_position_ok_y;
 
 /*****************************************************************
 *****************************************************************/
-void calcul_chemin( int d_x, int d_y, int a_x, int a_y, int mapO[MAP_NB_TILE_X][MAP_NB_TILE_Y] ) {
+void calcul_chemin( int d_x, int d_y, int a_x, int a_y, int mapO[MAP_NB_TILE_X][MAP_NB_TILE_Y], SDL_Renderer *pRenderer) {
 
     int x, y, c;
     int cout_vers_arrivee;
@@ -39,13 +40,14 @@ void calcul_chemin( int d_x, int d_y, int a_x, int a_y, int mapO[MAP_NB_TILE_X][
     arrive_x = a_x;
     arrive_y = a_y;
 
-
+/*
     printf ("----------------------------------------\n");
     printf ("Nb de Position X * Y : %d x %d\n", MAP_NB_TILE_X, MAP_NB_TILE_Y);
     printf ("Nb de Pixel en X * Y : %d x %d\n", MAP_TAILLE_X, MAP_NB_TILE_Y);
     printf ("Position de depart : x=%d  y=%d\n", depart_x, depart_y);
     printf ("Position d'arrivee : x=%d  y=%d\n", arrive_x, arrive_y);
     printf ("----------------------------------------\n");
+*/
 
 
     /** Point de depart **/
@@ -117,7 +119,12 @@ void calcul_chemin( int d_x, int d_y, int a_x, int a_y, int mapO[MAP_NB_TILE_X][
 
     printf (" FIN calcul\n");
 
-    retrouve_chemin_vers_depart(depart_x, depart_y);
+    retrouve_chemin_vers_depart(depart_x, depart_y, pRenderer);
+    clear_list();
+
+
+    SDL_RenderPresent   (pRenderer);
+    SDL_Delay ( 2000 );
 
 
 
@@ -251,7 +258,7 @@ t_position cherche_meilleur_position (void) {
 }
 /*****************************************************************
 *****************************************************************/
-void retrouve_chemin_vers_depart (int depart_x, int depart_y) {
+void retrouve_chemin_vers_depart (int depart_x, int depart_y, SDL_Renderer *pRenderer) {
 
     int x = derniere_position_ok_x;
     int y = derniere_position_ok_y;
@@ -259,7 +266,7 @@ void retrouve_chemin_vers_depart (int depart_x, int depart_y) {
     bool fin = false;
 
     while (!fin) {
-        printf ("x=%d y=%d v=%d px=%d py=%d\n", close_list[x][y].x, close_list[x][y].y, close_list[x][y].valeur, close_list[x][y].parent_x, close_list[x][y].parent_y);
+  //      printf ("x=%d y=%d v=%d px=%d py=%d\n", close_list[x][y].x, close_list[x][y].y, close_list[x][y].valeur, close_list[x][y].parent_x, close_list[x][y].parent_y);
 
         new_x = close_list[x][y].parent_x;
         new_y = close_list[x][y].parent_y;
@@ -269,7 +276,55 @@ void retrouve_chemin_vers_depart (int depart_x, int depart_y) {
         if (x == depart_x && y == depart_y ) {
             fin = true;
         }
+
+
+    /** Affichge d'un point pour verifier */
+    SDL_Surface *pSurface_tmp = SDL_LoadBMP ( "./images/point_orange.bmp" );
+        if(!pSurface_tmp) { printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
+
+        SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
+
+    SDL_Texture *pTexture_tmp;
+    pTexture_tmp = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
+        if(!pTexture_tmp) { printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+
+    SDL_Rect Dst;
+    Dst.x = x * TILE_TAILLE_X ;
+    Dst.y = y * TILE_TAILLE_Y;
+    Dst.w = TILE_TAILLE_X;
+    Dst.h = TILE_TAILLE_Y;
+
+    SDL_RenderCopy ( pRenderer, pTexture_tmp , NULL, &Dst);
+
+
     }
+}
+/*****************************************************************
+*****************************************************************/
+void clear_list(void) {
+
+
+    int x, y;
+
+    for (y = 0; y < MAP_NB_TILE_Y; y++){
+        for (x = 0; x < MAP_NB_TILE_X; x++) {
+
+            close_list[x][y].parent_x = 0;
+            close_list[x][y].parent_y = 0;
+            close_list[x][y].x = 0;
+            close_list[x][y].y = 0;
+            close_list[x][y].valeur = 0;
+
+            open_list[x][y].parent_x = 0;
+            open_list[x][y].parent_y = 0;
+            open_list[x][y].x = 0;
+            open_list[x][y].y = 0;
+            open_list[x][y].valeur = 0;
+
+
+        }
+    }
+
 }
 /*****************************************************************
 *****************************************************************/
