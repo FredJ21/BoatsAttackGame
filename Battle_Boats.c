@@ -24,8 +24,8 @@ int main( int argc, char* args[] )
 
     // Création de la fenêtre
     SDL_Window *pWindow = NULL;
- //   pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_SHOWN );
-    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
+    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_SHOWN );
+ //   pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
     if(!pWindow) {                          printf( "SDL_Window ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
 
@@ -183,7 +183,7 @@ int main( int argc, char* args[] )
         SDL_RenderCopy      (pRenderer, my_level.pTexture_MAP, NULL, NULL);
 
         // Affichage des obstacles (mode Debug)
-        affiche_obstacle    (pRenderer, &my_level);
+       // affiche_obstacle    (pRenderer, &my_level);
 
         // Affichage de l'arrivé
         anime_sprite(ARRIVE);

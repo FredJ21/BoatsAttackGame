@@ -103,8 +103,8 @@ void affiche_sprite(SDL_Renderer *r, t_sprite *s)
     Src.w = s->anim->tx;
     Src.h = s->anim->ty;
 
-    Dst.x = s->x;
-    Dst.y = s->y;
+    Dst.x = s->x - s->anim->tx/2;     // permet de center le sprite sur les coordonées
+    Dst.y = s->y - s->anim->ty/2;
     Dst.w = s->anim->tx;
     Dst.h = s->anim->ty;
 

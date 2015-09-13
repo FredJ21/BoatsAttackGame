@@ -279,7 +279,7 @@ void retrouve_chemin_vers_depart (int depart_x, int depart_y, SDL_Renderer *pRen
 
 
     /** Affichge d'un point pour verifier */
-    SDL_Surface *pSurface_tmp = SDL_LoadBMP ( "./images/point_orange.bmp" );
+    SDL_Surface *pSurface_tmp = SDL_LoadBMP ( "./images/point_rouge.bmp" );
         if(!pSurface_tmp) { printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
 
         SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
