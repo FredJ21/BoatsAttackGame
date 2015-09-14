@@ -61,6 +61,8 @@ int main( int argc, char* args[] )
     time_t t_Avant_Traitement;
     time_t t_Apres_Traitement;
 
+    time_t timeA, timeB;
+
     int a = 0;
     int current_level = 0;
 
@@ -164,7 +166,12 @@ int main( int argc, char* args[] )
 
                         case SDLK_c:
 
+                            timeA = clock();
                             calcul_chemin(ENNEMI[0]->x, ENNEMI[0]->y, my_level.cibleX, my_level.cibleY, my_level.my_map_Obstacle, pRenderer);
+                            timeB = clock();
+
+                            printf ("Temps de traitement algo : %ld\n", timeB - timeA);
+
                             break;
 
                         default:

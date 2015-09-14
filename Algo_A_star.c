@@ -5,72 +5,57 @@
 #include "config.h"
 #include "Algo_A_star.h"
 
-int a;
-
-t_position close_list[MAP_NB_TILE_X][MAP_NB_TILE_Y] = {};
-t_position open_list[MAP_NB_TILE_X][MAP_NB_TILE_Y] ={};
-t_position current_position;
-int map_Obstacle[MAP_NB_TILE_X][MAP_NB_TILE_Y];
-
-int arrive_x;
-int arrive_y;
-int derniere_position_ok_x;
-int derniere_position_ok_y;
 
 /*****************************************************************
 *****************************************************************/
-void calcul_chemin( int d_x, int d_y, int a_x, int a_y, int mapO[MAP_NB_TILE_X][MAP_NB_TILE_Y], SDL_Renderer *pRenderer) {
+void calcul_chemin( int d_x, int d_y, int a_x, int a_y, int map_Obstacle[MAP_NB_TILE_X][MAP_NB_TILE_Y], SDL_Renderer *pRenderer) {
 
     int x, y, c;
-    int cout_vers_arrivee;
-    int cout_depuis_depart;
     int fin = false;
 
-    int depart_x;
-    int depart_y;
+    t_Algo_A_Star data;
+    t_position current_position;
 
-    for ( y = 0; y < MAP_NB_TILE_Y; y++) {
-        for ( x = 0; x < MAP_NB_TILE_X; x++) {
-            map_Obstacle[x][y] = mapO[x][y];
-        }
-    }
+    t_table_Algo_A_Star list[MAP_NB_TILE_X][MAP_NB_TILE_Y] = {};
 
-    depart_x = d_x / TILE_TAILLE_X;
-    depart_y = d_y / TILE_TAILLE_Y;
-    arrive_x = a_x;
-    arrive_y = a_y;
-
-/*
-    printf ("----------------------------------------\n");
-    printf ("Nb de Position X * Y : %d x %d\n", MAP_NB_TILE_X, MAP_NB_TILE_Y);
-    printf ("Nb de Pixel en X * Y : %d x %d\n", MAP_TAILLE_X, MAP_NB_TILE_Y);
-    printf ("Position de depart : x=%d  y=%d\n", depart_x, depart_y);
-    printf ("Position d'arrivee : x=%d  y=%d\n", arrive_x, arrive_y);
-    printf ("----------------------------------------\n");
-*/
+    data.depart_X = d_x / TILE_TAILLE_X;
+    data.depart_Y = d_y / TILE_TAILLE_Y;
+    data.arrive_X = a_x;
+    data.arrive_Y = a_y;
 
 
     /** Point de depart **/
-    derniere_position_ok_x = depart_x;
-    derniere_position_ok_y = depart_y;
-    c = calcul_cout (depart_x, depart_y);
-    add_in_open_list(depart_x, depart_y, c, 0, 0);
+    data.derniere_position_ok_X = data.depart_X;
+    data.derniere_position_ok_Y = data.depart_Y;
+    c = calcul_cout (data.depart_X, data.depart_Y, &data);
+
+    list[data.depart_X][data.depart_Y].poid     = c;
+    list[data.depart_X][data.depart_Y].parent_x = 0;
+    list[data.depart_X][data.depart_Y].parent_y = 0;
+    list[data.depart_X][data.depart_Y].is_open  = true;
 
 
     while (!fin) {
 
-        current_position = cherche_meilleur_position();
-        add_in_close_list (current_position);
+        current_position = cherche_meilleur_position(list);
+
+        list[current_position.x][current_position.y].is_open = false;
+        list[current_position.x][current_position.y].is_close = true;
+        data.derniere_position_ok_X = current_position.x;
+        data.derniere_position_ok_Y = current_position.y;
 
 
         /** Voisin du dessus **/
         x = current_position.x;
         y = current_position.y - 1;
 
-        if ( !is_obstacle(x,y) && !is_in_close_list(x,y)) {
-            c = calcul_cout(x, y);
-            if ( !is_in_open_list(x,y) ) {
-                        add_in_open_list( x, y, c, current_position.x, current_position.y);
+        if ( !is_obstacle(x,y,map_Obstacle) && !list[x][y].is_close) {
+            c = calcul_cout(x, y, &data);
+            if ( !list[x][y].is_open ) {
+                        list[x][y].poid     = c;
+                        list[x][y].parent_x = current_position.x;
+                        list[x][y].parent_y = current_position.y;
+                        list[x][y].is_open  = true;
             }
         }
 
@@ -78,10 +63,13 @@ void calcul_chemin( int d_x, int d_y, int a_x, int a_y, int mapO[MAP_NB_TILE_X][
         x = current_position.x + 1;
         y = current_position.y;
 
-        if ( !is_obstacle(x,y) && !is_in_close_list(x,y)) {
-            c = calcul_cout(x, y);
-            if ( !is_in_open_list(x,y) ) {
-                        add_in_open_list( x, y, c, current_position.x, current_position.y);
+        if ( !is_obstacle(x,y,map_Obstacle) && !list[x][y].is_close) {
+            c = calcul_cout(x, y, &data);
+            if ( !list[x][y].is_open ) {
+                        list[x][y].poid     = c;
+                        list[x][y].parent_x = current_position.x;
+                        list[x][y].parent_y = current_position.y;
+                        list[x][y].is_open  = true;
             }
         }
 
@@ -89,10 +77,13 @@ void calcul_chemin( int d_x, int d_y, int a_x, int a_y, int mapO[MAP_NB_TILE_X][
         x = current_position.x;
         y = current_position.y + 1;
 
-        if ( !is_obstacle(x,y) && !is_in_close_list(x,y)) {
-            c = calcul_cout(x, y);
-            if ( !is_in_open_list(x,y) ) {
-                        add_in_open_list( x, y, c, current_position.x, current_position.y);
+        if ( !is_obstacle(x,y,map_Obstacle) && !list[x][y].is_close) {
+            c = calcul_cout(x, y, &data);
+            if ( !list[x][y].is_open ) {
+                        list[x][y].poid     = c;
+                        list[x][y].parent_x = current_position.x;
+                        list[x][y].parent_y = current_position.y;
+                        list[x][y].is_open  = true;
            }
         }
 
@@ -100,18 +91,21 @@ void calcul_chemin( int d_x, int d_y, int a_x, int a_y, int mapO[MAP_NB_TILE_X][
         x = current_position.x - 1;
         y = current_position.y;
 
-        if ( !is_obstacle(x,y) && !is_in_close_list(x,y)) {
-            c = calcul_cout(x, y);
-            if ( !is_in_open_list(x,y) ) {
-                        add_in_open_list( x, y, c, current_position.x, current_position.y);
+        if ( !is_obstacle(x,y,map_Obstacle) && !list[x][y].is_close) {
+            c = calcul_cout(x, y, &data);
+            if ( !list[x][y].is_open ) {
+                        list[x][y].poid     = c;
+                        list[x][y].parent_x = current_position.x;
+                        list[x][y].parent_y = current_position.y;
+                        list[x][y].is_open  = true;
             }
         }
 
 
-        //affiche_map_console();
+        //affiche_map_console(map_Obstacle, current_position);
 
 
-        if (current_position.x == arrive_x && current_position.y == arrive_y) {
+        if (current_position.x == data.arrive_X && current_position.y == data.arrive_Y) {
             fin =true;
         }
 
@@ -119,8 +113,7 @@ void calcul_chemin( int d_x, int d_y, int a_x, int a_y, int mapO[MAP_NB_TILE_X][
 
     printf (" FIN calcul\n");
 
-    retrouve_chemin_vers_depart(depart_x, depart_y, pRenderer);
-    clear_list();
+    retrouve_chemin_vers_depart(&data, list, pRenderer);
 
 
     SDL_RenderPresent   (pRenderer);
@@ -131,7 +124,7 @@ void calcul_chemin( int d_x, int d_y, int a_x, int a_y, int mapO[MAP_NB_TILE_X][
 }
 /*****************************************************************
 *****************************************************************/
-void affiche_map_console (void) {
+void affiche_map_console (int map_Obstacle[MAP_NB_TILE_X][MAP_NB_TILE_Y], t_position current_position) {
 
     int x, y;
 
@@ -150,7 +143,7 @@ void affiche_map_console (void) {
 }
 /*****************************************************************
 *****************************************************************/
-bool is_obstacle        (int x, int y) {
+bool is_obstacle        (int x, int y, int map_Obstacle[MAP_NB_TILE_X][MAP_NB_TILE_Y]) {
 
     if ( map_Obstacle[x][y] == 1 || x < 0 || x > MAP_NB_TILE_X - 1) {
         return true;
@@ -160,120 +153,58 @@ bool is_obstacle        (int x, int y) {
 }
 /*****************************************************************
 *****************************************************************/
-bool is_in_close_list   (int x, int y){
+int calcul_cout    (int x, int y, t_Algo_A_Star *data){
 
-    if ( close_list[x][y].valeur != 0 ) {
-        return true;
-    } else {
-        return false;
-    }
-}
-/*****************************************************************
-*****************************************************************/
-bool is_in_open_list    (int x, int y){
-
-    if ( open_list[x][y].valeur != 0 ) {
-        return true;
-    } else {
-        return false;
-    }
-
-}
-/*****************************************************************
-*****************************************************************/
-int calcul_cout    (int x, int y){
-
-    int cout_depuis_depart   = abs(x - derniere_position_ok_x) + abs(y - derniere_position_ok_y);
-    int cout_vers_arrivee    = abs(x - arrive_x) + abs(y - arrive_y);
+    int cout_depuis_depart   = abs(x - data->derniere_position_ok_X) + abs(y - data->derniere_position_ok_Y);
+    int cout_vers_arrivee    = abs(x - data->arrive_X) + abs(y - data->arrive_Y);
 
     return cout_depuis_depart + cout_vers_arrivee;
 
 }
 /*****************************************************************
 *****************************************************************/
-void add_in_open_list   (int x, int y, int valeur, int parent_x, int parent_y) {
-
-    if (open_list[x][y].valeur == 0 || valeur < open_list[x][y].valeur ) {
-
-        open_list[x][y].x = x;
-        open_list[x][y].y = y;
-        open_list[x][y].parent_x = parent_x;
-        open_list[x][y].parent_y = parent_y;
-        open_list[x][y].valeur = valeur;
-    }
-
-}
-/*****************************************************************
-*****************************************************************/
-void add_in_close_list  (t_position t){
-
-    int x = t.x;
-    int y = t.y;
-
-    close_list[x][y].x = t.x;
-    close_list[x][y].y = t.y;
-    close_list[x][y].valeur = t.valeur;
-    close_list[x][y].parent_x = t.parent_x;
-    close_list[x][y].parent_y = t.parent_y;
-
-    derniere_position_ok_x = t.x;
-    derniere_position_ok_y = t.y;
-
-    open_list[x][y].valeur = 0;
-
-}
-/*****************************************************************
-*****************************************************************/
-t_position cherche_meilleur_position (void) {
+t_position cherche_meilleur_position (t_table_Algo_A_Star list[MAP_NB_TILE_X][MAP_NB_TILE_Y]) {
 
     int x, y;
 
     t_position meilleur;
-    meilleur.valeur = 9999;
+    int tmp_poid = 9999;
 
-    //printf ("cherche meilleur\n");
 
     for (y = 0; y < MAP_NB_TILE_Y; y++){
         for (x = 0; x < MAP_NB_TILE_X; x++) {
 
-            if (open_list[x][y].valeur != 0){
+            if (list[x][y].is_open){
 
-                //printf ("x=%d y=%d v=%d px=%d py=%d\n", open_list[x][y].x, open_list[x][y].y, open_list[x][y].valeur, open_list[x][y].parent_x, open_list[x][y].parent_y);
-
-                if ( open_list[x][y].valeur < meilleur.valeur ) {
-                        meilleur.x = open_list[x][y].x;
-                        meilleur.y = open_list[x][y].y;
-                        meilleur.valeur = open_list[x][y].valeur;
-                        meilleur.parent_x = open_list[x][y].parent_x;
-                        meilleur.parent_y = open_list[x][y].parent_y;
+                if ( list[x][y].poid < tmp_poid ) {
+                        tmp_poid = list[x][y].poid;
+                        meilleur.x = x;
+                        meilleur.y = y;
                 }
             }
         }
     }
-
-    //printf ("MEILLEUR : x=%d y=%d v=%d px=%d py=%d\n", meilleur.x, meilleur.y, meilleur.valeur, meilleur.parent_x, meilleur.parent_y);
 
 
     return meilleur;
 }
 /*****************************************************************
 *****************************************************************/
-void retrouve_chemin_vers_depart (int depart_x, int depart_y, SDL_Renderer *pRenderer) {
+void retrouve_chemin_vers_depart (t_Algo_A_Star *data, t_table_Algo_A_Star Algo_list[MAP_NB_TILE_X][MAP_NB_TILE_Y], SDL_Renderer *pRenderer) {
 
-    int x = derniere_position_ok_x;
-    int y = derniere_position_ok_y;
+    int x = data->derniere_position_ok_X;
+    int y = data->derniere_position_ok_Y;
     int new_x, new_y;
     bool fin = false;
 
     while (!fin) {
-  //      printf ("x=%d y=%d v=%d px=%d py=%d\n", close_list[x][y].x, close_list[x][y].y, close_list[x][y].valeur, close_list[x][y].parent_x, close_list[x][y].parent_y);
 
-        new_x = close_list[x][y].parent_x;
-        new_y = close_list[x][y].parent_y;
+        new_x = Algo_list[x][y].parent_x;
+        new_y = Algo_list[x][y].parent_y;
         x = new_x;
         y = new_y;
 
-        if (x == depart_x && y == depart_y ) {
+        if (x == data->depart_X && y == data->depart_Y ) {
             fin = true;
         }
 
@@ -298,33 +229,6 @@ void retrouve_chemin_vers_depart (int depart_x, int depart_y, SDL_Renderer *pRen
 
 
     }
-}
-/*****************************************************************
-*****************************************************************/
-void clear_list(void) {
-
-
-    int x, y;
-
-    for (y = 0; y < MAP_NB_TILE_Y; y++){
-        for (x = 0; x < MAP_NB_TILE_X; x++) {
-
-            close_list[x][y].parent_x = 0;
-            close_list[x][y].parent_y = 0;
-            close_list[x][y].x = 0;
-            close_list[x][y].y = 0;
-            close_list[x][y].valeur = 0;
-
-            open_list[x][y].parent_x = 0;
-            open_list[x][y].parent_y = 0;
-            open_list[x][y].x = 0;
-            open_list[x][y].y = 0;
-            open_list[x][y].valeur = 0;
-
-
-        }
-    }
-
 }
 /*****************************************************************
 *****************************************************************/
