@@ -105,6 +105,7 @@ int main( int argc, char* args[] )
     init_level(&my_level, current_level, pSurface_TUILE, pRenderer);
     init_texture_obstacle(pRenderer, &my_level);
     place_sprite(ARRIVE, my_level.cibleX, my_level.cibleY);
+    affiche_map_console ( &my_level);
 
 
     /******************************************************************************************************************
@@ -161,20 +162,26 @@ int main( int argc, char* args[] )
                             else    { current_level = 0; }
 
                             printf ("Change Level to %d\n", current_level);
+
                             /* Change LEVEL */
                             init_level(&my_level, current_level, pSurface_TUILE, pRenderer);
                             init_texture_obstacle(pRenderer, &my_level);
                             place_sprite(ARRIVE, my_level.cibleX, my_level.cibleY);
 
-                             break;
+                            affiche_map_console ( &my_level);
+
+                            break;
 
                         case SDLK_c:
 
                             timeA = clock();
-                            calcul_chemin(ENNEMI[0]->x, ENNEMI[0]->y, my_level.cibleX, my_level.cibleY, my_level.my_map_Obstacle, pRenderer);
-                            timeB = clock();
 
-                            printf ("Temps de traitement algo : %ld\n", timeB - timeA);
+                            init_level_chemins(&my_level);
+
+                            timeB = clock();
+                            printf ("Temps de traitement : %ld\n", timeB - timeA);
+
+                            affiche_map_console ( &my_level);
 
                             break;
 

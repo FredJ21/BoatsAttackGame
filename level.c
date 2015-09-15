@@ -5,6 +5,8 @@
 
 #include "config.h"
 #include "level.h"
+#include "Algo_A_star.h"
+
 
 /*****************************************************************
 *****************************************************************/
@@ -124,7 +126,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     }
 
 
-    // Creation de la texture de la map
+    // Creation de la texture de la map et remise à zero de mapDirection
     a = 0;
     for (y = 0; y < MAP_NB_TILE_Y; y++ ) {
         for (x = 0; x < MAP_NB_TILE_X; x++ ) {
@@ -166,12 +168,14 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
                     pLevel->my_map[a] == 499 ||
                     pLevel->my_map[a] == 489 ) {
                 // ce n'est pas obstacle
-                pLevel->my_map_Obstacle[x][y] = 0;
+                pLevel->map_Info[x][y] = LIBRE;
             } else {
                 // c'est un obstacle
-                pLevel->my_map_Obstacle[x][y] = 1;
+                pLevel->map_Info[x][y] = OBSTACLE;
             }
 
+
+            pLevel->map_Direction[x][y] = INCONNU;
             a++;
         }
     }
@@ -211,7 +215,7 @@ void init_texture_obstacle  (SDL_Renderer *pRenderer, t_level *pLevel) {
     for (y = 0; y < MAP_NB_TILE_Y; y++ ) {
         for (x = 0; x < MAP_NB_TILE_X; x++ ) {
 
-            if ( pLevel->my_map_Obstacle[x][y] == 1 ) {
+            if ( pLevel->map_Info[x][y] == OBSTACLE) {
 
                 Rect_Dest.x = x * TILE_TAILLE_X;
                 Rect_Dest.y = y * TILE_TAILLE_Y;
@@ -236,4 +240,50 @@ void affiche_obstacle   (SDL_Renderer *pRenderer, t_level *pLevel) {
 
     SDL_RenderCopy (pRenderer, pLevel->pTexture_MAP_Obstacles, NULL, NULL);
 
+}
+/*****************************************************************
+*****************************************************************/
+void affiche_map_console (t_level *pLevel) {
+
+    int x, y;
+
+    for (y = 0; y < MAP_NB_TILE_Y; y++){
+        for (x = 0; x < MAP_NB_TILE_X; x++) {
+
+           if ( pLevel->map_Info[x][y] == OBSTACLE) {
+                printf (".");
+            } else if ( pLevel->map_Direction[x][y] == VERT_LE_HAUT) {
+                printf ("^");
+            } else if ( pLevel->map_Direction[x][y] == VERS_LA_DROITE) {
+                printf (">");
+            } else if ( pLevel->map_Direction[x][y] == VERS_LE_BAS) {
+                printf ("v");
+            } else if ( pLevel->map_Direction[x][y] == VERS_LA_GAUCHE) {
+                printf ("<");
+            } else {
+                printf (" ");
+            }
+        }
+        printf ("\n");
+    }
+    printf ("\n");
+}
+/*****************************************************************
+*****************************************************************/
+void init_level_chemins     (t_level *pLevel) {
+
+    int x, y;
+
+    for (y = 1; y < MAP_NB_TILE_Y; y += MAP_NB_TILE_Y/4){
+        x = 0;
+        if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
+        x = MAP_NB_TILE_X - 1;
+        if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
+    }
+    for (x = 1; x < MAP_NB_TILE_X; x += MAP_NB_TILE_X/4 ) {
+        y = 0;
+        if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
+        y = MAP_NB_TILE_Y - 1;
+        if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
+    }
 }

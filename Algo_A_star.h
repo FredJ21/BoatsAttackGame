@@ -33,14 +33,14 @@ typedef struct {
 
 
 
-void calcul_chemin ( int depart_x, int depart_y, int arrive_x, int arrive_y, int t_Algo_A_Star[MAP_NB_TILE_X][MAP_NB_TILE_Y], SDL_Renderer *pRenderer );
-void affiche_map_console (int map_Obstacle[MAP_NB_TILE_X][MAP_NB_TILE_Y], t_position current_position);
+void calcul_chemin ( int depart_x, int depart_y, t_level *pLevel );
 
 int calcul_cout         (int x, int y, t_Algo_A_Star *data);
 
 t_position cherche_meilleur_position (t_table_Algo_A_Star Algo_list[MAP_NB_TILE_X][MAP_NB_TILE_Y]);
 
-void retrouve_chemin_vers_depart (t_Algo_A_Star *data, t_table_Algo_A_Star Algo_list[MAP_NB_TILE_X][MAP_NB_TILE_Y], SDL_Renderer *pRenderer);
+void retrouve_chemin_vers_depart (t_Algo_A_Star *data, t_table_Algo_A_Star Algo_list[MAP_NB_TILE_X][MAP_NB_TILE_Y], t_level *pLevel);
+
 
 
 #endif // ALGO_A_STAR_H_INCLUDED
