@@ -154,14 +154,18 @@ int main( int argc, char* args[] )
                                         ENNEMI[0]->compte_tour = 999;
                                         avance_sprite(ENNEMI[0]);
                              break;
-                        case SDLK_SPACE:
+                        case SDLK_l:
 
-                            if (current_level == 0) { current_level = 1; } else { current_level = 0; }
+                            if (current_level == 0) {       current_level = 1; }
+                            else if (current_level == 1) {       current_level = 2; }
+                            else    { current_level = 0; }
+
                             printf ("Change Level to %d\n", current_level);
                             /* Change LEVEL */
                             init_level(&my_level, current_level, pSurface_TUILE, pRenderer);
                             init_texture_obstacle(pRenderer, &my_level);
                             place_sprite(ARRIVE, my_level.cibleX, my_level.cibleY);
+
                              break;
 
                         case SDLK_c:

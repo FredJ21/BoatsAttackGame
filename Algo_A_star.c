@@ -49,7 +49,7 @@ void calcul_chemin( int d_x, int d_y, int a_x, int a_y, int map_Obstacle[MAP_NB_
         x = current_position.x;
         y = current_position.y - 1;
 
-        if ( !is_obstacle(x,y,map_Obstacle) && !list[x][y].is_close) {
+        if ( y >= 0 && map_Obstacle[x][y] == 0 && !list[x][y].is_close) {
             c = calcul_cout(x, y, &data);
             if ( !list[x][y].is_open ) {
                         list[x][y].poid     = c;
@@ -63,7 +63,7 @@ void calcul_chemin( int d_x, int d_y, int a_x, int a_y, int map_Obstacle[MAP_NB_
         x = current_position.x + 1;
         y = current_position.y;
 
-        if ( !is_obstacle(x,y,map_Obstacle) && !list[x][y].is_close) {
+        if ( x < MAP_NB_TILE_X && map_Obstacle[x][y] == 0 && !list[x][y].is_close) {
             c = calcul_cout(x, y, &data);
             if ( !list[x][y].is_open ) {
                         list[x][y].poid     = c;
@@ -77,7 +77,7 @@ void calcul_chemin( int d_x, int d_y, int a_x, int a_y, int map_Obstacle[MAP_NB_
         x = current_position.x;
         y = current_position.y + 1;
 
-        if ( !is_obstacle(x,y,map_Obstacle) && !list[x][y].is_close) {
+        if ( y < MAP_NB_TILE_Y && map_Obstacle[x][y] == 0 && !list[x][y].is_close) {
             c = calcul_cout(x, y, &data);
             if ( !list[x][y].is_open ) {
                         list[x][y].poid     = c;
@@ -91,7 +91,7 @@ void calcul_chemin( int d_x, int d_y, int a_x, int a_y, int map_Obstacle[MAP_NB_
         x = current_position.x - 1;
         y = current_position.y;
 
-        if ( !is_obstacle(x,y,map_Obstacle) && !list[x][y].is_close) {
+        if ( x >= 0 && map_Obstacle[x][y] == 0 && !list[x][y].is_close) {
             c = calcul_cout(x, y, &data);
             if ( !list[x][y].is_open ) {
                         list[x][y].poid     = c;
@@ -102,7 +102,8 @@ void calcul_chemin( int d_x, int d_y, int a_x, int a_y, int map_Obstacle[MAP_NB_
         }
 
 
-        //affiche_map_console(map_Obstacle, current_position);
+//        affiche_map_console(map_Obstacle, current_position);
+//        SDL_Delay ( 2000 );
 
 
         if (current_position.x == data.arrive_X && current_position.y == data.arrive_Y) {
@@ -140,16 +141,6 @@ void affiche_map_console (int map_Obstacle[MAP_NB_TILE_X][MAP_NB_TILE_Y], t_posi
         printf ("\n");
     }
     printf ("\n");
-}
-/*****************************************************************
-*****************************************************************/
-bool is_obstacle        (int x, int y, int map_Obstacle[MAP_NB_TILE_X][MAP_NB_TILE_Y]) {
-
-    if ( map_Obstacle[x][y] == 1 || x < 0 || x > MAP_NB_TILE_X - 1) {
-        return true;
-    } else {
-        return false;
-    }
 }
 /*****************************************************************
 *****************************************************************/
