@@ -56,7 +56,6 @@ int main( int argc, char* args[] )
                                                 VARIABLES
     *******************************************************************************************************************/
     bool fin = false;
-    bool dessiner = true;
 
     time_t t_Avant_Traitement;
     time_t t_Apres_Traitement;

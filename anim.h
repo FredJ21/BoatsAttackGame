@@ -8,9 +8,7 @@
 typedef struct {
     int     x;
     int     y;
-    int     pos_x;
-    int     pos_y;
-} t_position;
+} t_pos;
 
 // animation
 typedef struct {
