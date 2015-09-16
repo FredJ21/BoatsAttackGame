@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include "config.h"
+#include "level.h"
 #include "anim.h"
 
 /*****************************************************************
@@ -48,8 +49,21 @@ t_sprite *init_sprite(int posx, int posy,
 }
 /*****************************************************************
 *****************************************************************/
-void avance_sprite(t_sprite*s)
+void avance_sprite(t_sprite *s, t_level *pLevel)
 {
+
+    int tile_x;
+    int tile_y;
+    int new_x;
+    int new_y;
+
+    int decalage;
+     HD;      // postion en haut à droite
+    t_position HG;      // postion en haut à gauche
+    t_position BD;      // postion en bas à droite
+    t_position BG;      // postion en bas à gauche
+
+
     // gestion du retardement au démarrage
     if (s->time_before_ativiation > 1 ) {
         s->time_before_ativiation--;
@@ -61,32 +75,103 @@ void avance_sprite(t_sprite*s)
 
 
     if (s->actif == true ) {
-      switch (s->direction) {
-        case UP :
-                                s->y -= s->dy;
+
+        // les ccordonnées du sprite correspondent à sont centre
+        // décalage par rapport au centre :
+        decalage = ( TILE_TAILLE_X + TILE_TAILLE_Y ) / 6;
+        // calcul de 4 points de test
+        HD.x = (s->x + decalage) / ;
+        BD.x = HD.x;
+        HG.x = s->x - decalage;
+        BG.x = HG.x;
+        HD.y = s->y - decalage;
+        HG.y = HD.y;
+        BD.y = s->y + decalage;
+        BG.y = BD.y;
+
+
+
+        switch (s->direction) {
+            case UP :
+                                new_x = s->x;
+                                new_y = s->y - s->dy;
+                                tile_x = new_x / TILE_TAILLE_X;
+                                tile_y = (new_y - s->anim->ty/2) / TILE_TAILLE_Y;
+
                                 // detection des bords
-                                if ( s->y - TILE_TAILLE_Y/2 <= 0 ) {                s->direction = DOWN; }
+                                if ( new_y - s->anim->ty/2 <= 0 ) {
+                                        s->direction = DOWN;
+                                        printf ("1 Detection bord\n");
+                                // detection des obstacles
+                                } else if ( pLevel->map_Info[tile_x][tile_y] == OBSTACLE ) {
+                                        s->direction = RIGHT + ( rand()%1 * 2 );
+                                        printf ("1 Detection d'un obstacle -> new direct : %d\n", s->direction);
+                                } else {
+                                    s->y = new_y;
+                                }
 
                                 break;
         case RIGHT :
-                                s->x += s->dy;
+                                new_x = s->x + s->dx;
+                                new_y = s->y;
+                                tile_x = (new_x + s->anim->tx/2) / TILE_TAILLE_X;
+                                tile_y = new_y / TILE_TAILLE_Y;
+
                                 // detection des bords
-                                if ( s->x + TILE_TAILLE_X/2 >= MAP_TAILLE_X ) {     s->direction = LEFT; }
+                                if ( new_x + s->anim->tx/2 >= MAP_TAILLE_X ) {
+                                        s->direction = LEFT;
+                                         printf ("2 Detection bord\n");
+                               // detection des obstacles
+                                } else if ( pLevel->map_Info[tile_x][tile_y] == OBSTACLE ) {
+                                        s->direction = UP + ( rand()%1 * 2 );
+                                       printf ("2 Detection d'un obstacle -> new direct : %d\n", s->direction);
+                                } else {
+                                    s->x = new_x;
+                                }
+
                                 break;
         case DOWN :
-                                s->y += s->dy;
+                                new_x = s->x;
+                                new_y = s->y + s->dy;
+                                tile_x = new_x / TILE_TAILLE_X;
+                                tile_y = (new_y + s->anim->ty/2) / TILE_TAILLE_Y;
+
                                 // detection des bords
-                                if ( s->y + TILE_TAILLE_X/2 >= MAP_TAILLE_Y ) {     s->direction = UP; }
+                                if ( new_y + s->anim->ty/2 >= MAP_TAILLE_Y ) {
+                                        s->direction = UP;
+                                         printf ("3 Detection bord\n");
+                               // detection des obstacles
+                                } else if ( pLevel->map_Info[tile_x][tile_y] == OBSTACLE ) {
+                                        s->direction = RIGHT + ( rand()%1 * 2 );
+                                        printf ("3 Detection d'un obstacle -> new direct : %d\n", s->direction);
+                                } else {
+                                    s->y = new_y;
+                                }
+
                                 break;
         case LEFT :
-                                s->x -= s->dx;
+                                new_x = s->x - s->dx;
+                                new_y = s->y;
+                                tile_x = (new_x - s->anim->tx/2) / TILE_TAILLE_X;
+                                tile_y = new_y / TILE_TAILLE_Y;
+
                                 // detection des bords
-                                if ( s->x - TILE_TAILLE_Y/2 <= 0 ) {                s->direction = RIGHT; }
-                                // detection des ostacles
-                                break;
-      }
+                                if ( new_x - s->anim->tx/2 <= 0 ) {
+                                        s->direction = RIGHT;
+                                          printf ("4 Detection bord\n");
+                              // detection des obstacles
+                                } else if ( pLevel->map_Info[tile_x][tile_y] == OBSTACLE ) {
+                                        s->direction = UP + ( rand()%1 * 2 );
+                                       printf ("4 Detection d'un obstacle -> new direct : %d\n", s->direction);
+                                } else {
+                                    s->x = new_x;
+                                }
+        }
 
 
+        if ( pLevel->map_Direction[tile_x][tile_y] != INCONNU ) {
+                s->direction = pLevel->map_Direction[tile_x][tile_y] - 1;
+        }
 
     }
 

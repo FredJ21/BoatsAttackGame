@@ -5,6 +5,13 @@
 #define true    1
 #define bool    short int
 
+typedef struct {
+    int     x;
+    int     y;
+    int     pos_x;
+    int     pos_y;
+} t_position;
+
 // animation
 typedef struct {
     char    file[256];          // nom du fichier
@@ -35,7 +42,7 @@ enum { UP, RIGHT, DOWN, LEFT };
 void init_animation(t_animation *a, SDL_Renderer *r);
 
 t_sprite*   init_sprite(int posx, int posy, int dx, int dy, int nbtour, int dir, t_animation*a, bool actif, int time_before_ativiation);
-void        avance_sprite(t_sprite *s);
+void        avance_sprite(t_sprite *s, t_level *pLevel);
 void        anime_sprite(t_sprite *s);
 void        affiche_sprite(SDL_Renderer *r, t_sprite *s);
 void        destroy_sprite(t_sprite **s);

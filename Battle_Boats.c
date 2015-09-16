@@ -87,7 +87,7 @@ int main( int argc, char* args[] )
     init_animation( &DRAPEAU, pRenderer);
 
     /** SPRITE **/
-    int ENNEMI_NB = 2;
+    int ENNEMI_NB = 1;
     t_sprite *ENNEMI[ENNEMI_NB];   //tableau de pointeurs
     for (a = 0; a < ENNEMI_NB; a++) {
         if ( a%2 == 1 ) {
@@ -140,24 +140,24 @@ int main( int argc, char* args[] )
                         case SDLK_UP:
                                         ENNEMI[0]->direction = 0;
                                         ENNEMI[0]->compte_tour = 999;
-                                        avance_sprite(ENNEMI[0]);
+                                        avance_sprite(ENNEMI[0], &my_level);
 
                             break;
                         case SDLK_DOWN:
                                         ENNEMI[0]->direction = 2;
                                         ENNEMI[0]->compte_tour = 999;
-                                        avance_sprite(ENNEMI[0]);
+                                        avance_sprite(ENNEMI[0], &my_level);
 
                             break;
                         case SDLK_LEFT:
                                         ENNEMI[0]->direction = 3;
                                         ENNEMI[0]->compte_tour = 999;
-                                        avance_sprite(ENNEMI[0]);
+                                        avance_sprite(ENNEMI[0], &my_level);
                             break;
                         case SDLK_RIGHT:
                                         ENNEMI[0]->direction = 1;
                                         ENNEMI[0]->compte_tour = 999;
-                                        avance_sprite(ENNEMI[0]);
+                                        avance_sprite(ENNEMI[0], &my_level);
                              break;
                         case SDLK_l:
 
@@ -207,7 +207,7 @@ int main( int argc, char* args[] )
         SDL_RenderCopy      (pRenderer, my_level.pTexture_MAP, NULL, NULL);
 
         // Affichage des obstacles (mode Debug)
-       // affiche_obstacle    (pRenderer, &my_level);
+        affiche_obstacle    (pRenderer, &my_level);
 
         // Affichage de l'arrivé
         anime_sprite(ARRIVE);
@@ -216,7 +216,7 @@ int main( int argc, char* args[] )
         // Affichage des Sprites
         for (a = 0; a < ENNEMI_NB; a++) {
             anime_sprite    (ENNEMI[a]);
-            avance_sprite   (ENNEMI[a]);
+            avance_sprite   (ENNEMI[a], &my_level);
             affiche_sprite  (pRenderer, ENNEMI[a]);
         }
 
