@@ -62,19 +62,32 @@ void avance_sprite(t_sprite*s)
 
     if (s->actif == true ) {
       switch (s->direction) {
-        case 0 :                    // vers le haut
-                s->y -= s->dy;
-                break;
-        case 1 :                    // vers la droite
-                s->x += s->dy;
-                break;
-        case 2 :                    // vers le bas
-                s->y += s->dy;
-                break;
-        case 3 :                    // vers la gauche
-                s->x -= s->dx;
-                break;
+        case UP :
+                                s->y -= s->dy;
+                                // detection des bords
+                                if ( s->y - TILE_TAILLE_Y/2 <= 0 ) {                s->direction = DOWN; }
+
+                                break;
+        case RIGHT :
+                                s->x += s->dy;
+                                // detection des bords
+                                if ( s->x + TILE_TAILLE_X/2 >= MAP_TAILLE_X ) {     s->direction = LEFT; }
+                                break;
+        case DOWN :
+                                s->y += s->dy;
+                                // detection des bords
+                                if ( s->y + TILE_TAILLE_X/2 >= MAP_TAILLE_Y ) {     s->direction = UP; }
+                                break;
+        case LEFT :
+                                s->x -= s->dx;
+                                // detection des bords
+                                if ( s->x - TILE_TAILLE_Y/2 <= 0 ) {                s->direction = RIGHT; }
+                                // detection des ostacles
+                                break;
       }
+
+
+
     }
 
 }

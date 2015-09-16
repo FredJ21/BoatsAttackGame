@@ -252,7 +252,7 @@ void affiche_map_console (t_level *pLevel) {
 
            if ( pLevel->map_Info[x][y] == OBSTACLE) {
                 printf (".");
-            } else if ( pLevel->map_Direction[x][y] == VERT_LE_HAUT) {
+            } else if ( pLevel->map_Direction[x][y] == VERS_LE_HAUT) {
                 printf ("^");
             } else if ( pLevel->map_Direction[x][y] == VERS_LA_DROITE) {
                 printf (">");
@@ -274,13 +274,13 @@ void init_level_chemins     (t_level *pLevel) {
 
     int x, y;
 
-    for (y = 1; y < MAP_NB_TILE_Y; y += MAP_NB_TILE_Y/4){
+    for (y = 1; y < MAP_NB_TILE_Y; y++){
         x = 0;
         if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
         x = MAP_NB_TILE_X - 1;
         if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
     }
-    for (x = 1; x < MAP_NB_TILE_X; x += MAP_NB_TILE_X/4 ) {
+    for (x = 1; x < MAP_NB_TILE_X; x++ ) {
         y = 0;
         if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
         y = MAP_NB_TILE_Y - 1;

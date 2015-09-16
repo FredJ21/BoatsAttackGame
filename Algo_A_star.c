@@ -171,7 +171,7 @@ void retrouve_chemin_vers_depart (t_Algo_A_Star *data, t_table_Algo_A_Star Algo_
         if (new_x < x ) {  pLevel->map_Direction[new_x][new_y] = VERS_LA_DROITE; }
         if (new_x > x ) {  pLevel->map_Direction[new_x][new_y] = VERS_LA_GAUCHE; }
         if (new_y < y ) {  pLevel->map_Direction[new_x][new_y] = VERS_LE_BAS; }
-        if (new_y > y ) {  pLevel->map_Direction[new_x][new_y] = VERT_LE_HAUT; }
+        if (new_y > y ) {  pLevel->map_Direction[new_x][new_y] = VERS_LE_HAUT; }
 
         x = new_x;
         y = new_y;

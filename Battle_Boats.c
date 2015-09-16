@@ -79,21 +79,24 @@ int main( int argc, char* args[] )
     /** ANIMATION **/
     t_animation PETIT_BATEAU = { "./images/XnT4umX.bmp", 48, 64, 3, 12, 3, NULL };
     init_animation( &PETIT_BATEAU, pRenderer);
+
     t_animation PETIT_BATEAU_2 = { "./images/XnT4umX_2.bmp", 48, 64, 3, 12, 3, NULL };
     init_animation( &PETIT_BATEAU_2, pRenderer);
+
     t_animation DRAPEAU = { "./images/flag.bmp", 31, 40, 11, 11, 11, NULL };
     init_animation( &DRAPEAU, pRenderer);
 
     /** SPRITE **/
-    int ENNEMI_NB = 1;
+    int ENNEMI_NB = 2;
     t_sprite *ENNEMI[ENNEMI_NB];   //tableau de pointeurs
     for (a = 0; a < ENNEMI_NB; a++) {
         if ( a%2 == 1 ) {
 
-            //  init_sprite ->  PositionX, PositionY, VitesseX, VitesseY, NbTour pour l'anim, Direction, &ANIMATION, actif, temps avant départ ;
+            /**  init_sprite ->  PositionX, PositionY, VitesseX, VitesseY, NbTour pour l'anim, Direction, &ANIMATION, actif, temps avant départ ;
+            **/
             ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 2, 2, 5, 3, &PETIT_BATEAU, false, (GAME_FPS * a)+1 );
         } else {
-            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 10, 10, 5, 3, &PETIT_BATEAU_2, false, (GAME_FPS * a)+1 );
+            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 2, 2, 5, 3, &PETIT_BATEAU_2, false, (GAME_FPS * a)+1 );
         }
     }
 
@@ -115,9 +118,10 @@ int main( int argc, char* args[] )
 
         t_Avant_Traitement = clock();
 
+
+        /** Gestion des evenements */
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
-         // handle your event here
 
             switch (event.type){
 
@@ -195,7 +199,9 @@ int main( int argc, char* args[] )
 
         }
 
-
+        /*******************/
+        /**   AFFICHAGE   **/
+        /*******************/
         SDL_RenderClear     (pRenderer);
         // Affichage de la map
         SDL_RenderCopy      (pRenderer, my_level.pTexture_MAP, NULL, NULL);
@@ -208,14 +214,12 @@ int main( int argc, char* args[] )
         affiche_sprite (pRenderer, ARRIVE);
 
         // Affichage des Sprites
-  /*      for (a = 0; a < ENNEMI_NB; a++) {
+        for (a = 0; a < ENNEMI_NB; a++) {
             anime_sprite    (ENNEMI[a]);
             avance_sprite   (ENNEMI[a]);
             affiche_sprite  (pRenderer, ENNEMI[a]);
         }
-*/
-        anime_sprite(ENNEMI[0]);
-        affiche_sprite(pRenderer, ENNEMI[0]);
+
 
         // Mise a jour de l'affichage
         SDL_RenderPresent   (pRenderer);

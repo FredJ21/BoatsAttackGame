@@ -30,7 +30,7 @@ typedef struct {
 	bool    time_before_ativiation; // lancement du sprite à retardement
 } t_sprite;
 
-
+enum { UP, RIGHT, DOWN, LEFT };
 
 void init_animation(t_animation *a, SDL_Renderer *r);
 

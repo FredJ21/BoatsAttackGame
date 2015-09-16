@@ -19,7 +19,7 @@ typedef struct {
 } t_level;
 
 enum { LIBRE, OBSTACLE, OCCUPE };
-enum { INCONNU, VERT_LE_HAUT, VERS_LA_DROITE, VERS_LE_BAS, VERS_LA_GAUCHE };
+enum { INCONNU, VERS_LE_HAUT, VERS_LA_DROITE, VERS_LE_BAS, VERS_LA_GAUCHE };
 
 void init_level             (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile, SDL_Renderer *pRenderer);
 void init_level_chemins     (t_level *pLevel);
