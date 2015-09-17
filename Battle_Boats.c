@@ -79,7 +79,7 @@ int main( int argc, char* args[] )
     t_animation PETIT_BATEAU = { "./images/XnT4umX.bmp", 48, 64, 3, 12, 3, NULL };
     init_animation( &PETIT_BATEAU, pRenderer);
 
-    t_animation PETIT_BATEAU_2 = { "./images/XnT4umX_2.bmp", 48, 64, 3, 12, 3, NULL };
+    t_animation PETIT_BATEAU_2 = { "./images/XnT4umX_3.bmp", 48, 48, 3, 12, 3, NULL };
     init_animation( &PETIT_BATEAU_2, pRenderer);
 
     t_animation DRAPEAU = { "./images/flag.bmp", 31, 40, 11, 11, 11, NULL };

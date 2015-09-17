@@ -8,6 +8,8 @@
 typedef struct {
     int     x;
     int     y;
+    int     tileX;
+    int     tileY;
 } t_pos;
 
 // animation
