@@ -118,7 +118,8 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
 
                                         } else {
 
-                                            s->direction = DOWN;
+                                            s->direction = RIGHT + ( rand()%2 * 2 );
+                                            s->y += s->dy*2;
                                         }
                                 // essai de suivre le chemin si possible
                                 } else  {
@@ -160,8 +161,8 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
 
                                         } else {
 
-                                            s->direction = LEFT;
-
+                                            s->direction = UP + ( rand()%2 * 2 );
+                                            s->x -= s->dx*2;
                                         }
                                 // essai de suivre le chemin si possible
                                 } else  {
@@ -204,7 +205,8 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
 
                                         } else {
 
-                                            s->direction = UP;
+                                            s->direction = RIGHT + ( rand()%2 * 2 );
+                                            s->y -= s->dy*2;
                                         }
                                  // essai de suivre le chemin si possible
                                 } else  {
@@ -243,10 +245,10 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                         } else if ( pLevel->map_Info[BG.tileX][BG.tileY] == LIBRE ) {
 
                                             s->direction = DOWN;
-
                                         } else {
 
-                                            s->direction = RIGHT;
+                                            s->direction = UP + ( rand()%2 *2 );
+                                            s->x += s->dx*2;
                                         }
 
                                 // essai de suivre le chemin si possible
