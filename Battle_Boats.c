@@ -76,7 +76,7 @@ int main( int argc, char* args[] )
 
 
     /** ANIMATION **/
-    t_animation PETIT_BATEAU = { "./images/XnT4umX.bmp", 48, 64, 3, 12, 3, NULL };
+    t_animation PETIT_BATEAU = { "./images/XnT4umX_3.bmp", 48, 64, 3, 12, 3, NULL };
     init_animation( &PETIT_BATEAU, pRenderer);
 
     t_animation PETIT_BATEAU_2 = { "./images/XnT4umX_3.bmp", 48, 48, 3, 12, 3, NULL };
@@ -206,7 +206,7 @@ int main( int argc, char* args[] )
         SDL_RenderCopy      (pRenderer, my_level.pTexture_MAP, NULL, NULL);
 
         // Affichage des obstacles (mode Debug)
-        affiche_obstacle    (pRenderer, &my_level);
+       // affiche_obstacle    (pRenderer, &my_level);
 
         // Affichage de l'arrivé
         anime_sprite(ARRIVE);

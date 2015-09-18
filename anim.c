@@ -44,14 +44,13 @@ t_sprite *init_sprite(int posx, int posy,
 	s->anim = a;
 	s->actif = actif;
 	s->time_before_ativiation = time_before_ativiation;
-
+    s->time_before_change_dir = 0;
 	return s;
 }
 /*****************************************************************
 *****************************************************************/
 void avance_sprite(t_sprite *s, t_level *pLevel)
 {
-
 
     t_pos HD;      // postion en haut à droite
     t_pos HG;      // postion en haut à gauche
@@ -96,10 +95,6 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
         Centre.y = s->y / TILE_TAILLE_Y;
 
 
-        if ( pLevel->map_Direction[Centre.x][Centre.y] != INCONNU ) {
-
-            s->direction = pLevel->map_Direction[Centre.x][Centre.y] - 1;
-        }
 
         switch (s->direction) {
                 case UP :
@@ -125,8 +120,22 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
 
                                             s->direction = DOWN;
                                         }
-                                }
+                                // essai de suivre le chemin si possible
+                                } else  {
 
+                                        if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LA_DROITE
+                                            && pLevel->map_Info[HD.tileX+1][HD.tileY] != OBSTACLE
+                                            && pLevel->map_Info[BD.tileX+1][BD.tileY] != OBSTACLE) {
+
+                                                s->direction = RIGHT;
+
+                                        }else if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LA_GAUCHE
+                                            && pLevel->map_Info[HG.tileX-1][HG.tileY] != OBSTACLE
+                                            && pLevel->map_Info[BG.tileX-1][BG.tileY] != OBSTACLE) {
+
+                                                s->direction = LEFT;
+                                        }
+                                }
                                 break;
                 case RIGHT :
                                 s->x += s->dx;
@@ -153,6 +162,21 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
 
                                             s->direction = LEFT;
 
+                                        }
+                                // essai de suivre le chemin si possible
+                                } else  {
+
+                                        if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LE_HAUT
+                                            && pLevel->map_Info[HD.tileX][HD.tileY-1] != OBSTACLE
+                                            && pLevel->map_Info[HG.tileX][HG.tileY-1] != OBSTACLE) {
+
+                                                s->direction = UP;
+
+                                        }else if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LE_BAS
+                                            && pLevel->map_Info[BD.tileX][BD.tileY+1] != OBSTACLE
+                                            && pLevel->map_Info[BG.tileX][BG.tileY+1] != OBSTACLE) {
+
+                                                s->direction = DOWN;
                                         }
                                 }
                                 break;
@@ -182,8 +206,22 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
 
                                             s->direction = UP;
                                         }
-                                }
+                                 // essai de suivre le chemin si possible
+                                } else  {
 
+                                        if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LA_DROITE
+                                            && pLevel->map_Info[HD.tileX+1][HD.tileY] != OBSTACLE
+                                            && pLevel->map_Info[BD.tileX+1][BD.tileY] != OBSTACLE) {
+
+                                                s->direction = RIGHT;
+
+                                        }else if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LA_GAUCHE
+                                            && pLevel->map_Info[HG.tileX-1][HG.tileY] != OBSTACLE
+                                            && pLevel->map_Info[BG.tileX-1][BG.tileY] != OBSTACLE) {
+
+                                                s->direction = LEFT;
+                                        }
+                                }
                                 break;
                 case LEFT :
                                 s->x -= s->dx;
@@ -211,8 +249,22 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                             s->direction = RIGHT;
                                         }
 
-                                }
+                                // essai de suivre le chemin si possible
+                                } else  {
 
+                                        if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LE_HAUT
+                                            && pLevel->map_Info[HD.tileX][HD.tileY-1] != OBSTACLE
+                                            && pLevel->map_Info[HG.tileX][HG.tileY-1] != OBSTACLE) {
+
+                                                s->direction = RIGHT;
+
+                                        }else if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LE_BAS
+                                            && pLevel->map_Info[BD.tileX][BD.tileY+1] != OBSTACLE
+                                            && pLevel->map_Info[BG.tileX][BG.tileY+1] != OBSTACLE) {
+
+                                                s->direction = LEFT;
+                                        }
+                                }
                                 break;
         }
     }
@@ -274,12 +326,12 @@ void destroy_sprite(t_sprite **s)
 }
 /*****************************************************************
 *****************************************************************/
-/*****************************************************************
-*****************************************************************/
 void place_sprite (t_sprite *p, int x, int y) {
 
     p->x = TILE_TAILLE_X * x;
     p->y = TILE_TAILLE_Y * y;
 }
+/*****************************************************************
+*****************************************************************/
 
 

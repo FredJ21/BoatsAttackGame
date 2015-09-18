@@ -115,7 +115,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
             break;
         case 2 :
             strcpy(pLevel->name, "LEVEL 3");
-            pLevel->cibleX = 1;
+            pLevel->cibleX = 2;
             pLevel->cibleY = 4;
             break;
     }
