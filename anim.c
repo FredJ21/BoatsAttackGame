@@ -57,6 +57,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
     t_pos HG;      // postion en haut à gauche
     t_pos BD;      // postion en bas à droite
     t_pos BG;      // postion en bas à gauche
+    t_pos Centre;
 
     // gestion du retardement au démarrage
     if (s->time_before_ativiation > 1 ) {
@@ -91,9 +92,14 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
         BD.tileY = BD.y / TILE_TAILLE_Y;
         BG.tileY = BD.tileY;
 
+        Centre.x = s->x / TILE_TAILLE_X;
+        Centre.y = s->y / TILE_TAILLE_Y;
 
-       // printf ("X = %d %d %d %d Y = %d %d %d %d\n",HD.x,HG.x,BD.x,BG.x,HD.y,HG.y,BD.y,BG.y);
 
+        if ( pLevel->map_Direction[Centre.x][Centre.y] != INCONNU ) {
+
+            s->direction = pLevel->map_Direction[Centre.x][Centre.y] - 1;
+        }
 
         switch (s->direction) {
                 case UP :
@@ -106,8 +112,19 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                 }
                                 // detection des obstacles
                                 else if ( pLevel->map_Info[HG.tileX][HG.tileY] == OBSTACLE || pLevel->map_Info[HD.tileX][HD.tileY] == OBSTACLE ) {
-                                        s->direction = DOWN;
                                         printf ("1 Detection obstacle\n");
+                                        if ( pLevel->map_Info[HG.tileX][HG.tileY] == LIBRE ) {
+
+                                            s->direction = LEFT;
+
+                                        } else if ( pLevel->map_Info[HD.tileX][HD.tileY] == LIBRE ) {
+
+                                            s->direction = RIGHT;
+
+                                        } else {
+
+                                            s->direction = DOWN;
+                                        }
                                 }
 
                                 break;
@@ -121,8 +138,22 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                 }
                                 // detection des obstacles
                                 else if ( pLevel->map_Info[HD.tileX][HD.tileY] == OBSTACLE || pLevel->map_Info[BD.tileX][BD.tileY] == OBSTACLE ) {
-                                        s->direction = LEFT;
-                                        printf ("1 Detection obstacle\n");
+
+                                        printf ("2 Detection obstacle\n");
+
+                                        if ( pLevel->map_Info[HD.tileX][HD.tileY] == LIBRE ) {
+
+                                            s->direction = UP;
+
+                                        } else if ( pLevel->map_Info[BD.tileX][BD.tileY] == LIBRE ) {
+
+                                            s->direction = DOWN;
+
+                                        } else {
+
+                                            s->direction = LEFT;
+
+                                        }
                                 }
                                 break;
                 case DOWN :
@@ -130,13 +161,27 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
 
                                 // detection des bords
                                 if ( BG.y >= MAP_TAILLE_Y ) {
+
                                         s->direction = UP;
                                         printf ("3 Detection bord\n");
                                 }
                                 // detection des obstacles
                                 else if ( pLevel->map_Info[BG.tileX][BG.tileY] == OBSTACLE || pLevel->map_Info[BD.tileX][BD.tileY] == OBSTACLE ) {
-                                        s->direction = UP;
-                                        printf ("1 Detection obstacle\n");
+
+                                        printf ("3 Detection obstacle\n");
+
+                                        if ( pLevel->map_Info[BG.tileX][BG.tileY] == LIBRE ) {
+
+                                            s->direction = LEFT;
+
+                                        } else if ( pLevel->map_Info[BD.tileX][BD.tileY] == LIBRE ) {
+
+                                            s->direction = RIGHT;
+
+                                        } else {
+
+                                            s->direction = UP;
+                                        }
                                 }
 
                                 break;
@@ -150,8 +195,22 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                 }
                                 // detection des obstacles
                                 else if ( pLevel->map_Info[HG.tileX][HG.tileY] == OBSTACLE || pLevel->map_Info[BG.tileX][BG.tileY] == OBSTACLE ) {
-                                        s->direction = RIGHT;
-                                        printf ("1 Detection obstacle\n");
+
+                                        printf ("4 Detection obstacle\n");
+
+                                        if ( pLevel->map_Info[HG.tileX][HG.tileY] == LIBRE ) {
+
+                                            s->direction = UP;
+
+                                        } else if ( pLevel->map_Info[BG.tileX][BG.tileY] == LIBRE ) {
+
+                                            s->direction = DOWN;
+
+                                        } else {
+
+                                            s->direction = RIGHT;
+                                        }
+
                                 }
 
                                 break;
