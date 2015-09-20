@@ -87,7 +87,7 @@ int main( int argc, char* args[] )
     init_animation( &DRAPEAU, pRenderer);
 
     /** SPRITE **/
-    int ENNEMI_NB = 1;
+    int ENNEMI_NB = 30;
     t_sprite *ENNEMI[ENNEMI_NB];   //tableau de pointeurs
     for (a = 0; a < ENNEMI_NB; a++) {
         if ( a%2 == 1 ) {

@@ -109,11 +109,11 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                 // detection des bords
                                 if ( HD.y <= 0 ) {
                                         s->direction = DOWN;
-                                        printf ("1 Detection bord\n");
+                                        //printf ("1 Detection bord\n");
                                 }
                                 // detection des obstacles
                                 else if ( pLevel->map_Info[HG.tileX][HG.tileY] == OBSTACLE || pLevel->map_Info[HD.tileX][HD.tileY] == OBSTACLE ) {
-                                        printf ("1 Detection obstacle\n");
+                                        //printf ("1 Detection obstacle\n");
                                         if ( pLevel->map_Info[HG.tileX][HG.tileY] == LIBRE ) {
 
                                             s->direction = LEFT;
@@ -150,12 +150,12 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                 // detection des bords
                                 if ( HD.x >= MAP_TAILLE_X ) {
                                         s->direction = LEFT;
-                                         printf ("2 Detection bord\n");
+                                         //printf ("2 Detection bord\n");
                                 }
                                 // detection des obstacles
                                 else if ( pLevel->map_Info[HD.tileX][HD.tileY] == OBSTACLE || pLevel->map_Info[BD.tileX][BD.tileY] == OBSTACLE ) {
 
-                                        printf ("2 Detection obstacle\n");
+                                        //printf ("2 Detection obstacle\n");
 
                                         if ( pLevel->map_Info[HD.tileX][HD.tileY] == LIBRE ) {
 
@@ -194,12 +194,12 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                 if ( BG.y >= MAP_TAILLE_Y ) {
 
                                         s->direction = UP;
-                                        printf ("3 Detection bord\n");
+                                        //printf ("3 Detection bord\n");
                                 }
                                 // detection des obstacles
                                 else if ( pLevel->map_Info[BG.tileX][BG.tileY] == OBSTACLE || pLevel->map_Info[BD.tileX][BD.tileY] == OBSTACLE ) {
 
-                                        printf ("3 Detection obstacle\n");
+                                        //printf ("3 Detection obstacle\n");
 
                                         if ( pLevel->map_Info[BG.tileX][BG.tileY] == LIBRE ) {
 
@@ -237,12 +237,12 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                 // detection des bords
                                 if ( BG.x <= 0 ) {
                                         s->direction = RIGHT;
-                                        printf ("4 Detection bord\n");
+                                        //printf ("4 Detection bord\n");
                                 }
                                 // detection des obstacles
                                 else if ( pLevel->map_Info[HG.tileX][HG.tileY] == OBSTACLE || pLevel->map_Info[BG.tileX][BG.tileY] == OBSTACLE ) {
 
-                                        printf ("4 Detection obstacle\n");
+                                        //printf ("4 Detection obstacle\n");
 
                                         if ( pLevel->map_Info[HG.tileX][HG.tileY] == LIBRE ) {
 
@@ -284,7 +284,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
             (BD.tileX == pLevel->cibleX && BD.tileY == pLevel->cibleY)
             ) {
 
-            printf ("Je suis arrive !!!\n");
+            //printf ("Je suis arrive !!!\n");
             s->is_arrive = true;
         }
 
@@ -297,22 +297,18 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                 if ( s->y > Arrive.y + s->dy ) {
                         s->y -= s->dy;
                         s->direction = UP;
-                        printf ("A1\n");
                 }
                 else if ( s->x < Arrive.x - s->dx) {
                         s->x += s->dx;
                         s->direction = RIGHT;
-                        printf ("A2\n");
                 }
                 else if ( s->y < Arrive.y - s->dy) {
                         s->y += s->dy;
                         s->direction = DOWN;
-                        printf ("A3\n");
                 }
                 else if ( s->x > Arrive.x + s->dx) {
                         s->x -= s->dx;
                         s->direction = LEFT;
-                        printf ("A1\n");
                 }
                 else {
                         s->is_actif = false;
