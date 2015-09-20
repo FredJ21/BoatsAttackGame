@@ -13,7 +13,7 @@
 int main( int argc, char* args[] )
 {
 
-    printf("Go ...!!!\n");
+    //printf("Go ...!!!\n");
 
     /******************************************************************************************************************
                                                 INIT SDL 2
@@ -24,8 +24,8 @@ int main( int argc, char* args[] )
 
     // Création de la fenêtre
     SDL_Window *pWindow = NULL;
-    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_SHOWN );
- //   pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
+ //   pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_SHOWN );
+    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
     if(!pWindow) {                          printf( "SDL_Window ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
 
@@ -63,7 +63,7 @@ int main( int argc, char* args[] )
     time_t timeA, timeB;
 
     int a = 0;
-    int current_level = 0;
+    int current_level = 1;
 
     t_level my_level;
 
@@ -87,7 +87,7 @@ int main( int argc, char* args[] )
     init_animation( &DRAPEAU, pRenderer);
 
     /** SPRITE **/
-    int ENNEMI_NB = 30;
+    int ENNEMI_NB = 10;
     t_sprite *ENNEMI[ENNEMI_NB];   //tableau de pointeurs
     for (a = 0; a < ENNEMI_NB; a++) {
         if ( a%2 == 1 ) {
@@ -108,7 +108,8 @@ int main( int argc, char* args[] )
     init_level(&my_level, current_level, pSurface_TUILE, pRenderer);
     init_texture_obstacle(pRenderer, &my_level);
     place_sprite(ARRIVE, my_level.cibleX, my_level.cibleY);
-    affiche_map_console ( &my_level);
+    //affiche_map_console ( &my_level);
+    init_level_chemins(&my_level);
 
 
     /******************************************************************************************************************
@@ -127,7 +128,7 @@ int main( int argc, char* args[] )
 
                 case SDL_QUIT:
                     fin = true;
-                    printf ("By By !!\n");
+                    //printf ("By By !!\n");
                     break;
 
                 case SDL_KEYDOWN:
@@ -135,7 +136,7 @@ int main( int argc, char* args[] )
                     switch( event.key.keysym.sym ){
                         case SDLK_ESCAPE:
                             fin = true;
-                            printf ("By By !!\n");
+                            //printf ("By By !!\n");
                             break;
                         case SDLK_UP:
                                         ENNEMI[0]->direction = 0;
@@ -165,7 +166,7 @@ int main( int argc, char* args[] )
                             else if (current_level == 1) {       current_level = 2; }
                             else    { current_level = 0; }
 
-                            printf ("Change Level to %d\n", current_level);
+                            //printf ("Change Level to %d\n", current_level);
 
                             /* Change LEVEL */
                             init_level(&my_level, current_level, pSurface_TUILE, pRenderer);
@@ -183,14 +184,14 @@ int main( int argc, char* args[] )
                             init_level_chemins(&my_level);
 
                             timeB = clock();
-                            printf ("Temps de traitement : %ld\n", timeB - timeA);
+                            //printf ("Temps de traitement : %ld\n", timeB - timeA);
 
                             affiche_map_console ( &my_level);
 
                             break;
 
                         default:
-                            printf ("KEY\n");
+                            //printf ("KEY\n");
                             break;
                     }
                     break;
