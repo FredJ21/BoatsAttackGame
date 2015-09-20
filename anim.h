@@ -33,9 +33,11 @@ typedef struct {
 	int nb_tour;                // nombre de tours
 	t_animation *anim;          // les images de l'animations
 
-	bool   actif;
-	int    time_before_ativiation; // lancement du sprite à retardement
-	int    time_before_change_dir;
+	int     time_before_ativiation; // lancement du sprite à retardement
+	bool    is_arrive;
+	bool    is_actif;
+	int     visible;
+
 } t_sprite;
 
 enum { UP, RIGHT, DOWN, LEFT };

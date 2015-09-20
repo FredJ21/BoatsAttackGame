@@ -67,6 +67,7 @@ int main( int argc, char* args[] )
 
     t_level my_level;
 
+    srand(time(NULL));
 
     /******************************************************************************************************************
                                                 INIT GAME
@@ -98,7 +99,7 @@ int main( int argc, char* args[] )
             ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 2, 2, 5, 3, &PETIT_BATEAU_2, false, (GAME_FPS * a)+1 );
         }
     }
-
+    /** SPRITE ARRIVE */
     t_sprite *ARRIVE;
     ARRIVE = init_sprite (0, 0, 0, 0, 3, 0, &DRAPEAU, 1, 0);
 

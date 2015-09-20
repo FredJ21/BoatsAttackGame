@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "config.h"
 #include "level.h"
@@ -42,9 +43,10 @@ t_sprite *init_sprite(int posx, int posy,
 	s->nb_tour = nbtour;
 	s->direction = dir;
 	s->anim = a;
-	s->actif = actif;
+	s->is_actif = actif;
+	s->is_arrive = false;
 	s->time_before_ativiation = time_before_ativiation;
-    s->time_before_change_dir = 0;
+	s->visible = 255;
 	return s;
 }
 /*****************************************************************
@@ -57,6 +59,9 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
     t_pos BD;      // postion en bas à droite
     t_pos BG;      // postion en bas à gauche
     t_pos Centre;
+    t_pos Arrive;
+
+    srand(time(NULL));
 
     // gestion du retardement au démarrage
     if (s->time_before_ativiation > 1 ) {
@@ -64,13 +69,14 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
     }
     if (s->time_before_ativiation == 1 ) {
         s->time_before_ativiation = 0;
-        s->actif = true;
+        s->is_actif = true;
     }
 
 
-    if (s->actif == true ) {
+    if (s->is_actif == true && s->is_arrive == false ) {
 
         // les ccordonnées du sprite correspondent à son centre
+        // calcul des coordonnées des quatres coins
         HD.x = s->x + s->anim->tx/2 ;
         BD.x = HD.x;
         HD.tileX = HD.x / TILE_TAILLE_X;
@@ -269,27 +275,59 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                 }
                                 break;
         }
+
+        // detection de la position d'arrivé
+        if (
+            (HG.tileX == pLevel->cibleX && HG.tileY == pLevel->cibleY) ||
+            (HD.tileX == pLevel->cibleX && HD.tileY == pLevel->cibleY) ||
+            (BG.tileX == pLevel->cibleX && BG.tileY == pLevel->cibleY) ||
+            (BD.tileX == pLevel->cibleX && BD.tileY == pLevel->cibleY)
+            ) {
+
+            printf ("Je suis arrive !!!\n");
+            s->is_arrive = true;
+        }
+
+
+    } else if (s->is_actif == true && s->is_arrive == true ) {
+
+        Arrive.x = pLevel->cibleX*TILE_TAILLE_X + TILE_TAILLE_X/2;
+        Arrive.y = pLevel->cibleY*TILE_TAILLE_Y + TILE_TAILLE_Y/2;
+
+                if ( s->y > Arrive.y + s->dy ) {
+                        s->y -= s->dy;
+                        s->direction = UP;
+                        printf ("A1\n");
+                }
+                else if ( s->x < Arrive.x - s->dx) {
+                        s->x += s->dx;
+                        s->direction = RIGHT;
+                        printf ("A2\n");
+                }
+                else if ( s->y < Arrive.y - s->dy) {
+                        s->y += s->dy;
+                        s->direction = DOWN;
+                        printf ("A3\n");
+                }
+                else if ( s->x > Arrive.x + s->dx) {
+                        s->x -= s->dx;
+                        s->direction = LEFT;
+                        printf ("A1\n");
+                }
+                else {
+                        s->is_actif = false;
+                }
     }
 
     //printf("%d %d - %d %d\n", s->x, (int)pLevel->cibleX, s->y, (int)pLevel->cibleY );
 
-    if (
-        (HG.tileX == pLevel->cibleX && HG.tileY == pLevel->cibleY) ||
-        (HD.tileX == pLevel->cibleX && HD.tileY == pLevel->cibleY) ||
-        (BG.tileX == pLevel->cibleX && BG.tileY == pLevel->cibleY) ||
-        (BD.tileX == pLevel->cibleX && BD.tileY == pLevel->cibleY)
-        ) {
-
-        printf ("Je suis arrive !!!\n");
-        s->actif = false;
-    }
 
 }
 /*****************************************************************
 *****************************************************************/
 void anime_sprite(t_sprite*s)
 {
-	if (s->actif == true ) {
+	if (s->is_actif == true ) {
       if (++s->compte_tour > s->nb_tour) {
 
         s->img_current = (s->img_current + 1)%s->anim->nb_img_by_dir;
@@ -310,11 +348,22 @@ void affiche_sprite(SDL_Renderer *r, t_sprite *s)
     Src.w = s->anim->tx;
     Src.h = s->anim->ty;
 
-    Dst.x = s->x - s->anim->tx/2;     // permet de center le sprite sur les coordonées
+    Dst.x = s->x - s->anim->tx/2;     // permet de center le sprite sur les coordonnées
     Dst.y = s->y - s->anim->ty/2;
     Dst.w = s->anim->tx;
     Dst.h = s->anim->ty;
 
+
+    // mode transparent de l'animimation à l'arrivé
+    if (s->is_actif == false && s->visible > 0 && s->time_before_ativiation == 0 ) {
+        s->visible -=10 ;
+    }
+    if (s->visible < 0 ) {
+        s->visible = 0;
+    }
+    SDL_SetTextureAlphaMod (s->anim->texture, s->visible);
+
+    // Affichage
     SDL_RenderCopy ( r, s->anim->texture , &Src, &Dst);
 
 }
