@@ -1,4 +1,4 @@
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -109,7 +109,7 @@ int main( int argc, char* args[] )
     init_texture_obstacle(pRenderer, &my_level);
     place_sprite(ARRIVE, my_level.cibleX, my_level.cibleY);
     affiche_map_console ( &my_level);
-    //init_level_chemins(&my_level);
+    init_level_chemins(&my_level);
 
 
     /******************************************************************************************************************
