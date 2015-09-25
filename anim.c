@@ -1,4 +1,4 @@
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -264,13 +264,13 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                             && pLevel->map_Info[HD.tileX][HD.tileY-1] != OBSTACLE
                                             && pLevel->map_Info[HG.tileX][HG.tileY-1] != OBSTACLE) {
 
-                                                s->direction = RIGHT;
+                                                s->direction = UP;
 
                                         }else if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LE_BAS
                                             && pLevel->map_Info[BD.tileX][BD.tileY+1] != OBSTACLE
                                             && pLevel->map_Info[BG.tileX][BG.tileY+1] != OBSTACLE) {
 
-                                                s->direction = LEFT;
+                                                s->direction = DOWN;
                                         }
                                 }
                                 break;
