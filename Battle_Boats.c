@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -51,6 +52,10 @@ int main( int argc, char* args[] )
     SDL_RenderPresent (pRenderer);
 
    // SDL_Delay (2000);
+
+    // Initialize SDL TTF
+    if ( TTF_Init() != 0 ){   printf( "TTF_Init ERREUR ! SDL_GetError: %s\n", SDL_GetError() ); return -1; }
+
 
     /******************************************************************************************************************
                                                 VARIABLES
