@@ -25,6 +25,8 @@
 #define TILE_FILE_NB_COLONNE  23
 #define LEVEL_NB_TOTAL         3
 
+#define POLICE_1            "./fonts/Just_Like_This_Demo.ttf"
+
 
 
 

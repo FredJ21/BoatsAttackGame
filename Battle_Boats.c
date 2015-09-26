@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -50,7 +51,36 @@ int main( int argc, char* args[] )
     SDL_RenderCopy (pRenderer, pTexture, NULL, NULL);
     SDL_RenderPresent (pRenderer);
 
-   // SDL_Delay (2000);
+
+    /******************************************************************************************************************
+                                                INIT SDL 2 TTF
+    *******************************************************************************************************************/
+    // Initialize SDL TTF
+    if( TTF_Init() != 0 ) {  printf( "TTF_Init ERREUR ! SDL_GetError: %s\n", SDL_GetError() ); return -1; }
+
+    TTF_Font *police = NULL;
+    SDL_Surface *texte = NULL;
+    SDL_Color couleurNoire = {0, 0, 0, 0};
+    SDL_Rect texte_position_start;
+    SDL_Rect texte_position;
+
+    police = TTF_OpenFont(POLICE_1, 60);
+    if(!police) {                  printf( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
+
+    texte = TTF_RenderText_Blended(police, "Salut FRED !", couleurNoire);
+    texte_position_start.x = 0;
+    texte_position_start.y = 0;
+    texte_position_start.h = texte->h;
+    texte_position_start.w = texte->w;
+    texte_position.x = 200;
+    texte_position.y = 50;
+    texte_position.h = texte->h;
+    texte_position.w = texte->w;
+
+    // Création de la texture pour le texte
+    SDL_Texture *pTexture_texte = SDL_CreateTextureFromSurface(pRenderer, texte);
+    if(!pTexture_texte) {                  printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
+
 
     /******************************************************************************************************************
                                                 VARIABLES
@@ -63,7 +93,7 @@ int main( int argc, char* args[] )
     time_t timeA, timeB;
 
     int a = 0;
-    int current_level = 1;
+    int current_level = 0;
 
     t_level my_level;
 
@@ -94,9 +124,9 @@ int main( int argc, char* args[] )
 
             /**  init_sprite ->  PositionX, PositionY, VitesseX, VitesseY, NbTour pour l'anim, Direction, &ANIMATION, actif, temps avant départ ;
             **/
-            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 2, 2, 5, 3, &PETIT_BATEAU, false, (GAME_FPS * a)+1 );
+            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 2, 2, 5, 3, &PETIT_BATEAU, false, (GAME_FPS * a*3)+1 );
         } else {
-            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 2, 2, 5, 3, &PETIT_BATEAU_2, false, (GAME_FPS * a)+1 );
+            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 2, 2, 5, 3, &PETIT_BATEAU_2, false, (GAME_FPS * a*3)+1 );
         }
     }
     /** SPRITE ARRIVE */
@@ -108,8 +138,8 @@ int main( int argc, char* args[] )
     init_level(&my_level, current_level, pSurface_TUILE, pRenderer);
     init_texture_obstacle(pRenderer, &my_level);
     place_sprite(ARRIVE, my_level.cibleX, my_level.cibleY);
-    affiche_map_console ( &my_level);
     init_level_chemins(&my_level);
+    affiche_map_console ( &my_level);
 
 
     /******************************************************************************************************************
@@ -221,11 +251,16 @@ int main( int argc, char* args[] )
             affiche_sprite  (pRenderer, ENNEMI[a]);
         }
 
+        // Affichage du texte
+        SDL_RenderCopy      (pRenderer, pTexture_texte, &texte_position_start, &texte_position);
 
         // Mise a jour de l'affichage
         SDL_RenderPresent   (pRenderer);
 
-        // Calcul du temps de traitement et pause
+
+        /************************************************/
+        /**   Calcul du temps de traitement et pause   **/
+        /************************************************/
         t_Apres_Traitement = clock();
         SDL_Delay( 1000 / GAME_FPS - (t_Avant_Traitement - t_Apres_Traitement));
     }
@@ -244,9 +279,13 @@ int main( int argc, char* args[] )
 
     SDL_DestroyTexture(my_level.pTexture_MAP);
     SDL_DestroyTexture(pTexture);
+    SDL_DestroyTexture(pTexture_texte);
     SDL_FreeSurface(pSurface);
     SDL_DestroyRenderer(pRenderer);
     SDL_DestroyWindow( pWindow );
+
+    TTF_CloseFont(police);
+    TTF_Quit();
     SDL_Quit();
 
     return 0;
