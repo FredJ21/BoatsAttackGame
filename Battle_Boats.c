@@ -117,21 +117,21 @@ int main( int argc, char* args[] )
     init_animation( &DRAPEAU, pRenderer);
 
     /** SPRITE **/
-    int ENNEMI_NB = 10;
+    int ENNEMI_NB = 30;
     t_sprite *ENNEMI[ENNEMI_NB];   //tableau de pointeurs
     for (a = 0; a < ENNEMI_NB; a++) {
         if ( a%2 == 1 ) {
 
-            /**  init_sprite ->  PositionX, PositionY, VitesseX, VitesseY, NbTour pour l'anim, Direction, &ANIMATION, actif, temps avant départ ;
+            /**  init_sprite ->  PositionX, PositionY, VitesseX, VitesseY, NbTour pour l'anim, Direction, &ANIMATION, temps avant départ ;
             **/
-            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 2, 2, 5, 3, &PETIT_BATEAU, false, (GAME_FPS * a*3)+1 );
+            ENNEMI[a] = init_sprite( MAP_TAILLE_X + 25, (rand()%(MAP_TAILLE_Y-200))+100, 2, 2, 5, LEFT, &PETIT_BATEAU, (GAME_FPS * a*3)+1 );
         } else {
-            ENNEMI[a] = init_sprite( MAP_TAILLE_X - 30 , rand()%700, 2, 2, 5, 3, &PETIT_BATEAU_2, false, (GAME_FPS * a*3)+1 );
+            ENNEMI[a] = init_sprite( MAP_TAILLE_X + 25, (rand()%(MAP_TAILLE_Y-200))+100, 2, 2, 5, LEFT, &PETIT_BATEAU_2, (GAME_FPS * a*3)+1 );
         }
     }
     /** SPRITE ARRIVE */
     t_sprite *ARRIVE;
-    ARRIVE = init_sprite (0, 0, 0, 0, 3, 0, &DRAPEAU, 1, 0);
+    ARRIVE = init_sprite (0, 0, 0, 0, 3, 0, &DRAPEAU, 0);
 
 
     /** LEVEL **/

@@ -36,7 +36,8 @@ typedef struct {
 	int     time_before_ativiation; // lancement du sprite à retardement
 	bool    is_arrive;
 	bool    is_actif;
-	int     visible;
+	bool    in_the_map;          // vrai quand le sprite est rentré entierement dans la map , en debut de jeu
+	int     visible;             // effet de transparence  255->visible  0->invisible
 
 } t_sprite;
 
@@ -44,7 +45,7 @@ enum { UP, RIGHT, DOWN, LEFT };
 
 void init_animation(t_animation *a, SDL_Renderer *r);
 
-t_sprite*   init_sprite(int posx, int posy, int dx, int dy, int nbtour, int dir, t_animation*a, bool actif, int time_before_ativiation);
+t_sprite*   init_sprite(int posx, int posy, int dx, int dy, int nbtour, int dir, t_animation*a, int time_before_ativiation);
 void        avance_sprite(t_sprite *s, t_level *pLevel);
 void        anime_sprite(t_sprite *s);
 void        affiche_sprite(SDL_Renderer *r, t_sprite *s);

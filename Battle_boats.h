@@ -5,6 +5,7 @@
 #define true    1
 #define bool    short int
 
+//enum { UP, RIGHT, DOWN, LEFT };
 
 
 
