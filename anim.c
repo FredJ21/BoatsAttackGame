@@ -26,26 +26,74 @@ void init_animation(t_animation *a, SDL_Renderer *r)  {
 
 /*****************************************************************
 *****************************************************************/
-t_sprite *init_sprite(int posx, int posy,
-	int dx, int dy,
-	int nbtour, int dir,
-	t_animation *a,
-	int time_before_ativiation)
+t_sprite *init_sprite(t_animation *a)
 {
 	t_sprite *s = (t_sprite*)malloc(sizeof(t_sprite));
-	s->x = posx;
-	s->y = posy;
-	s->dx = dx;
-	s->dy = dy;
+
+	s->x = 0;
+	s->y = 0;
+	s->dx = 0;
+	s->dy = 0;
 	s->img_current = 0;
 	s->compte_tour = 0;
-	s->nb_tour = nbtour;
-	s->direction = dir;
+	s->nb_tour = a->nb_tour;
+	s->direction = 0;
 	s->anim = a;
+	s->is_actif = true;
+	s->is_arrive = false;
+	s->in_the_map = false;
+	s->time_before_ativiation = 0;
+	s->visible = 255;
+
+	return s;
+}
+/*****************************************************************
+*****************************************************************/
+t_sprite*   create_Enemy( int position, int A, int B, t_animation *ANIM, float Frequence) {
+                            // position --> en haut, à droite, en bas, à gauche
+                            // A & B    --> délimite la zone de création , entre A et B
+                            // *ANIM    --> pointeur sur l'annimation
+                            // Frequence --> Frequence de démarrage entre chaque ennemi
+
+ //           ENNEMI[e] = init_sprite( MAP_TAILLE_X + 3, (rand()%(MAP_TAILLE_Y-200))+100, 2, 2, 5, LEFT, ANIM, (GAME_FPS * e*3)+1 );
+//    srand(time(NULL));
+
+	t_sprite *s = (t_sprite*)malloc(sizeof(t_sprite));
+
+    switch ( position ){
+
+        case UP:
+                s->x = (rand()%(B-A)) + A;
+                s->y = 0;
+                s->direction = DOWN;
+                break;
+        case RIGHT:
+                s->x = MAP_TAILLE_X;
+                s->y = (rand()%(B-A)) + A;;
+                s->direction = LEFT;
+                break;
+        case DOWN:
+                s->x = (rand()%(B-A)) + A;;
+                s->y = MAP_TAILLE_Y;
+                s->direction = UP;
+                break;
+        case LEFT:
+                s->x = 0;
+                s->y = (rand()%(B-A)) + A;;
+                s->direction = RIGHT;
+                break;
+    }
+
+	s->dx = ANIM->vitesse;
+	s->dy = ANIM->vitesse;
+	s->img_current = 0;
+	s->compte_tour = 0;
+	s->nb_tour = ANIM->nb_tour;
+	s->anim = ANIM;
 	s->is_actif = false;
 	s->is_arrive = false;
 	s->in_the_map = false;
-	s->time_before_ativiation = time_before_ativiation;
+	s->time_before_ativiation = (GAME_FPS * Frequence) +1 ;
 	s->visible = 255;
 
 	if (s->time_before_ativiation == 0 ) { s->is_actif = true; }
@@ -105,7 +153,8 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
 
         if (s->in_the_map == false) {
             if (   HD.x<MAP_TAILLE_X && HG.x<MAP_TAILLE_X && BD.x<MAP_TAILLE_X && BG.x<MAP_TAILLE_X
-                && HD.y<MAP_TAILLE_Y && HG.y<MAP_TAILLE_Y && BD.y<MAP_TAILLE_Y && BG.y<MAP_TAILLE_Y ) {
+                && HD.y<MAP_TAILLE_Y && HG.y<MAP_TAILLE_Y && BD.y<MAP_TAILLE_Y && BG.y<MAP_TAILLE_Y
+                && HD.x>0 && HG.x>0 && BD.x>0 && BG.x>0 && HD.y>0 && HG.y>0 && BD.y>0 && BG.y>0 ) {
 
                     s->in_the_map = true;
             }
@@ -333,7 +382,8 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
 void anime_sprite(t_sprite*s)
 {
 	if (s->is_actif == true ) {
-      if (++s->compte_tour > s->nb_tour) {
+      s->compte_tour++;
+      if (s->compte_tour > s->nb_tour) {
 
         s->img_current = (s->img_current + 1)%s->anim->nb_img_by_dir;
 

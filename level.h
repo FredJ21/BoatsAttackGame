@@ -2,9 +2,17 @@
 #define LEVEL_H_INCLUDED
 
 
+// Attack wave
+typedef struct {
+
+    int nombre;
+    int position;
+
+} t_wave;
 
 // level
 typedef struct {
+
     char            name[256];
     int             my_map[MAP_NB_TILE_X * MAP_NB_TILE_Y];
     int             map_Info[MAP_NB_TILE_X][MAP_NB_TILE_Y];
@@ -12,6 +20,8 @@ typedef struct {
 
     int             cibleX;
     int             cibleY;
+
+    t_wave          wave[WAVE_NB];
 
     SDL_Texture     *pTexture_MAP;
     SDL_Texture     *pTexture_MAP_Obstacles;        // pour le debug

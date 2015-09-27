@@ -93,7 +93,8 @@ int main( int argc, char* args[] )
     time_t timeA, timeB;
 
     int a = 0;
-    int current_level = 0;
+    int current_level = 3;
+    int current_wave  = 0;
 
     t_level my_level;
 
@@ -107,32 +108,30 @@ int main( int argc, char* args[] )
 
 
     /** ANIMATION **/
-    t_animation PETIT_BATEAU = { "./images/XnT4umX_4.bmp", 48, 48, 3, 12, 3, NULL };
+    /*
+                            typedef struct {
+                                char    file[256];          // nom du fichier
+                                int     tx, ty;             // taille d'une image
+                                int     nb_colonne;
+                                int     nb_image;           // nombre total d'image dans le fichier
+                                int     nb_img_by_dir;      // nombre d'image par direction
+                                int     nb_tour             // frequence des image
+                                SDL_Texture *texture;       // les images de l'animation
+                                int     vitesse;            // vitesse de deplacement de l'animation
+                            } t_animation;
+    */
+    t_animation PETIT_BATEAU = { "./images/XnT4umX_3.bmp", 48, 48, 3, 12, 3, NULL, 5, 3 };
     init_animation( &PETIT_BATEAU, pRenderer);
 
-    t_animation PETIT_BATEAU_2 = { "./images/XnT4umX_3.bmp", 48, 48, 3, 12, 3, NULL };
+    t_animation PETIT_BATEAU_2 = { "./images/XnT4umX_4.bmp", 48, 48, 3, 12, 3, NULL, 5, 3 };
     init_animation( &PETIT_BATEAU_2, pRenderer);
 
-    t_animation DRAPEAU = { "./images/flag.bmp", 31, 40, 11, 11, 11, NULL };
+    t_animation DRAPEAU = { "./images/flag.bmp", 31, 40, 11, 11, 11, NULL, 3, 1 };
     init_animation( &DRAPEAU, pRenderer);
 
-    /** SPRITE **/
-    int ENNEMI_NB = 30;
-    t_sprite *ENNEMI[ENNEMI_NB];   //tableau de pointeurs
-    for (a = 0; a < ENNEMI_NB; a++) {
-        if ( a%2 == 1 ) {
-
-            /**  init_sprite ->  PositionX, PositionY, VitesseX, VitesseY, NbTour pour l'anim, Direction, &ANIMATION, temps avant départ ;
-            **/
-            ENNEMI[a] = init_sprite( MAP_TAILLE_X + 25, (rand()%(MAP_TAILLE_Y-200))+100, 2, 2, 5, LEFT, &PETIT_BATEAU, (GAME_FPS * a*3)+1 );
-        } else {
-            ENNEMI[a] = init_sprite( MAP_TAILLE_X + 25, (rand()%(MAP_TAILLE_Y-200))+100, 2, 2, 5, LEFT, &PETIT_BATEAU_2, (GAME_FPS * a*3)+1 );
-        }
-    }
     /** SPRITE ARRIVE */
     t_sprite *ARRIVE;
-    ARRIVE = init_sprite (0, 0, 0, 0, 3, 0, &DRAPEAU, 0);
-
+    ARRIVE = init_sprite (&DRAPEAU);
 
     /** LEVEL **/
     init_level(&my_level, current_level, pSurface_TUILE, pRenderer);
@@ -140,6 +139,42 @@ int main( int argc, char* args[] )
     place_sprite(ARRIVE, my_level.cibleX, my_level.cibleY);
     init_level_chemins(&my_level);
     affiche_map_console ( &my_level);
+
+    /** SPRITE ENNEMI **/
+    t_sprite *ENNEMI_WAVE_0[WAVE_ENEMY_NB_BY_WAVE];   //tableau de pointeurs
+    t_sprite *ENNEMI_WAVE_1[WAVE_ENEMY_NB_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_2[WAVE_ENEMY_NB_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_3[WAVE_ENEMY_NB_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_4[WAVE_ENEMY_NB_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_5[WAVE_ENEMY_NB_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_6[WAVE_ENEMY_NB_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_7[WAVE_ENEMY_NB_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_8[WAVE_ENEMY_NB_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_9[WAVE_ENEMY_NB_BY_WAVE];
+
+    /**          create_Enemy            **/
+    // position --> en haut, à droite, en bas, à gauche
+    // A & B    --> délimite la zone de création , entre A et B
+    // *ANIM    --> pointeur sur l'annimation
+    // Frequence --> Frequence de démarrage entre chaque ennemi
+
+    for (a = 0; a < my_level.wave[0].nombre; a++) {
+            ENNEMI_WAVE_0[a] = create_Enemy( RIGHT , 100, MAP_TAILLE_Y-100, &PETIT_BATEAU, 0.2*a);
+    }
+    for (a = 0; a < my_level.wave[1].nombre; a++) {
+            ENNEMI_WAVE_1[a] = create_Enemy( UP , 300, MAP_TAILLE_X-50, &PETIT_BATEAU, 0.5*a);
+    }
+    for (a = 0; a < my_level.wave[2].nombre; a++) {
+            ENNEMI_WAVE_2[a] = create_Enemy( DOWN , 200, 600, &PETIT_BATEAU, 0.5*a);
+    }
+    for (a = 0; a < my_level.wave[3].nombre; a++) {
+            ENNEMI_WAVE_3[a] = create_Enemy( LEFT , 100, MAP_TAILLE_Y-100, &PETIT_BATEAU, 0.5*a);
+    }
+
+
+
+
+
 
 
     /******************************************************************************************************************
@@ -169,32 +204,24 @@ int main( int argc, char* args[] )
                             //printf ("By By !!\n");
                             break;
                         case SDLK_UP:
-                                        ENNEMI[0]->direction = 0;
-                                        ENNEMI[0]->compte_tour = 999;
-                                        avance_sprite(ENNEMI[0], &my_level);
 
                             break;
                         case SDLK_DOWN:
-                                        ENNEMI[0]->direction = 2;
-                                        ENNEMI[0]->compte_tour = 999;
-                                        avance_sprite(ENNEMI[0], &my_level);
 
                             break;
                         case SDLK_LEFT:
-                                        ENNEMI[0]->direction = 3;
-                                        ENNEMI[0]->compte_tour = 999;
-                                        avance_sprite(ENNEMI[0], &my_level);
+
                             break;
                         case SDLK_RIGHT:
-                                        ENNEMI[0]->direction = 1;
-                                        ENNEMI[0]->compte_tour = 999;
-                                        avance_sprite(ENNEMI[0], &my_level);
+
                              break;
                         case SDLK_l:
 
-                            if (current_level == 0) {       current_level = 1; }
-                            else if (current_level == 1) {       current_level = 2; }
-                            else    { current_level = 0; }
+                            current_level++;
+                            if (current_level >= LEVEL_NB_TOTAL ) {
+                                current_level = 0;
+                            }
+
 
                             //printf ("Change Level to %d\n", current_level);
 
@@ -245,10 +272,25 @@ int main( int argc, char* args[] )
         affiche_sprite (pRenderer, ARRIVE);
 
         // Affichage des Sprites
-        for (a = 0; a < ENNEMI_NB; a++) {
-            anime_sprite    (ENNEMI[a]);
-            avance_sprite   (ENNEMI[a], &my_level);
-            affiche_sprite  (pRenderer, ENNEMI[a]);
+        for (a = 0; a < my_level.wave[0].nombre; a++) {
+            anime_sprite    (ENNEMI_WAVE_0[a]);
+            avance_sprite   (ENNEMI_WAVE_0[a], &my_level);
+            affiche_sprite  (pRenderer, ENNEMI_WAVE_0[a]);
+        }
+        for (a = 0; a < my_level.wave[1].nombre; a++) {
+            anime_sprite    (ENNEMI_WAVE_1[a]);
+            avance_sprite   (ENNEMI_WAVE_1[a], &my_level);
+            affiche_sprite  (pRenderer, ENNEMI_WAVE_1[a]);
+        }
+        for (a = 0; a < my_level.wave[2].nombre; a++) {
+            anime_sprite    (ENNEMI_WAVE_2[a]);
+            avance_sprite   (ENNEMI_WAVE_2[a], &my_level);
+            affiche_sprite  (pRenderer, ENNEMI_WAVE_2[a]);
+        }
+        for (a = 0; a < my_level.wave[3].nombre; a++) {
+            anime_sprite    (ENNEMI_WAVE_3[a]);
+            avance_sprite   (ENNEMI_WAVE_3[a], &my_level);
+            affiche_sprite  (pRenderer, ENNEMI_WAVE_3[a]);
         }
 
         // Affichage du texte
@@ -269,8 +311,8 @@ int main( int argc, char* args[] )
                                                     FIN
     *******************************************************************************************************************/
     // Nettoyage
-    for (a = 0; a < ENNEMI_NB; a++) {
-        destroy_sprite(&ENNEMI[a]);
+    for (a = 0; a < my_level.wave[0].nombre; a++) {
+        destroy_sprite(&ENNEMI_WAVE_0[a]);
     }
 
     SDL_DestroyTexture(PETIT_BATEAU.texture);

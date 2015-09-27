@@ -23,12 +23,13 @@
 #define TILE_TAILLE_Y         32
 #define TILE_FILE           "./images/32x32_map_tile_v3.1.bmp"
 #define TILE_FILE_NB_COLONNE  23
-#define LEVEL_NB_TOTAL         3
+#define LEVEL_NB_TOTAL         4
+#define WAVE_ENEMY_NB_BY_WAVE  100
+#define WAVE_NB                 10
 
 #define POLICE_1            "./fonts/Just_Like_This_Demo.TTF"
 
-
-
+enum { UP, RIGHT, DOWN, LEFT };
 
 
 #endif // CONFIG_H_INCLUDED
