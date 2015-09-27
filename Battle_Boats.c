@@ -60,11 +60,11 @@ int main( int argc, char* args[] )
 
     TTF_Font *police = NULL;
     SDL_Surface *texte = NULL;
-    SDL_Color couleurNoire = {0, 0, 0, 0};
+    SDL_Color couleurNoire = {200, 100, 100, 0};
     SDL_Rect texte_position_start;
     SDL_Rect texte_position;
 
-    police = TTF_OpenFont(POLICE_1, 60);
+    police = TTF_OpenFont(POLICE_1, 50);
     if(!police) {                  printf( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
     texte = TTF_RenderText_Blended(police, "Salut FRED !", couleurNoire);
@@ -136,7 +136,7 @@ int main( int argc, char* args[] )
 
     /** LEVEL **/
     init_level(&my_level, current_level, pSurface_TUILE, pRenderer);
-    init_texture_obstacle(pRenderer, &my_level);
+    //init_texture_obstacle(pRenderer, &my_level);
     place_sprite(ARRIVE, my_level.cibleX, my_level.cibleY);
     init_level_chemins(&my_level);
     affiche_map_console ( &my_level);
@@ -238,7 +238,7 @@ int main( int argc, char* args[] )
         SDL_RenderCopy      (pRenderer, my_level.pTexture_MAP, NULL, NULL);
 
         // Affichage des obstacles (mode Debug)
-       // affiche_obstacle    (pRenderer, &my_level);
+        // affiche_obstacle    (pRenderer, &my_level);
 
         // Affichage de l'arrivé
         anime_sprite(ARRIVE);
@@ -252,7 +252,7 @@ int main( int argc, char* args[] )
         }
 
         // Affichage du texte
-        SDL_RenderCopy      (pRenderer, pTexture_texte, &texte_position_start, &texte_position);
+        //SDL_RenderCopy      (pRenderer, pTexture_texte, &texte_position_start, &texte_position);
 
         // Mise a jour de l'affichage
         SDL_RenderPresent   (pRenderer);
