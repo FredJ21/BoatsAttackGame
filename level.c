@@ -152,7 +152,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
         { "LEVEL 4" }
     };
 
-    int wave[LEVEL_NB_TOTAL][WAVE_NB * 6] = {    /** definition des vagues d'attack
+    int wave[LEVEL_NB_TOTAL][WAVE_NB * WAVE_nb_variable_struct_wave] = {    /** definition des vagues d'attack
           type, Nb_up, Nb_right, Nb_Down, Nb_left, délais avant départ  **/
         {   // level 1
             0,  0, 10,  0,  0,  0,          // wave 1
@@ -191,16 +191,16 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
             0,  0,  0,  0,  0,  0
         },
         {   // level 4
-            0,  0, 10,  0,  0,  0,
+            0,  5, 10,  5,  5,  0,
+            0,  1,  1,  1,  1,  0,
+            0,  5,  5,  5,  5,  0,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
-            0,  0,  0,  0,  0,  0,
-            0,  0,  0,  0,  0,  0,
-            0,  0,  0,  0,  0,  0
+            0,  10,  10,  10,  10,  0
         }
     };
 
@@ -228,11 +228,12 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
 
     // DATA des attacks
     for (a = 0 ; a < WAVE_NB; a++) {
-        pLevel->wave[a].type     =  wave[level_number][a*5 + 0];
-        pLevel->wave[a].nb_up    =  wave[level_number][a*5 + 1];
-        pLevel->wave[a].nb_right =  wave[level_number][a*5 + 2];
-        pLevel->wave[a].nb_down  =  wave[level_number][a*5 + 3];
-        pLevel->wave[a].start_in =  wave[level_number][a*5 + 4];
+        pLevel->wave[a].type     =  wave[level_number][a*WAVE_nb_variable_struct_wave + 0];
+        pLevel->wave[a].nb_up    =  wave[level_number][a*WAVE_nb_variable_struct_wave + 1];
+        pLevel->wave[a].nb_right =  wave[level_number][a*WAVE_nb_variable_struct_wave + 2];
+        pLevel->wave[a].nb_down  =  wave[level_number][a*WAVE_nb_variable_struct_wave + 3];
+        pLevel->wave[a].nb_left  =  wave[level_number][a*WAVE_nb_variable_struct_wave + 4];
+        pLevel->wave[a].start_in =  wave[level_number][a*WAVE_nb_variable_struct_wave + 5];
     }
 
     /******************************************************************************************************************

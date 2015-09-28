@@ -93,9 +93,10 @@ int main( int argc, char* args[] )
     time_t timeA, timeB;
 
     int a = 0;
-    int current_level = 3;
-    int current_wave  = 0;
-
+    int w = 0;
+    int current_level       = 3;
+    int current_wave        = 0;
+    int current_nb_enemy    = 0;
     t_level my_level;
 
     srand(time(NULL));
@@ -141,16 +142,16 @@ int main( int argc, char* args[] )
     affiche_map_console ( &my_level);
 
     /** SPRITE ENNEMI **/
-    t_sprite *ENNEMI_WAVE_0[WAVE_ENEMY_NB_BY_WAVE];   //tableau de pointeurs
-    t_sprite *ENNEMI_WAVE_1[WAVE_ENEMY_NB_BY_WAVE];
-    t_sprite *ENNEMI_WAVE_2[WAVE_ENEMY_NB_BY_WAVE];
-    t_sprite *ENNEMI_WAVE_3[WAVE_ENEMY_NB_BY_WAVE];
-    t_sprite *ENNEMI_WAVE_4[WAVE_ENEMY_NB_BY_WAVE];
-    t_sprite *ENNEMI_WAVE_5[WAVE_ENEMY_NB_BY_WAVE];
-    t_sprite *ENNEMI_WAVE_6[WAVE_ENEMY_NB_BY_WAVE];
-    t_sprite *ENNEMI_WAVE_7[WAVE_ENEMY_NB_BY_WAVE];
-    t_sprite *ENNEMI_WAVE_8[WAVE_ENEMY_NB_BY_WAVE];
-    t_sprite *ENNEMI_WAVE_9[WAVE_ENEMY_NB_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_0[WAVE_ENEMY_MAX_BY_WAVE];   //tableau de pointeurs
+    t_sprite *ENNEMI_WAVE_1[WAVE_ENEMY_MAX_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_2[WAVE_ENEMY_MAX_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_3[WAVE_ENEMY_MAX_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_4[WAVE_ENEMY_MAX_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_5[WAVE_ENEMY_MAX_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_6[WAVE_ENEMY_MAX_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_7[WAVE_ENEMY_MAX_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_8[WAVE_ENEMY_MAX_BY_WAVE];
+    t_sprite *ENNEMI_WAVE_9[WAVE_ENEMY_MAX_BY_WAVE];
 
     /**          create_Enemy            **/
     // position --> en haut, à droite, en bas, à gauche
@@ -173,7 +174,23 @@ int main( int argc, char* args[] )
     }
 **/
 
+    current_nb_enemy = 0;
 
+    for ( w = 0; w < WAVE_NB; w++ ) {
+        printf ("Level %d - Wave %d\n", current_level, w);
+        // creation en haut
+        for (a = 0; a < my_level.wave[w].nb_up; a++ ) {
+        }
+        // creation a droite
+        for (a = 0; a < my_level.wave[w].nb_right; a++ ) {
+        }
+        // creation en bas
+        for (a = 0; a < my_level.wave[w].nb_down; a++ ) {
+        }
+        // creation a gauche
+        for (a = 0; a < my_level.wave[w].nb_left; a++ ) {
+        }
+    }
 
 
 

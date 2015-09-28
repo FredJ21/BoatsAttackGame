@@ -1,7 +1,7 @@
 #ifndef LEVEL_H_INCLUDED
 #define LEVEL_H_INCLUDED
 
-
+#define WAVE_nb_variable_struct_wave    6
 // Attack wave
 typedef struct {
 
