@@ -96,7 +96,7 @@ int main( int argc, char* args[] )
 
     int a = 0;
     int w = 0;
-    int current_level       = 0;
+    int current_level       = 3;
     int current_nb_enemy    = 0;
     t_level my_level;
 
@@ -166,19 +166,19 @@ int main( int argc, char* args[] )
         printf ("Level %d - Wave %d\n", current_level, w);
         // creation en haut
         for (a = 0; a < my_level.wave[w].nb_up; a++ ) {
-            ENEMY[current_nb_enemy++] = create_Enemy( UP ,    my_level.StartPos_UP_s, my_level.StartPos_UP_e,       &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in);
+            ENEMY[current_nb_enemy++] = create_Enemy( UP ,    my_level.StartPos_UP_s, my_level.StartPos_UP_e,       &ANIM[my_level.wave[w].type], 0.2*a + my_level.wave[w].start_in);
         }
         // creation a droite
         for (a = 0; a < my_level.wave[w].nb_right; a++ ) {
-            ENEMY[current_nb_enemy++] = create_Enemy( RIGHT , my_level.StartPos_RIGHT_s, my_level.StartPos_RIGHT_e, &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in);
+            ENEMY[current_nb_enemy++] = create_Enemy( RIGHT , my_level.StartPos_RIGHT_s, my_level.StartPos_RIGHT_e, &ANIM[my_level.wave[w].type], 0.2*a + my_level.wave[w].start_in);
         }
         // creation en bas
         for (a = 0; a < my_level.wave[w].nb_down; a++ ) {
-            ENEMY[current_nb_enemy++] = create_Enemy( DOWN ,  my_level.StartPos_DOWN_s, my_level.StartPos_DOWN_e,   &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in);
+            ENEMY[current_nb_enemy++] = create_Enemy( DOWN ,  my_level.StartPos_DOWN_s, my_level.StartPos_DOWN_e,   &ANIM[my_level.wave[w].type], 0.2*a + my_level.wave[w].start_in);
         }
         // creation a gauche
         for (a = 0; a < my_level.wave[w].nb_left; a++ ) {
-            ENEMY[current_nb_enemy++] = create_Enemy( LEFT ,  my_level.StartPos_LEFT_s, my_level.StartPos_LEFT_e,   &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in);
+            ENEMY[current_nb_enemy++] = create_Enemy( LEFT ,  my_level.StartPos_LEFT_s, my_level.StartPos_LEFT_e,   &ANIM[my_level.wave[w].type], 0.2*a + my_level.wave[w].start_in);
         }
     }
     printf ("Nombre d'ennemi : %d", current_nb_enemy);

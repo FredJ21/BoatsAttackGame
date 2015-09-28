@@ -70,6 +70,7 @@ t_sprite*   create_Enemy( int position, int A, int B, t_animation *ANIM, float F
         case RIGHT:
                 s->x = MAP_TAILLE_X + 30;
                 s->y = (rand()%(B-A)) + A;;
+                printf ("%d\t", (int)s->y );
                 s->direction = LEFT;
                 break;
         case DOWN:
@@ -148,9 +149,12 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
         BD.tileY = BD.y / TILE_TAILLE_Y;
         BG.tileY = BD.tileY;
 
-        Centre.x = s->x / TILE_TAILLE_X;
-        Centre.y = s->y / TILE_TAILLE_Y;
+        Centre.x = s->x;
+        Centre.y = s->y;
+        Centre.tileX = s->x / TILE_TAILLE_X;
+        Centre.tileY = s->y / TILE_TAILLE_Y;
 
+        // permet de demarrer en dehors de la map
         if (s->in_the_map == false) {
             if (   HD.x<MAP_TAILLE_X && HG.x<MAP_TAILLE_X && BD.x<MAP_TAILLE_X && BG.x<MAP_TAILLE_X
                 && HD.y<MAP_TAILLE_Y && HG.y<MAP_TAILLE_Y && BD.y<MAP_TAILLE_Y && BG.y<MAP_TAILLE_Y
@@ -188,13 +192,13 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                 // essai de suivre le chemin si possible
                                 } else if ( s->in_the_map == true ) {
 
-                                        if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LA_DROITE
+                                        if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LA_DROITE
                                             && pLevel->map_Info[HD.tileX+1][HD.tileY] != OBSTACLE
                                             && pLevel->map_Info[BD.tileX+1][BD.tileY] != OBSTACLE) {
 
                                                 s->direction = RIGHT;
 
-                                        }else if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LA_GAUCHE
+                                        }else if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LA_GAUCHE
                                             && pLevel->map_Info[HG.tileX-1][HG.tileY] != OBSTACLE
                                             && pLevel->map_Info[BG.tileX-1][BG.tileY] != OBSTACLE) {
 
@@ -231,13 +235,13 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                 // essai de suivre le chemin si possible
                                 } else if ( s->in_the_map == true ) {
 
-                                        if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LE_HAUT
+                                        if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LE_HAUT
                                             && pLevel->map_Info[HD.tileX][HD.tileY-1] != OBSTACLE
                                             && pLevel->map_Info[HG.tileX][HG.tileY-1] != OBSTACLE) {
 
                                                 s->direction = UP;
 
-                                        }else if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LE_BAS
+                                        }else if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LE_BAS
                                             && pLevel->map_Info[BD.tileX][BD.tileY+1] != OBSTACLE
                                             && pLevel->map_Info[BG.tileX][BG.tileY+1] != OBSTACLE) {
 
@@ -275,13 +279,13 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                  // essai de suivre le chemin si possible
                                 } else if ( s->in_the_map == true ) {
 
-                                        if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LA_DROITE
+                                        if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LA_DROITE
                                             && pLevel->map_Info[HD.tileX+1][HD.tileY] != OBSTACLE
                                             && pLevel->map_Info[BD.tileX+1][BD.tileY] != OBSTACLE) {
 
                                                 s->direction = RIGHT;
 
-                                        }else if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LA_GAUCHE
+                                        }else if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LA_GAUCHE
                                             && pLevel->map_Info[HG.tileX-1][HG.tileY] != OBSTACLE
                                             && pLevel->map_Info[BG.tileX-1][BG.tileY] != OBSTACLE) {
 
@@ -318,13 +322,13 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                 // essai de suivre le chemin si possible
                                 } else if ( s->in_the_map == true ) {
 
-                                        if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LE_HAUT
+                                        if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LE_HAUT
                                             && pLevel->map_Info[HD.tileX][HD.tileY-1] != OBSTACLE
                                             && pLevel->map_Info[HG.tileX][HG.tileY-1] != OBSTACLE) {
 
                                                 s->direction = UP;
 
-                                        }else if ( pLevel->map_Direction[Centre.x][Centre.y] == VERS_LE_BAS
+                                        }else if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LE_BAS
                                             && pLevel->map_Info[BD.tileX][BD.tileY+1] != OBSTACLE
                                             && pLevel->map_Info[BG.tileX][BG.tileY+1] != OBSTACLE) {
 
@@ -334,12 +338,14 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                 break;
         }
 
+        //printf ("%d = %dx%d %dx%d %dx%d %dx%d %dx%d %dx%d\n", s->in_the_map, HG.tileX, HG.tileY, HD.tileX, HD.tileY, BG.tileX, BG.tileY, BD.tileX, BD.tileY, Centre.tileX, Centre.tileY, pLevel->cibleX, pLevel->cibleY );
         // detection de la position d'arrivé
         if (
             (HG.tileX == pLevel->cibleX && HG.tileY == pLevel->cibleY) ||
             (HD.tileX == pLevel->cibleX && HD.tileY == pLevel->cibleY) ||
             (BG.tileX == pLevel->cibleX && BG.tileY == pLevel->cibleY) ||
-            (BD.tileX == pLevel->cibleX && BD.tileY == pLevel->cibleY)
+            (BD.tileX == pLevel->cibleX && BD.tileY == pLevel->cibleY) ||
+            (Centre.tileX == pLevel->cibleX && Centre.tileY == pLevel->cibleY)
             ) {
 
             //printf ("Je suis arrive !!!\n");
