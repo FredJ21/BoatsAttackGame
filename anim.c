@@ -64,21 +64,21 @@ t_sprite*   create_Enemy( int position, int A, int B, t_animation *ANIM, float F
 
         case UP:
                 s->x = (rand()%(B-A)) + A;
-                s->y = 0;
+                s->y = 0 - 30;
                 s->direction = DOWN;
                 break;
         case RIGHT:
-                s->x = MAP_TAILLE_X;
+                s->x = MAP_TAILLE_X + 30;
                 s->y = (rand()%(B-A)) + A;;
                 s->direction = LEFT;
                 break;
         case DOWN:
                 s->x = (rand()%(B-A)) + A;;
-                s->y = MAP_TAILLE_Y;
+                s->y = MAP_TAILLE_Y + 30;
                 s->direction = UP;
                 break;
         case LEFT:
-                s->x = 0;
+                s->x = 0 - 30;
                 s->y = (rand()%(B-A)) + A;;
                 s->direction = RIGHT;
                 break;

@@ -706,12 +706,13 @@
 	"config.h"
 	"level.h"
 
-1443362522 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.c
+1443468646 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
+	<string.h>
 	"config.h"
 	"Battle_boats.h"
 	"level.h"
@@ -1052,13 +1053,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1443362396 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\config.h
+1443461028 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\config.h
 
 1443335483 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.h
 
-1443361223 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.h
+1443461028 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.h
 
-1443362275 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.c
+1443468646 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.c
 	<SDL.h>
 	<stdio.h>
 	<stdlib.h>
@@ -1067,7 +1068,7 @@
 	"level.h"
 	"Algo_A_star.h"
 
-1443358241 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\anim.c
+1443468743 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\anim.c
 	<SDL.h>
 	<stdio.h>
 	<stdlib.h>

@@ -130,12 +130,12 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
         }
     };
 
-    int StartPos[LEVEL_NB_TOTAL][8] = { /** positions de depart , couple start/end
+    int StartPos[LEVEL_NB_TOTAL][8] = { /** positions de depart des ennemis , couple start/end
           Haut      Droite    Bas       Gauche   **/
-        { 100, 400, 100, 400, 100, 400, 100, 400 },         // level 1
-        { 100, 400, 100, 400, 100, 400, 100, 400 },         // level 2
-        { 100, 400, 100, 400, 100, 400, 100, 400 },         // level 3
-        { 100, 400, 100, 400, 100, 400, 100, 400 }          // level 4
+        { 300, MAP_TAILLE_X-50, 100, MAP_TAILLE_Y-100, 200, 600, 0, 0 },                            // level 1
+        { 100, 400, 100, 400, 100, 400, 100, 400 },                                                 // level 2
+        { 100, 400, 100, 400, 100, 400, 100, 400 },                                                 // level 3
+        { 50, MAP_TAILLE_X-50, 50, MAP_TAILLE_Y-50, 50, MAP_TAILLE_X-50, 50, MAP_TAILLE_Y-50}       // level 4
     };
 
     int cible[LEVEL_NB_TOTAL][2] = {        /** position de la cible en X et Y **/
@@ -156,8 +156,8 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
           type, Nb_up, Nb_right, Nb_Down, Nb_left, délais avant départ  **/
         {   // level 1
             0,  0, 10,  0,  0,  0,          // wave 1
-            0,  0,  0,  0,  0,  0,
-            0,  0,  0,  0,  0,  0,
+            1,  0, 10,  0,  0,  30,
+            2,  0, 10,  0,  0,  40,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
@@ -191,16 +191,17 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
             0,  0,  0,  0,  0,  0
         },
         {   // level 4
-            0,  5, 10,  5,  5,  0,
-            0,  1,  1,  1,  1,  0,
-            0,  5,  5,  5,  5,  0,
-            0,  0,  0,  0,  0,  0,
-            0,  0,  0,  0,  0,  0,
-            0,  0,  0,  0,  0,  0,
-            0,  0,  0,  0,  0,  0,
-            0,  0,  0,  0,  0,  0,
-            0,  0,  0,  0,  0,  0,
-            0,  10,  10,  10,  10,  0
+          /** type,   Nb_up,   Nb_right,   Nb_Down,   Nb_left,   délai avant départ  **/
+            0,  5, 0,  0,  0,  0,
+            0,  0,  5,  0,  0,  5,
+            0,  0,  0,  5,  0,  10,
+            0,  0,  0,  0,  5,  15,
+            0,  3,  3,  3,  3,  20,
+            0,  1,  1,  1,  1,  25,
+            0,  1,  1,  1,  1,  30,
+            0,  1,  1,  1,  1,  35,
+            0,  10,  10,  10,  10,  40,
+            0,  10,  10,  10,  10,  45
         }
     };
 
