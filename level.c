@@ -20,6 +20,9 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     SDL_Surface *pSurface_TMP;
     pSurface_TMP = SDL_CreateRGBSurface(0,MAP_TAILLE_X,MAP_TAILLE_Y,32,0,0,0,0);
 
+    /******************************************************************************************************************
+                                                DATA MAP
+    *******************************************************************************************************************/
     int map[LEVEL_NB_TOTAL][MAP_NB_TILE_X * MAP_NB_TILE_Y] = {
         { // level 1
         48,48,48,48,48,48,507,561,398,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,
@@ -126,63 +129,117 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
         489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489
         }
     };
-    switch(level_number) {
-        case 0 :
-            strcpy(pLevel->name, "LEVEL 1");
-            pLevel->cibleX = 4;
-            pLevel->cibleY = 9;
 
-            pLevel->wave[0].nombre = 10;
-            pLevel->wave[0].position = RIGHT;
-            pLevel->wave[1].nombre = 0;
+    int StartPos[LEVEL_NB_TOTAL][8] = { /** positions de depart , couple start/end
+          Haut      Droite    Bas       Gauche   **/
+        { 100, 400, 100, 400, 100, 400, 100, 400 },         // level 1
+        { 100, 400, 100, 400, 100, 400, 100, 400 },         // level 2
+        { 100, 400, 100, 400, 100, 400, 100, 400 },         // level 3
+        { 100, 400, 100, 400, 100, 400, 100, 400 }          // level 4
+    };
 
-            break;
+    int cible[LEVEL_NB_TOTAL][2] = {        /** position de la cible en X et Y **/
+        {  4,  9 },          // level 1
+        {  8, 14 },          // level 2
+        {  2,  4 },          // level 3
+        { 16, 11 }           // level 4
+    };
 
-        case 1 :
-            strcpy(pLevel->name, "LEVEL 2");
-            pLevel->cibleX = 8;
-            pLevel->cibleY = 14;
+    char name [LEVEL_NB_TOTAL][256] = {
+        { "LEVEL 1" },
+        { "LEVEL 2" },
+        { "LEVEL 3" },
+        { "LEVEL 4" }
+    };
 
-            pLevel->wave[0].nombre = 10;
-            pLevel->wave[0].position = RIGHT;
-            pLevel->wave[1].nombre = 0;
+    int wave[LEVEL_NB_TOTAL][WAVE_NB * 6] = {    /** definition des vagues d'attack
+          type, Nb_up, Nb_right, Nb_Down, Nb_left, délais avant départ  **/
+        {   // level 1
+            0,  0, 10,  0,  0,  0,          // wave 1
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0            // wave 10
+        },
+        {   // level 2
+            0,  0, 10,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0
+        },
+        {   // level 3
+            0,  0, 10,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0
+        },
+        {   // level 4
+            0,  0, 10,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0
+        }
+    };
 
-            break;
-        case 2 :
-            strcpy(pLevel->name, "LEVEL 3");
-            pLevel->cibleX = 2;
-            pLevel->cibleY = 4;
-
-            pLevel->wave[0].nombre = 10;
-            pLevel->wave[0].position = RIGHT;
-            pLevel->wave[1].nombre = 0;
-
-            break;
-        case 3 :
-            strcpy(pLevel->name, "LEVEL 4");
-            pLevel->cibleX = 16;
-            pLevel->cibleY = 11;
-
-            pLevel->wave[0].nombre = 10;
-            pLevel->wave[0].position = RIGHT;
-            pLevel->wave[1].nombre = 20;
-            pLevel->wave[1].position = UP;
-            pLevel->wave[2].nombre = 30;
-            pLevel->wave[2].position = DOWN;
-            pLevel->wave[3].nombre = 10;
-            pLevel->wave[3].position = LEFT;
-            pLevel->wave[4].nombre = 0;
-
-            break;
-    }
-
+    /******************************************************************************************************************
+                                                DATA COPY
+    *******************************************************************************************************************/
     // DATA de la map
     for (a = 0 ; a < map_size; a++) {
         pLevel->my_map[a] = map[level_number][a];
     }
 
+    pLevel->StartPos_UP_s    =  StartPos[level_number][0];
+    pLevel->StartPos_UP_e    =  StartPos[level_number][1];
+    pLevel->StartPos_RIGHT_s =  StartPos[level_number][2];
+    pLevel->StartPos_RIGHT_e =  StartPos[level_number][3];
+    pLevel->StartPos_DOWN_s  =  StartPos[level_number][4];
+    pLevel->StartPos_DOWN_e  =  StartPos[level_number][5];
+    pLevel->StartPos_LEFT_s  =  StartPos[level_number][6];
+    pLevel->StartPos_LEFT_e  =  StartPos[level_number][7];
 
-    // Creation de la texture de la map et remise à zero de mapDirection
+    pLevel->cibleX = cible[level_number][0];
+    pLevel->cibleY = cible[level_number][1];
+
+    strcpy(pLevel->name, name[level_number]);
+
+    // DATA des attacks
+    for (a = 0 ; a < WAVE_NB; a++) {
+        pLevel->wave[a].type     =  wave[level_number][a*5 + 0];
+        pLevel->wave[a].nb_up    =  wave[level_number][a*5 + 1];
+        pLevel->wave[a].nb_right =  wave[level_number][a*5 + 2];
+        pLevel->wave[a].nb_down  =  wave[level_number][a*5 + 3];
+        pLevel->wave[a].start_in =  wave[level_number][a*5 + 4];
+    }
+
+    /******************************************************************************************************************
+                                        - Creation de la texture de la map
+                                        - Creation de la des obstacles
+                                        - Remise à zero de mapDirection
+    *******************************************************************************************************************/
     a = 0;
     for (y = 0; y < MAP_NB_TILE_Y; y++ ) {
         for (x = 0; x < MAP_NB_TILE_X; x++ ) {

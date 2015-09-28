@@ -158,6 +158,7 @@ int main( int argc, char* args[] )
     // *ANIM    --> pointeur sur l'annimation
     // Frequence --> Frequence de démarrage entre chaque ennemi
 
+/**
     for (a = 0; a < my_level.wave[0].nombre; a++) {
             ENNEMI_WAVE_0[a] = create_Enemy( RIGHT , 100, MAP_TAILLE_Y-100, &PETIT_BATEAU, 0.2*a);
     }
@@ -170,7 +171,7 @@ int main( int argc, char* args[] )
     for (a = 0; a < my_level.wave[3].nombre; a++) {
             ENNEMI_WAVE_3[a] = create_Enemy( LEFT , 100, MAP_TAILLE_Y-100, &PETIT_BATEAU, 0.5*a);
     }
-
+**/
 
 
 
@@ -272,6 +273,7 @@ int main( int argc, char* args[] )
         affiche_sprite (pRenderer, ARRIVE);
 
         // Affichage des Sprites
+/**
         for (a = 0; a < my_level.wave[0].nombre; a++) {
             anime_sprite    (ENNEMI_WAVE_0[a]);
             avance_sprite   (ENNEMI_WAVE_0[a], &my_level);
@@ -293,6 +295,7 @@ int main( int argc, char* args[] )
             affiche_sprite  (pRenderer, ENNEMI_WAVE_3[a]);
         }
 
+**/
         // Affichage du texte
         //SDL_RenderCopy      (pRenderer, pTexture_texte, &texte_position_start, &texte_position);
 
@@ -311,10 +314,11 @@ int main( int argc, char* args[] )
                                                     FIN
     *******************************************************************************************************************/
     // Nettoyage
+/**
     for (a = 0; a < my_level.wave[0].nombre; a++) {
         destroy_sprite(&ENNEMI_WAVE_0[a]);
     }
-
+*/
     SDL_DestroyTexture(PETIT_BATEAU.texture);
     SDL_DestroyTexture(PETIT_BATEAU_2.texture);
     SDL_DestroyTexture(DRAPEAU.texture);
