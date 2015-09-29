@@ -64,22 +64,21 @@ t_sprite*   create_Enemy( int position, int A, int B, t_animation *ANIM, float F
 
         case UP:
                 s->x = (rand()%(B-A)) + A;
-                s->y = 0 - 30;
+                s->y = 0 - ANIM->ty/2 ;
                 s->direction = DOWN;
                 break;
         case RIGHT:
-                s->x = MAP_TAILLE_X + 30;
+                s->x = MAP_TAILLE_X + ANIM->tx/2 ;
                 s->y = (rand()%(B-A)) + A;;
-                printf ("%d\t", (int)s->y );
                 s->direction = LEFT;
                 break;
         case DOWN:
                 s->x = (rand()%(B-A)) + A;;
-                s->y = MAP_TAILLE_Y + 30;
+                s->y = MAP_TAILLE_Y + ANIM->ty/2 ;
                 s->direction = UP;
                 break;
         case LEFT:
-                s->x = 0 - 30;
+                s->x = 0 - ANIM->tx/2 ;
                 s->y = (rand()%(B-A)) + A;;
                 s->direction = RIGHT;
                 break;
@@ -166,10 +165,11 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
 
         switch (s->direction) {
                 case UP :
-                                s->y -= s->dy;
+                            s->y -= s->dy;
+                            if (s->in_the_map == true) {
 
                                 // detection des bords
-                                if ( s->in_the_map == true && HD.y <= 0 ) {
+                                if ( HD.y <= 0 ) {
                                         s->direction = DOWN;
                                         //printf ("1 Detection bord\n");
                                 }
@@ -190,7 +190,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                             s->y += s->dy*2;
                                         }
                                 // essai de suivre le chemin si possible
-                                } else if ( s->in_the_map == true ) {
+                                } else {
 
                                         if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LA_DROITE
                                             && pLevel->map_Info[HD.tileX+1][HD.tileY] != OBSTACLE
@@ -205,12 +205,15 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                                 s->direction = LEFT;
                                         }
                                 }
-                                break;
+                            }
+                            break;
                 case RIGHT :
-                                s->x += s->dx;
+
+                            s->x += s->dx;
+                            if (s->in_the_map == true) {
 
                                 // detection des bords
-                                if ( s->in_the_map == true && HD.x >= MAP_TAILLE_X ) {
+                                if ( HD.x >= MAP_TAILLE_X ) {
                                         s->direction = LEFT;
                                          //printf ("2 Detection bord\n");
                                 }
@@ -233,7 +236,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                             s->x -= s->dx*2;
                                         }
                                 // essai de suivre le chemin si possible
-                                } else if ( s->in_the_map == true ) {
+                                } else {
 
                                         if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LE_HAUT
                                             && pLevel->map_Info[HD.tileX][HD.tileY-1] != OBSTACLE
@@ -248,12 +251,14 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                                 s->direction = DOWN;
                                         }
                                 }
-                                break;
+                            }
+                            break;
                 case DOWN :
-                                s->y += s->dy;
 
+                            s->y += s->dy;
+                            if (s->in_the_map == true) {
                                 // detection des bords
-                                if ( s->in_the_map == true && BG.y >= MAP_TAILLE_Y ) {
+                                if ( BG.y >= MAP_TAILLE_Y ) {
 
                                         s->direction = UP;
                                         //printf ("3 Detection bord\n");
@@ -277,7 +282,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                             s->y -= s->dy*2;
                                         }
                                  // essai de suivre le chemin si possible
-                                } else if ( s->in_the_map == true ) {
+                                } else {
 
                                         if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LA_DROITE
                                             && pLevel->map_Info[HD.tileX+1][HD.tileY] != OBSTACLE
@@ -292,12 +297,14 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                                 s->direction = LEFT;
                                         }
                                 }
-                                break;
+                            }
+                            break;
                 case LEFT :
-                                s->x -= s->dx;
+                            s->x -= s->dx;
 
+                            if (s->in_the_map == true) {
                                 // detection des bords
-                                if ( s->in_the_map == true && BG.x <= 0 ) {
+                                if ( BG.x <= 0 ) {
                                         s->direction = RIGHT;
                                         //printf ("4 Detection bord\n");
                                 }
@@ -320,7 +327,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                         }
 
                                 // essai de suivre le chemin si possible
-                                } else if ( s->in_the_map == true ) {
+                                } else {
 
                                         if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LE_HAUT
                                             && pLevel->map_Info[HD.tileX][HD.tileY-1] != OBSTACLE
@@ -335,8 +342,10 @@ void avance_sprite(t_sprite *s, t_level *pLevel)
                                                 s->direction = DOWN;
                                         }
                                 }
-                                break;
+                            }
+                            break;
         }
+
 
         //printf ("%d = %dx%d %dx%d %dx%d %dx%d %dx%d %dx%d\n", s->in_the_map, HG.tileX, HG.tileY, HD.tileX, HD.tileY, BG.tileX, BG.tileY, BD.tileX, BD.tileY, Centre.tileX, Centre.tileY, pLevel->cibleX, pLevel->cibleY );
         // detection de la position d'arrivé

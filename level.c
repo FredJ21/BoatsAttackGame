@@ -192,10 +192,10 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
         },
         {   // level 4
           /** type,   Nb_up,   Nb_right,   Nb_Down,   Nb_left,   délai avant départ  **/
-            0,  0,  80,  0,  0,  0,
+            0,  80,  0,  0,  0,  0,
             1,  0,  80,  0,  0,  0,
-            2,  0,  80,  0,  0,  0,
-            0,  0,  0,  0,  0,  0,
+            2,  0,  0,  80,  0,  0,
+            0,  0,  0,  0,  80,  0,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
