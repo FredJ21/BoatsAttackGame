@@ -155,9 +155,9 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     int wave[LEVEL_NB_TOTAL][WAVE_NB * WAVE_nb_variable_struct_wave] = {    /** definition des vagues d'attack
           type, Nb_up, Nb_right, Nb_Down, Nb_left, délais avant départ  **/
         {   // level 1
-            0,  10, 10,  10,  10,  0,          // wave 1
-            1,  0, 10,  0,  0,  30,
-            2,  0, 10,  0,  0,  40,
+            0,  1, 1,  1,  0,  0,          // wave 1
+            1,  10, 10,  10,  0,  30,
+            2,  20, 20,  20,  0,  40,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
@@ -180,11 +180,11 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
         },
         {   // level 3
             0,  0, 10,  0,  0,  0,
-            0,  0,  0,  0,  0,  0,
-            0,  0,  0,  0,  0,  0,
-            0,  0,  0,  0,  0,  0,
-            0,  0,  0,  0,  0,  0,
-            0,  0,  0,  0,  0,  0,
+            1,  0,  50,  0,  0,  10,
+            2,  0,  0,  20,  0,  20,
+            0,  0,  10,  0,  0,  60,
+            1,  0,  0,  10,  0,  60,
+            2,  10,  0,  0,  0,  60,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
