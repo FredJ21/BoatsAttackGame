@@ -94,7 +94,7 @@ int main( int argc, char* args[] )
     time_t t_Apres_Traitement;
 
     time_t CounterTimeA = clock();
-    time_t CounterTimeB = 0;
+    int CounterBeforeChgLevel = 0;
 
     int a = 0, b = 0;
     int w = 0;
@@ -266,16 +266,16 @@ int main( int argc, char* args[] )
             for (a = 0; a < current_nb_enemy; a++) {
 
                 if ( ENEMY[a]->is_actif ) { b++; }
-//                if ( ENEMY[a]->visible )  { current_enemy_alive++; }
+                if ( ENEMY[a]->visible )  { current_enemy_alive++; }
             }
             printf("Nombre d'ennemi en vie : %d\n", current_enemy_alive);
 
             if ( current_enemy_alive == 0 ) {
 
-                CounterTimeB++;
-                if ( CounterTimeB > 1 ) {
+                CounterBeforeChgLevel++;
+                if ( CounterBeforeChgLevel > 5 ) {
 
-                    CounterTimeB = 0;
+                    CounterBeforeChgLevel = 0;
                     current_level++;
                     if (current_level >= LEVEL_NB_TOTAL ) {
                         current_level = 0;
@@ -285,8 +285,6 @@ int main( int argc, char* args[] )
             }
             CounterTimeA = clock();
         }
-
-        change_level = true;
 
 
         /******************************************************************************************************************
