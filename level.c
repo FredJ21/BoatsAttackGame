@@ -295,6 +295,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
         }
     }
 
+    SDL_DestroyTexture(pLevel->pTexture_MAP);
 
     pLevel->pTexture_MAP = SDL_CreateTextureFromSurface(pRenderer, pSurface_TMP);
     if(!pLevel->pTexture_MAP) {                         printf( "SDL_Texture_MAP ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit (-1);}

@@ -201,6 +201,9 @@ int main( int argc, char* args[] )
 
         }
 
+        /******************************************************************************************************************
+                                                    CHANGEMENT  DE NIVEAU
+        *******************************************************************************************************************/
         if (change_level) {
 
                 change_level = false;
@@ -210,9 +213,11 @@ int main( int argc, char* args[] )
                     destroy_sprite(&ENEMY[a]);
                 }
 
+
                 /** LEVEL **/
                 init_level(&my_level, current_level, pSurface_TUILE, pRenderer);
                 //init_texture_obstacle(pRenderer, &my_level);
+
                 place_sprite(ARRIVE, my_level.cibleX, my_level.cibleY);
                 init_level_chemins(&my_level);
                 affiche_map_console ( &my_level);
@@ -261,14 +266,14 @@ int main( int argc, char* args[] )
             for (a = 0; a < current_nb_enemy; a++) {
 
                 if ( ENEMY[a]->is_actif ) { b++; }
-                if ( ENEMY[a]->visible )  { current_enemy_alive++; }
+//                if ( ENEMY[a]->visible )  { current_enemy_alive++; }
             }
             printf("Nombre d'ennemi en vie : %d\n", current_enemy_alive);
 
             if ( current_enemy_alive == 0 ) {
 
                 CounterTimeB++;
-                if ( CounterTimeB > 5 ) {
+                if ( CounterTimeB > 1 ) {
 
                     CounterTimeB = 0;
                     current_level++;
@@ -276,11 +281,12 @@ int main( int argc, char* args[] )
                         current_level = 0;
                     }
                     change_level = true;
-
                 }
             }
             CounterTimeA = clock();
         }
+
+        change_level = true;
 
 
         /******************************************************************************************************************
