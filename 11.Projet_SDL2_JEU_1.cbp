@@ -50,6 +50,10 @@
 		</Unit>
 		<Unit filename="Battle_boats.h" />
 		<Unit filename="README.txt" />
+		<Unit filename="affichage_texte.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="affichage_texte.h" />
 		<Unit filename="anim.c">
 			<Option compilerVar="CC" />
 		</Unit>

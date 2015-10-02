@@ -706,7 +706,7 @@
 	"config.h"
 	"level.h"
 
-1443474865 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.c
+1443642407 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -1471,4 +1471,13 @@
 	"config.h"
 	"level.h"
 	"Algo_A_star.h"
+
+1443729559 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\affichage_text.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	"affichage_text.h"
+
+1443729559 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\affichage_text.h
 

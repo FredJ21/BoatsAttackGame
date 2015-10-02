@@ -11,6 +11,8 @@
 #include "level.h"
 #include "anim.h"
 #include "Algo_A_star.h"
+#include "affichage_texte.h"
+
 
 
 int main( int argc, char* args[] )
@@ -61,13 +63,15 @@ int main( int argc, char* args[] )
     if( TTF_Init() != 0 ) {  printf( "TTF_Init ERREUR ! SDL_GetError: %s\n", SDL_GetError() ); return -1; }
 
     TTF_Font *police = NULL;
+
+    police = TTF_OpenFont(POLICE_1, 50);
+    if(!police) {                  printf( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
+
+
     SDL_Surface *texte = NULL;
     SDL_Color couleurNoire = {200, 100, 100, 0};
     SDL_Rect texte_position_start;
     SDL_Rect texte_position;
-
-    police = TTF_OpenFont(POLICE_1, 50);
-    if(!police) {                  printf( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
     texte = TTF_RenderText_Blended(police, "Salut FRED !", couleurNoire);
     texte_position_start.x = 0;
@@ -309,7 +313,8 @@ int main( int argc, char* args[] )
         }
 
         // Affichage du texte
-        //SDL_RenderCopy      (pRenderer, pTexture_texte, &texte_position_start, &texte_position);
+        Afficher_text (pRenderer, pTexture_texte, "Coucou Fred", police);
+        SDL_RenderCopy      (pRenderer, pTexture_texte, &texte_position_start, &texte_position);
 
         // Mise a jour de l'affichage
         SDL_RenderPresent   (pRenderer);
