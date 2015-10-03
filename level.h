@@ -2,6 +2,7 @@
 #define LEVEL_H_INCLUDED
 
 #define WAVE_nb_variable_struct_wave    6
+
 // Attack wave
 typedef struct {
 
@@ -13,7 +14,6 @@ typedef struct {
     int start_in;       // délai, en seconde, avant démarrage de la vaque
 
 } t_wave;
-
 
 // level
 typedef struct {
@@ -37,6 +37,9 @@ typedef struct {
     SDL_Texture     *pTexture_MAP;
     SDL_Texture     *pTexture_MAP_Obstacles;        // pour le debug
 
+    SDL_Texture     *pTexture_MAP_Titre;
+    SDL_Rect        Titre_position_src;
+    SDL_Rect        Titre_position_dst;
 
 
 } t_level;
@@ -46,8 +49,12 @@ enum { INCONNU, VERS_LE_HAUT, VERS_LA_DROITE, VERS_LE_BAS, VERS_LA_GAUCHE };
 
 void init_level             (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile, SDL_Renderer *pRenderer);
 void init_level_chemins     (t_level *pLevel);
+void init_level_titre       (SDL_Renderer *pRenderer, t_level *pLevel, TTF_Font *police);
+
+void clear_level            (t_level *pLevel);
 
 void affiche_map            (SDL_Renderer *pRenderer, t_level *pLevel);
+void affiche_titre          (SDL_Renderer *pRenderer, t_level *pLevel);
 
 // fonctions de debugage
 void init_texture_obstacle  (SDL_Renderer *pRenderer, t_level *pLevel);

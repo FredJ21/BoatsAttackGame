@@ -1089,8 +1089,9 @@
 
 1442428968 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\algo_a_star.h
 
-1443426767 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\algo_a_star.c
+1443797981 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\algo_a_star.c
 	<SDL.h>
+	<SDL_ttf.h>
 	<stdio.h>
 	<stdlib.h>
 	"config.h"
@@ -1431,14 +1432,15 @@
 	"begin_code.h"
 	"close_code.h"
 
-1443629927 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\config.h
+1443804148 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\config.h
 
-1443456552 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\level.h
+1443803812 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\level.h
 
 1442389239 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\algo_a_star.h
 
-1443509130 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\anim.c
+1443798023 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\anim.c
 	<SDL.h>
+	<SDL_ttf.h>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -1448,7 +1450,7 @@
 
 1443426767 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\anim.h
 
-1443632322 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\battle_boats.c
+1443803812 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\battle_boats.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -1460,11 +1462,13 @@
 	"level.h"
 	"anim.h"
 	"Algo_A_star.h"
+	"affichage_texte.h"
 
 1443426767 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\battle_boats.h
 
-1443634443 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\level.c
+1443804036 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\level.c
 	<SDL.h>
+	<SDL_ttf.h>
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -1480,4 +1484,13 @@
 	"affichage_text.h"
 
 1443729559 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\affichage_text.h
+
+1443765935 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\affichage_texte.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	"affichage_texte.h"
+
+1443765935 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\affichage_texte.h
 

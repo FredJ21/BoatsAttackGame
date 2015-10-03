@@ -62,30 +62,10 @@ int main( int argc, char* args[] )
     // Initialize SDL TTF
     if( TTF_Init() != 0 ) {  printf( "TTF_Init ERREUR ! SDL_GetError: %s\n", SDL_GetError() ); return -1; }
 
-    TTF_Font *police = NULL;
+    TTF_Font *police_level_titre;
 
-    police = TTF_OpenFont(POLICE_1, 50);
-    if(!police) {                  printf( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
-
-
-    SDL_Surface *texte = NULL;
-    SDL_Color couleurNoire = {200, 100, 100, 0};
-    SDL_Rect texte_position_start;
-    SDL_Rect texte_position;
-
-    texte = TTF_RenderText_Blended(police, "Salut FRED !", couleurNoire);
-    texte_position_start.x = 0;
-    texte_position_start.y = 0;
-    texte_position_start.h = texte->h;
-    texte_position_start.w = texte->w;
-    texte_position.x = 200;
-    texte_position.y = 50;
-    texte_position.h = texte->h;
-    texte_position.w = texte->w;
-
-    // Création de la texture pour le texte
-    SDL_Texture *pTexture_texte = SDL_CreateTextureFromSurface(pRenderer, texte);
-    if(!pTexture_texte) {                  printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
+    police_level_titre = TTF_OpenFont(POLICE_1, 50);
+    if(!police_level_titre) {                  printf( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
 
     /******************************************************************************************************************
@@ -105,7 +85,7 @@ int main( int argc, char* args[] )
     int current_level       = 0;
     int current_nb_enemy    = 0;
     int current_enemy_alive = 0;
-    t_level my_level;
+    t_level my_level = {};
 
     srand(time(NULL));
 
@@ -219,8 +199,10 @@ int main( int argc, char* args[] )
 
 
                 /** LEVEL **/
+                clear_level (&my_level);
                 init_level(&my_level, current_level, pSurface_TUILE, pRenderer);
                 //init_texture_obstacle(pRenderer, &my_level);
+                init_level_titre(pRenderer, &my_level, police_level_titre);
 
                 place_sprite(ARRIVE, my_level.cibleX, my_level.cibleY);
                 init_level_chemins(&my_level);
@@ -313,8 +295,7 @@ int main( int argc, char* args[] )
         }
 
         // Affichage du texte
-        Afficher_text (pRenderer, pTexture_texte, "Coucou Fred", police);
-        SDL_RenderCopy      (pRenderer, pTexture_texte, &texte_position_start, &texte_position);
+        affiche_titre(pRenderer, &my_level);
 
         // Mise a jour de l'affichage
         SDL_RenderPresent   (pRenderer);
@@ -341,14 +322,15 @@ int main( int argc, char* args[] )
 
     SDL_DestroyTexture(DRAPEAU.texture);
 
-    SDL_DestroyTexture(my_level.pTexture_MAP);
+    clear_level (&my_level);
+
     SDL_DestroyTexture(pTexture);
-    SDL_DestroyTexture(pTexture_texte);
     SDL_FreeSurface(pSurface);
     SDL_DestroyRenderer(pRenderer);
     SDL_DestroyWindow( pWindow );
 
-    TTF_CloseFont(police);
+    TTF_CloseFont(police_level_titre);
+
     TTF_Quit();
     SDL_Quit();
 

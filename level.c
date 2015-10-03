@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -146,7 +147,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     };
 
     char name [LEVEL_NB_TOTAL][256] = {
-        { "LEVEL 1" },
+        { "LEVEL1234567890" },
         { "LEVEL 2" },
         { "LEVEL 3" },
         { "LEVEL 4" }
@@ -295,7 +296,6 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
         }
     }
 
-    SDL_DestroyTexture(pLevel->pTexture_MAP);
 
     pLevel->pTexture_MAP = SDL_CreateTextureFromSurface(pRenderer, pSurface_TMP);
     if(!pLevel->pTexture_MAP) {                         printf( "SDL_Texture_MAP ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit (-1);}
@@ -305,9 +305,68 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
 }
 /*****************************************************************
 *****************************************************************/
+void init_level_chemins     (t_level *pLevel) {
+
+    int x, y;
+
+    for (y = 1; y < MAP_NB_TILE_Y; y++){
+        x = 0;
+        if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
+        x = MAP_NB_TILE_X - 1;
+        if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
+    }
+    for (x = 1; x < MAP_NB_TILE_X; x++ ) {
+        y = 0;
+        if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
+        y = MAP_NB_TILE_Y - 1;
+        if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
+    }
+}
+/*****************************************************************
+*****************************************************************/
+void init_level_titre       (SDL_Renderer *pRenderer, t_level *pLevel, TTF_Font *police) {
+
+
+    SDL_Surface *texte = NULL;
+    SDL_Color couleurNoire = {200, 100, 100, 0};
+
+    texte = TTF_RenderText_Blended(police, pLevel->name, couleurNoire);
+    pLevel->Titre_position_src.x = 0;
+    pLevel->Titre_position_src.y = 0;
+    pLevel->Titre_position_src.h = texte->h;
+    pLevel->Titre_position_src.w = texte->w;
+    pLevel->Titre_position_dst.x = 200;
+    pLevel->Titre_position_dst.y = 50;
+    pLevel->Titre_position_dst.h = texte->h;
+    pLevel->Titre_position_dst.w = texte->w;
+
+    // Création de la texture pour le texte
+    pLevel->pTexture_MAP_Titre = SDL_CreateTextureFromSurface(pRenderer, texte);
+    if(!pLevel->pTexture_MAP_Titre) {                  printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(-1);}
+
+    SDL_FreeSurface(texte);
+
+}
+/*****************************************************************
+*****************************************************************/
+void clear_level            (t_level *pLevel) {
+
+    SDL_DestroyTexture(pLevel->pTexture_MAP);
+    SDL_DestroyTexture(pLevel->pTexture_MAP_Titre);
+    SDL_DestroyTexture(pLevel->pTexture_MAP_Obstacles);
+
+}
+/*****************************************************************
+*****************************************************************/
 void affiche_map   (SDL_Renderer *pRenderer, t_level *pLevel) {
 
     SDL_RenderCopy (pRenderer, pLevel->pTexture_MAP, NULL, NULL);
+}
+/*****************************************************************
+*****************************************************************/
+void affiche_titre          (SDL_Renderer *pRenderer, t_level *p) {
+
+       SDL_RenderCopy      (pRenderer, p->pTexture_MAP_Titre,  &p->Titre_position_src, &p->Titre_position_dst);
 
 }
 /*****************************************************************
@@ -384,22 +443,4 @@ void affiche_map_console (t_level *pLevel) {
     }
     printf ("\n");
 }
-/*****************************************************************
-*****************************************************************/
-void init_level_chemins     (t_level *pLevel) {
 
-    int x, y;
-
-    for (y = 1; y < MAP_NB_TILE_Y; y++){
-        x = 0;
-        if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
-        x = MAP_NB_TILE_X - 1;
-        if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
-    }
-    for (x = 1; x < MAP_NB_TILE_X; x++ ) {
-        y = 0;
-        if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
-        y = MAP_NB_TILE_Y - 1;
-        if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
-    }
-}
