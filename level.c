@@ -156,9 +156,9 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     int wave[LEVEL_NB_TOTAL][WAVE_NB * WAVE_nb_variable_struct_wave] = {    /** definition des vagues d'attack
           type, Nb_up, Nb_right, Nb_Down, Nb_left, délais avant départ  **/
         {   // level 1
-            0,  1, 1,  1,  0,  3,          // wave 1
-            1,  10, 10,  10,  0,  10,
-            2,  20, 20,  20,  0,  20,
+            0,  0, 10,  0,  0,  3,          // wave 1
+            1,  10, 10,  10,  0,  15,
+            2,  20, 20,  20,  0,  30,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
@@ -328,7 +328,7 @@ void init_level_titre       (SDL_Renderer *pRenderer, t_level *pLevel, TTF_Font 
 
 
     SDL_Surface *texte = NULL;
-    SDL_Color couleur = {200, 00, 100, 0};
+    SDL_Color couleur = {200, 100, 100, 0};
 
     texte = TTF_RenderText_Blended(police, pLevel->name, couleur);
     pLevel->Titre_position_src.x = 0;

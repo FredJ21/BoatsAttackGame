@@ -28,7 +28,12 @@
 #define WAVE_NB                 10
 
 #define POLICE_LEVEL_TITRE      "./fonts/Alex_Bold.ttf"
-#define POLICE_LEVEL_TITRE_SIZE  150
+#define POLICE_LEVEL_TITRE_SIZE 150
+
+#define POLICE_SCORE            "./fonts/DS-DIGIB.TTF"
+#define POLICE_SCORE_SIZE       30
+
+
 
 enum { UP, RIGHT, DOWN, LEFT };
 

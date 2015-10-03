@@ -706,7 +706,7 @@
 	"config.h"
 	"level.h"
 
-1443834065 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.c
+1443886736 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -1054,13 +1054,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1443832980 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\config.h
+1443884623 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\config.h
 
 1443335483 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.h
 
 1443831883 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.h
 
-1443832961 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.c
+1443883681 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -1498,12 +1498,13 @@
 
 1443765935 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\affichage_texte.h
 
-1443731803 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\affichage_texte.c
+1443886787 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\affichage_texte.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
 	<stdlib.h>
+	"config.h"
 	"affichage_texte.h"
 
-1443731803 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\affichage_texte.h
+1443884623 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\affichage_texte.h
 

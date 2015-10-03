@@ -62,10 +62,11 @@ int main( int argc, char* args[] )
     // Initialize SDL TTF
     if( TTF_Init() != 0 ) {  printf( "TTF_Init ERREUR ! SDL_GetError: %s\n", SDL_GetError() ); return -1; }
 
+    // pour le titre de chaque level
     TTF_Font *police_level_titre;
-
     police_level_titre = TTF_OpenFont(POLICE_LEVEL_TITRE, POLICE_LEVEL_TITRE_SIZE);
     if(!police_level_titre) {                  printf( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
+
 
 
     /******************************************************************************************************************
@@ -87,7 +88,9 @@ int main( int argc, char* args[] )
     int current_level       = 0;
     int current_nb_enemy    = 0;
     int current_enemy_alive = 0;
+
     t_level my_level = {};
+    t_score my_score = {};
 
     srand(time(NULL));
 
@@ -142,6 +145,11 @@ int main( int argc, char* args[] )
     t_sprite *ENEMY[WAVE_NB * WAVE_ENEMY_MAX_BY_WAVE];   //tableau de pointeurs
 
 
+    // charge la police pour l'affichage du score
+    my_score.police = TTF_OpenFont(POLICE_SCORE, POLICE_SCORE_SIZE);
+    if(!my_score.police) {                  printf( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
+
+
     /******************************************************************************************************************
                                                 BOUCLE PRINCIPALE
     *******************************************************************************************************************/
@@ -194,6 +202,8 @@ int main( int argc, char* args[] )
 
                 change_level = false;
 
+                my_score.level = current_level + 1;
+
                 /** NETTOYAGE **/
                 for (a = 0; a < WAVE_NB * WAVE_ENEMY_MAX_BY_WAVE; a++) {
                     destroy_sprite(&ENEMY[a]);
@@ -219,27 +229,27 @@ int main( int argc, char* args[] )
                     b = 0;
                     // creation en haut
                     for (a = 0; a < my_level.wave[w].nb_up; a++ ) {
-                        ENEMY[current_nb_enemy++] = create_Enemy( UP ,    my_level.StartPos_UP_s, my_level.StartPos_UP_e,       &ANIM[my_level.wave[w].type], 0.2*a + my_level.wave[w].start_in);
+                        ENEMY[current_nb_enemy++] = create_Enemy( UP ,    my_level.StartPos_UP_s, my_level.StartPos_UP_e,       &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in);
                         b++;
                     }
                     // creation a droite
                     for (a = 0; a < my_level.wave[w].nb_right; a++ ) {
-                        ENEMY[current_nb_enemy++] = create_Enemy( RIGHT , my_level.StartPos_RIGHT_s, my_level.StartPos_RIGHT_e, &ANIM[my_level.wave[w].type], 0.2*a + my_level.wave[w].start_in);
+                        ENEMY[current_nb_enemy++] = create_Enemy( RIGHT , my_level.StartPos_RIGHT_s, my_level.StartPos_RIGHT_e, &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in);
                         b++;
                     }
                     // creation en bas
                     for (a = 0; a < my_level.wave[w].nb_down; a++ ) {
-                        ENEMY[current_nb_enemy++] = create_Enemy( DOWN ,  my_level.StartPos_DOWN_s, my_level.StartPos_DOWN_e,   &ANIM[my_level.wave[w].type], 0.2*a + my_level.wave[w].start_in);
+                        ENEMY[current_nb_enemy++] = create_Enemy( DOWN ,  my_level.StartPos_DOWN_s, my_level.StartPos_DOWN_e,   &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in);
                         b++;
                     }
                     // creation a gauche
                     for (a = 0; a < my_level.wave[w].nb_left; a++ ) {
-                        ENEMY[current_nb_enemy++] = create_Enemy( LEFT ,  my_level.StartPos_LEFT_s, my_level.StartPos_LEFT_e,   &ANIM[my_level.wave[w].type], 0.2*a + my_level.wave[w].start_in);
+                        ENEMY[current_nb_enemy++] = create_Enemy( LEFT ,  my_level.StartPos_LEFT_s, my_level.StartPos_LEFT_e,   &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in);
                         b++;
                     }
                     printf ("%d\n", b);
                 }
-                printf ("Nombre d'ennemi : %d\n", current_nb_enemy);
+               // printf ("Nombre d'ennemi : %d\n", current_nb_enemy);
 
                 CounterTimeLevel = 0;
                 affiche_level_tire = true;
@@ -251,13 +261,17 @@ int main( int argc, char* args[] )
         *******************************************************************************************************************/
         if (clock() > CounterSecond + 1000) {
 
-            // compte le nombre d'ennemi en vir
+            // compte le nombre d'ennemi en vie
             int current_enemy_alive = 0;
 
             for (a = 0; a < current_nb_enemy; a++) {
                 if ( ENEMY[a]->visible )  { current_enemy_alive++; }
             }
-            printf("Nombre d'ennemi en vie : %d\n", current_enemy_alive);
+//            printf("Nombre d'ennemi en vie : %d\n", current_enemy_alive);
+
+            // mise à jour du score
+            my_score.NbEnemy = current_enemy_alive;
+            init_score( pRenderer, &my_score);
 
             // decide du changement de level
             if ( current_enemy_alive == 0 ) {
@@ -311,6 +325,9 @@ int main( int argc, char* args[] )
         // Affichage du texte
         if (affiche_level_tire) {       affiche_titre(pRenderer, &my_level);    }
 
+        // Affichage du score
+        affiche_score( pRenderer, &my_score);
+
         // Mise a jour de l'affichage
         SDL_RenderPresent   (pRenderer);
 
@@ -337,6 +354,7 @@ int main( int argc, char* args[] )
     SDL_DestroyTexture(DRAPEAU.texture);
 
     clear_level (&my_level);
+    clear_score (&my_score);
 
     SDL_DestroyTexture(pTexture);
     SDL_FreeSurface(pSurface);
