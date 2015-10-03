@@ -64,7 +64,7 @@ int main( int argc, char* args[] )
 
     TTF_Font *police_level_titre;
 
-    police_level_titre = TTF_OpenFont(POLICE_1, 50);
+    police_level_titre = TTF_OpenFont(POLICE_LEVEL_TITRE, POLICE_LEVEL_TITRE_SIZE);
     if(!police_level_titre) {                  printf( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
 
@@ -73,12 +73,14 @@ int main( int argc, char* args[] )
     *******************************************************************************************************************/
     bool fin            = false;
     bool change_level   = true;
+    bool affiche_level_tire = false;
 
-    time_t t_Avant_Traitement;
+    time_t t_Avant_Traitement;          // permet de gérer les fps
     time_t t_Apres_Traitement;
 
-    time_t CounterTimeA = clock();
-    int CounterBeforeChgLevel = 0;
+    time_t CounterSecond = clock();     // traitement toute les second
+    int CounterBeforeChgLevel = 0;      // pause avant le changement de level
+    int CounterTimeLevel =0;            // second depuis le demarrage du level
 
     int a = 0, b = 0;
     int w = 0;
@@ -239,23 +241,25 @@ int main( int argc, char* args[] )
                 }
                 printf ("Nombre d'ennemi : %d\n", current_nb_enemy);
 
+                CounterTimeLevel = 0;
+                affiche_level_tire = true;
+
         }
 
        /******************************************************************************************************************
-                                                    COMPTEURS
+                                                    TRAITEMENTS TOUTES LES SECONDES
         *******************************************************************************************************************/
-        if (clock() > CounterTimeA + 1000) {
+        if (clock() > CounterSecond + 1000) {
 
-            b = 0;
+            // compte le nombre d'ennemi en vir
             int current_enemy_alive = 0;
 
             for (a = 0; a < current_nb_enemy; a++) {
-
-                if ( ENEMY[a]->is_actif ) { b++; }
                 if ( ENEMY[a]->visible )  { current_enemy_alive++; }
             }
             printf("Nombre d'ennemi en vie : %d\n", current_enemy_alive);
 
+            // decide du changement de level
             if ( current_enemy_alive == 0 ) {
 
                 CounterBeforeChgLevel++;
@@ -269,7 +273,17 @@ int main( int argc, char* args[] )
                     change_level = true;
                 }
             }
-            CounterTimeA = clock();
+
+            //Affichage du titre en debut de level
+            if (CounterTimeLevel < 2 ){
+                    affiche_level_tire = true;
+            }
+            else {
+                    affiche_level_tire =false;
+            }
+
+            CounterTimeLevel++;
+            CounterSecond = clock();
         }
 
 
@@ -295,7 +309,7 @@ int main( int argc, char* args[] )
         }
 
         // Affichage du texte
-        affiche_titre(pRenderer, &my_level);
+        if (affiche_level_tire) {       affiche_titre(pRenderer, &my_level);    }
 
         // Mise a jour de l'affichage
         SDL_RenderPresent   (pRenderer);

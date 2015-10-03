@@ -147,7 +147,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     };
 
     char name [LEVEL_NB_TOTAL][256] = {
-        { "LEVEL1234567890" },
+        { "LEVEL 1" },
         { "LEVEL 2" },
         { "LEVEL 3" },
         { "LEVEL 4" }
@@ -156,9 +156,9 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     int wave[LEVEL_NB_TOTAL][WAVE_NB * WAVE_nb_variable_struct_wave] = {    /** definition des vagues d'attack
           type, Nb_up, Nb_right, Nb_Down, Nb_left, délais avant départ  **/
         {   // level 1
-            0,  1, 1,  1,  0,  0,          // wave 1
-            1,  10, 10,  10,  0,  30,
-            2,  20, 20,  20,  0,  40,
+            0,  1, 1,  1,  0,  3,          // wave 1
+            1,  10, 10,  10,  0,  10,
+            2,  20, 20,  20,  0,  20,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
@@ -328,15 +328,15 @@ void init_level_titre       (SDL_Renderer *pRenderer, t_level *pLevel, TTF_Font 
 
 
     SDL_Surface *texte = NULL;
-    SDL_Color couleurNoire = {200, 100, 100, 0};
+    SDL_Color couleur = {200, 00, 100, 0};
 
-    texte = TTF_RenderText_Blended(police, pLevel->name, couleurNoire);
+    texte = TTF_RenderText_Blended(police, pLevel->name, couleur);
     pLevel->Titre_position_src.x = 0;
     pLevel->Titre_position_src.y = 0;
     pLevel->Titre_position_src.h = texte->h;
     pLevel->Titre_position_src.w = texte->w;
-    pLevel->Titre_position_dst.x = 200;
-    pLevel->Titre_position_dst.y = 50;
+    pLevel->Titre_position_dst.x = (MAP_TAILLE_X - texte->w)/2;
+    pLevel->Titre_position_dst.y = (MAP_TAILLE_Y - texte->h*2)/2;
     pLevel->Titre_position_dst.h = texte->h;
     pLevel->Titre_position_dst.w = texte->w;
 
@@ -358,7 +358,7 @@ void clear_level            (t_level *pLevel) {
 }
 /*****************************************************************
 *****************************************************************/
-void affiche_map   (SDL_Renderer *pRenderer, t_level *pLevel) {
+void affiche_map            (SDL_Renderer *pRenderer, t_level *pLevel) {
 
     SDL_RenderCopy (pRenderer, pLevel->pTexture_MAP, NULL, NULL);
 }
@@ -411,14 +411,14 @@ void init_texture_obstacle  (SDL_Renderer *pRenderer, t_level *pLevel) {
 }
 /*****************************************************************
 *****************************************************************/
-void affiche_obstacle   (SDL_Renderer *pRenderer, t_level *pLevel) {
+void affiche_obstacle       (SDL_Renderer *pRenderer, t_level *pLevel) {
 
     SDL_RenderCopy (pRenderer, pLevel->pTexture_MAP_Obstacles, NULL, NULL);
 
 }
 /*****************************************************************
 *****************************************************************/
-void affiche_map_console (t_level *pLevel) {
+void affiche_map_console    (t_level *pLevel) {
 
     int x, y;
 

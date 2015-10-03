@@ -27,7 +27,8 @@
 #define WAVE_ENEMY_MAX_BY_WAVE  100
 #define WAVE_NB                 10
 
-#define POLICE_1            "./fonts/Just_Like_This_Demo.TTF"
+#define POLICE_LEVEL_TITRE      "./fonts/Alex_Bold.ttf"
+#define POLICE_LEVEL_TITRE_SIZE  150
 
 enum { UP, RIGHT, DOWN, LEFT };
 
