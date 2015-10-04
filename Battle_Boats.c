@@ -72,9 +72,12 @@ int main( int argc, char* args[] )
     /******************************************************************************************************************
                                                 VARIABLES
     *******************************************************************************************************************/
-    bool fin            = false;
-    bool change_level   = true;
-    bool affiche_level_tire = false;
+    bool fin                    = false;
+    bool change_level           = true;
+    bool affiche_level_tire     = false;
+
+    bool tower_position_mode    = false;
+    bool tower_position_ok      = false;
 
     time_t t_Avant_Traitement;          // permet de gérer les fps
     time_t t_Apres_Traitement;
@@ -91,6 +94,8 @@ int main( int argc, char* args[] )
 
     t_level my_level = {};
     t_score my_score = {};
+
+    int mouse_x, mouse_y;
 
     srand(time(NULL));
 
@@ -137,13 +142,19 @@ int main( int argc, char* args[] )
     t_animation DRAPEAU = { "./images/flag.bmp", 31, 40, 11, 11, 11, NULL, 3, 1 };
     init_animation( &DRAPEAU, pRenderer);
 
-    /** SPRITE ARRIVE */
+    t_animation ANIM_TOWER = { "./images/Tower1.bmp", 48, 48, 3, 12, 0, NULL, 0, 0 };
+    init_animation( &ANIM_TOWER, pRenderer);
+
+
+    /* SPRITE ENNEMI */
+    t_sprite *ENEMY[WAVE_NB * WAVE_ENEMY_MAX_BY_WAVE];   //tableau de pointeurs
+
+    /* SPRITE ARRIVE */
     t_sprite *ARRIVE;
     ARRIVE = init_sprite (&DRAPEAU);
 
-    /** SPRITE ENNEMI **/
-    t_sprite *ENEMY[WAVE_NB * WAVE_ENEMY_MAX_BY_WAVE];   //tableau de pointeurs
-
+    /* SPRITE TOWER */
+    t_sprite *TOWER = init_sprite (&ANIM_TOWER);
 
     // charge la police pour l'affichage du score
     my_score.police = TTF_OpenFont(POLICE_SCORE, POLICE_SCORE_SIZE);
@@ -184,12 +195,23 @@ int main( int argc, char* args[] )
                             }
                             change_level = true;
                             break;
-
+                        case SDLK_t:
+                            if ( tower_position_mode ){
+                                tower_position_mode = false;
+                            } else {
+                                tower_position_mode = true;
+                            }
                         default:
                             //printf ("KEY\n");
                             break;
                     }
                     break;
+
+                // Souris
+                case SDL_MOUSEMOTION:
+                    SDL_GetMouseState( &mouse_x, &mouse_y );
+                    TOWER->x = mouse_x;
+                    TOWER->y = mouse_y;
 
             }
 
@@ -300,6 +322,14 @@ int main( int argc, char* args[] )
             CounterSecond = clock();
         }
 
+        /******************************************************************************************************************
+                                                    GESTION DES TOURELLES
+        *******************************************************************************************************************/
+        if ( is_tower_valid_position(TOWER, &my_level) ) {
+            tower_position_ok = true;
+        } else {
+            tower_position_ok = false;
+        }
 
         /******************************************************************************************************************
                                                     AFFICHAGE
@@ -321,6 +351,17 @@ int main( int argc, char* args[] )
             avance_sprite   (ENEMY[a], &my_level);
             affiche_sprite  (pRenderer, ENEMY[a]);
         }
+
+        // Affichage de la tourelle de depart
+        if (tower_position_mode) {
+            TOWER->visible = 180;
+            if ( tower_position_ok )  {    TOWER->img_current = 1; } else { TOWER->img_current = 0; }
+            affiche_sprite (pRenderer, TOWER);
+            TOWER->visible = 254;
+            TOWER->img_current = 2;
+            affiche_sprite (pRenderer, TOWER);
+        }
+
 
         // Affichage du texte
         if (affiche_level_tire) {       affiche_titre(pRenderer, &my_level);    }
@@ -347,11 +388,15 @@ int main( int argc, char* args[] )
         destroy_sprite(&ENEMY[a]);
     }
 
+    destroy_sprite(&ARRIVE);
+    destroy_sprite(&TOWER);
+
     SDL_DestroyTexture(ANIM[0].texture);
     SDL_DestroyTexture(ANIM[1].texture);
     SDL_DestroyTexture(ANIM[2].texture);
 
     SDL_DestroyTexture(DRAPEAU.texture);
+    SDL_DestroyTexture(ANIM_TOWER.texture);
 
     clear_level (&my_level);
     clear_score (&my_score);

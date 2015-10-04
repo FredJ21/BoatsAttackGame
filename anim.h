@@ -61,6 +61,7 @@ void        destroy_sprite(t_sprite **s);
 
 void place_sprite  (t_sprite *s, int x, int y);      // X et Y sont des coordonnés de MAP
 
+bool is_tower_valid_position(t_sprite *s, t_level *pLevel);
 
 
 #endif // ANIM_H_INCLUDED

@@ -27,8 +27,7 @@ void init_animation(t_animation *a, SDL_Renderer *r)  {
 
 /*****************************************************************
 *****************************************************************/
-t_sprite *init_sprite(t_animation *a)
-{
+t_sprite *init_sprite(t_animation *a){
 	t_sprite *s = (t_sprite*)malloc(sizeof(t_sprite));
 
 	s->x = 0;
@@ -103,8 +102,7 @@ t_sprite*   create_Enemy( int position, int A, int B, t_animation *ANIM, float F
 }
 /*****************************************************************
 *****************************************************************/
-void avance_sprite(t_sprite *s, t_level *pLevel)
-{
+void avance_sprite(t_sprite *s, t_level *pLevel){
 
     t_pos HD;      // postion en haut à droite
     t_pos HG;      // postion en haut à gauche
@@ -433,6 +431,7 @@ void affiche_sprite(SDL_Renderer *r, t_sprite *s)
         s->visible = 0;
     }
     SDL_SetTextureAlphaMod (s->anim->texture, s->visible);
+    SDL_SetRenderDrawColor (r, 254, 0, 0, 50);
 
     // Affichage
     SDL_RenderCopy ( r, s->anim->texture , &Src, &Dst);
@@ -455,5 +454,47 @@ void place_sprite (t_sprite *p, int x, int y) {
 }
 /*****************************************************************
 *****************************************************************/
+bool is_tower_valid_position(t_sprite *s, t_level *pLevel) {
+
+    t_pos HD;      // postion en haut à droite
+    t_pos HG;      // postion en haut à gauche
+    t_pos BD;      // postion en bas à droite
+    t_pos BG;      // postion en bas à gauche
 
 
+    // les ccordonnées du sprite correspondent à son centre
+    // calcul des coordonnées des quatres coins
+    HD.x = s->x + s->anim->tx/2 ;
+    BD.x = HD.x;
+    HD.tileX = HD.x / TILE_TAILLE_X;
+    BD.tileX = HD.tileX;
+
+    HG.x = s->x - s->anim->tx/2 ;
+    BG.x = HG.x;
+    HG.tileX = HG.x / TILE_TAILLE_X;
+    BG.tileX = HG.tileX;
+
+    HD.y = s->y - s->anim->ty/2 ;
+    HG.y = HD.y;
+    HD.tileY = HD.y / TILE_TAILLE_Y;
+    HG.tileY = HD.tileY;
+
+    BD.y = s->y + s->anim->ty/2 ;
+    BG.y = BD.y;
+    BD.tileY = BD.y / TILE_TAILLE_Y;
+    BG.tileY = BD.tileY;
+
+    if ( pLevel->map_Info[HD.tileX][HD.tileY] == OBSTACLE &&
+         pLevel->map_Info[HG.tileX][HG.tileY] == OBSTACLE &&
+         pLevel->map_Info[BD.tileX][BD.tileY] == OBSTACLE &&
+         pLevel->map_Info[BG.tileX][BG.tileY] == OBSTACLE ) {
+
+         return true;
+
+    } else {
+
+        return false;
+    }
+
+
+}

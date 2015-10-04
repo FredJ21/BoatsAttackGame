@@ -19,9 +19,9 @@ typedef struct {
 typedef struct {
 
     char        name[256];
-    int         my_map[MAP_NB_TILE_X * MAP_NB_TILE_Y];
-    int         map_Info[MAP_NB_TILE_X][MAP_NB_TILE_Y];
-    int         map_Direction[MAP_NB_TILE_X][MAP_NB_TILE_Y];
+    int         my_map[MAP_NB_TILE_X * MAP_NB_TILE_Y];              // permet de dessiner la map
+    int         map_Info[MAP_NB_TILE_X][MAP_NB_TILE_Y];             // info sur la postion des obstacles
+    int         map_Direction[MAP_NB_TILE_X][MAP_NB_TILE_Y];        // info sur le parcour vers la cible
 
     int         cibleX;         // placement du drapeau
     int         cibleY;
