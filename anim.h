@@ -43,27 +43,44 @@ typedef struct {
 
 } t_sprite;
 
+// sprite de type tower
+typedef struct {
+    int     x, y;               // position
+    int     img_current;        // image current
+    int     angle;
 
-void init_animation(t_animation *a, SDL_Renderer *r);
+	int compte_tour;            // compte tours
+	int nb_tour;                // nombre de tours
 
-t_sprite*   init_sprite(t_animation *a);
+	t_animation *anim;          // les images de l'animations
 
-t_sprite*   create_Enemy( int position, int A, int B, t_animation *ANIM, float Frequence);
-                            // position --> en haut, à droite, en bas, à gauche
-                            // A & B    --> délimite la zone de création , entre A et B
-                            // *ANIM    --> pointeur sur l'annimation
-                            // Frequence --> Frequence de démarrage entre chaque ennemi
+	int     visible;             // effet de transparence  255->visible  0->invisible
 
-t_sprite*   create_Tower( int x, int y, t_animation *ANIM);
+} t_tower;
 
-void        avance_sprite(t_sprite *s, t_level *pLevel);
-void        anime_sprite(t_sprite *s);
-void        affiche_sprite(SDL_Renderer *r, t_sprite *s);
-void        destroy_sprite(t_sprite **s);
 
-void place_sprite  (t_sprite *s, int x, int y);      // X et Y sont des coordonnés de MAP
+void init_animation                 (t_animation *a, SDL_Renderer *r);
 
-bool is_tower_valid_position(t_sprite *s, t_level *pLevel);
+t_sprite*   init_sprite             (t_animation *a);
+
+t_sprite*   create_Enemy            (int position, int A, int B, t_animation *ANIM, float Frequence);
+                                        // position --> en haut, à droite, en bas, à gauche
+                                        // A & B    --> délimite la zone de création , entre A et B
+                                        // *ANIM    --> pointeur sur l'annimation
+                                        // Frequence --> Frequence de démarrage entre chaque ennemi
+
+void        avance_sprite           (t_sprite *s, t_level *pLevel);
+void        anime_sprite            (t_sprite *s);
+void        affiche_sprite          (SDL_Renderer *r, t_sprite *s);
+void        place_sprite            (t_sprite *s, int x, int y);      // X et Y sont des coordonnés de MAP
+void        destroy_sprite          (t_sprite **s);
+
+t_tower*   create_Tower             ( int x, int y, t_animation *ANIM);
+void        anime_tower             (t_tower *s);
+void        affiche_tower           (SDL_Renderer *r, t_tower *s);
+bool        is_tower_valid_position (t_tower *s, t_level *pLevel);
+void        add_tower_position      (t_tower *s, t_level *pLevel);
+void        destroy_tower           (t_tower **s);
 
 
 #endif // ANIM_H_INCLUDED

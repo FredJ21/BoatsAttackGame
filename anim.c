@@ -24,10 +24,9 @@ void init_animation(t_animation *a, SDL_Renderer *r)  {
     SDL_FreeSurface(pSurface_tmp);
 
 }
-
 /*****************************************************************
 *****************************************************************/
-t_sprite *init_sprite(t_animation *a){
+t_sprite    *init_sprite(t_animation *a){
 	t_sprite *s = (t_sprite*)malloc(sizeof(t_sprite));
 
 	s->x = 0;
@@ -102,30 +101,6 @@ t_sprite*   create_Enemy( int position, int A, int B, t_animation *ANIM, float F
 }
 /*****************************************************************
 *****************************************************************/
-t_sprite*   create_Tower( int x, int y, t_animation *ANIM) {
-
-	t_sprite *s = (t_sprite*)malloc(sizeof(t_sprite));
-
-    s->x    = x;
-    s->y    = y;
-	s->dx   = 0;
-	s->dy   = 0;
-	s->img_current  = 2;
-	s->compte_tour  = 0;
-	s->nb_tour      = ANIM->nb_tour;
-	s->anim         = ANIM;
-	s->is_actif     = true;
-	s->is_arrive    = false;
-	s->in_the_map   = true;
-	s->time_before_ativiation = 0 ;
-	s->visible      = 255;
-
-	return s;
-
-
-}
-/*****************************************************************
-*****************************************************************/
 void avance_sprite(t_sprite *s, t_level *pLevel){
 
     t_pos HD;      // postion en haut à droite
@@ -197,7 +172,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel){
                                         //printf ("1 Detection bord\n");
                                 }
                                 // detection des obstacles
-                                else if ( pLevel->map_Info[HG.tileX][HG.tileY] == OBSTACLE || pLevel->map_Info[HD.tileX][HD.tileY] == OBSTACLE ) {
+                                else if ( pLevel->map_Info[HG.tileX][HG.tileY] != LIBRE || pLevel->map_Info[HD.tileX][HD.tileY] != LIBRE ) {
                                         //printf ("1 Detection obstacle\n");
                                         if ( pLevel->map_Info[HG.tileX][HG.tileY] == LIBRE ) {
 
@@ -216,14 +191,14 @@ void avance_sprite(t_sprite *s, t_level *pLevel){
                                 } else {
 
                                         if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LA_DROITE
-                                            && pLevel->map_Info[HD.tileX+1][HD.tileY] != OBSTACLE
-                                            && pLevel->map_Info[BD.tileX+1][BD.tileY] != OBSTACLE) {
+                                            && pLevel->map_Info[HD.tileX+1][HD.tileY] == LIBRE
+                                            && pLevel->map_Info[BD.tileX+1][BD.tileY] == LIBRE) {
 
                                                 s->direction = RIGHT;
 
                                         }else if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LA_GAUCHE
-                                            && pLevel->map_Info[HG.tileX-1][HG.tileY] != OBSTACLE
-                                            && pLevel->map_Info[BG.tileX-1][BG.tileY] != OBSTACLE) {
+                                            && pLevel->map_Info[HG.tileX-1][HG.tileY] == LIBRE
+                                            && pLevel->map_Info[BG.tileX-1][BG.tileY] == LIBRE) {
 
                                                 s->direction = LEFT;
                                         }
@@ -241,7 +216,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel){
                                          //printf ("2 Detection bord\n");
                                 }
                                 // detection des obstacles
-                                else if ( pLevel->map_Info[HD.tileX][HD.tileY] == OBSTACLE || pLevel->map_Info[BD.tileX][BD.tileY] == OBSTACLE ) {
+                                else if ( pLevel->map_Info[HD.tileX][HD.tileY] != LIBRE || pLevel->map_Info[BD.tileX][BD.tileY] != LIBRE ) {
 
                                         //printf ("2 Detection obstacle\n");
 
@@ -262,14 +237,14 @@ void avance_sprite(t_sprite *s, t_level *pLevel){
                                 } else {
 
                                         if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LE_HAUT
-                                            && pLevel->map_Info[HD.tileX][HD.tileY-1] != OBSTACLE
-                                            && pLevel->map_Info[HG.tileX][HG.tileY-1] != OBSTACLE) {
+                                            && pLevel->map_Info[HD.tileX][HD.tileY-1] == LIBRE
+                                            && pLevel->map_Info[HG.tileX][HG.tileY-1] == LIBRE) {
 
                                                 s->direction = UP;
 
                                         }else if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LE_BAS
-                                            && pLevel->map_Info[BD.tileX][BD.tileY+1] != OBSTACLE
-                                            && pLevel->map_Info[BG.tileX][BG.tileY+1] != OBSTACLE) {
+                                            && pLevel->map_Info[BD.tileX][BD.tileY+1] == LIBRE
+                                            && pLevel->map_Info[BG.tileX][BG.tileY+1] == LIBRE) {
 
                                                 s->direction = DOWN;
                                         }
@@ -287,7 +262,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel){
                                         //printf ("3 Detection bord\n");
                                 }
                                 // detection des obstacles
-                                else if ( pLevel->map_Info[BG.tileX][BG.tileY] == OBSTACLE || pLevel->map_Info[BD.tileX][BD.tileY] == OBSTACLE ) {
+                                else if ( pLevel->map_Info[BG.tileX][BG.tileY] != LIBRE || pLevel->map_Info[BD.tileX][BD.tileY] != LIBRE ) {
 
                                         //printf ("3 Detection obstacle\n");
 
@@ -308,14 +283,14 @@ void avance_sprite(t_sprite *s, t_level *pLevel){
                                 } else {
 
                                         if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LA_DROITE
-                                            && pLevel->map_Info[HD.tileX+1][HD.tileY] != OBSTACLE
-                                            && pLevel->map_Info[BD.tileX+1][BD.tileY] != OBSTACLE) {
+                                            && pLevel->map_Info[HD.tileX+1][HD.tileY] == LIBRE
+                                            && pLevel->map_Info[BD.tileX+1][BD.tileY] == LIBRE) {
 
                                                 s->direction = RIGHT;
 
                                         }else if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LA_GAUCHE
-                                            && pLevel->map_Info[HG.tileX-1][HG.tileY] != OBSTACLE
-                                            && pLevel->map_Info[BG.tileX-1][BG.tileY] != OBSTACLE) {
+                                            && pLevel->map_Info[HG.tileX-1][HG.tileY] == LIBRE
+                                            && pLevel->map_Info[BG.tileX-1][BG.tileY] == LIBRE) {
 
                                                 s->direction = LEFT;
                                         }
@@ -332,7 +307,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel){
                                         //printf ("4 Detection bord\n");
                                 }
                                 // detection des obstacles
-                                else if ( pLevel->map_Info[HG.tileX][HG.tileY] == OBSTACLE || pLevel->map_Info[BG.tileX][BG.tileY] == OBSTACLE ) {
+                                else if ( pLevel->map_Info[HG.tileX][HG.tileY] != LIBRE || pLevel->map_Info[BG.tileX][BG.tileY] != LIBRE ) {
 
                                         //printf ("4 Detection obstacle\n");
 
@@ -353,14 +328,14 @@ void avance_sprite(t_sprite *s, t_level *pLevel){
                                 } else {
 
                                         if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LE_HAUT
-                                            && pLevel->map_Info[HD.tileX][HD.tileY-1] != OBSTACLE
-                                            && pLevel->map_Info[HG.tileX][HG.tileY-1] != OBSTACLE) {
+                                            && pLevel->map_Info[HD.tileX][HD.tileY-1] == LIBRE
+                                            && pLevel->map_Info[HG.tileX][HG.tileY-1] == LIBRE) {
 
                                                 s->direction = UP;
 
                                         }else if ( pLevel->map_Direction[Centre.tileX][Centre.tileY] == VERS_LE_BAS
-                                            && pLevel->map_Info[BD.tileX][BD.tileY+1] != OBSTACLE
-                                            && pLevel->map_Info[BG.tileX][BG.tileY+1] != OBSTACLE) {
+                                            && pLevel->map_Info[BD.tileX][BD.tileY+1] == LIBRE
+                                            && pLevel->map_Info[BG.tileX][BG.tileY+1] == LIBRE) {
 
                                                 s->direction = DOWN;
                                         }
@@ -417,8 +392,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel){
 }
 /*****************************************************************
 *****************************************************************/
-void anime_sprite(t_sprite*s)
-{
+void anime_sprite(t_sprite*s){
 	if (s->is_actif == true ) {
       s->compte_tour++;
       if (s->compte_tour > s->nb_tour) {
@@ -431,8 +405,7 @@ void anime_sprite(t_sprite*s)
 }
 /*****************************************************************
 *****************************************************************/
-void affiche_sprite(SDL_Renderer *r, t_sprite *s)
-{
+void affiche_sprite(SDL_Renderer *r, t_sprite *s){
     SDL_Rect Src;
     SDL_Rect Dst;
 
@@ -455,19 +428,11 @@ void affiche_sprite(SDL_Renderer *r, t_sprite *s)
         s->visible = 0;
     }
     SDL_SetTextureAlphaMod (s->anim->texture, s->visible);
-    SDL_SetRenderDrawColor (r, 254, 0, 0, 50);
+ //   SDL_SetRenderDrawColor (r, 254, 0, 0, 50);
 
     // Affichage
     SDL_RenderCopy ( r, s->anim->texture , &Src, &Dst);
 
-}
-/*****************************************************************
-*****************************************************************/
-void destroy_sprite(t_sprite **s)
-{
-
-    free(*s);
-    *s = NULL;
 }
 /*****************************************************************
 *****************************************************************/
@@ -478,7 +443,66 @@ void place_sprite (t_sprite *p, int x, int y) {
 }
 /*****************************************************************
 *****************************************************************/
-bool is_tower_valid_position(t_sprite *s, t_level *pLevel) {
+void destroy_sprite(t_sprite **s) {
+
+    free(*s);
+    *s = NULL;
+}
+/*****************************************************************
+*****************************************************************/
+t_tower*   create_Tower( int x, int y, t_animation *ANIM) {
+
+	t_tower *s = (t_tower*)malloc(sizeof(t_tower));
+
+    s->x    = x;
+    s->y    = y;
+	s->img_current  = 2;
+	s->angle        = 0;
+	s->compte_tour  = 0;
+	s->nb_tour      = ANIM->nb_tour;
+	s->anim         = ANIM;
+	s->visible      = 254;
+
+	return s;
+
+
+}
+/*****************************************************************
+*****************************************************************/
+void        anime_tower             (t_tower *s) {
+
+    s->angle = s->angle + 3;
+    if (s->angle > 360 ) { s->angle = 0; }
+}
+/*****************************************************************
+*****************************************************************/
+void affiche_tower(SDL_Renderer *r, t_tower *s){
+
+
+
+    SDL_Rect Src;
+    SDL_Rect Dst;
+
+    Src.x = s->img_current * s->anim->tx;
+    Src.y = 0;
+    Src.w = s->anim->tx;
+    Src.h = s->anim->ty;
+
+    Dst.x = s->x - s->anim->tx/2;     // permet de center le sprite sur les coordonnées
+    Dst.y = s->y - s->anim->ty/2;
+    Dst.w = s->anim->tx;
+    Dst.h = s->anim->ty;
+
+    SDL_SetTextureAlphaMod (s->anim->texture, s->visible);
+    SDL_SetRenderDrawColor (r, 254, 0, 0, 50);
+
+    // Affichage
+    SDL_RenderCopyEx(r, s->anim->texture, &Src, &Dst, s->angle, NULL, 0);
+
+}
+/*****************************************************************
+*****************************************************************/
+bool is_tower_valid_position(t_tower *s, t_level *pLevel) {
 
     t_pos HD;      // postion en haut à droite
     t_pos HG;      // postion en haut à gauche
@@ -508,6 +532,7 @@ bool is_tower_valid_position(t_sprite *s, t_level *pLevel) {
     BD.tileY = BD.y / TILE_TAILLE_Y;
     BG.tileY = BD.tileY;
 
+    // test si la position n'est ni LIBRE (sur eau) ni OCCUPE (par une tourelle)
     if ( pLevel->map_Info[HD.tileX][HD.tileY] == OBSTACLE &&
          pLevel->map_Info[HG.tileX][HG.tileY] == OBSTACLE &&
          pLevel->map_Info[BD.tileX][BD.tileY] == OBSTACLE &&
@@ -521,4 +546,54 @@ bool is_tower_valid_position(t_sprite *s, t_level *pLevel) {
     }
 
 
+}
+/*****************************************************************
+*****************************************************************/
+void add_tower_position(t_tower *s, t_level *pLevel) {
+
+    t_pos HD;      // postion en haut à droite
+    t_pos HG;      // postion en haut à gauche
+    t_pos BD;      // postion en bas à droite
+    t_pos BG;      // postion en bas à gauche
+
+    int x, y;
+
+    // les ccordonnées du sprite correspondent à son centre
+    // calcul des coordonnées des quatres coins
+    HD.x = s->x + s->anim->tx/2 ;
+    BD.x = HD.x;
+    HD.tileX = HD.x / TILE_TAILLE_X;
+    BD.tileX = HD.tileX;
+
+    HG.x = s->x - s->anim->tx/2 ;
+    BG.x = HG.x;
+    HG.tileX = HG.x / TILE_TAILLE_X;
+    BG.tileX = HG.tileX;
+
+    HD.y = s->y - s->anim->ty/2 ;
+    HG.y = HD.y;
+    HD.tileY = HD.y / TILE_TAILLE_Y;
+    HG.tileY = HD.tileY;
+
+    BD.y = s->y + s->anim->ty/2 ;
+    BG.y = BD.y;
+    BD.tileY = BD.y / TILE_TAILLE_Y;
+    BG.tileY = BD.tileY;
+
+    // toute la zone est occupée
+    for ( y = HG.tileY; y <= BG.tileY; y++) {
+        for ( x = HG.tileX; x <= HD.tileX; x++ ) {
+
+            printf ("%d-%d\n", x, y) ;
+            pLevel->map_Info[x][y] = OCCUPE;
+        }
+    }
+
+}
+/*****************************************************************
+*****************************************************************/
+void destroy_tower(t_tower **s) {
+
+    free(*s);
+    *s = NULL;
 }

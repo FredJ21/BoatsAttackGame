@@ -425,6 +425,7 @@ void affiche_map_console    (t_level *pLevel) {
     for (y = 0; y < MAP_NB_TILE_Y; y++){
         for (x = 0; x < MAP_NB_TILE_X; x++) {
 
+/*
            if ( pLevel->map_Info[x][y] == OBSTACLE) {
                 printf (".");
             } else if ( pLevel->map_Direction[x][y] == VERS_LE_HAUT) {
@@ -437,6 +438,15 @@ void affiche_map_console    (t_level *pLevel) {
                 printf ("<");
             } else {
                 printf (" ");
+            }
+ */
+            if (pLevel->map_Info[x][y] == OCCUPE ) {
+                    printf ("X");
+
+            } else if (pLevel->map_Info[x][y] == LIBRE){
+                    printf ("O");
+            } else {
+                    printf ("H");
             }
         }
         printf ("\n");
