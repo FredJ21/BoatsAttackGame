@@ -72,12 +72,13 @@ int main( int argc, char* args[] )
     /******************************************************************************************************************
                                                 VARIABLES
     *******************************************************************************************************************/
-    bool fin                    = false;
-    bool change_level           = true;
+    bool fin                    = false;        // fin du programme
+    bool change_level           = true;         // changement de level
     bool affiche_level_tire     = false;
 
-    bool tower_position_mode    = false;
-    bool tower_position_ok      = false;
+    bool tower_position_mode    = false;        // mode permettant de positionner les tourelles
+    bool tower_position_ok      = false;        // vrai si la tourelle n'est pas dans l'eau
+    bool tower_new              = false;        // vrai au clique de la souris
 
     time_t t_Avant_Traitement;          // permet de gérer les fps
     time_t t_Apres_Traitement;
@@ -91,6 +92,7 @@ int main( int argc, char* args[] )
     int current_level       = 0;
     int current_nb_enemy    = 0;
     int current_enemy_alive = 0;
+    int current_nb_tower    = 0;
 
     t_level my_level = {};
     t_score my_score = {};
@@ -154,7 +156,8 @@ int main( int argc, char* args[] )
     ARRIVE = init_sprite (&DRAPEAU);
 
     /* SPRITE TOWER */
-    t_sprite *TOWER = init_sprite (&ANIM_TOWER);
+    t_sprite *TOWER_MOUSE = init_sprite (&ANIM_TOWER);  // tourelle d'aide au positionnement, sous pointeur souris
+    t_sprite *TOWER[TOWER_MAX];                         // tableau de pointeurs
 
     // charge la police pour l'affichage du score
     my_score.police = TTF_OpenFont(POLICE_SCORE, POLICE_SCORE_SIZE);
@@ -210,9 +213,12 @@ int main( int argc, char* args[] )
                 // Souris
                 case SDL_MOUSEMOTION:
                     SDL_GetMouseState( &mouse_x, &mouse_y );
-                    TOWER->x = mouse_x;
-                    TOWER->y = mouse_y;
-
+                    TOWER_MOUSE->x = mouse_x;
+                    TOWER_MOUSE->y = mouse_y;
+                    break;
+                case SDL_MOUSEBUTTONDOWN:
+                    tower_new = true;
+                    break;
             }
 
         }
@@ -284,7 +290,7 @@ int main( int argc, char* args[] )
         if (clock() > CounterSecond + 1000) {
 
             // compte le nombre d'ennemi en vie
-            int current_enemy_alive = 0;
+            current_enemy_alive = 0;
 
             for (a = 0; a < current_nb_enemy; a++) {
                 if ( ENEMY[a]->visible )  { current_enemy_alive++; }
@@ -325,11 +331,16 @@ int main( int argc, char* args[] )
         /******************************************************************************************************************
                                                     GESTION DES TOURELLES
         *******************************************************************************************************************/
-        if ( is_tower_valid_position(TOWER, &my_level) ) {
+        if ( is_tower_valid_position(TOWER_MOUSE, &my_level) ) {
             tower_position_ok = true;
         } else {
             tower_position_ok = false;
         }
+        if ( tower_position_ok && tower_position_ok && tower_new ){
+            TOWER[current_nb_tower++] = create_Tower(mouse_x, mouse_y, &ANIM_TOWER);
+        }
+
+        tower_new = false;
 
         /******************************************************************************************************************
                                                     AFFICHAGE
@@ -348,18 +359,21 @@ int main( int argc, char* args[] )
         // Affichage des Sprites
         for (a = 0; a < current_nb_enemy; a++) {
             anime_sprite    (ENEMY[a]);
-            avance_sprite   (ENEMY[a], &my_level);
+ //           avance_sprite   (ENEMY[a], &my_level);
             affiche_sprite  (pRenderer, ENEMY[a]);
+        }
+        for (a = 0; a < current_nb_tower; a++){
+            affiche_sprite  (pRenderer, TOWER[a]);
         }
 
         // Affichage de la tourelle de depart
         if (tower_position_mode) {
-            TOWER->visible = 180;
-            if ( tower_position_ok )  {    TOWER->img_current = 1; } else { TOWER->img_current = 0; }
-            affiche_sprite (pRenderer, TOWER);
-            TOWER->visible = 254;
-            TOWER->img_current = 2;
-            affiche_sprite (pRenderer, TOWER);
+            TOWER_MOUSE->visible = 180;
+            if ( tower_position_ok )  {    TOWER_MOUSE->img_current = 1; } else { TOWER_MOUSE->img_current = 0; }
+            affiche_sprite (pRenderer, TOWER_MOUSE);
+            TOWER_MOUSE->visible = 254;
+            TOWER_MOUSE->img_current = 2;
+            affiche_sprite (pRenderer, TOWER_MOUSE);
         }
 
 
@@ -387,9 +401,12 @@ int main( int argc, char* args[] )
     for (a = 0; a < WAVE_NB * WAVE_ENEMY_MAX_BY_WAVE; a++) {
         destroy_sprite(&ENEMY[a]);
     }
+    for (a = 0; a <  TOWER_MAX; a++) {
+        destroy_sprite(&TOWER[a]);
+    }
 
     destroy_sprite(&ARRIVE);
-    destroy_sprite(&TOWER);
+    destroy_sprite(&TOWER_MOUSE);
 
     SDL_DestroyTexture(ANIM[0].texture);
     SDL_DestroyTexture(ANIM[1].texture);

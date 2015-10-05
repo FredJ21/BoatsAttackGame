@@ -54,6 +54,8 @@ t_sprite*   create_Enemy( int position, int A, int B, t_animation *ANIM, float F
                             // *ANIM    --> pointeur sur l'annimation
                             // Frequence --> Frequence de démarrage entre chaque ennemi
 
+t_sprite*   create_Tower( int x, int y, t_animation *ANIM);
+
 void        avance_sprite(t_sprite *s, t_level *pLevel);
 void        anime_sprite(t_sprite *s);
 void        affiche_sprite(SDL_Renderer *r, t_sprite *s);

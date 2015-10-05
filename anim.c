@@ -102,6 +102,30 @@ t_sprite*   create_Enemy( int position, int A, int B, t_animation *ANIM, float F
 }
 /*****************************************************************
 *****************************************************************/
+t_sprite*   create_Tower( int x, int y, t_animation *ANIM) {
+
+	t_sprite *s = (t_sprite*)malloc(sizeof(t_sprite));
+
+    s->x    = x;
+    s->y    = y;
+	s->dx   = 0;
+	s->dy   = 0;
+	s->img_current  = 2;
+	s->compte_tour  = 0;
+	s->nb_tour      = ANIM->nb_tour;
+	s->anim         = ANIM;
+	s->is_actif     = true;
+	s->is_arrive    = false;
+	s->in_the_map   = true;
+	s->time_before_ativiation = 0 ;
+	s->visible      = 255;
+
+	return s;
+
+
+}
+/*****************************************************************
+*****************************************************************/
 void avance_sprite(t_sprite *s, t_level *pLevel){
 
     t_pos HD;      // postion en haut à droite

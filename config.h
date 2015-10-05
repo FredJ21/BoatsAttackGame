@@ -26,6 +26,7 @@
 #define LEVEL_NB_TOTAL         4
 #define WAVE_ENEMY_MAX_BY_WAVE  100
 #define WAVE_NB                 10
+#define TOWER_MAX               30
 
 #define POLICE_LEVEL_TITRE      "./fonts/Alex_Bold.ttf"
 #define POLICE_LEVEL_TITRE_SIZE 150
