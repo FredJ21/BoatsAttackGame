@@ -76,7 +76,8 @@ int main( int argc, char* args[] )
     bool change_level           = true;         // changement de level
     bool affiche_level_titre     = false;
 
-    bool tower_position_mode    = false;        // mode permettant de positionner les tourelles
+    bool mode_place_tower       = false;        // mode permettant de positionner les tourelles
+    bool mode_tower_cible       = false;        // la tourelle doit viser la cible
     bool tower_position_ok      = false;        // vrai si la tourelle n'est pas dans l'eau
     bool tower_new              = false;        // vrai au clique de la souris
 
@@ -93,6 +94,8 @@ int main( int argc, char* args[] )
     int current_nb_enemy    = 0;
     int current_enemy_alive = 0;
     int current_nb_tower    = 0;
+    int current_cible_x     = 0;
+    int current_cible_y     = 0;
 
     t_level my_level = {};
     t_score my_score = {};
@@ -199,11 +202,13 @@ int main( int argc, char* args[] )
                             change_level = true;
                             break;
                         case SDLK_t:
-                            if ( tower_position_mode ){
-                                tower_position_mode = false;
+                            if ( mode_place_tower ){
+                                mode_place_tower = false;
                             } else {
-                                tower_position_mode = true;
+                                mode_place_tower = true;
+                                mode_tower_cible = false;
                             }
+                            break;
                         default:
                             //printf ("KEY\n");
                             break;
@@ -213,12 +218,26 @@ int main( int argc, char* args[] )
                 // Souris
                 case SDL_MOUSEMOTION:
                     SDL_GetMouseState( &mouse_x, &mouse_y );
+                    // permet de préparer les coordonnés pour le mode place_tower
                     TOWER_MOUSE->x = mouse_x;
                     TOWER_MOUSE->y = mouse_y;
+                    // permt de suivre la souris
+                    current_cible_x = mouse_x;
+                    current_cible_y = mouse_y;
+
                     break;
                 case SDL_MOUSEBUTTONDOWN:
-                    tower_new = true;
-                    break;
+                    if (mode_place_tower) {
+                        tower_new = true;
+                    } else {
+                        mode_tower_cible = true;
+                    }
+                    if (mode_tower_cible) {
+                        mode_tower_cible = true;
+                        current_cible_x = mouse_x;
+                        current_cible_y = mouse_y;
+                    }
+                   break;
             }
 
         }
@@ -336,11 +355,10 @@ int main( int argc, char* args[] )
         } else {
             tower_position_ok = false;
         }
+        // ajout d'une tourelle
         if ( tower_position_ok && tower_position_ok && tower_new ){
 
             TOWER[current_nb_tower] = create_Tower(mouse_x, mouse_y, &ANIM_TOWER);
-
-            //add_tower_position (TOWER[current_nb_tower], &my_level);
             current_nb_tower++;
 
         }
@@ -369,15 +387,26 @@ int main( int argc, char* args[] )
         }
         // Affichage des tourelles
         for (a = 0; a < current_nb_tower; a++){
-            anime_tower     (TOWER[a]);
+            if (mode_tower_cible) {
+                calcul_angle_tower(TOWER[a], current_cible_x, current_cible_y);
+            } else {
+                anime_tower     (TOWER[a]);
+            }
             affiche_tower  (pRenderer, TOWER[a]);
         }
 
         // Affichage de la tourelle de depart, sous la souris
-        if (tower_position_mode) {
+        if (mode_place_tower) {
+            // affichage d'un fond vert ou rouge celon terrain
             TOWER_MOUSE->visible = 180;
-            if ( tower_position_ok )  {    TOWER_MOUSE->img_current = 1; } else { TOWER_MOUSE->img_current = 0; }
+            if ( tower_position_ok )  {
+                    TOWER_MOUSE->img_current = 1;
+            } else {
+                    TOWER_MOUSE->img_current = 0;
+            }
+
             affiche_tower (pRenderer, TOWER_MOUSE);
+
             TOWER_MOUSE->visible = 254;
             TOWER_MOUSE->img_current = 2;
             affiche_tower (pRenderer, TOWER_MOUSE);

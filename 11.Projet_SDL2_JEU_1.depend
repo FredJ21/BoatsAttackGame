@@ -1442,19 +1442,20 @@
 
 1442389239 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\algo_a_star.h
 
-1444067303 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\anim.c
+1444145111 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\anim.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
+	<math.h>
 	"config.h"
 	"level.h"
 	"anim.h"
 
-1444067303 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\anim.h
+1444112311 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\anim.h
 
-1444066594 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\battle_boats.c
+1444148668 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\battle_boats.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>

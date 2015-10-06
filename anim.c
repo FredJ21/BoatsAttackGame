@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 
 #include "config.h"
 #include "level.h"
@@ -473,6 +474,24 @@ void        anime_tower             (t_tower *s) {
 
     s->angle = s->angle + 3;
     if (s->angle > 360 ) { s->angle = 0; }
+}
+/*****************************************************************
+*****************************************************************/
+void        calcul_angle_tower      (t_tower *s, int cible_x, int cible_y) {
+
+    int angle;
+    int xx = s->x - cible_x;
+    int yy = s->y - cible_y;
+
+    angle = abs( atan((float)xx/(float)yy) * 180 / M_PI );
+
+    if          ( xx > 0 && yy >= 0 ) {          angle = 360 - angle;
+    } else if   ( xx <= 0 && yy < 0 ) {          angle = 180 - angle;
+    } else if   ( xx > 0 && yy < 0 ) {          angle = 180 + angle;
+    }
+
+    //printf ("%d  %d   angle = %d\n", xx, yy, angle);
+    s->angle = angle;
 }
 /*****************************************************************
 *****************************************************************/

@@ -59,6 +59,7 @@ typedef struct {
 } t_tower;
 
 
+
 void init_animation                 (t_animation *a, SDL_Renderer *r);
 
 t_sprite*   init_sprite             (t_animation *a);
@@ -77,6 +78,8 @@ void        destroy_sprite          (t_sprite **s);
 
 t_tower*   create_Tower             ( int x, int y, t_animation *ANIM);
 void        anime_tower             (t_tower *s);
+void        calcul_angle_tower      (t_tower *s, int cible_x, int cible_y);
+
 void        affiche_tower           (SDL_Renderer *r, t_tower *s);
 bool        is_tower_valid_position (t_tower *s, t_level *pLevel);
 void        add_tower_position      (t_tower *s, t_level *pLevel);
