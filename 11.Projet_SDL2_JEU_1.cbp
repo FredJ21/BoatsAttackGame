@@ -63,6 +63,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="level.h" />
+		<Unit filename="tower.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tower.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

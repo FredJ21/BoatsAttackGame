@@ -12,6 +12,7 @@
 #include "anim.h"
 #include "Algo_A_star.h"
 #include "affichage_texte.h"
+#include "tower.h"
 
 
 

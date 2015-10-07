@@ -1,27 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="affichage_texte.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="level.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="136" topLine="3" />
+			<Cursor1 position="1880" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Algo_A_star.c" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6478" topLine="167" />
-		</Cursor>
-	</File>
-	<File name="Algo_A_star.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="250" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="level.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1627" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Battle_boats.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Battle_boats.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="137" topLine="0" />
 		</Cursor>
@@ -31,17 +16,17 @@
 			<Cursor1 position="41" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Battle_Boats.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Battle_Boats.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="17517" topLine="386" />
+			<Cursor1 position="286" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="config.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="config.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="643" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="level.c" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="level.c" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="27553" topLine="377" />
 		</Cursor>
@@ -54,18 +39,39 @@
 			<Cursor1 position="324" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="anim.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="anim.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="6490" topLine="166" />
-		</Cursor>
-	</File>
-	<File name="anim.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3045" topLine="24" />
+			<Cursor1 position="18" topLine="0" />
 		</Cursor>
 		<Folding>
-			<Collapse line="15" />
-			<Collapse line="46" />
+			<Collapse line="12" />
+			<Collapse line="28" />
+			<Collapse line="50" />
+			<Collapse line="103" />
+			<Collapse line="394" />
+			<Collapse line="407" />
+			<Collapse line="438" />
+			<Collapse line="445" />
 		</Folding>
+	</File>
+	<File name="anim.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2500" topLine="22" />
+		</Cursor>
+	</File>
+	<File name="Algo_A_star.c" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6478" topLine="167" />
+		</Cursor>
+	</File>
+	<File name="affichage_texte.c" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="136" topLine="3" />
+		</Cursor>
+	</File>
+	<File name="Algo_A_star.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="250" topLine="3" />
+		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

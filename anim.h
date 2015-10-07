@@ -43,21 +43,6 @@ typedef struct {
 
 } t_sprite;
 
-// sprite de type tower
-typedef struct {
-    int     x, y;               // position
-    int     img_current;        // image current
-    int     angle;
-
-	int compte_tour;            // compte tours
-	int nb_tour;                // nombre de tours
-
-	t_animation *anim;          // les images de l'animations
-
-	int     visible;             // effet de transparence  255->visible  0->invisible
-
-} t_tower;
-
 
 
 void init_animation                 (t_animation *a, SDL_Renderer *r);
@@ -75,15 +60,6 @@ void        anime_sprite            (t_sprite *s);
 void        affiche_sprite          (SDL_Renderer *r, t_sprite *s);
 void        place_sprite            (t_sprite *s, int x, int y);      // X et Y sont des coordonnés de MAP
 void        destroy_sprite          (t_sprite **s);
-
-t_tower*   create_Tower             ( int x, int y, t_animation *ANIM);
-void        anime_tower             (t_tower *s);
-void        calcul_angle_tower      (t_tower *s, int cible_x, int cible_y);
-
-void        affiche_tower           (SDL_Renderer *r, t_tower *s);
-bool        is_tower_valid_position (t_tower *s, t_level *pLevel);
-void        add_tower_position      (t_tower *s, t_level *pLevel);
-void        destroy_tower           (t_tower **s);
 
 
 #endif // ANIM_H_INCLUDED
