@@ -8,12 +8,12 @@ typedef struct {
     int     img_current;        // image current
     int     angle;
 
-	int     compte_tour;            // compte tours
-	int     nb_tour;                // nombre de tours
+	int     compte_tour;        // compte tours
+	int     nb_tour;            // nombre de tours
 
 	t_animation *anim;          // les images de l'animations
 
-	int     visible;             // effet de transparence  255->visible  0->invisible
+	int     visible;            // effet de transparence  255->visible  0->invisible
 
 } t_tower;
 

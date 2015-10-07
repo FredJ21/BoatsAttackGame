@@ -22,6 +22,7 @@ typedef struct {
     int         my_map[MAP_NB_TILE_X * MAP_NB_TILE_Y];              // permet de dessiner la map
     int         map_Info[MAP_NB_TILE_X][MAP_NB_TILE_Y];             // info sur la postion des obstacles
     int         map_Direction[MAP_NB_TILE_X][MAP_NB_TILE_Y];        // info sur le parcour vers la cible
+//    int         map_tower_position[MAP_TAILLE_X][MAP_TAILLE_Y];     // contient les id + 1 des tourelles (Attention : 0 = pas de tourelle)
 
     int         cibleX;         // placement du drapeau
     int         cibleY;

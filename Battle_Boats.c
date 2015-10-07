@@ -256,6 +256,9 @@ int main( int argc, char* args[] )
                 for (a = 0; a < WAVE_NB * WAVE_ENEMY_MAX_BY_WAVE; a++) {
                     destroy_sprite(&ENEMY[a]);
                 }
+                for (a = 0; a <  TOWER_MAX; a++) {
+                    destroy_tower(&TOWER[a]);
+                }
 
 
                 /** LEVEL **/

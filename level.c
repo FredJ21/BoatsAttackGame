@@ -351,6 +351,14 @@ void init_level_titre       (SDL_Renderer *pRenderer, t_level *pLevel, TTF_Font 
 *****************************************************************/
 void clear_level            (t_level *pLevel) {
 
+    int x, y;
+/*
+    for ( y = 0; y < MAP_TAILLE_Y ; y++ ){
+        for ( x = 0; x < MAP_TAILLE_X; x++ ) {
+            pLevel->map_tower_position[x][y] = 0;
+        }
+    }
+*/
     SDL_DestroyTexture(pLevel->pTexture_MAP);
     SDL_DestroyTexture(pLevel->pTexture_MAP_Titre);
     SDL_DestroyTexture(pLevel->pTexture_MAP_Obstacles);
