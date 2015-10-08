@@ -706,7 +706,7 @@
 	"config.h"
 	"level.h"
 
-1443990744 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.c
+1444338775 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -719,6 +719,7 @@
 	"anim.h"
 	"Algo_A_star.h"
 	"affichage_texte.h"
+	"tower.h"
 
 1376276274 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -1054,13 +1055,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1443884623 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\config.h
+1444069932 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\config.h
 
 1443335483 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.h
 
-1443989392 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.h
+1444327317 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.h
 
-1443986308 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.c
+1444334301 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -1070,7 +1071,7 @@
 	"level.h"
 	"Algo_A_star.h"
 
-1443990373 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\anim.c
+1444242399 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\anim.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -1080,7 +1081,7 @@
 	"level.h"
 	"anim.h"
 
-1443990255 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\anim.h
+1444242399 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\anim.h
 
 1443831883 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\algo_a_star.c
 	<SDL.h>
@@ -1513,6 +1514,20 @@
 1444228852 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\tower.h
 
 1444199127 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\tower.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	"config.h"
+	"level.h"
+	"anim.h"
+	"tower.h"
+
+1444338061 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\tower.h
+
+1444338165 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\tower.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>

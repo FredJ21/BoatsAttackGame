@@ -11,7 +11,7 @@ typedef struct {
     int     img_current;        // image current
     int     angle;
 
-    int     cible_x, cyble_y;   // position de la cible
+    int     cible_x, cible_y;   // position de la cible
     bool    selected;           // la tourelle est selectionnée
 
 	int     compte_tour;        // compte tours
@@ -26,11 +26,11 @@ typedef struct {
 
 t_tower*    create_Tower            ( int x, int y, t_animation *ANIM);
 void        anime_tower             (t_tower *s);
-void        calcul_angle_tower      (t_tower *s, int cible_x, int cible_y);
+void        calcul_angle_tower      (t_tower *s);
 
 void        affiche_tower           (SDL_Renderer *r, t_tower *s);
 bool        is_tower_new_valid_position (t_tower *s, t_level *pLevel);                      // *s est pointeur sur une tourelle temporaire
-int         is_tower_position       (int x, int y, t_tower *TOWER, int current_nb_tower );  // verifie si il y a déja une tourelle
+int         is_tower_position       (int x, int y, t_tower *s[], int current_nb_tower );  // verifie si il y a déja une tourelle
 
 void        add_tower_position      (t_tower *s, t_level *pLevel);
 void        destroy_tower           (t_tower **s);

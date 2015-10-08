@@ -78,10 +78,10 @@ int main( int argc, char* args[] )
     bool affiche_level_titre     = false;
 
     bool mode_place_tower       = false;        // mode permettant de positionner les tourelles
-    bool mode_tower_cible       = false;        // la tourelle doit viser la cible
     bool mode_tower_selected    = false;        // la tourelle est choisi
+    bool mode_game              = true;         // mode normal du jeu, permet de savoir qu'aucun autre mode n'est actif
+
     bool tower_position_ok      = false;        // vrai si la tourelle n'est pas dans l'eau
-    bool tower_new              = false;        // vrai au clique de la souris
 
     time_t t_Avant_Traitement;          // permet de gérer les fps
     time_t t_Apres_Traitement;
@@ -95,8 +95,8 @@ int main( int argc, char* args[] )
     int current_level       = 0;
     int current_nb_enemy    = 0;
     int current_enemy_alive = 0;
-    int current_nb_tower    = 0;        // nombre de tourelle
-    int current_tower       = 0;        // id tourelle selectionnée
+    int current_nb_tower    = 0;                // nombre de tourelle
+    int current_tower       = TOWER_MAX;        // id tourelle selectionnée, TOWER_MAX signifi qu'aucune n'est seletionnée
 
     t_level my_level = {};
     t_score my_score = {};
@@ -203,11 +203,16 @@ int main( int argc, char* args[] )
                             change_level = true;
                             break;
                         case SDLK_t:
-                            if ( mode_place_tower ){
-                                mode_place_tower = false;
-                            } else {
+                            if (mode_game) {
+
                                 mode_place_tower = true;
-                                mode_tower_cible = false;
+                                mode_game = false;
+
+                            } else if (mode_place_tower) {
+
+                                mode_place_tower = false;
+                                mode_game = true;
+
                             }
                             break;
                         default:
@@ -222,25 +227,55 @@ int main( int argc, char* args[] )
                     // permet de préparer les coordonnés pour le mode place_tower
                     TOWER_MOUSE->x = mouse_x;
                     TOWER_MOUSE->y = mouse_y;
-                    // permt de suivre la souris
-                    //current_cible_x = mouse_x;
-                    //current_cible_y = mouse_y;
 
+                    // verifie si la position est valide afin de changer la couleur de souris
+                    if (mode_place_tower) {
+                        if ( is_tower_new_valid_position(TOWER_MOUSE, &my_level) && is_tower_position(mouse_x, mouse_y, TOWER, current_nb_tower) == TOWER_MAX ) {
+                            tower_position_ok = true;
+                        } else {
+                            tower_position_ok = false;
+                        }
+                    }
                     break;
+
                 case SDL_MOUSEBUTTONDOWN:
 
-                    if (mode_place_tower) {
-                        tower_new = true;
-                    } else {
-                        mode_tower_cible = true;
+                    // tentative de placer une nouvelle tour
+                    if (mode_place_tower && tower_position_ok ) {
+                        printf ("1\n");
+
+                        TOWER[current_nb_tower] = create_Tower(mouse_x, mouse_y, &ANIM_TOWER);
+                        current_nb_tower++;
+
+                        mode_place_tower = false;
+                        mode_game = true;
                     }
 
+                    // une tourelle est selectionnée , on indique la cible
+                    else if (mode_tower_selected){
+                        printf ("2\n");
 
-                    if (mode_tower_cible) {
-                        mode_tower_cible = true;
-                        current_cible_x = mouse_x;
-                        current_cible_y = mouse_y;
+                        TOWER[current_tower]->cible_x = mouse_x;
+                        TOWER[current_tower]->cible_y = mouse_y;
+
+                        calcul_angle_tower(TOWER[current_tower]);
+
+                        TOWER[current_tower]->selected = false;
+                        mode_tower_selected = false;
+                        mode_game = true;
                     }
+
+                    // selection d'une tourelle
+                    else if (mode_game) {
+                        printf ("3\n");
+                        current_tower = is_tower_position(mouse_x, mouse_y, TOWER, current_nb_tower);
+                        if (current_tower < TOWER_MAX) {   // TOWER_MAX signifi qu'aucune n'est seletionnée
+
+                            TOWER[current_tower]->selected = true;
+                            mode_tower_selected = true;
+                        }
+                    }
+
                    break;
             }
 
@@ -356,23 +391,6 @@ int main( int argc, char* args[] )
             CounterSecond = clock();
         }
 
-        /******************************************************************************************************************
-                                                    GESTION DES TOURELLES
-        *******************************************************************************************************************/
-        if ( is_tower_valid_position(TOWER_MOUSE, &my_level) ) {
-            tower_position_ok = true;
-        } else {
-            tower_position_ok = false;
-        }
-        // ajout d'une tourelle
-        if ( tower_position_ok && tower_position_ok && tower_new ){
-
-            TOWER[current_nb_tower] = create_Tower(mouse_x, mouse_y, &ANIM_TOWER);
-            current_nb_tower++;
-
-        }
-
-        tower_new = false;
 
         /******************************************************************************************************************
                                                     AFFICHAGE
@@ -396,12 +414,10 @@ int main( int argc, char* args[] )
         }
         // Affichage des tourelles
         for (a = 0; a < current_nb_tower; a++){
-            if (mode_tower_cible) {
-                calcul_angle_tower(TOWER[a], current_cible_x, current_cible_y);
-            } else {
-                anime_tower     (TOWER[a]);
-            }
-            affiche_tower  (pRenderer, TOWER[a]);
+
+            anime_tower     (TOWER[a]);
+            affiche_tower (pRenderer, TOWER[a]);
+
         }
 
         // Affichage de la tourelle de depart, sous la souris

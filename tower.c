@@ -19,13 +19,13 @@ t_tower*   create_Tower( int x, int y, t_animation *ANIM) {
 
     s->x            = x;
     s->y            = y;
-    s->HG_x         = x - s->anim->tx/2;
-    s->HG_y         = y - s->anim->ty/2;
-    s->BD_x         = x + s->anim->tx/2;
-    s->BD_y         = y + s->anim->ty/2;
+    s->HG_x         = x - ANIM->tx/2;
+    s->HG_y         = y - ANIM->ty/2;
+    s->BD_x         = x + ANIM->tx/2;
+    s->BD_y         = y + ANIM->ty/2;
 
-    s->cyble_x      = 0;
-    s->cyble_y      = 0;
+    s->cible_x      = 0;
+    s->cible_y      = 0;
 
     s->selected     = false;
 
@@ -44,7 +44,7 @@ t_tower*   create_Tower( int x, int y, t_animation *ANIM) {
 *****************************************************************/
 void        anime_tower             (t_tower *s) {
 
-    if (s->cible_x == 0 && s->cyble_y == 0) {
+    if (s->cible_x == 0 && s->cible_y == 0) {
 
         s->angle = s->angle + 3;
         if (s->angle > 360 ) { s->angle = 0; }
@@ -57,11 +57,11 @@ void        anime_tower             (t_tower *s) {
 }
 /*****************************************************************
 *****************************************************************/
-void        calcul_angle_tower      (t_tower *s, int cible_x, int cible_y) {
+void        calcul_angle_tower      (t_tower *s) {
 
     int angle;
-    int xx = s->x - cible_x;
-    int yy = s->y - cible_y;
+    int xx = s->x - s->cible_x;
+    int yy = s->y - s->cible_y;
 
     angle = abs( atan((float)xx/(float)yy) * 180 / M_PI );
 
@@ -96,6 +96,9 @@ void        affiche_tower(SDL_Renderer *r, t_tower *s){
     SDL_SetRenderDrawColor (r, 254, 0, 0, 50);
 
     // Affichage
+    if (s->selected) {
+        SDL_RenderDrawRect(r, &Dst);
+    }
     SDL_RenderCopyEx(r, s->anim->texture, &Src, &Dst, s->angle, NULL, 0);
 
 }
@@ -148,11 +151,20 @@ bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel) {
 }
 /*****************************************************************
 *****************************************************************/
-int         is_tower_position       (int x, int y, t_tower *TOWER, int current_nb_tower ){
+int         is_tower_position       (int x, int y, t_tower *s[], int current_nb_tower ){
 
-        //TODO
+    int a;
+    int result = TOWER_MAX;
 
-    return 0;
+    for (a = 0; a < current_nb_tower; a++) {
+
+        if (x >= s[a]->HG_x && x <= s[a]->BD_x && y >= s[a]->HG_y && y <= s[a]->BD_y ) {
+
+            result = a;
+        }
+    }
+
+    return result;
 }
 /*****************************************************************
 *****************************************************************/
