@@ -17,8 +17,18 @@ t_tower*   create_Tower( int x, int y, t_animation *ANIM) {
 
 	t_tower *s = (t_tower*)malloc(sizeof(t_tower));
 
-    s->x    = x;
-    s->y    = y;
+    s->x            = x;
+    s->y            = y;
+    s->HG_x         = x - s->anim->tx/2;
+    s->HG_y         = y - s->anim->ty/2;
+    s->BD_x         = x + s->anim->tx/2;
+    s->BD_y         = y + s->anim->ty/2;
+
+    s->cyble_x      = 0;
+    s->cyble_y      = 0;
+
+    s->selected     = false;
+
 	s->img_current  = 2;
 	s->angle        = 0;
 	s->compte_tour  = 0;
@@ -34,8 +44,16 @@ t_tower*   create_Tower( int x, int y, t_animation *ANIM) {
 *****************************************************************/
 void        anime_tower             (t_tower *s) {
 
-    s->angle = s->angle + 3;
-    if (s->angle > 360 ) { s->angle = 0; }
+    if (s->cible_x == 0 && s->cyble_y == 0) {
+
+        s->angle = s->angle + 3;
+        if (s->angle > 360 ) { s->angle = 0; }
+
+    } else {
+
+        // TODO TIR
+    }
+
 }
 /*****************************************************************
 *****************************************************************/
@@ -57,7 +75,7 @@ void        calcul_angle_tower      (t_tower *s, int cible_x, int cible_y) {
 }
 /*****************************************************************
 *****************************************************************/
-void affiche_tower(SDL_Renderer *r, t_tower *s){
+void        affiche_tower(SDL_Renderer *r, t_tower *s){
 
 
 
@@ -83,7 +101,7 @@ void affiche_tower(SDL_Renderer *r, t_tower *s){
 }
 /*****************************************************************
 *****************************************************************/
-bool is_tower_valid_position(t_tower *s, t_level *pLevel) {
+bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel) {
 
     t_pos HD;      // postion en haut à droite
     t_pos HG;      // postion en haut à gauche
@@ -130,7 +148,15 @@ bool is_tower_valid_position(t_tower *s, t_level *pLevel) {
 }
 /*****************************************************************
 *****************************************************************/
-void add_tower_position(t_tower *s, t_level *pLevel) {
+int         is_tower_position       (int x, int y, t_tower *TOWER, int current_nb_tower ){
+
+        //TODO
+
+    return 0;
+}
+/*****************************************************************
+*****************************************************************/
+void        add_tower_position      (t_tower *s, t_level *pLevel) {
 
     t_pos HD;      // postion en haut à droite
     t_pos HG;      // postion en haut à gauche

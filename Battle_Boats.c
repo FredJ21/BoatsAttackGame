@@ -79,6 +79,7 @@ int main( int argc, char* args[] )
 
     bool mode_place_tower       = false;        // mode permettant de positionner les tourelles
     bool mode_tower_cible       = false;        // la tourelle doit viser la cible
+    bool mode_tower_selected    = false;        // la tourelle est choisi
     bool tower_position_ok      = false;        // vrai si la tourelle n'est pas dans l'eau
     bool tower_new              = false;        // vrai au clique de la souris
 
@@ -94,9 +95,8 @@ int main( int argc, char* args[] )
     int current_level       = 0;
     int current_nb_enemy    = 0;
     int current_enemy_alive = 0;
-    int current_nb_tower    = 0;
-    int current_cible_x     = 0;
-    int current_cible_y     = 0;
+    int current_nb_tower    = 0;        // nombre de tourelle
+    int current_tower       = 0;        // id tourelle selectionnée
 
     t_level my_level = {};
     t_score my_score = {};
@@ -223,16 +223,19 @@ int main( int argc, char* args[] )
                     TOWER_MOUSE->x = mouse_x;
                     TOWER_MOUSE->y = mouse_y;
                     // permt de suivre la souris
-                    current_cible_x = mouse_x;
-                    current_cible_y = mouse_y;
+                    //current_cible_x = mouse_x;
+                    //current_cible_y = mouse_y;
 
                     break;
                 case SDL_MOUSEBUTTONDOWN:
+
                     if (mode_place_tower) {
                         tower_new = true;
                     } else {
                         mode_tower_cible = true;
                     }
+
+
                     if (mode_tower_cible) {
                         mode_tower_cible = true;
                         current_cible_x = mouse_x;
@@ -259,6 +262,8 @@ int main( int argc, char* args[] )
                 for (a = 0; a <  TOWER_MAX; a++) {
                     destroy_tower(&TOWER[a]);
                 }
+
+                current_nb_tower = 0;
 
 
                 /** LEVEL **/
