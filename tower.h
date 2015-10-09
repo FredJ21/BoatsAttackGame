@@ -29,10 +29,9 @@ void        anime_tower             (t_tower *s);
 void        calcul_angle_tower      (t_tower *s);
 
 void        affiche_tower           (SDL_Renderer *r, t_tower *s);
-bool        is_tower_new_valid_position (t_tower *s, t_level *pLevel);                      // *s est pointeur sur une tourelle temporaire
-int         is_tower_position       (int x, int y, t_tower *s[], int current_nb_tower );  // verifie si il y a déja une tourelle
+bool        is_tower_new_valid_position (t_tower *s, t_level *pLevel, t_tower *t[], int current_nb_tower);  // *s est pointeur sur une tourelle temporaire, veridie si elle poet etre positionné
+int         is_tower_position       (int x, int y, t_tower *s[], int current_nb_tower );                    // verifie si il y a déja une tourelle en x et y
 
-void        add_tower_position      (t_tower *s, t_level *pLevel);
 void        destroy_tower           (t_tower **s);
 
 

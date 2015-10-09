@@ -104,7 +104,9 @@ void        affiche_tower(SDL_Renderer *r, t_tower *s){
 }
 /*****************************************************************
 *****************************************************************/
-bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel) {
+bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel, t_tower *TOWER[], int current_nb_tower) {
+
+    int a;
 
     t_pos HD;      // postion en haut à droite
     t_pos HG;      // postion en haut à gauche
@@ -134,20 +136,48 @@ bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel) {
     BD.tileY = BD.y / TILE_TAILLE_Y;
     BG.tileY = BD.tileY;
 
-    // test si la position n'est ni LIBRE (sur eau) ni OCCUPE (par une tourelle)
-    if ( pLevel->map_Info[HD.tileX][HD.tileY] == OBSTACLE &&
-         pLevel->map_Info[HG.tileX][HG.tileY] == OBSTACLE &&
-         pLevel->map_Info[BD.tileX][BD.tileY] == OBSTACLE &&
-         pLevel->map_Info[BG.tileX][BG.tileY] == OBSTACLE ) {
+    // test si la position n'est pas sur l'eau (LIBRE)
+    if ( pLevel->map_Info[HD.tileX][HD.tileY] == LIBRE ||
+         pLevel->map_Info[HG.tileX][HG.tileY] == LIBRE ||
+         pLevel->map_Info[BD.tileX][BD.tileY] == LIBRE ||
+         pLevel->map_Info[BG.tileX][BG.tileY] == LIBRE ) {
 
-         return true;
+         return false;
 
-    } else {
+    }
 
-        return false;
+    // test, pour chaque tourelle déjà en place, si la nouvelle n'est pas dessus
+    for (a = 0; a < current_nb_tower; a++) {
+
+        // pour la position centale du nouveau sprite
+        if ( s->x >= TOWER[a]->HG_x && s->x <= TOWER[a]->BD_x && s->y >= TOWER[a]->HG_y && s->y <= TOWER[a]->BD_y ) {
+
+            return false;
+        }
+        // pour la position HG
+        if ( HG.x >= TOWER[a]->HG_x && HG.x <= TOWER[a]->BD_x && HG.y >= TOWER[a]->HG_y && HG.y <= TOWER[a]->BD_y ) {
+
+            return false;
+        }
+        // pour la position HD
+        if ( HD.x >= TOWER[a]->HG_x && HD.x <= TOWER[a]->BD_x && HD.y >= TOWER[a]->HG_y && HD.y <= TOWER[a]->BD_y ) {
+
+            return false;
+        }
+        // pour la position BD
+        if ( BD.x >= TOWER[a]->HG_x && BD.x <= TOWER[a]->BD_x && BD.y >= TOWER[a]->HG_y && BD.y <= TOWER[a]->BD_y ) {
+
+            return false;
+        }
+        // pour la position BG
+        if ( BG.x >= TOWER[a]->HG_x && BG.x <= TOWER[a]->BD_x && BG.y >= TOWER[a]->HG_y && BG.y <= TOWER[a]->BD_y ) {
+
+            return false;
+        }
     }
 
 
+    return true;
 }
 /*****************************************************************
 *****************************************************************/
@@ -168,50 +198,7 @@ int         is_tower_position       (int x, int y, t_tower *s[], int current_nb_
 }
 /*****************************************************************
 *****************************************************************/
-void        add_tower_position      (t_tower *s, t_level *pLevel) {
-
-    t_pos HD;      // postion en haut à droite
-    t_pos HG;      // postion en haut à gauche
-    t_pos BD;      // postion en bas à droite
-    t_pos BG;      // postion en bas à gauche
-
-    int x, y;
-
-    // les ccordonnées du sprite correspondent à son centre
-    // calcul des coordonnées des quatres coins
-    HD.x = s->x + s->anim->tx/2 ;
-    BD.x = HD.x;
-    HD.tileX = HD.x / TILE_TAILLE_X;
-    BD.tileX = HD.tileX;
-
-    HG.x = s->x - s->anim->tx/2 ;
-    BG.x = HG.x;
-    HG.tileX = HG.x / TILE_TAILLE_X;
-    BG.tileX = HG.tileX;
-
-    HD.y = s->y - s->anim->ty/2 ;
-    HG.y = HD.y;
-    HD.tileY = HD.y / TILE_TAILLE_Y;
-    HG.tileY = HD.tileY;
-
-    BD.y = s->y + s->anim->ty/2 ;
-    BG.y = BD.y;
-    BD.tileY = BD.y / TILE_TAILLE_Y;
-    BG.tileY = BD.tileY;
-
-    // toute la zone est occupée
-    for ( y = HG.tileY; y <= BG.tileY; y++) {
-        for ( x = HG.tileX; x <= HD.tileX; x++ ) {
-
-            printf ("%d-%d\n", x, y) ;
-            pLevel->map_Info[x][y] = OCCUPE;
-        }
-    }
-
-}
-/*****************************************************************
-*****************************************************************/
-void destroy_tower(t_tower **s) {
+void        destroy_tower           (t_tower **s) {
 
     free(*s);
     *s = NULL;

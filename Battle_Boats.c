@@ -73,15 +73,15 @@ int main( int argc, char* args[] )
     /******************************************************************************************************************
                                                 VARIABLES
     *******************************************************************************************************************/
-    bool fin                    = false;        // fin du programme
-    bool change_level           = true;         // changement de level
-    bool affiche_level_titre     = false;
+    bool flag_fin                    = false;        // fin du programme
+    bool flag_change_level           = true;         // changement de level
+    bool flag_affiche_level_titre     = false;
 
-    bool mode_place_tower       = false;        // mode permettant de positionner les tourelles
-    bool mode_tower_selected    = false;        // la tourelle est choisi
-    bool mode_game              = true;         // mode normal du jeu, permet de savoir qu'aucun autre mode n'est actif
+    bool flag_mode_place_tower       = false;        // mode permettant de positionner les tourelles
+    bool flag_mode_tower_selected    = false;        // la tourelle est choisi
+    bool flag_mode_game              = true;         // mode normal du jeu, permet de savoir qu'aucun autre mode n'est actif
 
-    bool tower_position_ok      = false;        // vrai si la tourelle n'est pas dans l'eau
+    bool flag_tower_position_ok      = false;        // vrai si la tourelle n'est pas dans l'eau
 
     time_t t_Avant_Traitement;          // permet de gérer les fps
     time_t t_Apres_Traitement;
@@ -90,8 +90,7 @@ int main( int argc, char* args[] )
     int CounterBeforeChgLevel = 0;      // pause avant le changement de level
     int CounterTimeLevel =0;            // second depuis le demarrage du level
 
-    int a = 0, b = 0;
-    int w = 0;
+    int a = 0, b = 0, w = 0;
     int current_level       = 0;
     int current_nb_enemy    = 0;
     int current_enemy_alive = 0;
@@ -101,7 +100,9 @@ int main( int argc, char* args[] )
     t_level my_level = {};
     t_score my_score = {};
 
-    int mouse_x, mouse_y;
+    int current_mouse_x, current_mouse_y;
+
+    Uint32  game_sleep;
 
     srand(time(NULL));
 
@@ -171,7 +172,7 @@ int main( int argc, char* args[] )
     /******************************************************************************************************************
                                                 BOUCLE PRINCIPALE
     *******************************************************************************************************************/
-    while (!fin) {
+    while (!flag_fin) {
 
         t_Avant_Traitement = clock();
 
@@ -185,7 +186,7 @@ int main( int argc, char* args[] )
             switch (event.type){
 
                 case SDL_QUIT:
-                    fin = true;
+                    flag_fin = true;
                     //printf ("By By !!\n");
                     break;
 
@@ -193,25 +194,25 @@ int main( int argc, char* args[] )
 
                     switch( event.key.keysym.sym ){
                         case SDLK_ESCAPE:
-                            fin = true;
+                            flag_fin = true;
                             break;
                         case SDLK_l:
                             current_level++;
                             if (current_level >= LEVEL_NB_TOTAL ) {
                                 current_level = 0;
                             }
-                            change_level = true;
+                            flag_change_level = true;
                             break;
                         case SDLK_t:
-                            if (mode_game) {
+                            if (flag_mode_game) {
 
-                                mode_place_tower = true;
-                                mode_game = false;
+                                flag_mode_place_tower = true;
+                                flag_mode_game = false;
 
-                            } else if (mode_place_tower) {
+                            } else if (flag_mode_place_tower) {
 
-                                mode_place_tower = false;
-                                mode_game = true;
+                                flag_mode_place_tower = false;
+                                flag_mode_game = true;
 
                             }
                             break;
@@ -223,17 +224,17 @@ int main( int argc, char* args[] )
 
                 // Souris
                 case SDL_MOUSEMOTION:
-                    SDL_GetMouseState( &mouse_x, &mouse_y );
+                    SDL_GetMouseState( &current_mouse_x, &current_mouse_y );
                     // permet de préparer les coordonnés pour le mode place_tower
-                    TOWER_MOUSE->x = mouse_x;
-                    TOWER_MOUSE->y = mouse_y;
+                    TOWER_MOUSE->x = current_mouse_x;
+                    TOWER_MOUSE->y = current_mouse_y;
 
                     // verifie si la position est valide afin de changer la couleur de souris
-                    if (mode_place_tower) {
-                        if ( is_tower_new_valid_position(TOWER_MOUSE, &my_level) && is_tower_position(mouse_x, mouse_y, TOWER, current_nb_tower) == TOWER_MAX ) {
-                            tower_position_ok = true;
+                    if (flag_mode_place_tower) {
+                        if ( is_tower_new_valid_position(TOWER_MOUSE, &my_level, TOWER, current_nb_tower) ) {
+                            flag_tower_position_ok = true;
                         } else {
-                            tower_position_ok = false;
+                            flag_tower_position_ok = false;
                         }
                     }
                     break;
@@ -241,52 +242,61 @@ int main( int argc, char* args[] )
                 case SDL_MOUSEBUTTONDOWN:
 
                     // tentative de placer une nouvelle tour
-                    if (mode_place_tower && tower_position_ok ) {
+                    if (flag_mode_place_tower && flag_tower_position_ok ) {
                         printf ("1\n");
 
-                        TOWER[current_nb_tower] = create_Tower(mouse_x, mouse_y, &ANIM_TOWER);
+                        TOWER[current_nb_tower] = create_Tower(current_mouse_x, current_mouse_y, &ANIM_TOWER);
                         current_nb_tower++;
 
-                        mode_place_tower = false;
-                        mode_game = true;
+                        flag_mode_place_tower = false;
+                        flag_mode_game = true;
                     }
 
                     // une tourelle est selectionnée , on indique la cible
-                    else if (mode_tower_selected){
+                    else if (flag_mode_tower_selected){
                         printf ("2\n");
 
-                        TOWER[current_tower]->cible_x = mouse_x;
-                        TOWER[current_tower]->cible_y = mouse_y;
+                        TOWER[current_tower]->cible_x = current_mouse_x;
+                        TOWER[current_tower]->cible_y = current_mouse_y;
 
                         calcul_angle_tower(TOWER[current_tower]);
 
                         TOWER[current_tower]->selected = false;
-                        mode_tower_selected = false;
-                        mode_game = true;
+                        flag_mode_tower_selected = false;
+                        flag_mode_game = true;
                     }
 
                     // selection d'une tourelle
-                    else if (mode_game) {
+                    else if (flag_mode_game) {
                         printf ("3\n");
-                        current_tower = is_tower_position(mouse_x, mouse_y, TOWER, current_nb_tower);
+                        current_tower = is_tower_position(current_mouse_x, current_mouse_y, TOWER, current_nb_tower);
                         if (current_tower < TOWER_MAX) {   // TOWER_MAX signifi qu'aucune n'est seletionnée
 
                             TOWER[current_tower]->selected = true;
-                            mode_tower_selected = true;
+                            flag_mode_tower_selected = true;
                         }
                     }
 
                    break;
             }
-
         }
-
         /******************************************************************************************************************
                                                     CHANGEMENT  DE NIVEAU
         *******************************************************************************************************************/
-        if (change_level) {
+        if (flag_change_level) {
 
-                change_level = false;
+                // RAZ des flags
+                flag_change_level           = false;
+                flag_affiche_level_titre    = true;
+                flag_mode_game              = true;
+                flag_mode_place_tower       = false;
+                flag_mode_tower_selected    = false;
+                flag_tower_position_ok      = false;
+
+                // RAZ des variables currentes
+                current_nb_enemy = 0;
+                current_nb_tower = 0;
+                current_tower    = TOWER_MAX;   // id tourelle selectionnée, TOWER_MAX signifi qu'aucune n'est seletionnée
 
                 my_score.level = current_level + 1;
 
@@ -297,9 +307,6 @@ int main( int argc, char* args[] )
                 for (a = 0; a <  TOWER_MAX; a++) {
                     destroy_tower(&TOWER[a]);
                 }
-
-                current_nb_tower = 0;
-
 
                 /** LEVEL **/
                 clear_level (&my_level);
@@ -313,8 +320,6 @@ int main( int argc, char* args[] )
 
 
                 /** CREATE ENEMY **/
-                current_nb_enemy = 0;
-
                 for ( w = 0; w < WAVE_NB; w++ ) {
                     printf ("Level %d - Wave %d - ", current_level, w);
                     b = 0;
@@ -343,7 +348,6 @@ int main( int argc, char* args[] )
                // printf ("Nombre d'ennemi : %d\n", current_nb_enemy);
 
                 CounterTimeLevel = 0;
-                affiche_level_titre = true;
 
         }
 
@@ -358,11 +362,11 @@ int main( int argc, char* args[] )
             for (a = 0; a < current_nb_enemy; a++) {
                 if ( ENEMY[a]->visible )  { current_enemy_alive++; }
             }
-//            printf("Nombre d'ennemi en vie : %d\n", current_enemy_alive);
 
             // mise à jour du score
             my_score.NbEnemy = current_enemy_alive;
             init_score( pRenderer, &my_score);
+
 
             // decide du changement de level
             if ( current_enemy_alive == 0 ) {
@@ -375,16 +379,16 @@ int main( int argc, char* args[] )
                     if (current_level >= LEVEL_NB_TOTAL ) {
                         current_level = 0;
                     }
-                    change_level = true;
+                    flag_change_level = true;
                 }
             }
 
             //Affichage du titre en debut de level
             if (CounterTimeLevel < 2 ){
-                    affiche_level_titre = true;
+                    flag_affiche_level_titre = true;
             }
             else {
-                    affiche_level_titre =false;
+                    flag_affiche_level_titre =false;
             }
 
             CounterTimeLevel++;
@@ -409,7 +413,7 @@ int main( int argc, char* args[] )
         // Affichage des Sprites
         for (a = 0; a < current_nb_enemy; a++) {
             anime_sprite    (ENEMY[a]);
-            avance_sprite   (ENEMY[a], &my_level);
+ //           avance_sprite   (ENEMY[a], &my_level);
             affiche_sprite  (pRenderer, ENEMY[a]);
         }
         // Affichage des tourelles
@@ -421,10 +425,10 @@ int main( int argc, char* args[] )
         }
 
         // Affichage de la tourelle de depart, sous la souris
-        if (mode_place_tower) {
+        if (flag_mode_place_tower) {
             // affichage d'un fond vert ou rouge celon terrain
             TOWER_MOUSE->visible = 180;
-            if ( tower_position_ok )  {
+            if ( flag_tower_position_ok )  {
                     TOWER_MOUSE->img_current = 1;
             } else {
                     TOWER_MOUSE->img_current = 0;
@@ -439,7 +443,7 @@ int main( int argc, char* args[] )
 
 
         // Affichage du texte
-        if (affiche_level_titre) {       affiche_titre(pRenderer, &my_level);    }
+        if (flag_affiche_level_titre) {       affiche_titre(pRenderer, &my_level);    }
 
         // Affichage du score
         affiche_score( pRenderer, &my_score);
@@ -452,7 +456,9 @@ int main( int argc, char* args[] )
         /**   Calcul du temps de traitement et pause   **/
         /************************************************/
         t_Apres_Traitement = clock();
-        SDL_Delay( 1000 / GAME_FPS - (t_Avant_Traitement - t_Apres_Traitement));
+        game_sleep = 1000 / GAME_FPS - (t_Avant_Traitement - t_Apres_Traitement);
+        //printf ("sleep : %d\n", game_sleep);
+        SDL_Delay( game_sleep );
     }
 
     /******************************************************************************************************************
@@ -475,6 +481,7 @@ int main( int argc, char* args[] )
 
     SDL_DestroyTexture(DRAPEAU.texture);
     SDL_DestroyTexture(ANIM_TOWER.texture);
+    SDL_DestroyTexture(my_score.pTexture_Score);
 
     clear_level (&my_level);
     clear_score (&my_score);

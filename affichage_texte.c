@@ -31,6 +31,7 @@ void init_score       (SDL_Renderer *pRenderer, t_score *s ) {
     s->Score_position_dst.w = s_texte->w;
 
     // Création de la texture pour le texte
+    SDL_DestroyTexture(s->pTexture_Score);
     s->pTexture_Score = SDL_CreateTextureFromSurface(pRenderer, s_texte);
     if(!s->pTexture_Score) {                  printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(-1);}
 
