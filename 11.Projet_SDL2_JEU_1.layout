@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
+	<File name="level.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1619" topLine="12" />
+		</Cursor>
+	</File>
 	<File name="Battle_boats.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="137" topLine="0" />
@@ -13,31 +18,31 @@
 	</File>
 	<File name="Battle_Boats.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4637" topLine="339" />
+			<Cursor1 position="7285" topLine="131" />
 		</Cursor>
 	</File>
 	<File name="config.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="643" topLine="0" />
+			<Cursor1 position="469" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="level.c" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="level.c" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="24117" topLine="0" />
+			<Cursor1 position="26830" topLine="111" />
 		</Cursor>
 		<Folding>
 			<Collapse line="11" />
 			<Collapse line="13" />
 		</Folding>
 	</File>
-	<File name="affichage_texte.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="affichage_texte.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="324" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="anim.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="18" topLine="0" />
+			<Cursor1 position="17726" topLine="409" />
 		</Cursor>
 	</File>
 	<File name="anim.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -52,12 +57,12 @@
 	</File>
 	<File name="tower.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1155" topLine="0" />
+			<Cursor1 position="1626" topLine="3" />
 		</Cursor>
 	</File>
-	<File name="affichage_texte.c" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="affichage_texte.c" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="136" topLine="3" />
+			<Cursor1 position="1092" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Algo_A_star.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -67,17 +72,17 @@
 	</File>
 	<File name="tower.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4358" topLine="9" />
+			<Cursor1 position="6559" topLine="18" />
 		</Cursor>
 		<Folding>
-			<Collapse line="15" />
-			<Collapse line="44" />
-			<Collapse line="59" />
+			<Collapse line="14" />
+			<Collapse line="43" />
+			<Collapse line="58" />
+			<Collapse line="76" />
+			<Collapse line="105" />
+			<Collapse line="199" />
+			<Collapse line="206" />
+			<Collapse line="241" />
 		</Folding>
-	</File>
-	<File name="level.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="848" topLine="12" />
-		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

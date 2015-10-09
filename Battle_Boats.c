@@ -75,7 +75,7 @@ int main( int argc, char* args[] )
     *******************************************************************************************************************/
     bool flag_fin                    = false;        // fin du programme
     bool flag_change_level           = true;         // changement de level
-    bool flag_affiche_level_titre     = false;
+    bool flag_affiche_level_titre    = false;
 
     bool flag_mode_place_tower       = false;        // mode permettant de positionner les tourelles
     bool flag_mode_tower_selected    = false;        // la tourelle est choisi
@@ -152,6 +152,9 @@ int main( int argc, char* args[] )
     t_animation ANIM_TOWER = { "./images/Tower1.bmp", 48, 48, 3, 12, 0, NULL, 0, 1 };
     init_animation( &ANIM_TOWER, pRenderer);
 
+    t_animation ANIM_MISSILE = { "./images/Missile.bmp", 8, 8, 1, 1, 0, NULL, 0, 5 };
+    init_animation( &ANIM_MISSILE, pRenderer);
+
 
     /* SPRITE ENNEMI */
     t_sprite *ENEMY[WAVE_NB * WAVE_ENEMY_MAX_BY_WAVE];   //tableau de pointeurs
@@ -163,6 +166,10 @@ int main( int argc, char* args[] )
     /* SPRITE TOWER */
     t_tower *TOWER_MOUSE = create_Tower (0,0,&ANIM_TOWER);  // tourelle d'aide au positionnement, sous pointeur souris
     t_tower *TOWER[TOWER_MAX];                         // tableau de pointeurs
+
+    /* SPRITE MISSILE */
+    t_missile *MISSILE;
+    MISSILE = create_Missile (MAP_TAILLE_X/2, MAP_TAILLE_Y/2, 150);
 
     // charge la police pour l'affichage du score
     my_score.police = TTF_OpenFont(POLICE_SCORE, POLICE_SCORE_SIZE);
@@ -410,10 +417,14 @@ int main( int argc, char* args[] )
         anime_sprite(ARRIVE);
         affiche_sprite (pRenderer, ARRIVE);
 
+        // Affichage des missiles
+        affiche_missile (pRenderer, MISSILE, &ANIM_MISSILE);
+
+
         // Affichage des Sprites
         for (a = 0; a < current_nb_enemy; a++) {
             anime_sprite    (ENEMY[a]);
- //           avance_sprite   (ENEMY[a], &my_level);
+            avance_sprite   (ENEMY[a], &my_level);
             affiche_sprite  (pRenderer, ENEMY[a]);
         }
         // Affichage des tourelles
@@ -472,6 +483,8 @@ int main( int argc, char* args[] )
         destroy_tower(&TOWER[a]);
     }
 
+    destroy_missile(&MISSILE);
+
     destroy_sprite(&ARRIVE);
     destroy_tower(&TOWER_MOUSE);
 
@@ -481,6 +494,7 @@ int main( int argc, char* args[] )
 
     SDL_DestroyTexture(DRAPEAU.texture);
     SDL_DestroyTexture(ANIM_TOWER.texture);
+    SDL_DestroyTexture(ANIM_MISSILE.texture);
     SDL_DestroyTexture(my_score.pTexture_Score);
 
     clear_level (&my_level);

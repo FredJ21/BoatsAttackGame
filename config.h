@@ -13,7 +13,7 @@
 #define COULEUR_FENETRE     NOIR
 #define START_IMG           "./images/start.bmp"
 
-#define GAME_FPS             100       // a repasser à 30
+#define GAME_FPS              30       // a repasser à 30
 
 #define MAP_TAILLE_X        1024
 #define MAP_TAILLE_Y         768

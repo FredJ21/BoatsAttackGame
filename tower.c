@@ -12,7 +12,6 @@
 
 /*****************************************************************
 *****************************************************************/
-
 t_tower*   create_Tower( int x, int y, t_animation *ANIM) {
 
 	t_tower *s = (t_tower*)malloc(sizeof(t_tower));
@@ -205,3 +204,43 @@ void        destroy_tower           (t_tower **s) {
 }
 /*****************************************************************
 *****************************************************************/
+t_missile*  create_Missile          ( int x, int y, int angle) {
+
+	t_missile *s = (t_missile*)malloc(sizeof(t_missile));
+
+    s->x            = x;
+    s->y            = y;
+    s->angle        = angle;
+
+	return s;
+}
+/*****************************************************************
+*****************************************************************/
+void        affiche_missile         (SDL_Renderer *r, t_missile *m, t_animation *ANIM) {
+
+
+    SDL_Rect Src;
+    SDL_Rect Dst;
+
+    Src.x = 0;
+    Src.y = 0;
+    Src.w = ANIM->tx;
+    Src.h = ANIM->ty;
+
+    Dst.x = m->x - ANIM->tx/2;
+    Dst.y = m->y - ANIM->ty/2;
+    Dst.w = ANIM->tx;
+    Dst.h = ANIM->ty;
+
+
+    // Affichage
+    SDL_RenderCopy ( r, ANIM->texture , &Src, &Dst);
+
+}
+/*****************************************************************
+*****************************************************************/
+void        destroy_missile          (t_missile **s) {
+
+    free(*s);
+    *s = NULL;
+}

@@ -23,6 +23,11 @@ typedef struct {
 
 } t_tower;
 
+typedef struct {
+    int     x, y;
+    int     angle;
+} t_missile;
+
 
 t_tower*    create_Tower            ( int x, int y, t_animation *ANIM);
 void        anime_tower             (t_tower *s);
@@ -33,6 +38,11 @@ bool        is_tower_new_valid_position (t_tower *s, t_level *pLevel, t_tower *t
 int         is_tower_position       (int x, int y, t_tower *s[], int current_nb_tower );                    // verifie si il y a déja une tourelle en x et y
 
 void        destroy_tower           (t_tower **s);
+
+t_missile*  create_Missile          ( int x, int y, int angle);
+
+void        affiche_missile         (SDL_Renderer *r, t_missile *m, t_animation *ANIM);
+void        destroy_missile         (t_missile **s);
 
 
 #endif // TOWER_H_INCLUDED
