@@ -31,7 +31,7 @@ int main( int argc, char* args[] )
     // Création de la fenêtre
     SDL_Window *pWindow = NULL;
     pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_SHOWN );
- //   pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
+//    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
     if(!pWindow) {                          printf( "SDL_Window ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
 
@@ -96,6 +96,7 @@ int main( int argc, char* args[] )
     int current_enemy_alive = 0;
     int current_nb_tower    = 0;                // nombre de tourelle
     int current_tower       = TOWER_MAX;        // id tourelle selectionnée, TOWER_MAX signifi qu'aucune n'est seletionnée
+    int current_nb_missile  = 0;
 
     t_level my_level = {};
     t_score my_score = {};
@@ -152,7 +153,7 @@ int main( int argc, char* args[] )
     t_animation ANIM_TOWER = { "./images/Tower1.bmp", 48, 48, 3, 12, 0, NULL, 0, 1 };
     init_animation( &ANIM_TOWER, pRenderer);
 
-    t_animation ANIM_MISSILE = { "./images/Missile.bmp", 8, 8, 1, 1, 0, NULL, 0, 5 };
+    t_animation ANIM_MISSILE = { "./images/Missile.bmp", 10, 10, 1, 1, 0, NULL, 0, 5 };
     init_animation( &ANIM_MISSILE, pRenderer);
 
 
@@ -168,8 +169,10 @@ int main( int argc, char* args[] )
     t_tower *TOWER[TOWER_MAX];                         // tableau de pointeurs
 
     /* SPRITE MISSILE */
-    t_missile *MISSILE;
-    MISSILE = create_Missile (MAP_TAILLE_X/2, MAP_TAILLE_Y/2, 150);
+    t_missile *MISSILE[MISSILE_MAX];
+    for ( a = 0; a < 360 ; a+=3) {
+ //       MISSILE[current_nb_missile++] = create_Missile (MAP_TAILLE_X/2, MAP_TAILLE_Y/2, a);
+    }
 
     // charge la police pour l'affichage du score
     my_score.police = TTF_OpenFont(POLICE_SCORE, POLICE_SCORE_SIZE);
@@ -210,8 +213,15 @@ int main( int argc, char* args[] )
                             }
                             flag_change_level = true;
                             break;
+                        case SDLK_m:
+                            for (a = 0; a < current_nb_missile; a++) {
+                                MISSILE[a]->x = MAP_TAILLE_X/2;
+                                MISSILE[a]->y = MAP_TAILLE_Y/2;
+
+                            }
+                            break;
                         case SDLK_t:
-                            if (flag_mode_game) {
+                            if (flag_mode_game && current_nb_tower < TOWER_MAX) {
 
                                 flag_mode_place_tower = true;
                                 flag_mode_game = false;
@@ -256,6 +266,7 @@ int main( int argc, char* args[] )
                         current_nb_tower++;
 
                         flag_mode_place_tower = false;
+                        flag_tower_position_ok = false;
                         flag_mode_game = true;
                     }
 
@@ -323,12 +334,12 @@ int main( int argc, char* args[] )
 
                 place_sprite(ARRIVE, my_level.cibleX, my_level.cibleY);
                 init_level_chemins(&my_level);
-                affiche_map_console ( &my_level);
+                //affiche_map_console ( &my_level);
 
 
                 /** CREATE ENEMY **/
                 for ( w = 0; w < WAVE_NB; w++ ) {
-                    printf ("Level %d - Wave %d - ", current_level, w);
+                    //printf ("Level %d - Wave %d - ", current_level, w);
                     b = 0;
                     // creation en haut
                     for (a = 0; a < my_level.wave[w].nb_up; a++ ) {
@@ -350,7 +361,6 @@ int main( int argc, char* args[] )
                         ENEMY[current_nb_enemy++] = create_Enemy( LEFT ,  my_level.StartPos_LEFT_s, my_level.StartPos_LEFT_e,   &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in);
                         b++;
                     }
-                    printf ("%d\n", b);
                 }
                // printf ("Nombre d'ennemi : %d\n", current_nb_enemy);
 
@@ -418,8 +428,10 @@ int main( int argc, char* args[] )
         affiche_sprite (pRenderer, ARRIVE);
 
         // Affichage des missiles
-        affiche_missile (pRenderer, MISSILE, &ANIM_MISSILE);
-
+        for (a = 0; a < current_nb_missile; a++) {
+ //           avance_missile(MISSILE[a]);
+            affiche_missile (pRenderer, MISSILE[a], &ANIM_MISSILE);
+        }
 
         // Affichage des Sprites
         for (a = 0; a < current_nb_enemy; a++) {

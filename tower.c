@@ -206,18 +206,60 @@ void        destroy_tower           (t_tower **s) {
 *****************************************************************/
 t_missile*  create_Missile          ( int x, int y, int angle) {
 
+    float   angle_rad;
+
 	t_missile *s = (t_missile*)malloc(sizeof(t_missile));
 
     s->x            = x;
     s->y            = y;
     s->angle        = angle;
+    s->actif        = true;
+
+
+    // Calcul des distances de déplacement celon l'angle
+    if      ( angle >= 0 && angle <= 90 ) {
+
+                angle_rad = angle * (M_PI/180);
+                s->dx = MISSILE_SPEED * sinf(angle_rad);        // le coté opposé
+                s->dy = - MISSILE_SPEED * cosf(angle_rad);      // le coté adjacent
+
+    } else if ( angle > 90 && angle < 180 ) {
+
+                angle_rad = (angle-90) * (M_PI/180);
+                s->dx = MISSILE_SPEED * sinf(angle_rad);      // le coté opposé
+                s->dy = MISSILE_SPEED * cosf(angle_rad);      // le coté adjacent
+
+    } else if ( angle >= 180 && angle <= 270 ) {
+
+                angle_rad = (angle-180) * (M_PI/180);
+                s->dx = - MISSILE_SPEED * sinf(angle_rad);      // le coté opposé
+                s->dy = MISSILE_SPEED * cosf(angle_rad);      // le coté adjacent
+
+    } else if ( angle > 270 ) {
+
+                angle_rad = (angle-270) * (M_PI/180);
+                s->dx = - MISSILE_SPEED * sinf(angle_rad);      // le coté opposé
+                s->dy = - MISSILE_SPEED * cosf(angle_rad);      // le coté adjacent
+    }
+
 
 	return s;
 }
 /*****************************************************************
 *****************************************************************/
+void        avance_missile          (t_missile *m) {
+
+    if (m->actif) {
+       m->x += m->dx;
+       m->y += m->dy;
+    }
+
+}
+/*****************************************************************
+*****************************************************************/
 void        affiche_missile         (SDL_Renderer *r, t_missile *m, t_animation *ANIM) {
 
+    if (m->actif) {
 
     SDL_Rect Src;
     SDL_Rect Dst;
@@ -236,6 +278,7 @@ void        affiche_missile         (SDL_Renderer *r, t_missile *m, t_animation 
     // Affichage
     SDL_RenderCopy ( r, ANIM->texture , &Src, &Dst);
 
+    }
 }
 /*****************************************************************
 *****************************************************************/
