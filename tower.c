@@ -14,6 +14,8 @@
 *****************************************************************/
 t_tower*   create_Tower( int x, int y, t_animation *ANIM) {
 
+    int a;
+
 	t_tower *s = (t_tower*)malloc(sizeof(t_tower));
 
     s->x            = x;
@@ -34,6 +36,14 @@ t_tower*   create_Tower( int x, int y, t_animation *ANIM) {
 	s->nb_tour      = ANIM->nb_tour;
 	s->anim         = ANIM;
 	s->visible      = 254;
+
+    // création des missiles
+    for (a = 0; a < TOWER_NB_MISSILE_MAX; a++) {
+
+        s->missile[a].x = x;
+        s->missile[a].y = y;
+        s->missile[a].actif = false;
+    }
 
 	return s;
 
@@ -58,9 +68,11 @@ void        anime_tower             (t_tower *s) {
 *****************************************************************/
 void        calcul_angle_tower      (t_tower *s) {
 
+    int a;
     int angle;
     int xx = s->x - s->cible_x;
     int yy = s->y - s->cible_y;
+
 
     angle = abs( atan((float)xx/(float)yy) * 180 / M_PI );
 
@@ -71,6 +83,44 @@ void        calcul_angle_tower      (t_tower *s) {
 
     //printf ("%d  %d   angle = %d\n", xx, yy, angle);
     s->angle = angle;
+
+    // mise à jour de l'angle des missiles
+    float angle_rad, dx, dy;
+
+        // Calcul des distances de déplacement celon l'angle
+    if      ( angle >= 0 && angle <= 90 ) {
+
+                angle_rad = angle * (M_PI/180);
+                dx = MISSILE_SPEED * sinf(angle_rad);        // le coté opposé
+                dy = - MISSILE_SPEED * cosf(angle_rad);      // le coté adjacent
+
+    } else if ( angle > 90 && angle < 180 ) {
+
+                angle_rad = (angle-90) * (M_PI/180);
+                dx = MISSILE_SPEED * sinf(angle_rad);      // le coté opposé
+                dy = MISSILE_SPEED * cosf(angle_rad);      // le coté adjacent
+
+    } else if ( angle >= 180 && angle <= 270 ) {
+
+                angle_rad = (angle-180) * (M_PI/180);
+                dx = - MISSILE_SPEED * sinf(angle_rad);      // le coté opposé
+                dy = MISSILE_SPEED * cosf(angle_rad);      // le coté adjacent
+
+    } else if ( angle > 270 ) {
+
+                angle_rad = (angle-270) * (M_PI/180);
+                dx = - MISSILE_SPEED * sinf(angle_rad);      // le coté opposé
+                dy = - MISSILE_SPEED * cosf(angle_rad);      // le coté adjacent
+    }
+
+    for (a = 0; a < TOWER_NB_MISSILE_MAX; a++) {
+
+        s->missile[a].angle = angle;
+        s->missile[a].actif = false;
+        s->missile[a].dx = dx;
+        s->missile[a].dy = dy;
+    }
+
 }
 /*****************************************************************
 *****************************************************************/
@@ -199,12 +249,13 @@ int         is_tower_position       (int x, int y, t_tower *s[], int current_nb_
 *****************************************************************/
 void        destroy_tower           (t_tower **s) {
 
+
     free(*s);
     *s = NULL;
 }
 /*****************************************************************
 *****************************************************************/
-t_missile*  create_Missile          ( int x, int y, int angle) {
+t_missile*  create_Missile          ( int x, int y, int angle) {    //   ===>    à supprimer
 
     float   angle_rad;
 
@@ -282,8 +333,19 @@ void        affiche_missile         (SDL_Renderer *r, t_missile *m, t_animation 
 }
 /*****************************************************************
 *****************************************************************/
-void        destroy_missile          (t_missile **s) {
+void        destroy_missile          (t_missile **s) {              //   ====>  à supprimer
 
     free(*s);
     *s = NULL;
+}
+/*****************************************************************
+*****************************************************************/
+void        tir_tower   (t_tower *t, int current_nb_tower ) {
+
+    int a, b;
+
+    for (a = 0; a < current_nb_tower; a++) {
+
+        t->missile[0].actif = true;
+    }
 }

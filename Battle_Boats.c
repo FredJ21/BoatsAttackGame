@@ -169,10 +169,13 @@ int main( int argc, char* args[] )
     t_tower *TOWER[TOWER_MAX];                         // tableau de pointeurs
 
     /* SPRITE MISSILE */
+/*
     t_missile *MISSILE[MISSILE_MAX];
+
     for ( a = 0; a < 360 ; a+=3) {
- //       MISSILE[current_nb_missile++] = create_Missile (MAP_TAILLE_X/2, MAP_TAILLE_Y/2, a);
+        MISSILE[current_nb_missile++] = create_Missile (MAP_TAILLE_X/2, MAP_TAILLE_Y/2, a);
     }
+*/
 
     // charge la police pour l'affichage du score
     my_score.police = TTF_OpenFont(POLICE_SCORE, POLICE_SCORE_SIZE);
@@ -214,11 +217,7 @@ int main( int argc, char* args[] )
                             flag_change_level = true;
                             break;
                         case SDLK_m:
-                            for (a = 0; a < current_nb_missile; a++) {
-                                MISSILE[a]->x = MAP_TAILLE_X/2;
-                                MISSILE[a]->y = MAP_TAILLE_Y/2;
 
-                            }
                             break;
                         case SDLK_t:
                             if (flag_mode_game && current_nb_tower < TOWER_MAX) {
@@ -231,6 +230,11 @@ int main( int argc, char* args[] )
                                 flag_mode_place_tower = false;
                                 flag_mode_game = true;
 
+                            }
+                            break;
+                        case SDLK_SPACE:
+                            for (a = 0; a < current_nb_tower; a++){
+                                tir_tower(TOWER[a], current_nb_tower);
                             }
                             break;
                         default:
@@ -427,16 +431,10 @@ int main( int argc, char* args[] )
         anime_sprite(ARRIVE);
         affiche_sprite (pRenderer, ARRIVE);
 
-        // Affichage des missiles
-        for (a = 0; a < current_nb_missile; a++) {
- //           avance_missile(MISSILE[a]);
-            affiche_missile (pRenderer, MISSILE[a], &ANIM_MISSILE);
-        }
-
         // Affichage des Sprites
         for (a = 0; a < current_nb_enemy; a++) {
             anime_sprite    (ENEMY[a]);
-            avance_sprite   (ENEMY[a], &my_level);
+//            avance_sprite   (ENEMY[a], &my_level);
             affiche_sprite  (pRenderer, ENEMY[a]);
         }
         // Affichage des tourelles
@@ -445,6 +443,10 @@ int main( int argc, char* args[] )
             anime_tower     (TOWER[a]);
             affiche_tower (pRenderer, TOWER[a]);
 
+            for ( b = 0; b < TOWER_NB_MISSILE_MAX; b++ ){
+                avance_missile(&TOWER[a]->missile[b]);
+                affiche_missile (pRenderer, &TOWER[a]->missile[b], &ANIM_MISSILE);
+            }
         }
 
         // Affichage de la tourelle de depart, sous la souris
@@ -466,10 +468,10 @@ int main( int argc, char* args[] )
 
 
         // Affichage du texte
-        if (flag_affiche_level_titre) {       affiche_titre(pRenderer, &my_level);    }
+//        if (flag_affiche_level_titre) {       affiche_titre(pRenderer, &my_level);    }
 
         // Affichage du score
-        affiche_score( pRenderer, &my_score);
+//        affiche_score( pRenderer, &my_score);
 
         // Mise a jour de l'affichage
         SDL_RenderPresent   (pRenderer);
@@ -495,7 +497,7 @@ int main( int argc, char* args[] )
         destroy_tower(&TOWER[a]);
     }
 
-    destroy_missile(&MISSILE);
+//    destroy_missile(&MISSILE);
 
     destroy_sprite(&ARRIVE);
     destroy_tower(&TOWER_MOUSE);

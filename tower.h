@@ -1,8 +1,16 @@
 #ifndef TOWER_H_INCLUDED
 #define TOWER_H_INCLUDED
 
+// MISSILE
+typedef struct {
+    float   x, y;
+    int     angle;
+    float   dx, dy;             // déplacement en x et y
+    bool    actif;
+} t_missile;
 
-// sprite de type tower
+
+// TOWER
 typedef struct {
     int     x, y;               // position
     int     HG_x, HG_y;         // position du coin en haut à gauche
@@ -21,14 +29,9 @@ typedef struct {
 
 	int     visible;            // effet de transparence  255->visible  0->invisible
 
-} t_tower;
+	t_missile missile[TOWER_NB_MISSILE_MAX] ;
 
-typedef struct {
-    float   x, y;
-    int     angle;
-    float   dx, dy;             // déplacement en x et y
-    bool    actif;
-} t_missile;
+} t_tower;
 
 
 t_tower*    create_Tower            ( int x, int y, t_animation *ANIM);
@@ -45,6 +48,7 @@ t_missile*  create_Missile          ( int x, int y, int angle);
 void        avance_missile          (t_missile *m);
 void        affiche_missile         (SDL_Renderer *r, t_missile *m, t_animation *ANIM);
 void        destroy_missile         (t_missile **s);
+void        tir_tower               (t_tower *t, int current_nb_tower);
 
 
 #endif // TOWER_H_INCLUDED
