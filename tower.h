@@ -44,10 +44,8 @@ int         is_tower_position       (int x, int y, t_tower *s[], int current_nb_
 
 void        destroy_tower           (t_tower **s);
 
-t_missile*  create_Missile          ( int x, int y, int angle);
 void        avance_missile          (t_missile *m);
 void        affiche_missile         (SDL_Renderer *r, t_missile *m, t_animation *ANIM);
-void        destroy_missile         (t_missile **s);
 void        tir_tower               (t_tower *t, int current_nb_tower);
 
 

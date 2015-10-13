@@ -40,8 +40,6 @@ t_tower*   create_Tower( int x, int y, t_animation *ANIM) {
     // création des missiles
     for (a = 0; a < TOWER_NB_MISSILE_MAX; a++) {
 
-        s->missile[a].x = x;
-        s->missile[a].y = y;
         s->missile[a].actif = false;
     }
 
@@ -97,8 +95,8 @@ void        calcul_angle_tower      (t_tower *s) {
     } else if ( angle > 90 && angle < 180 ) {
 
                 angle_rad = (angle-90) * (M_PI/180);
-                dx = MISSILE_SPEED * sinf(angle_rad);      // le coté opposé
-                dy = MISSILE_SPEED * cosf(angle_rad);      // le coté adjacent
+                dy = MISSILE_SPEED * sinf(angle_rad);      // le coté opposé
+                dx = MISSILE_SPEED * cosf(angle_rad);      // le coté adjacent
 
     } else if ( angle >= 180 && angle <= 270 ) {
 
@@ -109,8 +107,8 @@ void        calcul_angle_tower      (t_tower *s) {
     } else if ( angle > 270 ) {
 
                 angle_rad = (angle-270) * (M_PI/180);
-                dx = - MISSILE_SPEED * sinf(angle_rad);      // le coté opposé
-                dy = - MISSILE_SPEED * cosf(angle_rad);      // le coté adjacent
+                dy = - MISSILE_SPEED * sinf(angle_rad);      // le coté opposé
+                dx = - MISSILE_SPEED * cosf(angle_rad);      // le coté adjacent
     }
 
     for (a = 0; a < TOWER_NB_MISSILE_MAX; a++) {
@@ -255,54 +253,16 @@ void        destroy_tower           (t_tower **s) {
 }
 /*****************************************************************
 *****************************************************************/
-t_missile*  create_Missile          ( int x, int y, int angle) {    //   ===>    à supprimer
-
-    float   angle_rad;
-
-	t_missile *s = (t_missile*)malloc(sizeof(t_missile));
-
-    s->x            = x;
-    s->y            = y;
-    s->angle        = angle;
-    s->actif        = true;
-
-
-    // Calcul des distances de déplacement celon l'angle
-    if      ( angle >= 0 && angle <= 90 ) {
-
-                angle_rad = angle * (M_PI/180);
-                s->dx = MISSILE_SPEED * sinf(angle_rad);        // le coté opposé
-                s->dy = - MISSILE_SPEED * cosf(angle_rad);      // le coté adjacent
-
-    } else if ( angle > 90 && angle < 180 ) {
-
-                angle_rad = (angle-90) * (M_PI/180);
-                s->dx = MISSILE_SPEED * sinf(angle_rad);      // le coté opposé
-                s->dy = MISSILE_SPEED * cosf(angle_rad);      // le coté adjacent
-
-    } else if ( angle >= 180 && angle <= 270 ) {
-
-                angle_rad = (angle-180) * (M_PI/180);
-                s->dx = - MISSILE_SPEED * sinf(angle_rad);      // le coté opposé
-                s->dy = MISSILE_SPEED * cosf(angle_rad);      // le coté adjacent
-
-    } else if ( angle > 270 ) {
-
-                angle_rad = (angle-270) * (M_PI/180);
-                s->dx = - MISSILE_SPEED * sinf(angle_rad);      // le coté opposé
-                s->dy = - MISSILE_SPEED * cosf(angle_rad);      // le coté adjacent
-    }
-
-
-	return s;
-}
-/*****************************************************************
-*****************************************************************/
 void        avance_missile          (t_missile *m) {
 
     if (m->actif) {
        m->x += m->dx;
        m->y += m->dy;
+
+       if (m->x < 0 || m->y < 0 || m->x > MAP_TAILLE_X || m->y > MAP_TAILLE_Y) {
+
+            m->actif = false;
+       }
     }
 
 }
@@ -333,19 +293,20 @@ void        affiche_missile         (SDL_Renderer *r, t_missile *m, t_animation 
 }
 /*****************************************************************
 *****************************************************************/
-void        destroy_missile          (t_missile **s) {              //   ====>  à supprimer
-
-    free(*s);
-    *s = NULL;
-}
-/*****************************************************************
-*****************************************************************/
 void        tir_tower   (t_tower *t, int current_nb_tower ) {
 
     int a, b;
 
-    for (a = 0; a < current_nb_tower; a++) {
+    for (a = 0; a < TOWER_NB_MISSILE_MAX; a++) {
 
-        t->missile[0].actif = true;
+        if ( ! t->missile[a].actif ) {
+
+            t->missile[a].x = t->x;
+            t->missile[a].y = t->y;
+
+            t->missile[a].actif = true;
+            printf ("->%d\n", a);
+            break;
+        }
     }
 }

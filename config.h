@@ -13,7 +13,7 @@
 #define COULEUR_FENETRE     NOIR
 #define START_IMG           "./images/start.bmp"
 
-#define GAME_FPS              30       // a repasser à 30
+#define GAME_FPS              300       // a repasser à 30
 
 #define MAP_TAILLE_X        1024
 #define MAP_TAILLE_Y         768
@@ -29,7 +29,7 @@
 #define TOWER_MAX               30
 #define TOWER_NB_MISSILE_MAX     3          // par tourelle
 #define MISSILE_MAX             400
-#define MISSILE_SPEED           10
+#define MISSILE_SPEED           15
 
 #define POLICE_LEVEL_TITRE      "./fonts/Alex_Bold.ttf"
 #define POLICE_LEVEL_TITRE_SIZE 150

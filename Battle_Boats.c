@@ -434,19 +434,19 @@ int main( int argc, char* args[] )
         // Affichage des Sprites
         for (a = 0; a < current_nb_enemy; a++) {
             anime_sprite    (ENEMY[a]);
-//            avance_sprite   (ENEMY[a], &my_level);
+            avance_sprite   (ENEMY[a], &my_level);
             affiche_sprite  (pRenderer, ENEMY[a]);
         }
         // Affichage des tourelles
         for (a = 0; a < current_nb_tower; a++){
 
-            anime_tower     (TOWER[a]);
-            affiche_tower (pRenderer, TOWER[a]);
 
             for ( b = 0; b < TOWER_NB_MISSILE_MAX; b++ ){
                 avance_missile(&TOWER[a]->missile[b]);
                 affiche_missile (pRenderer, &TOWER[a]->missile[b], &ANIM_MISSILE);
             }
+            anime_tower     (TOWER[a]);
+            affiche_tower (pRenderer, TOWER[a]);
         }
 
         // Affichage de la tourelle de depart, sous la souris
@@ -468,10 +468,10 @@ int main( int argc, char* args[] )
 
 
         // Affichage du texte
-//        if (flag_affiche_level_titre) {       affiche_titre(pRenderer, &my_level);    }
+        if (flag_affiche_level_titre) {       affiche_titre(pRenderer, &my_level);    }
 
         // Affichage du score
-//        affiche_score( pRenderer, &my_score);
+        affiche_score( pRenderer, &my_score);
 
         // Mise a jour de l'affichage
         SDL_RenderPresent   (pRenderer);
@@ -497,7 +497,6 @@ int main( int argc, char* args[] )
         destroy_tower(&TOWER[a]);
     }
 
-//    destroy_missile(&MISSILE);
 
     destroy_sprite(&ARRIVE);
     destroy_tower(&TOWER_MOUSE);
