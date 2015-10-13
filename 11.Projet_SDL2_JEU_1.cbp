@@ -45,6 +45,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Algo_A_star.h" />
+		<Unit filename="Algo_Collision.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Algo_Collision.h" />
 		<Unit filename="Battle_Boats.c">
 			<Option compilerVar="CC" />
 		</Unit>
