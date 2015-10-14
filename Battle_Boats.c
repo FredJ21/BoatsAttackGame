@@ -13,6 +13,7 @@
 #include "Algo_A_star.h"
 #include "affichage_texte.h"
 #include "tower.h"
+#include "Algo_Collision.h"
 
 
 
@@ -84,7 +85,7 @@ int main( int argc, char* args[] )
     bool flag_tower_position_ok      = false;        // vrai si la tourelle n'est pas dans l'eau
 
     time_t t_Avant_Traitement;          // permet de gérer les fps
-    time_t t_Apres_Traitement;
+    time_t t_Temps_de_Traitement;
 
     time_t CounterSecond = clock();     // traitement toute les second
     int CounterBeforeChgLevel = 0;      // pause avant le changement de level
@@ -168,14 +169,6 @@ int main( int argc, char* args[] )
     t_tower *TOWER_MOUSE = create_Tower (0,0,&ANIM_TOWER);  // tourelle d'aide au positionnement, sous pointeur souris
     t_tower *TOWER[TOWER_MAX];                         // tableau de pointeurs
 
-    /* SPRITE MISSILE */
-/*
-    t_missile *MISSILE[MISSILE_MAX];
-
-    for ( a = 0; a < 360 ; a+=3) {
-        MISSILE[current_nb_missile++] = create_Missile (MAP_TAILLE_X/2, MAP_TAILLE_Y/2, a);
-    }
-*/
 
     // charge la police pour l'affichage du score
     my_score.police = TTF_OpenFont(POLICE_SCORE, POLICE_SCORE_SIZE);
@@ -416,6 +409,10 @@ int main( int argc, char* args[] )
             CounterSecond = clock();
         }
 
+        /******************************************************************************************************************
+                                                    TEST
+        *******************************************************************************************************************/
+   //     test_collision(TOWER, current_nb_tower, ENEMY, current_nb_enemy);
 
         /******************************************************************************************************************
                                                     AFFICHAGE
@@ -434,7 +431,7 @@ int main( int argc, char* args[] )
         // Affichage des Sprites
         for (a = 0; a < current_nb_enemy; a++) {
             anime_sprite    (ENEMY[a]);
-            avance_sprite   (ENEMY[a], &my_level);
+  //          avance_sprite   (ENEMY[a], &my_level);
             affiche_sprite  (pRenderer, ENEMY[a]);
         }
         // Affichage des tourelles
@@ -480,9 +477,10 @@ int main( int argc, char* args[] )
         /************************************************/
         /**   Calcul du temps de traitement et pause   **/
         /************************************************/
-        t_Apres_Traitement = clock();
-        game_sleep = 1000 / GAME_FPS - (t_Avant_Traitement - t_Apres_Traitement);
-        //printf ("sleep : %d\n", game_sleep);
+        t_Temps_de_Traitement = clock() - t_Avant_Traitement;
+        //printf ("Temps de traitement : %d\n", t_Temps_de_Traitement);
+
+        game_sleep = 1000 / GAME_FPS - (t_Temps_de_Traitement);
         SDL_Delay( game_sleep );
     }
 

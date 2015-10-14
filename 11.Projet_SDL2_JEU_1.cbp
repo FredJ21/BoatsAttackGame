@@ -11,7 +11,6 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option use_console_runner="0" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -45,6 +44,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Algo_A_star.h" />
+		<Unit filename="Algo_Collision.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Algo_Collision.h" />
 		<Unit filename="Battle_Boats.c">
 			<Option compilerVar="CC" />
 		</Unit>

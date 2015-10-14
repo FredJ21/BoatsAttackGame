@@ -8,6 +8,10 @@
 #define BLEU    0x00, 0x00, 0xFF
 #define COLOR_ALEA al_map_rgb(rand()%256,rand()%256,rand()%256)
 
+#define false   0
+#define true    1
+#define bool    short int
+
 // CONFIG
 #define APP_TITRE           "Battle BOATS - By Fred & Mathis"
 #define COULEUR_FENETRE     NOIR
@@ -26,7 +30,7 @@
 #define LEVEL_NB_TOTAL         4
 #define WAVE_ENEMY_MAX_BY_WAVE  100
 #define WAVE_NB                 10
-#define TOWER_MAX               30
+#define TOWER_MAX               3
 #define TOWER_NB_MISSILE_MAX     3          // par tourelle
 #define MISSILE_MAX             400
 #define MISSILE_SPEED           15
