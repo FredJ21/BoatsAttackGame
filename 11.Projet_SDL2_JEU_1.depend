@@ -706,7 +706,7 @@
 	"config.h"
 	"level.h"
 
-1444682445 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.c
+1444767325 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -720,6 +720,7 @@
 	"Algo_A_star.h"
 	"affichage_texte.h"
 	"tower.h"
+	"Algo_Collision.h"
 
 1376276274 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -1055,13 +1056,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1444682445 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\config.h
+1444769968 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\config.h
 
-1443335483 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.h
+1444762685 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\battle_boats.h
 
-1444411575 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.h
+1444760222 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.h
 
-1444411575 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.c
+1444760222 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\level.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -1071,7 +1072,7 @@
 	"level.h"
 	"Algo_A_star.h"
 
-1444242399 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\anim.c
+1444760222 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\anim.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -1081,9 +1082,9 @@
 	"level.h"
 	"anim.h"
 
-1444242399 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\anim.h
+1444763460 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\anim.h
 
-1443831883 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\algo_a_star.c
+1444760222 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\algo_a_star.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -1092,7 +1093,7 @@
 	"level.h"
 	"Algo_A_star.h"
 
-1442428968 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\algo_a_star.h
+1444760222 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\algo_a_star.h
 
 1443797981 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\algo_a_star.c
 	<SDL.h>
@@ -1437,7 +1438,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1444747155 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\config.h
+1444632075 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\config.h
 
 1444374856 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\level.h
 
@@ -1455,7 +1456,7 @@
 
 1444199033 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\anim.h
 
-1444759076 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\battle_boats.c
+1444668889 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\battle_boats.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -1469,9 +1470,8 @@
 	"Algo_A_star.h"
 	"affichage_texte.h"
 	"tower.h"
-	"Algo_Collision.h"
 
-1444746944 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\battle_boats.h
+1443426767 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\battle_boats.h
 
 1444374932 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\level.c
 	<SDL.h>
@@ -1502,7 +1502,7 @@
 
 1444022006 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\affichage_texte.h
 
-1444411575 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\affichage_texte.c
+1444760222 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\affichage_texte.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -1510,11 +1510,11 @@
 	"config.h"
 	"affichage_texte.h"
 
-1443884623 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\affichage_texte.h
+1444760222 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\affichage_texte.h
 
-1444714871 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\tower.h
+1444668889 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\tower.h
 
-1444714871 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\tower.c
+1444666868 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\tower.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -1526,9 +1526,9 @@
 	"anim.h"
 	"tower.h"
 
-1444670607 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\tower.h
+1444768634 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\tower.h
 
-1444681979 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\tower.c
+1444770563 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\tower.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -1540,17 +1540,18 @@
 	"anim.h"
 	"tower.h"
 
-1444754692 source:c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\algo_collision.c
+1444770736 source:c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\algo_collision.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
 	<stdlib.h>
-	<math.h>
+	<time.h>
+	<string.h>
 	"config.h"
 	"level.h"
 	"anim.h"
 	"tower.h"
 	"Algo_Collision.h"
 
-1444754305 c:\users\ext-fjelmoni\desktop\fred\11.projet_sdl2_jeu_1\algo_collision.h
+1444763387 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\algo_collision.h
 

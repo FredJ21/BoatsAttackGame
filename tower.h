@@ -31,6 +31,8 @@ typedef struct {
 
 	t_missile missile[TOWER_NB_MISSILE_MAX] ;
 
+	bool    actif;
+
 } t_tower;
 
 

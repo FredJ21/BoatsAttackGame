@@ -36,6 +36,7 @@ t_tower*   create_Tower( int x, int y, t_animation *ANIM) {
 	s->nb_tour      = ANIM->nb_tour;
 	s->anim         = ANIM;
 	s->visible      = 254;
+	s->actif        = true;
 
     // création des missiles
     for (a = 0; a < TOWER_NB_MISSILE_MAX; a++) {
@@ -58,7 +59,7 @@ void        anime_tower             (t_tower *s) {
 
     } else {
 
-        // TODO TIR
+        // TODO TIR AUTO
     }
 
 }
@@ -124,34 +125,36 @@ void        calcul_angle_tower      (t_tower *s) {
 *****************************************************************/
 void        affiche_tower(SDL_Renderer *r, t_tower *s){
 
+    if (s->actif) {
 
+        SDL_Rect Src;
+        SDL_Rect Dst;
 
-    SDL_Rect Src;
-    SDL_Rect Dst;
+        Src.x = s->img_current * s->anim->tx;
+        Src.y = 0;
+        Src.w = s->anim->tx;
+        Src.h = s->anim->ty;
 
-    Src.x = s->img_current * s->anim->tx;
-    Src.y = 0;
-    Src.w = s->anim->tx;
-    Src.h = s->anim->ty;
+        Dst.x = s->x - s->anim->tx/2;     // permet de center le sprite sur les coordonnées
+        Dst.y = s->y - s->anim->ty/2;
+        Dst.w = s->anim->tx;
+        Dst.h = s->anim->ty;
 
-    Dst.x = s->x - s->anim->tx/2;     // permet de center le sprite sur les coordonnées
-    Dst.y = s->y - s->anim->ty/2;
-    Dst.w = s->anim->tx;
-    Dst.h = s->anim->ty;
+        SDL_SetTextureAlphaMod (s->anim->texture, s->visible);
+        SDL_SetRenderDrawColor (r, 254, 0, 0, 50);
 
-    SDL_SetTextureAlphaMod (s->anim->texture, s->visible);
-    SDL_SetRenderDrawColor (r, 254, 0, 0, 50);
+        // Affichage
+        if (s->selected) {
+            SDL_RenderDrawRect(r, &Dst);
+        }
+        SDL_RenderCopyEx(r, s->anim->texture, &Src, &Dst, s->angle, NULL, 0);
 
-    // Affichage
-    if (s->selected) {
-        SDL_RenderDrawRect(r, &Dst);
     }
-    SDL_RenderCopyEx(r, s->anim->texture, &Src, &Dst, s->angle, NULL, 0);
-
 }
 /*****************************************************************
 *****************************************************************/
 bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel, t_tower *TOWER[], int current_nb_tower) {
+
 
     int a;
 
@@ -196,30 +199,33 @@ bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel, t_tower *TO
     // test, pour chaque tourelle déjà en place, si la nouvelle n'est pas dessus
     for (a = 0; a < current_nb_tower; a++) {
 
-        // pour la position centale du nouveau sprite
-        if ( s->x >= TOWER[a]->HG_x && s->x <= TOWER[a]->BD_x && s->y >= TOWER[a]->HG_y && s->y <= TOWER[a]->BD_y ) {
+        if (TOWER[a]->actif) {
 
-            return false;
-        }
-        // pour la position HG
-        if ( HG.x >= TOWER[a]->HG_x && HG.x <= TOWER[a]->BD_x && HG.y >= TOWER[a]->HG_y && HG.y <= TOWER[a]->BD_y ) {
+            // pour la position centale du nouveau sprite
+            if ( s->x >= TOWER[a]->HG_x && s->x <= TOWER[a]->BD_x && s->y >= TOWER[a]->HG_y && s->y <= TOWER[a]->BD_y ) {
 
-            return false;
-        }
-        // pour la position HD
-        if ( HD.x >= TOWER[a]->HG_x && HD.x <= TOWER[a]->BD_x && HD.y >= TOWER[a]->HG_y && HD.y <= TOWER[a]->BD_y ) {
+                return false;
+            }
+            // pour la position HG
+            if ( HG.x >= TOWER[a]->HG_x && HG.x <= TOWER[a]->BD_x && HG.y >= TOWER[a]->HG_y && HG.y <= TOWER[a]->BD_y ) {
 
-            return false;
-        }
-        // pour la position BD
-        if ( BD.x >= TOWER[a]->HG_x && BD.x <= TOWER[a]->BD_x && BD.y >= TOWER[a]->HG_y && BD.y <= TOWER[a]->BD_y ) {
+                return false;
+            }
+            // pour la position HD
+            if ( HD.x >= TOWER[a]->HG_x && HD.x <= TOWER[a]->BD_x && HD.y >= TOWER[a]->HG_y && HD.y <= TOWER[a]->BD_y ) {
 
-            return false;
-        }
-        // pour la position BG
-        if ( BG.x >= TOWER[a]->HG_x && BG.x <= TOWER[a]->BD_x && BG.y >= TOWER[a]->HG_y && BG.y <= TOWER[a]->BD_y ) {
+                return false;
+            }
+            // pour la position BD
+            if ( BD.x >= TOWER[a]->HG_x && BD.x <= TOWER[a]->BD_x && BD.y >= TOWER[a]->HG_y && BD.y <= TOWER[a]->BD_y ) {
 
-            return false;
+                return false;
+            }
+            // pour la position BG
+            if ( BG.x >= TOWER[a]->HG_x && BG.x <= TOWER[a]->BD_x && BG.y >= TOWER[a]->HG_y && BG.y <= TOWER[a]->BD_y ) {
+
+                return false;
+            }
         }
     }
 
@@ -230,18 +236,23 @@ bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel, t_tower *TO
 *****************************************************************/
 int         is_tower_position       (int x, int y, t_tower *s[], int current_nb_tower ){
 
+
     int a;
     int result = TOWER_MAX;
 
+
     for (a = 0; a < current_nb_tower; a++) {
 
-        if (x >= s[a]->HG_x && x <= s[a]->BD_x && y >= s[a]->HG_y && y <= s[a]->BD_y ) {
+        if (s[a]->actif) {
 
-            result = a;
+            if (x >= s[a]->HG_x && x <= s[a]->BD_x && y >= s[a]->HG_y && y <= s[a]->BD_y ) {
+
+                result = a;
+            }
         }
     }
-
     return result;
+
 }
 /*****************************************************************
 *****************************************************************/
@@ -295,18 +306,21 @@ void        affiche_missile         (SDL_Renderer *r, t_missile *m, t_animation 
 *****************************************************************/
 void        tir_tower   (t_tower *t, int current_nb_tower ) {
 
-    int a, b;
+    if ( t->actif ) {
 
-    for (a = 0; a < TOWER_NB_MISSILE_MAX; a++) {
+        int a, b;
 
-        if ( ! t->missile[a].actif ) {
+        for (a = 0; a < TOWER_NB_MISSILE_MAX; a++) {
 
-            t->missile[a].x = t->x;
-            t->missile[a].y = t->y;
+            if ( ! t->missile[a].actif ) {
 
-            t->missile[a].actif = true;
-            printf ("->%d\n", a);
-            break;
+                t->missile[a].x = t->x;
+                t->missile[a].y = t->y;
+
+                t->missile[a].actif = true;
+                break;
+            }
         }
     }
 }
+

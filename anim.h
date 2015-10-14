@@ -1,10 +1,6 @@
 #ifndef ANIM_H_INCLUDED
 #define ANIM_H_INCLUDED
 
-#define false   0
-#define true    1
-#define bool    short int
-
 typedef struct {
     int     x;
     int     y;

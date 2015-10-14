@@ -30,7 +30,7 @@
 #define LEVEL_NB_TOTAL         4
 #define WAVE_ENEMY_MAX_BY_WAVE  100
 #define WAVE_NB                 10
-#define TOWER_MAX               3
+#define TOWER_MAX                10
 #define TOWER_NB_MISSILE_MAX     3          // par tourelle
 #define MISSILE_MAX             400
 #define MISSILE_SPEED           15

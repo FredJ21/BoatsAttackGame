@@ -2,7 +2,9 @@
 #include <SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
+#include <time.h>
+#include <string.h>
+
 
 #include "config.h"
 #include "level.h"
@@ -13,59 +15,49 @@
 
 /*****************************************************************
 *****************************************************************/
-bool test_collision_circle (int Ax, int Ay, int Aradius, int Bx, int By, int Bradius ) {
+bool test_collision_circle      (int Ax, int Ay, int Aradius, int Bx, int By, int Bradius ) {
 
+
+  //  printf ("%d %d %d %d %d %d\n", Ax, Ay, Aradius, Bx, By, Bradius);
 
     int dx = Ax - Bx;
     int dy = Ay - By;
-    int distance = sqrt(dx * dx + dy * dy);
+    int distance = sqrt((dx * dx) + (dy * dy));
 
-    if (distance < Aradius + Bradius ) {
+    if (distance < (Aradius + Bradius) ) {
 
-        printf ("collision détectée ! \n");
+        return true;
 
+    } else {
+
+        return false;
     }
 }
-/*****************************************************************
-*****************************************************************/
-/*
-
-
-var rect1 = {x: 5, y: 5, width: 50, height: 50}
-var rect2 = {x: 20, y: 10, width: 10, height: 10}
-
-if (rect1.x < rect2.x + rect2.width &&
-   rect1.x + rect1.width > rect2.x &&
-   rect1.y < rect2.y + rect2.height &&
-   rect1.height + rect1.y > rect2.y) {
-    // collision détectée !
-}
-
-// remplissage des valeurs =>
-
-if (5 < 30 &&
-    55 > 20 &&
-    5 < 20 &&
-    55 > 10) {
-    // collision détectée !
-}
-**/
 /*****************************************************************
 *****************************************************************/
 void test_collision             (t_tower *tower[], int nb_tower, t_sprite *enemy[], int nb_enemy) {
 
     int a, b, m, s;
 
-    for (a = 0; a < nb_tower; a++) {
-        printf ("T%d ", a);
-
-        for( m = 0; m < TOWER_NB_MISSILE_MAX; m++){
+    for (a = 0; a < nb_tower; a++) {                        // pour chaque tourelle  A
+        for( m = 0; m < TOWER_NB_MISSILE_MAX; m++){         // pour chaque missile   M
 
             if (tower[a]->missile[m].actif ) {
 
-                printf ("M%d ", m);
+                for (b = 0; b < nb_tower; b++) {            // test de collision avec les autres tourelle   B
+
+                    if ( tower[b]->actif && a != b) {       // pas de test entre une tourelle et elle meme
+
+                                                            // test de collision entre le missile M de la tourelle A avec la position de tourelle B
+                        if ( test_collision_circle( tower[a]->missile[m].x, tower[a]->missile[m].y, 5, tower[b]->x, tower[b]->y, tower[b]->anim->tx/2 ) ) {
+
+                            tower[a]->missile[m].actif = false;
+                            tower[b]->actif = false;
+
+                        }
+                    }
+                }
             }
         }
     }
-    printf ("\n");
 }
