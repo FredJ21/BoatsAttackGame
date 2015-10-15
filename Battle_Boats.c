@@ -169,15 +169,6 @@ int main( int argc, char* args[] )
     t_tower *TOWER_MOUSE = create_Tower (0,0,&ANIM_TOWER);  // tourelle d'aide au positionnement, sous pointeur souris
     t_tower *TOWER[TOWER_MAX];                         // tableau de pointeurs
 
-    /* SPRITE MISSILE */
-/*
-    t_missile *MISSILE[MISSILE_MAX];
-
-    for ( a = 0; a < 360 ; a+=3) {
-        MISSILE[current_nb_missile++] = create_Missile (MAP_TAILLE_X/2, MAP_TAILLE_Y/2, a);
-    }
-*/
-
     // charge la police pour l'affichage du score
     my_score.police = TTF_OpenFont(POLICE_SCORE, POLICE_SCORE_SIZE);
     if(!my_score.police) {                  printf( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}

@@ -57,11 +57,7 @@ void        anime_tower             (t_tower *s) {
         s->angle = s->angle + 3;
         if (s->angle > 360 ) { s->angle = 0; }
 
-    } else {
-
-        // TODO TIR AUTO
     }
-
 }
 /*****************************************************************
 *****************************************************************/
@@ -306,7 +302,7 @@ void        affiche_missile         (SDL_Renderer *r, t_missile *m, t_animation 
 *****************************************************************/
 void        tir_tower   (t_tower *t, int current_nb_tower ) {
 
-    if ( t->actif ) {
+    if ( t->actif && t->cible_x + t->cible_y != 0 ) {
 
         int a, b;
 
