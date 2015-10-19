@@ -27,13 +27,12 @@
 #define TILE_TAILLE_Y         32
 #define TILE_FILE           "./images/32x32_map_tile_v3.1.bmp"
 #define TILE_FILE_NB_COLONNE  23
-#define LEVEL_NB_TOTAL         4
+#define LEVEL_NB_TOTAL            6
 #define WAVE_ENEMY_MAX_BY_WAVE  100
-#define WAVE_NB                 10
+#define WAVE_NB                  10
 #define TOWER_MAX                10
-#define TOWER_NB_MISSILE_MAX     3          // par tourelle
-#define MISSILE_MAX             400
-#define MISSILE_SPEED           15
+#define TOWER_NB_MISSILE_MAX      1          // par tourelle
+#define MISSILE_SPEED            15
 
 #define POLICE_LEVEL_TITRE      "./fonts/Alex_Bold.ttf"
 #define POLICE_LEVEL_TITRE_SIZE 150

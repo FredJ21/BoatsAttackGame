@@ -329,8 +329,9 @@ int main( int argc, char* args[] )
                 init_level_titre(pRenderer, &my_level, police_level_titre);
 
                 place_sprite(ARRIVE, my_level.cibleX, my_level.cibleY);
+
                 init_level_chemins(&my_level);
-                //affiche_map_console ( &my_level);
+                affiche_map_console ( &my_level);
 
 
                 /** CREATE ENEMY **/
@@ -411,7 +412,7 @@ int main( int argc, char* args[] )
                                                     COLLISION
         *******************************************************************************************************************/
 
-        test_collision(TOWER, current_nb_tower, ENEMY, current_enemy_alive);
+        test_collision(TOWER, current_nb_tower, ENEMY, current_nb_enemy);
 
         /******************************************************************************************************************
                                                     AFFICHAGE
@@ -430,7 +431,7 @@ int main( int argc, char* args[] )
         // Affichage des Sprites
         for (a = 0; a < current_nb_enemy; a++) {
             anime_sprite    (ENEMY[a]);
-  //          avance_sprite   (ENEMY[a], &my_level);
+            avance_sprite   (ENEMY[a], &my_level);
             affiche_sprite  (pRenderer, ENEMY[a]);
         }
         // Affichage des tourelles
