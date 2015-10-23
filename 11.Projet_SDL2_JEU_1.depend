@@ -1555,3 +1555,97 @@
 
 1444763387 c:\users\fred\desktop\fred\c\11.projet_sdl2_jeu_1\algo_collision.h
 
+1445419810 source:c:\users\fred\documents\fred-dev\11.projet_sdl2_jeu_1\affichage_texte.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	"config.h"
+	"affichage_texte.h"
+
+1445420588 c:\users\fred\documents\fred-dev\11.projet_sdl2_jeu_1\config.h
+
+1445419810 c:\users\fred\documents\fred-dev\11.projet_sdl2_jeu_1\affichage_texte.h
+
+1445419810 source:c:\users\fred\documents\fred-dev\11.projet_sdl2_jeu_1\algo_a_star.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	"config.h"
+	"level.h"
+	"Algo_A_star.h"
+
+1445419810 c:\users\fred\documents\fred-dev\11.projet_sdl2_jeu_1\level.h
+
+1445419810 c:\users\fred\documents\fred-dev\11.projet_sdl2_jeu_1\algo_a_star.h
+
+1445419810 source:c:\users\fred\documents\fred-dev\11.projet_sdl2_jeu_1\algo_collision.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	"config.h"
+	"level.h"
+	"anim.h"
+	"tower.h"
+	"Algo_Collision.h"
+
+1445419810 c:\users\fred\documents\fred-dev\11.projet_sdl2_jeu_1\anim.h
+
+1445419810 c:\users\fred\documents\fred-dev\11.projet_sdl2_jeu_1\tower.h
+
+1445419810 c:\users\fred\documents\fred-dev\11.projet_sdl2_jeu_1\algo_collision.h
+
+1445419810 source:c:\users\fred\documents\fred-dev\11.projet_sdl2_jeu_1\anim.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"config.h"
+	"level.h"
+	"anim.h"
+
+1445419810 source:c:\users\fred\documents\fred-dev\11.projet_sdl2_jeu_1\battle_boats.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	"config.h"
+	"Battle_boats.h"
+	"level.h"
+	"anim.h"
+	"Algo_A_star.h"
+	"affichage_texte.h"
+	"tower.h"
+	"Algo_Collision.h"
+
+1445419810 c:\users\fred\documents\fred-dev\11.projet_sdl2_jeu_1\battle_boats.h
+
+1445419810 source:c:\users\fred\documents\fred-dev\11.projet_sdl2_jeu_1\level.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"config.h"
+	"level.h"
+	"Algo_A_star.h"
+
+1445419810 source:c:\users\fred\documents\fred-dev\11.projet_sdl2_jeu_1\tower.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	"config.h"
+	"level.h"
+	"anim.h"
+	"tower.h"
+
