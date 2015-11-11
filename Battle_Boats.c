@@ -31,8 +31,8 @@ int main( int argc, char* args[] )
 
     // Création de la fenêtre
     SDL_Window *pWindow = NULL;
-    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_SHOWN );
-//    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
+//    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_SHOWN );
+    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_FULLSCREEN_DESKTOP );
     if(!pWindow) {                          printf( "SDL_Window ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
 
@@ -478,8 +478,9 @@ int main( int argc, char* args[] )
         /**   Calcul du temps de traitement et pause   **/
         /************************************************/
         t_Apres_Traitement = clock();
-        game_sleep = 1000 / GAME_FPS - (t_Avant_Traitement - t_Apres_Traitement);
-        //printf ("sleep : %d\n", game_sleep);
+        //game_sleep = 1000 / GAME_FPS - (t_Avant_Traitement - t_Apres_Traitement);
+        /** TODO :  calcul du temps de traitement sur Android **/
+        game_sleep = 1000 / GAME_FPS;
         SDL_Delay( game_sleep );
     }
 
