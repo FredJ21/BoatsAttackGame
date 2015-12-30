@@ -1,2 +1,5 @@
-obj*
-bin*
+/bin*
+/libs*
+/obj*
+/jni/src/obj*
+/jni/src/bin*
