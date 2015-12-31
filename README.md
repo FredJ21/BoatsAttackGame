@@ -6,15 +6,12 @@
 jeu de type "Tower defence"
 
 
-Ce projet a pour but de creer un jeu complet, simple et fonctionnel.
-Afin de ne pas "deriver" dans un programme complexe, un certain nombre 
-de regles (ou de contraintes) sont d�finis :   
+Ce projet a pour but de créer un jeu complet, simple et fonctionnel.
+Afin de ne pas "s'égarer" dans un programme complexe, un certain nombre de rêgles (ou de contraintes) sont définis :
 
-
-
-
-
-Utilisation de la library SDL2
+- Dévelopement en langage C - IDE : CodeBlock
+- Multiplaeformes : Windows, Android, IOS
+- Utilisation des library standards et de la library graphique SDL2
 
 
 
