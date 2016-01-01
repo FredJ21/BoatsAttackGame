@@ -105,7 +105,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
 
     int StartPos[LEVEL_NB_TOTAL][8] = { /** positions de depart des ennemis , couple start/end
           Haut      Droite    Bas       Gauche   **/
-        { 300, MAP_TAILLE_X-50, 100, MAP_TAILLE_Y-100, 200, 600, 0, 0 },                            // level 1
+        { 300, MAP_TAILLE_X-50, 100, MAP_TAILLE_Y-100, 300, MAP_TAILLE_X-50, 0, 0 },                            // level 1
         { 100, 400, 100, 400, 100, 400, 100, 400 },                                                 // level 2
         { 100, 400, 100, 400, 100, 400, 100, 400 },                                                 // level 3
         { 100, MAP_TAILLE_X-100, 100, MAP_TAILLE_Y-100, 100, MAP_TAILLE_X-100, 100, MAP_TAILLE_Y-100}       // level 4
@@ -129,7 +129,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
           type, Nb_up, Nb_right, Nb_Down, Nb_left, délais avant départ  **/
         {   // level 1
             0,  0, 10,  0,  0,  3,          // wave 1
-            1,  1, 1,  1,  0,  15,
+            1,  10, 10,  10,  0,  15,
             0,  0, 0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,

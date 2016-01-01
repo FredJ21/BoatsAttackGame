@@ -118,7 +118,7 @@ int main( int argc, char* args[] )
     SDL_Surface *pSurface_TUILE = SDL_LoadBMP (TILE_FILE);
     if(!pSurface_TUILE) { printf( "SDL_Surface_TUILE ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
-    /** ANIMATION **/
+    /** ANIMATION   (Images) **/
     t_animation ANIM[3];
 
     strcpy(ANIM[0].file,   "images/PetitBateau1.bmp");
@@ -161,7 +161,14 @@ int main( int argc, char* args[] )
     t_animation ANIM_MISSILE = { "images/Missile.bmp", 10, 10, 1, 1, 0, NULL, 0, 5 };
     init_animation( &ANIM_MISSILE, pRenderer);
 
+    t_animation IMG_BUTTON_TIR = { "images/Tir_100x80.bmp", 100, 80, 1, 1, 1, NULL, 1, 1 };
+    init_animation( &IMG_BUTTON_TIR, pRenderer);
 
+    t_animation IMG_BUTTON_TOWER = { "images/Tower_Botton_100x80.bmp", 100, 80, 1, 1, 1, NULL, 1, 1 };
+    init_animation( &IMG_BUTTON_TOWER, pRenderer);
+
+
+    /** SPRITE  (objet a afficher)  **/
     /* SPRITE ENNEMI */
     t_sprite *ENEMY[WAVE_NB * WAVE_ENEMY_MAX_BY_WAVE];   //tableau de pointeurs
 
@@ -173,6 +180,20 @@ int main( int argc, char* args[] )
     t_tower *TOWER_MOUSE = create_Tower (0,0,&ANIM_TOWER);  // tourelle d'aide au positionnement, sous pointeur souris
     t_tower *TOWER[TOWER_MAX];                         // tableau de pointeurs
 
+     /* SPRITE BUTTON */
+    t_sprite *BUTTON_TIR;
+    BUTTON_TIR = init_sprite (&IMG_BUTTON_TIR);
+    BUTTON_TIR->x = MAP_TAILLE_X - BUTTON_TIR->anim->tx/2 - 15;
+    BUTTON_TIR->y = MAP_TAILLE_Y - BUTTON_TIR->anim->ty/2 - 15 ;
+
+    t_sprite *BUTTON_TOWER;
+    BUTTON_TOWER = init_sprite (&IMG_BUTTON_TOWER);
+    BUTTON_TOWER->x = BUTTON_TOWER->anim->tx/2 + 15;
+    BUTTON_TOWER->y = MAP_TAILLE_Y - BUTTON_TOWER->anim->ty/2 - 15 ;
+
+
+
+    /** POLICE DE CARACTERE **/
     // charge la police pour l'affichage du score
     my_score.police = TTF_OpenFont(POLICE_SCORE, POLICE_SCORE_SIZE);
     if(!my_score.police) {                  printf( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
@@ -460,13 +481,13 @@ int main( int argc, char* args[] )
         SDL_RenderCopy      (pRenderer, my_level.pTexture_MAP, NULL, NULL);
 
         // Affichage des obstacles (mode Debug)
-        // affiche_obstacle    (pRenderer, &my_level);
+        affiche_obstacle    (pRenderer, &my_level);
 
         // Affichage de l'arrivé
         anime_sprite(ARRIVE);
         affiche_sprite (pRenderer, ARRIVE);
 
-        // Affichage des Sprites
+        // Affichage des ENEMY
         for (a = 0; a < current_nb_enemy; a++) {
             anime_sprite    (ENEMY[a]);
             avance_sprite   (ENEMY[a], &my_level);
@@ -500,6 +521,10 @@ int main( int argc, char* args[] )
             TOWER_MOUSE->img_current = 2;
             affiche_tower (pRenderer, TOWER_MOUSE);
         }
+
+        // Afficahge des boutons
+        affiche_sprite (pRenderer, BUTTON_TIR);
+        affiche_sprite (pRenderer, BUTTON_TOWER);
 
 
         // Affichage du texte

@@ -1,4 +1,4 @@
-
+﻿
 -----------------
  BoatsAttackGame
 -----------------
@@ -12,6 +12,8 @@ Afin de ne pas "s'égarer" dans un programme complexe, un certain nombre de rêg
 - Dévelopement en langage C - IDE : CodeBlock
 - Multiplaeformes : Windows, Android, IOS
 - Utilisation des library standards et de la library graphique SDL2
+
+- Utilisation de graphismes dispo sur le net
 
 
 
