@@ -186,6 +186,12 @@ bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel, t_tower *TO
     BD.tileY = BD.y / TILE_TAILLE_Y;
     BG.tileY = BD.tileY;
 
+    // test si la tourelle n'est pas sous le bouton TOWER
+    if ( BG.x < ZONE_BUTTON_TOWER_X && BG.y > ZONE_BUTTON_TOWER_Y ) {
+
+        return false;
+    }
+
     // test si la position n'est pas sur l'eau (LIBRE)
     if ( pLevel->map_Info[HD.tileX][HD.tileY] == LIBRE ||
          pLevel->map_Info[HG.tileX][HG.tileY] == LIBRE ||
@@ -193,7 +199,6 @@ bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel, t_tower *TO
          pLevel->map_Info[BG.tileX][BG.tileY] == LIBRE ) {
 
          return false;
-
     }
 
     // test, pour chaque tourelle déjà en place, si la nouvelle n'est pas dessus

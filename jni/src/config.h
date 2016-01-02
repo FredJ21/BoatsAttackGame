@@ -24,6 +24,12 @@
 #define MAP_NB_TILE_X         30
 #define MAP_NB_TILE_Y         17
 
+#define ZONE_BUTTON_TIR_X    845        // superieur à cette valeur
+#define ZONE_BUTTON_TIR_Y    445        // superieur à cette valeur
+#define ZONE_BUTTON_TOWER_X  115        // inferieur à cette valeur
+#define ZONE_BUTTON_TOWER_Y  445        // superieur à cette valeur
+
+
 
 
 #define TILE_TAILLE_X         32
@@ -33,8 +39,8 @@
 #define LEVEL_NB_TOTAL            4
 #define WAVE_ENEMY_MAX_BY_WAVE  100
 #define WAVE_NB                  10
-#define TOWER_MAX                10
-#define TOWER_NB_MISSILE_MAX      1          // par tourelle
+#define TOWER_MAX                 5
+#define TOWER_NB_MISSILE_MAX      10          // par tourelle
 #define MISSILE_SPEED            15
 
 #define POLICE_LEVEL_TITRE      "fonts/Alex_Bold.ttf"

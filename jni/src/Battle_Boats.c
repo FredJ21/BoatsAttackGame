@@ -21,7 +21,7 @@ int main( int argc, char* args[] )
 {
 
     //printf("Go ...!!!\n");
-    SDL_Log("Fred DEBUG - Go 15:54\n");
+    SDL_Log("Fred DEBUG - Go 14:48\n");
 
 
     /******************************************************************************************************************
@@ -80,6 +80,10 @@ int main( int argc, char* args[] )
     bool flag_fin                    = false;        // fin du programme
     bool flag_change_level           = true;         // changement de level
     bool flag_affiche_level_titre    = false;
+
+    bool flag_event_DOWN             = false;
+    bool flag_event_UP               = false;
+    bool flag_event_MOVE             = false;
 
     bool flag_mode_place_tower       = false;        // mode permettant de positionner les tourelles
     bool flag_mode_tower_selected    = false;        // la tourelle est choisi
@@ -220,7 +224,7 @@ int main( int argc, char* args[] )
                     flag_fin = true;
                     //printf ("By By !!\n");
                     break;
-
+                /***************************************************************************  CLAVIER **/
                 case SDL_KEYDOWN:
 
                     switch( event.key.keysym.sym ){
@@ -251,9 +255,6 @@ int main( int argc, char* args[] )
                             }
                             break;
                         case SDLK_SPACE:
-                            for (a = 0; a < current_nb_tower; a++){
-                                tir_tower(TOWER[a], current_nb_tower);
-                            }
                             break;
                         default:
                             //printf ("KEY\n");
@@ -261,44 +262,111 @@ int main( int argc, char* args[] )
                     }
                     break;
 
-                case SDL_FINGERDOWN:
-                    if (flag_mode_game && current_nb_tower < TOWER_MAX) {
-
-                                flag_mode_place_tower = true;
-                                flag_mode_game = false;
-
-                            } else if (flag_mode_place_tower) {
-
-                                flag_mode_place_tower = false;
-                                flag_mode_game = true;
-
-                            }
-
-
-                // Souris
-//                case SDL_MOUSEMOTION :
-                case SDL_FINGERMOTION :
+                /***************************************************************************   SOURIS  **/
+/*
+                case SDL_MOUSEBUTTONDOWN :
                     SDL_GetMouseState( &current_mouse_x, &current_mouse_y );
+                    //SDL_Log("Fred DEBUG - MOUSEBUTTONDOWN : %d x %d\n", current_mouse_x, current_mouse_y);
+                    flag_event_DOWN = true;
+                    break;
+
+                case SDL_MOUSEMOTION :
+                    SDL_GetMouseState( &current_mouse_x, &current_mouse_y );
+                    //SDL_Log("Fred DEBUG - MOUSEMOTION : %d x %d\n", current_mouse_x, current_mouse_y);
+                    flag_event_MOVE = true;
+                    break;
+
+                case SDL_MOUSEBUTTONUP :
+                    SDL_GetMouseState( &current_mouse_x, &current_mouse_y );
+                    //SDL_Log("Fred DEBUG - MOUSEBUTTONUP : %d x %d\n", current_mouse_x, current_mouse_y);
+                    flag_event_UP = true;
+                    break;
+*/
+                /***************************************************************************   FINGER  **/
+                case SDL_FINGERDOWN:
+                    current_mouse_x = (int)(event.tfinger.x * MAP_TAILLE_X);
+                    current_mouse_y = (int)(event.tfinger.y * MAP_TAILLE_Y);
+                    //SDL_Log("Fred DEBUG - FINGERDOWN : %d x %d\n", current_mouse_x, current_mouse_y);
+                    flag_event_DOWN = true;
+                    break;
+
+                case SDL_FINGERMOTION :
+                    current_mouse_x = (int)(event.tfinger.x * MAP_TAILLE_X);
+                    current_mouse_y = (int)(event.tfinger.y * MAP_TAILLE_Y);
+                    //SDL_Log("Fred DEBUG - FINGERMOTION : %d x %d\n", current_mouse_x, current_mouse_y);
+                    flag_event_MOVE = true;
+                    break;
+
+                case SDL_FINGERUP :
+                    current_mouse_x = (int)(event.tfinger.x * MAP_TAILLE_X);
+                    current_mouse_y = (int)(event.tfinger.y * MAP_TAILLE_Y);
+                    //SDL_Log("Fred DEBUG - FINGERUP : %d x %d\n", current_mouse_x, current_mouse_y);
+                    flag_event_UP = true;
+                   break;
+            }
+
+        /******************************************************************************************************************
+                                                    TRAITEMENT DES EVENEMENTS
+        *******************************************************************************************************************/
+
+            /***************************************************************/
+            if (flag_event_DOWN) {
+                flag_event_DOWN = false;
+
+                if (flag_mode_game) {
+                    if (current_mouse_x > ZONE_BUTTON_TIR_X && current_mouse_y > ZONE_BUTTON_TIR_Y) {
+                        SDL_Log("Fred DEBUG - BUTTON TIR\n");
+
+                        for (a = 0; a < current_nb_tower; a++){
+                            tir_tower(TOWER[a], current_nb_tower);
+                        }
+
+                    }
+                    if (current_mouse_x < ZONE_BUTTON_TOWER_X && current_mouse_y > ZONE_BUTTON_TOWER_Y) {
+                        SDL_Log("Fred DEBUG - BUTTON TOWER\n");
+
+                        if (current_nb_tower < TOWER_MAX) {
+
+                            flag_mode_place_tower = true;
+                            flag_mode_game = false;
+                            TOWER_MOUSE->x = MAP_TAILLE_X / 2;
+                            TOWER_MOUSE->y = MAP_TAILLE_Y / 2;
+                        }
+                    }
+                }
+                else if (flag_mode_place_tower) {
+                    if (current_mouse_x < ZONE_BUTTON_TOWER_X && current_mouse_y > ZONE_BUTTON_TOWER_Y) {
+                        SDL_Log("Fred DEBUG - BUTTON TOWER\n");
+                        flag_mode_place_tower = false;
+                        flag_mode_game = true;
+                    }
+                }
+            }
+
+            /***************************************************************/
+            else if (flag_event_MOVE) {
+                flag_event_MOVE = false;
+
+                if (flag_mode_place_tower) {
                     // permet de préparer les coordonnés pour le mode place_tower
                     TOWER_MOUSE->x = current_mouse_x;
                     TOWER_MOUSE->y = current_mouse_y;
-
                     // verifie si la position est valide afin de changer la couleur de souris
-                    if (flag_mode_place_tower) {
-                        if ( is_tower_new_valid_position(TOWER_MOUSE, &my_level, TOWER, current_nb_tower) ) {
-                            flag_tower_position_ok = true;
-                        } else {
-                            flag_tower_position_ok = false;
-                        }
+                    if ( is_tower_new_valid_position(TOWER_MOUSE, &my_level, TOWER, current_nb_tower) ) {
+                        flag_tower_position_ok = true;
+                    } else {
+                        flag_tower_position_ok = false;
                     }
-                    break;
+                }
+            }
 
- //               case SDL_MOUSEBUTTONDOWN :
-                case SDL_FINGERUP :
+            /***************************************************************/
+            else if (flag_event_UP) {
+                flag_event_UP = false;
 
                     // tentative de placer une nouvelle tour
                     if (flag_mode_place_tower && flag_tower_position_ok ) {
-                        printf ("1\n");
+                        SDL_Log("Fred DEBUG -  PLACE TOWER\n");
 
                         TOWER[current_nb_tower] = create_Tower(current_mouse_x, current_mouse_y, &ANIM_TOWER);
                         current_nb_tower++;
@@ -310,7 +378,7 @@ int main( int argc, char* args[] )
 
                     // une tourelle est selectionnée , on indique la cible
                     else if (flag_mode_tower_selected){
-                        printf ("2\n");
+                        SDL_Log("Fred DEBUG - TOWER NEW CIBLE\n");
 
                         TOWER[current_tower]->cible_x = current_mouse_x;
                         TOWER[current_tower]->cible_y = current_mouse_y;
@@ -324,7 +392,7 @@ int main( int argc, char* args[] )
 
                     // selection d'une tourelle
                     else if (flag_mode_game) {
-                        printf ("3\n");
+                        SDL_Log("Fred DEBUG - SELECT TOWER\n");
                         current_tower = is_tower_position(current_mouse_x, current_mouse_y, TOWER, current_nb_tower);
                         if (current_tower < TOWER_MAX) {   // TOWER_MAX signifi qu'aucune n'est seletionnée
 
@@ -333,9 +401,11 @@ int main( int argc, char* args[] )
                         }
                     }
 
-                   break;
+
             }
+
         }
+
         /******************************************************************************************************************
                                                     CHANGEMENT  DE NIVEAU
         *******************************************************************************************************************/
@@ -523,12 +593,13 @@ int main( int argc, char* args[] )
         }
 
         // Afficahge des boutons
-        affiche_sprite (pRenderer, BUTTON_TIR);
-        affiche_sprite (pRenderer, BUTTON_TOWER);
+        if (!flag_affiche_level_titre) {    affiche_sprite (pRenderer, BUTTON_TIR);     }
 
+        if (!flag_affiche_level_titre && current_nb_tower < TOWER_MAX) {
+                                            affiche_sprite (pRenderer, BUTTON_TOWER);   }
 
         // Affichage du texte
-        if (flag_affiche_level_titre) {       affiche_titre(pRenderer, &my_level);    }
+        if (flag_affiche_level_titre) {     affiche_titre(pRenderer, &my_level);        }
 
         // Affichage du score
         affiche_score( pRenderer, &my_score);
