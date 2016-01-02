@@ -165,10 +165,10 @@ int main( int argc, char* args[] )
     t_animation ANIM_MISSILE = { "images/Missile.bmp", 10, 10, 1, 1, 0, NULL, 0, 5 };
     init_animation( &ANIM_MISSILE, pRenderer);
 
-    t_animation IMG_BUTTON_TIR = { "images/Tir_100x80.bmp", 100, 80, 1, 1, 1, NULL, 1, 1 };
+    t_animation IMG_BUTTON_TIR = { "images/Tir_100x80_2.bmp", 100, 80, 1, 1, 1, NULL, 1, 1 };
     init_animation( &IMG_BUTTON_TIR, pRenderer);
 
-    t_animation IMG_BUTTON_TOWER = { "images/Tower_Botton_100x80.bmp", 100, 80, 1, 1, 1, NULL, 1, 1 };
+    t_animation IMG_BUTTON_TOWER = { "images/Tower_Botton_100x80_3.bmp", 100, 80, 1, 1, 1, NULL, 1, 1 };
     init_animation( &IMG_BUTTON_TOWER, pRenderer);
 
 
