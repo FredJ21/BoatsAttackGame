@@ -165,6 +165,10 @@ int main( int argc, char* args[] )
     t_animation ANIM_MISSILE = { "images/Missile.bmp", 10, 10, 1, 1, 0, NULL, 0, 5 };
     init_animation( &ANIM_MISSILE, pRenderer);
 
+//    t_animation ANIM_EXPLOSION = { "images/explosion_1.bmp", 44, 46, 40, 40, 40, NULL, 1, 1 };
+    t_animation ANIM_EXPLOSION = { "images/explosion_1_2.bmp", 88, 92, 40, 40, 40, NULL, 1, 1 };
+    init_animation( &ANIM_EXPLOSION, pRenderer);
+
     t_animation IMG_BUTTON_TIR = { "images/Tir_100x80_2.bmp", 100, 80, 1, 1, 1, NULL, 1, 1 };
     init_animation( &IMG_BUTTON_TIR, pRenderer);
 
@@ -194,6 +198,12 @@ int main( int argc, char* args[] )
     BUTTON_TOWER = init_sprite (&IMG_BUTTON_TOWER);
     BUTTON_TOWER->x = BUTTON_TOWER->anim->tx/2 + 15;
     BUTTON_TOWER->y = MAP_TAILLE_Y - BUTTON_TOWER->anim->ty/2 - 15 ;
+
+    t_sprite *EXPLOSION;
+    EXPLOSION = init_sprite (&ANIM_EXPLOSION);
+    EXPLOSION->x = 200;
+    EXPLOSION->y = 100;
+
 
 
 
@@ -569,6 +579,10 @@ int main( int argc, char* args[] )
             anime_tower     (TOWER[a]);
             affiche_tower (pRenderer, TOWER[a]);
         }
+
+        // Affichage des explosions
+        anime_sprite(EXPLOSION);
+        affiche_sprite (pRenderer, EXPLOSION);
 
         // Affichage de la tourelle de depart, sous la souris
         if (flag_mode_place_tower) {
