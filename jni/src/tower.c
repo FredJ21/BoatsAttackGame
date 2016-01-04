@@ -141,13 +141,15 @@ void        affiche_tower(SDL_Renderer *r, t_tower *s){
         Dst.h = s->anim->ty;
 
         SDL_SetTextureAlphaMod (s->anim->texture, s->visible);
-        SDL_SetRenderDrawColor (r, 254, 0, 0, 50);
 
         // Affichage
         if (s->selected) {
+            SDL_SetRenderDrawColor (r, 254, 0, 0, 50);
             SDL_RenderDrawRect(r, &Dst);
+            SDL_SetRenderDrawColor (r, 0, 0, 0, 50);
         }
         SDL_RenderCopyEx(r, s->anim->texture, &Src, &Dst, s->angle, NULL, 0);
+
 
     }
 }

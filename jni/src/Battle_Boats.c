@@ -224,35 +224,30 @@ int main( int argc, char* args[] )
                     flag_fin = true;
                     //printf ("By By !!\n");
                     break;
+                case SDL_USEREVENT:
+                    SDL_Log("Fred DEBUG - SDL_USEREVENT\n");
+                    break;
+                case SDL_WINDOWEVENT:
+                    SDL_Log("Fred DEBUG - SDL_WINDOWEVENT\n");
+                    break;
+                case SDL_APP_TERMINATING:
+                    SDL_Log("Fred DEBUG - SDL_APP_TERMINATING\n");
+                    break;
+                case SDL_MULTIGESTURE:
+                    SDL_Log("Fred DEBUG - SDL_MULTIGESTURE\n");
+                    break;
+
                 /***************************************************************************  CLAVIER **/
                 case SDL_KEYDOWN:
 
+                    SDL_Log("Fred DEBUG - SDL_KEYDOWN\n");
                     switch( event.key.keysym.sym ){
                         case SDLK_ESCAPE:
                             flag_fin = true;
                             break;
-                        case SDLK_l:
-                            current_level++;
-                            if (current_level >= LEVEL_NB_TOTAL ) {
-                                current_level = 0;
-                            }
-                            flag_change_level = true;
-                            break;
-                        case SDLK_m:
-
-                            break;
-                        case SDLK_t :
-                            if (flag_mode_game && current_nb_tower < TOWER_MAX) {
-
-                                flag_mode_place_tower = true;
-                                flag_mode_game = false;
-
-                            } else if (flag_mode_place_tower) {
-
-                                flag_mode_place_tower = false;
-                                flag_mode_game = true;
-
-                            }
+                        case SDLK_AC_BACK:
+                            SDL_Log("Fred DEBUG - SDLK_AC_BACK\n");
+                            flag_fin = true;
                             break;
                         case SDLK_SPACE:
                             break;
@@ -303,6 +298,7 @@ int main( int argc, char* args[] )
                     //SDL_Log("Fred DEBUG - FINGERUP : %d x %d\n", current_mouse_x, current_mouse_y);
                     flag_event_UP = true;
                    break;
+
             }
 
         /******************************************************************************************************************
@@ -392,10 +388,9 @@ int main( int argc, char* args[] )
 
                     // selection d'une tourelle
                     else if (flag_mode_game) {
-                        SDL_Log("Fred DEBUG - SELECT TOWER\n");
                         current_tower = is_tower_position(current_mouse_x, current_mouse_y, TOWER, current_nb_tower);
                         if (current_tower < TOWER_MAX) {   // TOWER_MAX signifi qu'aucune n'est seletionnée
-
+                            SDL_Log("Fred DEBUG - SELECT TOWER\n");
                             TOWER[current_tower]->selected = true;
                             flag_mode_tower_selected = true;
                         }
@@ -622,6 +617,7 @@ int main( int argc, char* args[] )
     /******************************************************************************************************************
                                                     FIN
     *******************************************************************************************************************/
+    SDL_Log("Fred DEBUG - FIN\n");
     // Nettoyage
     for (a = 0; a < current_nb_enemy; a++) {
         destroy_sprite(&ENEMY[a]);
@@ -655,6 +651,8 @@ int main( int argc, char* args[] )
 
     TTF_Quit();
     SDL_Quit();
+
+    close();
 
     return 0;
 }
