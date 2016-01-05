@@ -93,3 +93,97 @@
 	"anim.h"
 	"tower.h"
 
+1451900359 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\affichage_texte.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	"config.h"
+	"affichage_texte.h"
+
+1451900359 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\config.h
+
+1451900359 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\affichage_texte.h
+
+1451900359 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\algo_a_star.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	"config.h"
+	"level.h"
+	"Algo_A_star.h"
+
+1451900359 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\level.h
+
+1451900359 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\algo_a_star.h
+
+1451900359 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\algo_collision.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	"config.h"
+	"level.h"
+	"anim.h"
+	"tower.h"
+	"Algo_Collision.h"
+
+1451900359 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\anim.h
+
+1451900359 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\tower.h
+
+1451900359 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\algo_collision.h
+
+1451900359 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\anim.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"config.h"
+	"level.h"
+	"anim.h"
+
+1451900359 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\level.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"config.h"
+	"level.h"
+	"Algo_A_star.h"
+
+1452005468 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\main.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	"config.h"
+	"main.h"
+	"level.h"
+	"anim.h"
+	"Algo_A_star.h"
+	"affichage_texte.h"
+	"tower.h"
+	"Algo_Collision.h"
+
+1452003574 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\main.h
+
+1451993540 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\tower.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	"config.h"
+	"level.h"
+	"anim.h"
+	"tower.h"
+

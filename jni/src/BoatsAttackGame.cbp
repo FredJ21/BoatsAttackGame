@@ -35,6 +35,8 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="../../README.md" />
+		<Unit filename="../Android.mk" />
 		<Unit filename="Algo_A_star.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -43,10 +45,8 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Algo_Collision.h" />
-		<Unit filename="Battle_Boats.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Battle_boats.h" />
+		<Unit filename="Android.mk" />
+		<Unit filename="Android_static.mk" />
 		<Unit filename="affichage_texte.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -60,6 +60,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="level.h" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="main.h" />
 		<Unit filename="tower.c">
 			<Option compilerVar="CC" />
 		</Unit>

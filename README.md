@@ -6,7 +6,7 @@
 jeu de type "Tower defence"
 
 
-Ce projet a pour but de créer un jeu complet, simple et fonctionnel.
+Ce projet a pour but de créer un jeu simple, mais complet et fonctionnel.
 Afin de ne pas "s'égarer" dans un programme complexe, un certain nombre de rêgles (ou de contraintes) sont définis :
 
 - Dévelopement en langage C - IDE : CodeBlock
