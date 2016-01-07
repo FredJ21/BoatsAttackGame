@@ -118,7 +118,7 @@
 
 1451900359 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\algo_a_star.h
 
-1451900359 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\algo_collision.c
+1452189777 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\algo_collision.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -135,7 +135,8 @@
 
 1451900359 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\tower.h
 
-1451900359 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\algo_collision.h
+1452189777 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\algo_collision.h
+	"game.h"
 
 1451900359 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\anim.c
 	<SDL.h>
@@ -157,7 +158,7 @@
 	"level.h"
 	"Algo_A_star.h"
 
-1452183281 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\main.c
+1452189606 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\main.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -172,10 +173,11 @@
 	"affichage_texte.h"
 	"tower.h"
 	"Algo_Collision.h"
+	"game.h"
 
 1452153769 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\main.h
 
-1452183732 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\tower.c
+1452187651 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\tower.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -186,4 +188,6 @@
 	"level.h"
 	"anim.h"
 	"tower.h"
+
+1452188979 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\game.h
 
