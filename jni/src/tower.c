@@ -155,8 +155,7 @@ void        affiche_tower(SDL_Renderer *r, t_tower *s){
 }
 /*****************************************************************
 *****************************************************************/
-bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel, t_tower *TOWER[], int current_nb_tower) {
-
+bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel, t_tower *tower[], int current_nb_tower) {
 
     int a;
 
@@ -203,33 +202,34 @@ bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel, t_tower *TO
          return false;
     }
 
+
     // test, pour chaque tourelle déjà en place, si la nouvelle n'est pas dessus
     for (a = 0; a < current_nb_tower; a++) {
 
-        if (TOWER[a]->actif) {
+        if (tower[a]->actif) {
 
             // pour la position centale du nouveau sprite
-            if ( s->x >= TOWER[a]->HG_x && s->x <= TOWER[a]->BD_x && s->y >= TOWER[a]->HG_y && s->y <= TOWER[a]->BD_y ) {
+            if ( s->x >= tower[a]->HG_x && s->x <= tower[a]->BD_x && s->y >= tower[a]->HG_y && s->y <= tower[a]->BD_y ) {
 
                 return false;
             }
             // pour la position HG
-            if ( HG.x >= TOWER[a]->HG_x && HG.x <= TOWER[a]->BD_x && HG.y >= TOWER[a]->HG_y && HG.y <= TOWER[a]->BD_y ) {
+            if ( HG.x >= tower[a]->HG_x && HG.x <= tower[a]->BD_x && HG.y >= tower[a]->HG_y && HG.y <= tower[a]->BD_y ) {
 
                 return false;
             }
             // pour la position HD
-            if ( HD.x >= TOWER[a]->HG_x && HD.x <= TOWER[a]->BD_x && HD.y >= TOWER[a]->HG_y && HD.y <= TOWER[a]->BD_y ) {
+            if ( HD.x >= tower[a]->HG_x && HD.x <= tower[a]->BD_x && HD.y >= tower[a]->HG_y && HD.y <= tower[a]->BD_y ) {
 
                 return false;
             }
             // pour la position BD
-            if ( BD.x >= TOWER[a]->HG_x && BD.x <= TOWER[a]->BD_x && BD.y >= TOWER[a]->HG_y && BD.y <= TOWER[a]->BD_y ) {
+            if ( BD.x >= tower[a]->HG_x && BD.x <= tower[a]->BD_x && BD.y >= tower[a]->HG_y && BD.y <= tower[a]->BD_y ) {
 
                 return false;
             }
             // pour la position BG
-            if ( BG.x >= TOWER[a]->HG_x && BG.x <= TOWER[a]->BD_x && BG.y >= TOWER[a]->HG_y && BG.y <= TOWER[a]->BD_y ) {
+            if ( BG.x >= tower[a]->HG_x && BG.x <= tower[a]->BD_x && BG.y >= tower[a]->HG_y && BG.y <= tower[a]->BD_y ) {
 
                 return false;
             }
