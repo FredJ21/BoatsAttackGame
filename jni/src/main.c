@@ -123,6 +123,7 @@ int main( int argc, char* args[] )
     my_game.current_nb_tower    = 0;                // nombre de tourelle
     my_game.current_tower       = TOWER_MAX;        // id tourelle selectionnée, TOWER_MAX signifi qu'aucune n'est seletionnée
     my_game.current_nb_missile  = 0;
+    my_game.current_nb_explosion = 0;
 
 
     /******************************************************************************************************************
@@ -188,10 +189,6 @@ int main( int argc, char* args[] )
     my_game.sp_BUTTON_TOWER = init_sprite (&IMG_BUTTON_TOWER);
     my_game.sp_BUTTON_TOWER->x = my_game.sp_BUTTON_TOWER->anim->tx/2 + 15;
     my_game.sp_BUTTON_TOWER->y = MAP_TAILLE_Y - my_game.sp_BUTTON_TOWER->anim->ty/2 - 15 ;
-
-    my_game.sp_EXPLOSION = init_sprite (&ANIM_EXPLOSION);
-    my_game.sp_EXPLOSION->x = 200;
-    my_game.sp_EXPLOSION->y = 100;
 
 
 
@@ -425,6 +422,11 @@ int main( int argc, char* args[] )
                     destroy_tower(&my_game.sp_TOWER[a]);
                 }
                 SDL_Log("Fred DEBUG - Change_level Nettoyage 3\n");
+                for (a = 0; a <  my_game.current_nb_explosion; a++) {
+                    SDL_Log("Fred DEBUG - clear explosions %d\n", a);
+                    destroy_sprite(&my_game.sp_EXPLOSION[a]);
+                }
+
                 clear_level (&my_level);
 
 
@@ -439,6 +441,7 @@ int main( int argc, char* args[] )
                 // RAZ des variables currentes
                 my_game.current_nb_enemy = 0;
                 my_game.current_nb_tower = 0;
+                my_game.current_nb_explosion = 0;
                 my_game.current_tower    = TOWER_MAX;   // id tourelle selectionnée, TOWER_MAX signifi qu'aucune n'est seletionnée
 
                 my_score.level = my_game.current_level + 1;
@@ -490,7 +493,6 @@ int main( int argc, char* args[] )
                 CounterTimeLevel = 0;
 
                 SDL_Log("Fred DEBUG - Change_level OK\n");
-
 
         }
 
@@ -544,7 +546,7 @@ int main( int argc, char* args[] )
 
 //        test_collision(my_game.sp_TOWER, my_game.current_nb_tower, my_game.sp_ENEMY, my_game.current_nb_enemy);
 
-        test_collision(&my_game);
+        test_collision(&my_game, &ANIM_EXPLOSION);
 
         /******************************************************************************************************************
                                                     AFFICHAGE
@@ -579,8 +581,10 @@ int main( int argc, char* args[] )
         }
 
         // Affichage des explosions
-        anime_sprite(my_game.sp_EXPLOSION);
-        affiche_sprite (pRenderer, my_game.sp_EXPLOSION);
+        for (a = 0; a < my_game.current_nb_explosion; a++) {
+            anime_sprite_once(my_game.sp_EXPLOSION[a]);
+            affiche_sprite (pRenderer, my_game.sp_EXPLOSION[a]);
+        }
 
         // Affichage de la tourelle de depart, sous la souris
         if (my_game.flag_mode_place_tower) {
@@ -637,11 +641,15 @@ int main( int argc, char* args[] )
     for (a = 0; a <  my_game.current_nb_tower; a++) {
         destroy_tower(&my_game.sp_TOWER[a]);
     }
+    for (a = 0; a <  my_game.current_nb_explosion; a++) {
+        destroy_sprite(&my_game.sp_EXPLOSION[a]);
+    }
 
 
     destroy_sprite(&my_game.sp_ARRIVE);
-    destroy_sprite(&my_game.sp_EXPLOSION);
     destroy_tower(&my_game.sp_TOWER_MOUSE);
+    destroy_sprite(&my_game.sp_BUTTON_TOWER);
+    destroy_sprite(&my_game.sp_BUTTON_TIR);
 
     SDL_DestroyTexture(ANIM[0].texture);
     SDL_DestroyTexture(ANIM[1].texture);

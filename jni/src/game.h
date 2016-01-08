@@ -24,16 +24,17 @@ typedef struct {
     int current_nb_tower;                   // nombre de tourelle
     int current_tower;                      // id tourelle selectionnée, TOWER_MAX signifie qu'aucune n'est seletionnée
     int current_nb_missile;                 // nombre total de missile
+    int current_nb_explosion;               // nombre total de missile
 
     int current_mouse_x, current_mouse_y;   // position de la souris ou du doigt
 
     t_sprite *sp_ENEMY[WAVE_NB * WAVE_ENEMY_MAX_BY_WAVE];       // annimation ennemis - tableau de pointeurs
+    t_tower  *sp_TOWER[TOWER_MAX];                              // annimation tourelle - tableau de pointeurs
     t_sprite *sp_ARRIVE;                                      // annimation de l'arrive
     t_tower  *sp_TOWER_MOUSE;                                   // annimation sous la souris
-    t_tower  *sp_TOWER[TOWER_MAX];                              // annimation tourelle - tableau de pointeurs
     t_sprite *sp_BUTTON_TIR;                                    // bouton de tir
     t_sprite *sp_BUTTON_TOWER;                                  // bouton de nouvelle tourelle
-    t_sprite *sp_EXPLOSION;                                     // annimation explosions
+    t_sprite *sp_EXPLOSION[(WAVE_NB * WAVE_ENEMY_MAX_BY_WAVE) + TOWER_MAX];                                     // annimation explosions
 
 } t_game;
 

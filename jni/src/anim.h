@@ -8,7 +8,7 @@ typedef struct {
     int     tileY;
 } t_pos;
 
-// animation
+// animation - charge de pre charger le fichier BMP
 typedef struct {
     char    file[256];          // nom du fichier
     int     tx, ty;             // taille d'une image
@@ -33,8 +33,8 @@ typedef struct {
 
 	int     time_before_ativiation; // lancement du sprite à retardement
 	bool    is_arrive;
-	bool    is_actif;
 	bool    in_the_map;          // vrai quand le sprite est rentré entierement dans la map , en debut de jeu
+	bool    is_actif;            // si false -->  pas de mouvement ou deplacement
 	int     visible;             // effet de transparence  255->visible  0->invisible
 
 } t_sprite;
@@ -53,6 +53,7 @@ t_sprite*   create_Enemy            (int position, int A, int B, t_animation *AN
 
 void        avance_sprite           (t_sprite *s, t_level *pLevel);
 void        anime_sprite            (t_sprite *s);
+void        anime_sprite_once       (t_sprite *s);                      // anime le sprite une fois , et le désactive
 void        affiche_sprite          (SDL_Renderer *r, t_sprite *s);
 void        place_sprite            (t_sprite *s, int x, int y);      // X et Y sont des coordonnés de MAP
 void        destroy_sprite          (t_sprite **s);
