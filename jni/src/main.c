@@ -23,7 +23,7 @@ int main( int argc, char* args[] )
 {
 
     //printf("Go ...!!!\n");
-    SDL_Log("Fred DEBUG - Go 14:48\n");
+    SDL_Log("Fred DEBUG - Go 18:12\n");
 
 
     /******************************************************************************************************************
@@ -31,6 +31,12 @@ int main( int argc, char* args[] )
     *******************************************************************************************************************/
     // Initialize SDL
     if( SDL_Init( SDL_INIT_VIDEO) != 0 ) {  printf( "SDL_Init ERREUR ! SDL_GetError: %s\n", SDL_GetError() ); return -1; }
+
+    const char *Platform ;
+    Platform = SDL_GetPlatform();
+
+    SDL_Log("Fred DEBUG - Platform: %s\n", Platform);
+
 
     // Création de la fenêtre
     SDL_Window *pWindow = NULL;
@@ -86,9 +92,10 @@ int main( int argc, char* args[] )
     t_game  my_game  = {} ;
 
 
-    unsigned int t_Avant_Traitement;        // permet de gérer les fps
-    unsigned int t_Apres_Traitement;
-    unsigned int  game_sleep;
+    long t_Avant_Traitement;        // permet de gérer les fps
+    long t_Apres_Traitement;
+    int t_total_Traitement;
+    int  game_sleep;
 
     unsigned int CounterSecond = 0;         // traitement toute les second
     int CounterBeforeChgLevel = 0;          // pause avant le changement de level
@@ -158,7 +165,7 @@ int main( int argc, char* args[] )
     t_animation ANIM_TOWER = { "images/Tower1.bmp", 48, 48, 3, 12, 0, NULL, 0, 1 };
         init_animation( &ANIM_TOWER, pRenderer);
 
-    t_animation ANIM_MISSILE = { "images/Missile.bmp", 10, 10, 1, 1, 0, NULL, 0, 5 };
+    t_animation ANIM_MISSILE = { "images/Missile.bmp", 10, 10, 1, 1, 0, NULL, 0, 1 };
         init_animation( &ANIM_MISSILE, pRenderer);
 
 //    t_animation ANIM_EXPLOSION = { "images/explosion_1.bmp", 44, 46, 40, 40, 40, NULL, 1, 1 };
@@ -204,6 +211,7 @@ int main( int argc, char* args[] )
                                                 BOUCLE PRINCIPALE
     *******************************************************************************************************************/
     SDL_Log("Fred DEBUG - START MAIN LOOP\n");
+
     while (!my_game.flag_fin) {
 
         t_Avant_Traitement = SDL_GetTicks();
@@ -258,7 +266,7 @@ int main( int argc, char* args[] )
                     break;
 
                 /***************************************************************************   SOURIS  **/
-
+#if __WIN32__
                 case SDL_MOUSEBUTTONDOWN :
                     SDL_GetMouseState( &my_game.current_mouse_x, &my_game.current_mouse_y );
                     //SDL_Log("Fred DEBUG - MOUSEBUTTONDOWN : %d x %d\n", current_mouse_x, current_mouse_y);
@@ -276,9 +284,9 @@ int main( int argc, char* args[] )
                     //SDL_Log("Fred DEBUG - MOUSEBUTTONUP : %d x %d\n", current_mouse_x, current_mouse_y);
                     my_game.flag_event_UP = true;
                     break;
-
+#endif
                 /***************************************************************************   FINGER  **/
-/*
+
                 case SDL_FINGERDOWN:
                     my_game.current_mouse_x = (int)(event.tfinger.x * MAP_TAILLE_X);
                     my_game.current_mouse_y = (int)(event.tfinger.y * MAP_TAILLE_Y);
@@ -299,7 +307,7 @@ int main( int argc, char* args[] )
                     //SDL_Log("Fred DEBUG - FINGERUP : %d x %d\n", current_mouse_x, current_mouse_y);
                     my_game.flag_event_UP = true;
                    break;
-*/
+
             }
 
         /******************************************************************************************************************
@@ -622,12 +630,13 @@ int main( int argc, char* args[] )
         /************************************************/
         /**   Calcul du temps de traitement et pause   **/
         /************************************************/
-        t_Apres_Traitement = SDL_GetTicks();
-        game_sleep = (1000 / GAME_FPS) - (t_Avant_Traitement - t_Apres_Traitement);
-        /** TODO :  calcul du temps de traitement sur Android **/
-        //game_sleep = 1000 / GAME_FPS;
+        t_Apres_Traitement = (long)SDL_GetTicks();
+        t_total_Traitement = (int)(t_Apres_Traitement - t_Avant_Traitement);
+        game_sleep = (1000 / GAME_FPS) - t_total_Traitement;
 
-        SDL_Delay( game_sleep );
+       // SDL_Log("Fred DEBUG - total_Traitement: %d - FPS: %d - Sleep: %d\n", t_total_Traitement, 1000 / GAME_FPS, game_sleep);
+
+        if ( game_sleep > 0 ) { SDL_Delay( game_sleep ); };
     }
 
     /******************************************************************************************************************
@@ -673,7 +682,7 @@ int main( int argc, char* args[] )
     TTF_Quit();
     SDL_Quit();
 
-    close();
+    //close();
 
     return 0;
 }

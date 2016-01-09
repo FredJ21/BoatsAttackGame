@@ -24,13 +24,14 @@
 
 1447876903 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\algo_a_star.h
 
-1452206441 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\algo_collision.c
+1452323245 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\algo_collision.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<string.h>
+	<math.h>
 	"config.h"
 	"level.h"
 	"anim.h"
@@ -44,7 +45,7 @@
 1452206195 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\algo_collision.h
 	"game.h"
 
-1452236887 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\anim.c
+1452271970 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\anim.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -82,7 +83,7 @@
 	"level.h"
 	"Algo_A_star.h"
 
-1452201381 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\tower.c
+1452323370 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\tower.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -194,7 +195,7 @@
 
 1452202590 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\game.h
 
-1452236902 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\main.c
+1452323348 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\main.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>

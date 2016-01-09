@@ -417,10 +417,12 @@ void anime_sprite_once(t_sprite*s){
 
 	if (s->is_actif == true ) {
 
+        //  SDL_Log("Fred DEBUG - ANIM compte tour: %d - Img: %d\n", s->compte_tour,s->img_current);
+
           s->compte_tour++;
           if (s->compte_tour > s->nb_tour) {
 
-                s->img_current = (s->img_current++);
+                s->img_current++;
 
                 if(s->img_current > s->anim->nb_img_by_dir) {
 

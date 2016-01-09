@@ -315,7 +315,7 @@ void        tir_tower   (t_tower *t, int current_nb_tower ) {
 
     if ( t->actif && t->cible_x + t->cible_y > 0 ) {
 
-        int a, b;
+        int a;
 
         for (a = 0; a < TOWER_NB_MISSILE_MAX; a++) {
 
