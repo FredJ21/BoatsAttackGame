@@ -22,9 +22,19 @@
 int main( int argc, char* args[] )
 {
 
-    //printf("Go ...!!!\n");
-    SDL_Log("Fred DEBUG - Go 18:12\n");
+    SDL_Window *pWindow             = NULL;
+    SDL_Renderer *pRenderer         = NULL;
+    SDL_Surface *pSurface           = NULL;
+    SDL_Texture *pTexture           = NULL;
+    TTF_Font *police_level_titre    = NULL;
 
+    const char *Platform            = NULL;
+    int window_size_w;
+    int window_size_h;
+    float window_ratio;
+
+    //printf("Go ...!!!\n");
+    SDL_Log("Fred DEBUG - Go 10:14\n");
 
     /******************************************************************************************************************
                                                 INIT SDL 2
@@ -32,36 +42,41 @@ int main( int argc, char* args[] )
     // Initialize SDL
     if( SDL_Init( SDL_INIT_VIDEO) != 0 ) {  printf( "SDL_Init ERREUR ! SDL_GetError: %s\n", SDL_GetError() ); return -1; }
 
-    const char *Platform ;
     Platform = SDL_GetPlatform();
-
     SDL_Log("Fred DEBUG - Platform: %s\n", Platform);
 
 
     // Création de la fenêtre
-    SDL_Window *pWindow = NULL;
-    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_SHOWN );
-//    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
+#if __WIN32__
+//    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_SHOWN );
+    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
+#else
+    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
+#endif
     if(!pWindow) {                          printf( "SDL_Window ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
+    SDL_GetWindowSize(pWindow, &window_size_w, &window_size_h);
+    window_ratio = (float)window_size_w/(float)window_size_h;
+    if ( window_ratio > 1.7 && window_ratio < 1.8 ) { window_ratio = 1.7; }
+    SDL_Log("Fred DEBUG - Window Size: %d x %d - ratio: %f\n", window_size_w, window_size_h, window_ratio);
 
     // Création du Renderer
-    SDL_Renderer *pRenderer = SDL_CreateRenderer(pWindow, -1, SDL_RENDERER_ACCELERATED);
+    pRenderer = SDL_CreateRenderer(pWindow, -1, SDL_RENDERER_ACCELERATED);
     if(!pRenderer) {                        printf( "SDL_Renderer ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
-    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
     // permet d'obtenir les redimensionnements plus doux.
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
     SDL_RenderSetLogicalSize(pRenderer, MAP_TAILLE_X, MAP_TAILLE_Y);
 
     /******************************************************************************************************************
                                                 INIT SDL 2  -  Affichage d'une image de chargement ...
     *******************************************************************************************************************/
     // Chargement de l'image
-    SDL_Surface *pSurface = SDL_LoadBMP (START_IMG);
+    pSurface = SDL_LoadBMP (START_IMG);
     if(!pSurface) {                          printf( "SDL_Surface ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
     // Création de la texture (texture = surface dans le GPU)
-    SDL_Texture *pTexture = SDL_CreateTextureFromSurface(pRenderer, pSurface);
+    pTexture = SDL_CreateTextureFromSurface(pRenderer, pSurface);
     if(!pTexture) {                         printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
 
@@ -77,10 +92,8 @@ int main( int argc, char* args[] )
     if( TTF_Init() != 0 ) {  printf( "TTF_Init ERREUR ! SDL_GetError: %s\n", SDL_GetError() ); return -1; }
 
     // pour le titre de chaque level
-    TTF_Font *police_level_titre;
     police_level_titre = TTF_OpenFont(POLICE_LEVEL_TITRE, POLICE_LEVEL_TITRE_SIZE);
     if(!police_level_titre) {                  printf( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
-
 
     SDL_Log("Fred DEBUG - INIT SDL OK\n");
     /******************************************************************************************************************
