@@ -154,7 +154,7 @@
 	"level.h"
 	"anim.h"
 
-1452599725 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\level.c
+1452601055 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\level.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -164,7 +164,7 @@
 	"level.h"
 	"Algo_A_star.h"
 
-1452594838 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\main.c
+1452601094 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\main.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -179,7 +179,8 @@
 	"affichage_texte.h"
 	"tower.h"
 	"Algo_Collision.h"
-	"game.h"
+	"type_game.h"
+	"type_system.h"
 
 1452517327 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\main.h
 

@@ -65,8 +65,8 @@ int main( int argc, char* args[] )
 
     // Création de la fenêtre
 #if __WIN32__
-//    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X_177, MAP_TAILLE_Y_177, SDL_WINDOW_SHOWN );
-    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
+    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X_177, MAP_TAILLE_Y_177, SDL_WINDOW_SHOWN );
+//    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
 #else
     pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
 #endif
@@ -74,7 +74,6 @@ int main( int argc, char* args[] )
 
     SDL_GetWindowSize(pWindow, &my_system.window_size_w, &my_system.window_size_h);
     my_system.window_size_ratio = (float)my_system.window_size_w/(float)my_system.window_size_h;
-    SDL_Log("Fred DEBUG - Window Size: %d x %d - ratio: %f\n", my_system.window_size_w, my_system.window_size_h, my_system.window_size_ratio);
 
     if ( my_system.window_size_ratio > 1.7 && my_system.window_size_ratio < 1.8 ) {
             my_system.window_size_ratio = 1.7;
@@ -84,6 +83,7 @@ int main( int argc, char* args[] )
             my_system.map_taille_x  = MAP_TAILLE_X_160;
             my_system.map_taille_y  = MAP_TAILLE_Y_160;
     }
+    SDL_Log("Fred DEBUG - Window Size: %d x %d - ratio: %f\n", my_system.window_size_w, my_system.window_size_h, my_system.window_size_ratio);
 
     // Création du Renderer
     pRenderer = SDL_CreateRenderer(pWindow, -1, SDL_RENDERER_ACCELERATED);
