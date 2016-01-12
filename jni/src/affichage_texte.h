@@ -18,8 +18,8 @@ typedef struct {
 
 } t_score;
 
-void init_score       (SDL_Renderer *pRenderer, t_score *s );
-void affiche_score    (SDL_Renderer *pRenderer, t_score *s );
+void init_score       (SDL_Renderer *pRenderer, t_score *s, t_system *my_system );
+void affiche_score    (SDL_Renderer *pRenderer, t_score *s, t_system *my_system );
 void clear_score      (t_score *s);
 
 

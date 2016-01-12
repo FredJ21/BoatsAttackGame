@@ -11,7 +11,7 @@
 
 /*****************************************************************
 *****************************************************************/
-void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile, SDL_Renderer *pRenderer) {
+void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile, SDL_Renderer *pRenderer, t_system *my_system) {
 
     int a, x, y;
     int map_size = MAP_NB_TILE_X * MAP_NB_TILE_Y;
@@ -19,7 +19,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     SDL_Rect Rect_Dest   = { 0, 0, TILE_TAILLE_X, TILE_TAILLE_Y};
 
     SDL_Surface *pSurface_TMP;
-    pSurface_TMP = SDL_CreateRGBSurface(0,MAP_TAILLE_X,MAP_TAILLE_Y,32,0,0,0,0);
+    pSurface_TMP = SDL_CreateRGBSurface(0,my_system->map_taille_x,my_system->map_taille_y,32,0,0,0,0);
 
     /******************************************************************************************************************
                                                 DATA MAP
@@ -47,6 +47,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
         1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,
         },
         { // level 2
+        1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,
         279,280,326,326,326,326,507,561,398,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,
         302,303,326,326,326,507,561,375,370,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,
         277,278,326,326,507,561,375,370,489,489,489,489,489,371,422,422,372,489,489,489,489,489,489,489,499,371,422,422,422,372,
@@ -64,8 +65,10 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
         326,302,303,326,326,326,326,538,398,489,489,489,489,489,489,489,489,489,400,490,491,491,492,375,370,489,371,423,444,445,
         326,277,278,326,279,280,326,538,398,489,489,489,499,371,422,422,422,372,369,376,376,376,376,370,499,371,423,444,558,143,
         326,300,301,326,302,303,507,561,398,489,489,489,371,423,444,445,446,398,489,489,489,489,489,489,489,400,444,558,143,510,
+        1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,
         },
         { // level 3
+        1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,
         444,446,487,487,487,487,487,487,557,557,487,487,487,487,487,487,487,487,487,487,487,487,487,487,444,446,487,487,487,487,
         467,533,487,487,487,487,487,487,557,557,487,487,487,487,487,487,487,487,487,487,487,487,487,487,467,533,487,487,487,487,
         467,556,445,445,557,487,487,487,557,557,445,445,557,487,487,445,557,557,445,445,557,446,487,487,467,556,557,557,487,487,
@@ -83,8 +86,10 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
         467,469,487,487,467,487,487,487,490,511,511,511,512,469,487,487,444,446,487,487,467,510,511,511,512,469,487,487,467,533,
         467,469,487,487,467,487,487,487,487,487,487,487,467,469,487,487,467,556,445,445,558,469,487,487,490,492,487,487,467,533,
         467,469,487,487,467,487,487,487,487,487,487,487,467,556,445,445,558,510,511,511,512,469,487,487,487,487,487,487,467,533,
+        1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,
         },
         { // level 4
+        1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,
         489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,
         489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,
         489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,
@@ -102,15 +107,16 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
         489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,
         489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,
         489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,
+        1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,
         }
     };
 
     int StartPos[LEVEL_NB_TOTAL][8] = { /** positions de depart des ennemis , couple start/end
           Haut      Droite    Bas       Gauche   **/
-        { 300, MAP_TAILLE_X-50, 100, MAP_TAILLE_Y-100, 300, MAP_TAILLE_X-50, 0, 0 },                            // level 1
+        { 300, my_system->map_taille_x-50, 100, my_system->map_taille_y-100, 300, my_system->map_taille_x-50, 0, 0 },                            // level 1
         { 100, 400, 100, 400, 100, 400, 100, 400 },                                                 // level 2
         { 100, 400, 100, 400, 100, 400, 100, 400 },                                                 // level 3
-        { 100, MAP_TAILLE_X-100, 100, MAP_TAILLE_Y-100, 100, MAP_TAILLE_X-100, 100, MAP_TAILLE_Y-100}       // level 4
+        { 100, my_system->map_taille_x-100, 100, my_system->map_taille_y-100, 100, my_system->map_taille_x-100, 100, my_system->map_taille_y-100}       // level 4
     };
 
     int cible[LEVEL_NB_TOTAL][2] = {        /** position de la cible en X et Y **/
@@ -298,7 +304,7 @@ void init_level_chemins     (t_level *pLevel) {
 }
 /*****************************************************************
 *****************************************************************/
-void init_level_titre       (SDL_Renderer *pRenderer, t_level *pLevel, TTF_Font *police) {
+void init_level_titre       (SDL_Renderer *pRenderer, t_level *pLevel, TTF_Font *police, t_system *my_system) {
 
 
     SDL_Surface *texte = NULL;
@@ -309,8 +315,8 @@ void init_level_titre       (SDL_Renderer *pRenderer, t_level *pLevel, TTF_Font 
     pLevel->Titre_position_src.y = 0;
     pLevel->Titre_position_src.h = texte->h;
     pLevel->Titre_position_src.w = texte->w;
-    pLevel->Titre_position_dst.x = (MAP_TAILLE_X - texte->w)/2;
-    pLevel->Titre_position_dst.y = (MAP_TAILLE_Y - texte->h*2)/2;
+    pLevel->Titre_position_dst.x = (my_system->map_taille_x - texte->w)/2;
+    pLevel->Titre_position_dst.y = (my_system->map_taille_y - texte->h*2)/2;
     pLevel->Titre_position_dst.h = texte->h;
     pLevel->Titre_position_dst.w = texte->w;
 
@@ -345,7 +351,7 @@ void affiche_titre          (SDL_Renderer *pRenderer, t_level *p) {
 }
 /*****************************************************************
 *****************************************************************/
-void init_texture_obstacle  (SDL_Renderer *pRenderer, t_level *pLevel) {
+void init_texture_obstacle  (SDL_Renderer *pRenderer, t_level *pLevel, t_system *my_system) {
 
     int x, y;
     SDL_Rect Rect_Dest   = { 0, 0, TILE_TAILLE_X, TILE_TAILLE_Y};
@@ -357,7 +363,7 @@ void init_texture_obstacle  (SDL_Renderer *pRenderer, t_level *pLevel) {
             if(!pSurface_CroixRouge) { printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     // création d'une surface temporaire de la taille de la map
-    pSurface_TMP = SDL_CreateRGBSurface(0,MAP_TAILLE_X,MAP_TAILLE_Y,32,0,0,0,0);
+    pSurface_TMP = SDL_CreateRGBSurface(0,my_system->map_taille_x,my_system->map_taille_y,32,0,0,0,0);
 
 
     // creation de la texture MAP_Obstacle

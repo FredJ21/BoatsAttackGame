@@ -8,6 +8,7 @@
 #include "level.h"
 #include "anim.h"
 
+
 /*****************************************************************
 *****************************************************************/
 void init_animation(t_animation *a, SDL_Renderer *r)  {
@@ -48,7 +49,7 @@ t_sprite    *init_sprite(t_animation *a){
 }
 /*****************************************************************
 *****************************************************************/
-t_sprite*   create_Enemy( int position, int A, int B, t_animation *ANIM, float Frequence) {
+t_sprite*   create_Enemy( int position, int A, int B, t_animation *ANIM, float Frequence, t_system *my_system) {
                             // position --> en haut, à droite, en bas, à gauche
                             // A & B    --> délimite la zone de création , entre A et B
                             // *ANIM    --> pointeur sur l'annimation
@@ -67,13 +68,13 @@ t_sprite*   create_Enemy( int position, int A, int B, t_animation *ANIM, float F
                 s->direction = DOWN;
                 break;
         case RIGHT:
-                s->x = MAP_TAILLE_X + ANIM->tx/2 ;
+                s->x = my_system->map_taille_x + ANIM->tx/2 ;
                 s->y = (rand()%(B-A)) + A;;
                 s->direction = LEFT;
                 break;
         case DOWN:
                 s->x = (rand()%(B-A)) + A;;
-                s->y = MAP_TAILLE_Y + ANIM->ty/2 ;
+                s->y = my_system->map_taille_y + ANIM->ty/2 ;
                 s->direction = UP;
                 break;
         case LEFT:
@@ -101,7 +102,7 @@ t_sprite*   create_Enemy( int position, int A, int B, t_animation *ANIM, float F
 }
 /*****************************************************************
 *****************************************************************/
-void avance_sprite(t_sprite *s, t_level *pLevel){
+void avance_sprite(t_sprite *s, t_level *pLevel, t_system *my_system){
 
     // gestion du retardement au démarrage
     if (s->time_before_ativiation > 1 ) {
@@ -159,8 +160,8 @@ void avance_sprite(t_sprite *s, t_level *pLevel){
 
                     // permet de demarrer en dehors de la map
                     if (s->in_the_map == false) {
-                        if (   HD.x<MAP_TAILLE_X && HG.x<MAP_TAILLE_X && BD.x<MAP_TAILLE_X && BG.x<MAP_TAILLE_X
-                            && HD.y<MAP_TAILLE_Y && HG.y<MAP_TAILLE_Y && BD.y<MAP_TAILLE_Y && BG.y<MAP_TAILLE_Y
+                        if (   HD.x<my_system->map_taille_x && HG.x<my_system->map_taille_x && BD.x<my_system->map_taille_x && BG.x<my_system->map_taille_x
+                            && HD.y<my_system->map_taille_y && HG.y<my_system->map_taille_y && BD.y<my_system->map_taille_y && BG.y<my_system->map_taille_y
                             && HD.x>0 && HG.x>0 && BD.x>0 && BG.x>0 && HD.y>0 && HG.y>0 && BD.y>0 && BG.y>0 ) {
 
                                 s->in_the_map = true;
@@ -217,7 +218,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel){
                                         if (s->in_the_map == true) {
 
                                             // detection des bords
-                                            if ( HD.x >= MAP_TAILLE_X ) {
+                                            if ( HD.x >= my_system->map_taille_x ) {
                                                     s->direction = LEFT;
                                                      //printf ("2 Detection bord\n");
                                             }
@@ -262,7 +263,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel){
                                         s->y += s->dy;
                                         if (s->in_the_map == true) {
                                             // detection des bords
-                                            if ( BG.y >= MAP_TAILLE_Y ) {
+                                            if ( BG.y >= my_system->map_taille_y ) {
 
                                                     s->direction = UP;
                                                     //printf ("3 Detection bord\n");

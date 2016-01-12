@@ -1,6 +1,8 @@
 #ifndef ANIM_H_INCLUDED
 #define ANIM_H_INCLUDED
 
+#include "type_system.h"
+
 typedef struct {
     int     x;
     int     y;
@@ -45,13 +47,13 @@ void init_animation                 (t_animation *a, SDL_Renderer *r);
 
 t_sprite*   init_sprite             (t_animation *a);
 
-t_sprite*   create_Enemy            (int position, int A, int B, t_animation *ANIM, float Frequence);
+t_sprite*   create_Enemy            (int position, int A, int B, t_animation *ANIM, float Frequence, t_system *my_system);
                                         // position --> en haut, à droite, en bas, à gauche
                                         // A & B    --> délimite la zone de création , entre A et B
                                         // *ANIM    --> pointeur sur l'annimation
                                         // Frequence --> Frequence de démarrage entre chaque ennemi
 
-void        avance_sprite           (t_sprite *s, t_level *pLevel);
+void        avance_sprite           (t_sprite *s, t_level *pLevel, t_system *my_system);
 void        anime_sprite            (t_sprite *s);
 void        anime_sprite_once       (t_sprite *s);                      // anime le sprite une fois , et le désactive
 void        affiche_sprite          (SDL_Renderer *r, t_sprite *s);

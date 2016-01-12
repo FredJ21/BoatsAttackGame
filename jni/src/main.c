@@ -14,13 +14,36 @@
 #include "affichage_texte.h"
 #include "tower.h"
 #include "Algo_Collision.h"
-#include "game.h"
-
-
+#include "type_game.h"
+#include "type_system.h"
 
 
 int main( int argc, char* args[] )
 {
+    //printf("Go ...!!!\n");
+    SDL_Log("Fred DEBUG - Go 10:14\n");
+
+    /******************************************************************************************************************
+                                                VARIABLES
+    *******************************************************************************************************************/
+    t_level my_level = {};
+    t_score my_score = {};
+    t_game  my_game  = {} ;
+    t_system my_system = {};
+
+
+    long t_Avant_Traitement;        // permet de gérer les fps
+    long t_Apres_Traitement;
+    int t_total_Traitement;
+    int  game_sleep;
+
+    unsigned int CounterSecond = 0;         // traitement toute les second
+    int CounterBeforeChgLevel = 0;          // pause avant le changement de level
+    int CounterTimeLevel = 0;               // second depuis le demarrage du level
+
+    int a = 0, b = 0, w = 0;
+
+    srand(time(NULL));
 
     SDL_Window *pWindow             = NULL;
     SDL_Renderer *pRenderer         = NULL;
@@ -28,13 +51,7 @@ int main( int argc, char* args[] )
     SDL_Texture *pTexture           = NULL;
     TTF_Font *police_level_titre    = NULL;
 
-    const char *Platform            = NULL;
-    int window_size_w;
-    int window_size_h;
-    float window_ratio;
 
-    //printf("Go ...!!!\n");
-    SDL_Log("Fred DEBUG - Go 10:14\n");
 
     /******************************************************************************************************************
                                                 INIT SDL 2
@@ -42,23 +59,31 @@ int main( int argc, char* args[] )
     // Initialize SDL
     if( SDL_Init( SDL_INIT_VIDEO) != 0 ) {  printf( "SDL_Init ERREUR ! SDL_GetError: %s\n", SDL_GetError() ); return -1; }
 
-    Platform = SDL_GetPlatform();
-    SDL_Log("Fred DEBUG - Platform: %s\n", Platform);
+    my_system.Platform = SDL_GetPlatform();
+    SDL_Log("Fred DEBUG - Platform: %s\n", my_system.Platform);
 
 
     // Création de la fenêtre
 #if __WIN32__
-    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X, MAP_TAILLE_Y, SDL_WINDOW_SHOWN );
-//    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
+//    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X_177, MAP_TAILLE_Y_177, SDL_WINDOW_SHOWN );
+    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
 #else
     pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
 #endif
     if(!pWindow) {                          printf( "SDL_Window ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
-    SDL_GetWindowSize(pWindow, &window_size_w, &window_size_h);
-    window_ratio = (float)window_size_w/(float)window_size_h;
-    if ( window_ratio > 1.7 && window_ratio < 1.8 ) { window_ratio = 1.7; }
-    SDL_Log("Fred DEBUG - Window Size: %d x %d - ratio: %f\n", window_size_w, window_size_h, window_ratio);
+    SDL_GetWindowSize(pWindow, &my_system.window_size_w, &my_system.window_size_h);
+    my_system.window_size_ratio = (float)my_system.window_size_w/(float)my_system.window_size_h;
+    SDL_Log("Fred DEBUG - Window Size: %d x %d - ratio: %f\n", my_system.window_size_w, my_system.window_size_h, my_system.window_size_ratio);
+
+    if ( my_system.window_size_ratio > 1.7 && my_system.window_size_ratio < 1.8 ) {
+            my_system.window_size_ratio = 1.7;
+            my_system.map_taille_x  = MAP_TAILLE_X_177;
+            my_system.map_taille_y  = MAP_TAILLE_Y_177;
+    } else {
+            my_system.map_taille_x  = MAP_TAILLE_X_160;
+            my_system.map_taille_y  = MAP_TAILLE_Y_160;
+    }
 
     // Création du Renderer
     pRenderer = SDL_CreateRenderer(pWindow, -1, SDL_RENDERER_ACCELERATED);
@@ -66,7 +91,8 @@ int main( int argc, char* args[] )
 
     // permet d'obtenir les redimensionnements plus doux.
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-    SDL_RenderSetLogicalSize(pRenderer, MAP_TAILLE_X, MAP_TAILLE_Y);
+    SDL_RenderSetLogicalSize(pRenderer, my_system.map_taille_x, my_system.map_taille_y);
+    SDL_Log("Fred DEBUG - Window Logical Size: %d x %d\n", my_system.map_taille_x, my_system.map_taille_y);
 
     /******************************************************************************************************************
                                                 INIT SDL 2  -  Affichage d'une image de chargement ...
@@ -96,27 +122,6 @@ int main( int argc, char* args[] )
     if(!police_level_titre) {                  printf( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
     SDL_Log("Fred DEBUG - INIT SDL OK\n");
-    /******************************************************************************************************************
-                                                VARIABLES
-    *******************************************************************************************************************/
-
-    t_level my_level = {};
-    t_score my_score = {};
-    t_game  my_game  = {} ;
-
-
-    long t_Avant_Traitement;        // permet de gérer les fps
-    long t_Apres_Traitement;
-    int t_total_Traitement;
-    int  game_sleep;
-
-    unsigned int CounterSecond = 0;         // traitement toute les second
-    int CounterBeforeChgLevel = 0;          // pause avant le changement de level
-    int CounterTimeLevel = 0;               // second depuis le demarrage du level
-
-    int a = 0, b = 0, w = 0;
-
-    srand(time(NULL));
 
     /******************************************************************************************************************
                                                 INIT GAME
@@ -203,12 +208,12 @@ int main( int argc, char* args[] )
 
      /* SPRITE BUTTON */
     my_game.sp_BUTTON_TIR = init_sprite (&IMG_BUTTON_TIR);
-    my_game.sp_BUTTON_TIR->x = MAP_TAILLE_X - my_game.sp_BUTTON_TIR->anim->tx/2 - 15;
-    my_game.sp_BUTTON_TIR->y = MAP_TAILLE_Y - my_game.sp_BUTTON_TIR->anim->ty/2 - 15 ;
+    my_game.sp_BUTTON_TIR->x = my_system.map_taille_x - my_game.sp_BUTTON_TIR->anim->tx/2 - 15;
+    my_game.sp_BUTTON_TIR->y = my_system.map_taille_y - my_game.sp_BUTTON_TIR->anim->ty/2 - 15 ;
 
     my_game.sp_BUTTON_TOWER = init_sprite (&IMG_BUTTON_TOWER);
     my_game.sp_BUTTON_TOWER->x = my_game.sp_BUTTON_TOWER->anim->tx/2 + 15;
-    my_game.sp_BUTTON_TOWER->y = MAP_TAILLE_Y - my_game.sp_BUTTON_TOWER->anim->ty/2 - 15 ;
+    my_game.sp_BUTTON_TOWER->y = my_system.map_taille_y - my_game.sp_BUTTON_TOWER->anim->ty/2 - 15 ;
 
 
 
@@ -301,22 +306,22 @@ int main( int argc, char* args[] )
                 /***************************************************************************   FINGER  **/
 
                 case SDL_FINGERDOWN:
-                    my_game.current_mouse_x = (int)(event.tfinger.x * MAP_TAILLE_X);
-                    my_game.current_mouse_y = (int)(event.tfinger.y * MAP_TAILLE_Y);
+                    my_game.current_mouse_x = (int)(event.tfinger.x * my_system.map_taille_x);
+                    my_game.current_mouse_y = (int)(event.tfinger.y * my_system.map_taille_y);
                     //SDL_Log("Fred DEBUG - FINGERDOWN : %d x %d\n", current_mouse_x, current_mouse_y);
                     my_game.flag_event_DOWN = true;
                     break;
 
                 case SDL_FINGERMOTION :
-                    my_game.current_mouse_x = (int)(event.tfinger.x * MAP_TAILLE_X);
-                    my_game.current_mouse_y = (int)(event.tfinger.y * MAP_TAILLE_Y);
+                    my_game.current_mouse_x = (int)(event.tfinger.x * my_system.map_taille_x);
+                    my_game.current_mouse_y = (int)(event.tfinger.y * my_system.map_taille_y);
                     //SDL_Log("Fred DEBUG - FINGERMOTION : %d x %d\n", current_mouse_x, current_mouse_y);
                     my_game.flag_event_MOVE = true;
                     break;
 
                 case SDL_FINGERUP :
-                    my_game.current_mouse_x = (int)(event.tfinger.x * MAP_TAILLE_X);
-                    my_game.current_mouse_y = (int)(event.tfinger.y * MAP_TAILLE_Y);
+                    my_game.current_mouse_x = (int)(event.tfinger.x * my_system.map_taille_x);
+                    my_game.current_mouse_y = (int)(event.tfinger.y * my_system.map_taille_y);
                     //SDL_Log("Fred DEBUG - FINGERUP : %d x %d\n", current_mouse_x, current_mouse_y);
                     my_game.flag_event_UP = true;
                    break;
@@ -347,8 +352,8 @@ int main( int argc, char* args[] )
 
                             my_game.flag_mode_place_tower = true;
                             my_game.flag_mode_game = false;
-                            my_game.sp_TOWER_MOUSE->x = MAP_TAILLE_X / 2;
-                            my_game.sp_TOWER_MOUSE->y = MAP_TAILLE_Y / 2;
+                            my_game.sp_TOWER_MOUSE->x = my_system.map_taille_x / 2;
+                            my_game.sp_TOWER_MOUSE->y = my_system.map_taille_y / 2;
                         }
                     }
                 }
@@ -470,10 +475,10 @@ int main( int argc, char* args[] )
 
                 /** LEVEL **/
                 SDL_Log("Fred DEBUG - Change_level Init level\n");
-                init_level(&my_level, my_game.current_level, pSurface_TUILE, pRenderer);
+                init_level(&my_level, my_game.current_level, pSurface_TUILE, pRenderer, &my_system);
                 //init_texture_obstacle(pRenderer, &my_level);
                 SDL_Log("Fred DEBUG - Change_level Init level 2\n");
-                init_level_titre(pRenderer, &my_level, police_level_titre);
+                init_level_titre(pRenderer, &my_level, police_level_titre, &my_system);
 
                 SDL_Log("Fred DEBUG - Change_level Init level 3\n");
                 place_sprite(my_game.sp_ARRIVE, my_level.cibleX, my_level.cibleY);
@@ -490,22 +495,22 @@ int main( int argc, char* args[] )
                     b = 0;
                     // creation en haut
                     for (a = 0; a < my_level.wave[w].nb_up; a++ ) {
-                        my_game.sp_ENEMY[my_game.current_nb_enemy++] = create_Enemy( UP ,    my_level.StartPos_UP_s, my_level.StartPos_UP_e,       &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in);
+                        my_game.sp_ENEMY[my_game.current_nb_enemy++] = create_Enemy( UP ,    my_level.StartPos_UP_s, my_level.StartPos_UP_e,       &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in, &my_system);
                         b++;
                     }
                     // creation a droite
                     for (a = 0; a < my_level.wave[w].nb_right; a++ ) {
-                        my_game.sp_ENEMY[my_game.current_nb_enemy++] = create_Enemy( RIGHT , my_level.StartPos_RIGHT_s, my_level.StartPos_RIGHT_e, &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in);
+                        my_game.sp_ENEMY[my_game.current_nb_enemy++] = create_Enemy( RIGHT , my_level.StartPos_RIGHT_s, my_level.StartPos_RIGHT_e, &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in, &my_system);
                         b++;
                     }
                     // creation en bas
                     for (a = 0; a < my_level.wave[w].nb_down; a++ ) {
-                        my_game.sp_ENEMY[my_game.current_nb_enemy++] = create_Enemy( DOWN ,  my_level.StartPos_DOWN_s, my_level.StartPos_DOWN_e,   &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in);
+                        my_game.sp_ENEMY[my_game.current_nb_enemy++] = create_Enemy( DOWN ,  my_level.StartPos_DOWN_s, my_level.StartPos_DOWN_e,   &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in, &my_system);
                         b++;
                     }
                     // creation a gauche
                     for (a = 0; a < my_level.wave[w].nb_left; a++ ) {
-                        my_game.sp_ENEMY[my_game.current_nb_enemy++] = create_Enemy( LEFT ,  my_level.StartPos_LEFT_s, my_level.StartPos_LEFT_e,   &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in);
+                        my_game.sp_ENEMY[my_game.current_nb_enemy++] = create_Enemy( LEFT ,  my_level.StartPos_LEFT_s, my_level.StartPos_LEFT_e,   &ANIM[my_level.wave[w].type], 2*a + my_level.wave[w].start_in, &my_system);
                         b++;
                     }
                 }
@@ -531,7 +536,7 @@ int main( int argc, char* args[] )
 
             // mise à jour du score
             my_score.NbEnemy = my_game.current_enemy_alive;
-            init_score( pRenderer, &my_score);
+            init_score( pRenderer, &my_score, &my_system);
 
 
             // decide du changement de level
@@ -586,7 +591,7 @@ int main( int argc, char* args[] )
         // Affichage des ENEMY
         for (a = 0; a < my_game.current_nb_enemy; a++) {
             anime_sprite    (my_game.sp_ENEMY[a]);
-            avance_sprite   (my_game.sp_ENEMY[a], &my_level);
+            avance_sprite   (my_game.sp_ENEMY[a], &my_level, &my_system);
             affiche_sprite  (pRenderer, my_game.sp_ENEMY[a]);
         }
         // Affichage des tourelles
@@ -594,7 +599,7 @@ int main( int argc, char* args[] )
 
 
             for ( b = 0; b < TOWER_NB_MISSILE_MAX; b++ ){
-                avance_missile(&my_game.sp_TOWER[a]->missile[b]);
+                avance_missile(&my_game.sp_TOWER[a]->missile[b], &my_system);
                 affiche_missile (pRenderer, &my_game.sp_TOWER[a]->missile[b], &ANIM_MISSILE);
             }
             anime_tower     (my_game.sp_TOWER[a]);
@@ -634,7 +639,7 @@ int main( int argc, char* args[] )
         if (my_game.flag_affiche_level_titre) {     affiche_titre(pRenderer, &my_level);        }
 
         // Affichage du score
-        affiche_score( pRenderer, &my_score);
+        affiche_score( pRenderer, &my_score, &my_system);
 
         // Mise a jour de l'affichage
         SDL_RenderPresent   (pRenderer);

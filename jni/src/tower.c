@@ -10,6 +10,7 @@
 #include "anim.h"
 #include "tower.h"
 
+
 /*****************************************************************
 *****************************************************************/
 t_tower*   create_Tower( int x, int y, t_animation *ANIM) {
@@ -271,13 +272,13 @@ void        destroy_tower           (t_tower **s) {
 }
 /*****************************************************************
 *****************************************************************/
-void        avance_missile          (t_missile *m) {
+void        avance_missile          (t_missile *m, t_system *my_system) {
 
     if (m->actif) {
        m->x += m->dx;
        m->y += m->dy;
 
-       if (m->x < 0 || m->y < 0 || m->x > MAP_TAILLE_X || m->y > MAP_TAILLE_Y) {
+       if (m->x < 0 || m->y < 0 || m->x > my_system->map_taille_x || m->y > my_system->map_taille_y) {
 
             m->actif = false;
        }

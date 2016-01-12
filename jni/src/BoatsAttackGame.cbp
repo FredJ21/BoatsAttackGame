@@ -55,7 +55,7 @@
 		</Unit>
 		<Unit filename="anim.h" />
 		<Unit filename="config.h" />
-		<Unit filename="game.h" />
+		<Unit filename="game_type.h" />
 		<Unit filename="level.c">
 			<Option compilerVar="CC" />
 		</Unit>

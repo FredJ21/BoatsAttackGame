@@ -4,13 +4,14 @@
 #include <stdlib.h>
 
 #include "config.h"
+#include "type_system.h"
 #include "affichage_texte.h"
 
 
 
 /*****************************************************************
 *****************************************************************/
-void init_score       (SDL_Renderer *pRenderer, t_score *s ) {
+void init_score       (SDL_Renderer *pRenderer, t_score *s, t_system *my_system ) {
 
 
     SDL_Surface *s_texte = NULL;
@@ -25,7 +26,7 @@ void init_score       (SDL_Renderer *pRenderer, t_score *s ) {
     s->Score_position_src.y = 0;
     s->Score_position_src.h = s_texte->h;
     s->Score_position_src.w = s_texte->w;
-    s->Score_position_dst.x = MAP_TAILLE_X -  s_texte->w - 50;
+    s->Score_position_dst.x = my_system->map_taille_x  -  s_texte->w - 50;
     s->Score_position_dst.y = 5;
     s->Score_position_dst.h = s_texte->h;
     s->Score_position_dst.w = s_texte->w;
@@ -41,7 +42,7 @@ void init_score       (SDL_Renderer *pRenderer, t_score *s ) {
 }
 /*****************************************************************
 *****************************************************************/
-void affiche_score          (SDL_Renderer *pRenderer, t_score *s ) {
+void affiche_score          (SDL_Renderer *pRenderer, t_score *s, t_system *my_system ) {
 
        SDL_RenderCopy      (pRenderer, s->pTexture_Score,  &s->Score_position_src, &s->Score_position_dst);
 
