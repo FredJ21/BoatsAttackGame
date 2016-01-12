@@ -7,7 +7,7 @@
 	"config.h"
 	"affichage_texte.h"
 
-1451741437 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\config.h
+1452581790 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\config.h
 
 1447876903 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\affichage_texte.h
 
@@ -73,7 +73,7 @@
 
 1447876903 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\battle_boats.h
 
-1451743207 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\level.c
+1452581546 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\level.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -195,7 +195,7 @@
 
 1452202590 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\game.h
 
-1452395910 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\main.c
+1452581592 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\main.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>

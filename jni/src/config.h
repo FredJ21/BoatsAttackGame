@@ -19,10 +19,17 @@
 
 #define GAME_FPS              30       // a repasser à 30
 
+/**
+    Samsung Galaxy S5   :       1920 x 1080     16:9    ratio: 1.77         ===Jeu==>   /2      :   960 x 540   ==Tile==>   30 x 16.8
+    Samsung Galaxy Tab3 :       1280 x 800      16:10   ratio: 1.60                     /1.33   :   960 x 600               30 x 18.75
+
+**/
 #define MAP_TAILLE_X         960
 #define MAP_TAILLE_Y         540
 #define MAP_NB_TILE_X         30
-#define MAP_NB_TILE_Y         17
+#define MAP_NB_TILE_Y         19
+
+
 
 #define ZONE_BUTTON_TIR_X    845        // superieur à cette valeur
 #define ZONE_BUTTON_TIR_Y    445        // superieur à cette valeur
