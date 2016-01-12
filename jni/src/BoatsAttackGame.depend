@@ -104,7 +104,7 @@
 	"type_system.h"
 	"affichage_texte.h"
 
-1452596602 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\config.h
+1452612455 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\config.h
 
 1452596747 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\affichage_texte.h
 
@@ -154,7 +154,7 @@
 	"level.h"
 	"anim.h"
 
-1452601055 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\level.c
+1452602488 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\level.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>

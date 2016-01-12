@@ -30,22 +30,18 @@
 #define MAP_TAILLE_Y_177      540
 #define MAP_TAILLE_X_160      960
 #define MAP_TAILLE_Y_160      600
+
 #define MAP_NB_TILE_X         30
 #define MAP_NB_TILE_Y         19
-
-
 
 #define ZONE_BUTTON_TIR_X    845        // superieur à cette valeur
 #define ZONE_BUTTON_TIR_Y    445        // superieur à cette valeur
 #define ZONE_BUTTON_TOWER_X  115        // inferieur à cette valeur
 #define ZONE_BUTTON_TOWER_Y  445        // superieur à cette valeur
 
-
-
-
 #define TILE_TAILLE_X         32
 #define TILE_TAILLE_Y         32
-#define TILE_FILE           "images/32x32_map_tile_v3.1.bmp"
+#define TILE_FILE           "images/32x32_map_tile_v3.1.data.bmp"
 #define TILE_FILE_NB_COLONNE  23
 #define LEVEL_NB_TOTAL            4
 #define WAVE_ENEMY_MAX_BY_WAVE  100

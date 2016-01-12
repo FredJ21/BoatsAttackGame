@@ -55,7 +55,6 @@
 		</Unit>
 		<Unit filename="anim.h" />
 		<Unit filename="config.h" />
-		<Unit filename="game_type.h" />
 		<Unit filename="level.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -68,6 +67,8 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="tower.h" />
+		<Unit filename="type_game.h" />
+		<Unit filename="type_system.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
