@@ -14,6 +14,7 @@ typedef struct {
     bool flag_mode_place_tower;             // mode permettant de positionner les tourelles
     bool flag_mode_tower_selected;          // la tourelle est choisi
     bool flag_mode_game;                    // mode normal du jeu, permet de savoir qu'aucun autre mode n'est actif
+    bool flag_game_started;                 // vrai dès le démarrage du jeu
 
     bool flag_tower_position_ok;            // vrai si la tourelle n'est pas dans l'eau
 
@@ -29,7 +30,7 @@ typedef struct {
 
     t_sprite *sp_ENEMY[WAVE_NB * WAVE_ENEMY_MAX_BY_WAVE];       // annimation ennemis - tableau de pointeurs
     t_tower  *sp_TOWER[TOWER_MAX];                              // annimation tourelle - tableau de pointeurs
-    t_sprite *sp_ARRIVE;                                      // annimation de l'arrive
+    t_sprite *sp_ARRIVE;                                        // annimation de l'arrive
     t_tower  *sp_TOWER_MOUSE;                                   // annimation sous la souris
     t_sprite *sp_BUTTON_TIR;                                    // bouton de tir
     t_sprite *sp_BUTTON_TOWER;                                  // bouton de nouvelle tourelle

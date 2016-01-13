@@ -16,6 +16,7 @@
 #include "Algo_Collision.h"
 #include "type_game.h"
 #include "type_system.h"
+#include "menu.h"
 
 
 int main( int argc, char* args[] )
@@ -26,18 +27,18 @@ int main( int argc, char* args[] )
     /******************************************************************************************************************
                                                 VARIABLES
     *******************************************************************************************************************/
-    t_level my_level = {};
-    t_score my_score = {};
-    t_game  my_game  = {} ;
-    t_system my_system = {};
-
+    t_level     my_level    = {};
+    t_score     my_score    = {};
+    t_game      my_game     = {};
+    t_system    my_system   = {};
+    t_menu      my_menu     = {};
 
     long t_Avant_Traitement;        // permet de gérer les fps
     long t_Apres_Traitement;
     int t_total_Traitement;
     int  game_sleep;
 
-    unsigned int CounterSecond = 0;         // traitement toute les second
+    unsigned int CounterSecond = 0;         // traitement toute les seconds
     int CounterBeforeChgLevel = 0;          // pause avant le changement de level
     int CounterTimeLevel = 0;               // second depuis le demarrage du level
 
@@ -50,7 +51,7 @@ int main( int argc, char* args[] )
     SDL_Surface *pSurface           = NULL;
     SDL_Texture *pTexture           = NULL;
     TTF_Font *police_level_titre    = NULL;
-
+    SDL_Surface *pSurface_TUILE     = NULL;
 
 
     /******************************************************************************************************************
@@ -124,6 +125,19 @@ int main( int argc, char* args[] )
     SDL_Log("Fred DEBUG - INIT SDL OK\n");
 
     /******************************************************************************************************************
+                                                INIT MENU
+    *******************************************************************************************************************/
+    my_menu.exit    = false;
+    my_menu.start   = false;
+    my_menu.restart = false;
+    my_menu.resume  = false;
+
+    /** FICHIER background) **/
+    my_menu.img_background = SDL_LoadBMP ("images/menu_background.bmp");
+    if(!my_menu.img_background) { printf( "SDL_Surface ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
+
+
+    /******************************************************************************************************************
                                                 INIT GAME
     *******************************************************************************************************************/
     SDL_Log("Fred DEBUG - INIT GAME\n");
@@ -155,7 +169,7 @@ int main( int argc, char* args[] )
                                                 INIT DES IMAGES / ANNIMATIONS
     *******************************************************************************************************************/
     /** FICHIER TUILE (chargement) **/
-    SDL_Surface *pSurface_TUILE = SDL_LoadBMP (TILE_FILE);
+    pSurface_TUILE = SDL_LoadBMP (TILE_FILE);
     if(!pSurface_TUILE) { printf( "SDL_Surface_TUILE ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
     /** ANIMATION des ennemis  **/
@@ -233,6 +247,7 @@ int main( int argc, char* args[] )
     while (!my_game.flag_fin) {
 
         t_Avant_Traitement = SDL_GetTicks();
+        my_game.flag_game_started = true;
 
 
         /******************************************************************************************************************
@@ -476,7 +491,9 @@ int main( int argc, char* args[] )
                 /** LEVEL **/
                 SDL_Log("Fred DEBUG - Change_level Init level\n");
                 init_level(&my_level, my_game.current_level, pSurface_TUILE, pRenderer, &my_system);
-                //init_texture_obstacle(pRenderer, &my_level);
+                /** DEBUG OBSTACLES **/
+                //init_texture_obstacle(pRenderer, &my_level, &my_system);
+
                 SDL_Log("Fred DEBUG - Change_level Init level 2\n");
                 init_level_titre(pRenderer, &my_level, police_level_titre, &my_system);
 
@@ -569,8 +586,6 @@ int main( int argc, char* args[] )
         /******************************************************************************************************************
                                                     COLLISION
         *******************************************************************************************************************/
-
-//        test_collision(my_game.sp_TOWER, my_game.current_nb_tower, my_game.sp_ENEMY, my_game.current_nb_enemy);
 
         test_collision(&my_game, &ANIM_EXPLOSION);
 

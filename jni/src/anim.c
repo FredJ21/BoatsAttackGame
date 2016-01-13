@@ -11,16 +11,16 @@
 
 /*****************************************************************
 *****************************************************************/
-void init_animation(t_animation *a, SDL_Renderer *r)  {
+void init_animation(t_animation *anim, SDL_Renderer *renderer)  {
 
 
-    SDL_Surface *pSurface_tmp = SDL_LoadBMP ( a->file );
+    SDL_Surface *pSurface_tmp = SDL_LoadBMP ( anim->file );
             if(!pSurface_tmp) { printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
 
-    a->texture = SDL_CreateTextureFromSurface(r, pSurface_tmp);
-        if(!a->texture) { printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    anim->texture = SDL_CreateTextureFromSurface(renderer, pSurface_tmp);
+        if(!anim->texture) { printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
 
     SDL_FreeSurface(pSurface_tmp);
 
