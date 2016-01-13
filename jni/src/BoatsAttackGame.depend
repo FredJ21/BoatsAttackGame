@@ -1,15 +1,16 @@
 # depslib dependency file v1.0
-1447876903 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\affichage_texte.c
+1452622960 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\affichage_texte.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
 	<stdlib.h>
 	"config.h"
+	"type_system.h"
 	"affichage_texte.h"
 
-1452581790 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\config.h
+1452623035 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\config.h
 
-1447876903 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\affichage_texte.h
+1452622960 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\affichage_texte.h
 
 1447876903 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\algo_a_star.c
 	<SDL.h>
@@ -20,7 +21,8 @@
 	"level.h"
 	"Algo_A_star.h"
 
-1447876903 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\level.h
+1452622960 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\level.h
+	"type_system.h"
 
 1447876903 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\algo_a_star.h
 
@@ -38,14 +40,15 @@
 	"tower.h"
 	"Algo_Collision.h"
 
-1452236887 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\anim.h
+1452622960 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\anim.h
+	"type_system.h"
 
-1447876903 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\tower.h
+1452622960 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\tower.h
 
-1452206195 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\algo_collision.h
-	"game.h"
+1452622960 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\algo_collision.h
+	"type_game.h"
 
-1452271970 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\anim.c
+1452622960 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\anim.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -73,7 +76,7 @@
 
 1447876903 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\battle_boats.h
 
-1452581546 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\level.c
+1452622960 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\level.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -83,7 +86,7 @@
 	"level.h"
 	"Algo_A_star.h"
 
-1452323370 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\tower.c
+1452622960 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\tower.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -200,7 +203,7 @@
 
 1452202590 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\game.h
 
-1452581592 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\main.c
+1452622960 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\main.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -215,11 +218,16 @@
 	"affichage_texte.h"
 	"tower.h"
 	"Algo_Collision.h"
-	"game.h"
+	"type_game.h"
+	"type_system.h"
 
 1452201381 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\main.h
 
 1452600236 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\type_system.h
 
 1452598834 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\type_game.h
+
+1452622960 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\type_system.h
+
+1452622960 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\type_game.h
 

@@ -223,10 +223,8 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
                                         - Creation de la des obstacles
                                         - Remise à zero de mapDirection
     *******************************************************************************************************************/
-    SDL_Log("Fred DEBUG - TEST: %d x %d - ratio: %f\n", my_system->window_size_w, my_system->window_size_h, my_system->window_size_ratio);
 
     if ( (int)(my_system->window_size_ratio * 100) == 170 ) {            // permet d'ignorer la premiere ligne en ratio 1.7 (16:9)
-        SDL_Log("Fred DEBUG - TEST OKKKKK\n");
         a = 30;
     } else {
         a = 0;
