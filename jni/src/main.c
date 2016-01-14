@@ -127,14 +127,8 @@ int main( int argc, char* args[] )
     /******************************************************************************************************************
                                                 INIT MENU
     *******************************************************************************************************************/
-    my_menu.exit    = false;
-    my_menu.start   = false;
-    my_menu.restart = false;
-    my_menu.resume  = false;
-
-    /** FICHIER background) **/
-    my_menu.img_background = SDL_LoadBMP ("images/menu_background.bmp");
-    if(!my_menu.img_background) { printf( "SDL_Surface ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
+    SDL_Log("Fred DEBUG - INIT MENU\n");
+    init_menu(&my_menu, pRenderer);
 
 
     /******************************************************************************************************************

@@ -8,7 +8,7 @@
 	"type_system.h"
 	"affichage_texte.h"
 
-1452623035 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\config.h
+1452747484 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\config.h
 
 1452622960 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\affichage_texte.h
 
@@ -48,7 +48,7 @@
 1452622960 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\algo_collision.h
 	"type_game.h"
 
-1452622960 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\anim.c
+1452717339 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\anim.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -76,7 +76,7 @@
 
 1447876903 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\battle_boats.h
 
-1452622960 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\level.c
+1452627426 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\level.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -204,7 +204,7 @@
 
 1452202590 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\game.h
 
-1452622960 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\main.c
+1452748609 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\main.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -221,6 +221,7 @@
 	"Algo_Collision.h"
 	"type_game.h"
 	"type_system.h"
+	"menu.h"
 
 1452201381 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\main.h
 
@@ -230,11 +231,22 @@
 
 1452622960 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\type_system.h
 
-1452622960 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\type_game.h
+1452717339 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\type_game.h
 
 1452699500 c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\menu.h
 
 1452698288 source:c:\users\ext-fjelmoni\desktop\fred\boatsattackgame\jni\src\menu.c
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"config.h"
+	"menu.h"
+
+1452749389 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\menu.h
+
+1452748559 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\menu.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
