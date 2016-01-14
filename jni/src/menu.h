@@ -4,8 +4,11 @@
 typedef struct {
 
     SDL_Texture     *img;
+    int             w;          // weith
+    int             h;          // height
     int             x;          // position en x
     int             y;          // position en y
+    bool        enable;
 
 } t_button;
 
@@ -23,7 +26,7 @@ typedef struct {
     t_button    button_resume_p;
     t_button    button_exit_p;
 
-    bool    exit;           // vrai à la selection d'une touche
+    bool    exit;               // vrai à la selection d'une touche
     bool    start;
     bool    restart;
     bool    resume;
@@ -32,7 +35,7 @@ typedef struct {
 
 
 void        init_menu               (t_menu *menu, SDL_Renderer *pRenderer);
-void        affiche_menu            (t_menu *menu, SDL_Renderer *pRenderer);
-void        affiche_button          (t_menu *menu, SDL_Renderer *pRenderer);
+void        affiche_menu            (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_started, t_system *system);
+void        affiche_button          (t_button *button, SDL_Renderer *pRenderer);
 
 #endif // MENU_H_INCLUDED

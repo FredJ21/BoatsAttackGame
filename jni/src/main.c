@@ -53,6 +53,8 @@ int main( int argc, char* args[] )
     TTF_Font *police_level_titre    = NULL;
     SDL_Surface *pSurface_TUILE     = NULL;
 
+    SDL_Event event;
+
 
     /******************************************************************************************************************
                                                 INIT SDL 2
@@ -130,6 +132,10 @@ int main( int argc, char* args[] )
     SDL_Log("Fred DEBUG - INIT MENU\n");
     init_menu(&my_menu, pRenderer);
 
+    my_game.flag_game_started = false;
+
+    affiche_menu(&my_menu, pRenderer, my_game.flag_game_started, &my_system);
+    exit(21);
 
     /******************************************************************************************************************
                                                 INIT GAME
@@ -247,7 +253,6 @@ int main( int argc, char* args[] )
         /******************************************************************************************************************
                                                     GESTION DES EVENEMENTS
         *******************************************************************************************************************/
-        SDL_Event event;
         while (SDL_PollEvent(&event)) {
 
             switch (event.type){

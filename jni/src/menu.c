@@ -5,12 +5,13 @@
 #include <string.h>
 
 #include "config.h"
-//#include "level.h"
-//#include "anim.h"
+#include "type_system.h"
 #include "menu.h"
 
 
-void init_menu (t_menu *my_menu, SDL_Renderer *pRenderer) {
+/*****************************************************************
+*****************************************************************/
+void init_menu      (t_menu *my_menu, SDL_Renderer *pRenderer) {
 
     SDL_Surface *pSurface_tmp;
 
@@ -30,60 +31,247 @@ void init_menu (t_menu *my_menu, SDL_Renderer *pRenderer) {
     /** FICHIER bouton START**/
     pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_START);
     if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
+    SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
 
     my_menu->button_start.img       = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->button_start.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    my_menu->button_start.w         = pSurface_tmp->w;
+    my_menu->button_start.h         = pSurface_tmp->h;
 
     pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_START_P);
     if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
+    SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
 
     my_menu->button_start_p.img     = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->button_start_p.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    my_menu->button_start_p.w       = pSurface_tmp->w;
+    my_menu->button_start_p.h       = pSurface_tmp->h;
 
 
     /** FICHIER bouton RESTART**/
     pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_RESTART);
     if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
+    SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
 
     my_menu->button_restart.img     = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->button_restart.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    my_menu->button_restart.w       = pSurface_tmp->w;
+    my_menu->button_restart.h       = pSurface_tmp->h;
 
     pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_RESTART_P);
     if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
+    SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
 
     my_menu->button_restart_p.img   = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->button_restart_p.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    my_menu->button_restart_p.w     = pSurface_tmp->w;
+    my_menu->button_restart_p.h     = pSurface_tmp->h;
 
 
     /** FICHIER bouton RESUME**/
     pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_RESUME);
     if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
+    SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
 
-    my_menu->button_resume.img     = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
+    my_menu->button_resume.img      = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->button_resume.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    my_menu->button_resume.w        = pSurface_tmp->w;
+    my_menu->button_resume.h        = pSurface_tmp->h;
 
     pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_RESUME_P);
     if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
+    SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
 
-    my_menu->button_resume_p.img   = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
+    my_menu->button_resume_p.img    = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->button_resume_p.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    my_menu->button_resume_p.w      = pSurface_tmp->w;
+    my_menu->button_resume_p.h      = pSurface_tmp->h;
 
 
     /** FICHIER bouton EXIT**/
     pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_EXIT);
     if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
+    SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
 
     my_menu->button_exit.img        = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->button_exit.img){  printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    my_menu->button_exit.w          = pSurface_tmp->w;
+    my_menu->button_exit.h          = pSurface_tmp->h;
 
     pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_EXIT_P);
     if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
+    SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
 
     my_menu->button_exit_p.img      = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->button_exit_p.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    my_menu->button_exit_p.w        = pSurface_tmp->w;
+    my_menu->button_exit_p.h        = pSurface_tmp->h;
 
 
 
 
     SDL_FreeSurface(pSurface_tmp);
+}
+/*****************************************************************
+*****************************************************************/
+void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_started, t_system *my_system) {
+
+    bool exit               = false;
+    int current_mouse_x     = 0;
+    int current_mouse_y     = 0;
+    bool flag_event_down    = false;
+
+    SDL_Event event;
+
+    if (!flag_game_started) {
+        menu->button_start.enable      = true;
+        menu->button_restart.enable    = false;
+        menu->button_resume.enable     = false;
+        menu->button_exit.enable       = true;
+
+        menu->button_start.x    = 200;
+        menu->button_start.y    = 100;
+        menu->button_exit.x     = 200;
+        menu->button_exit.y     = 200;
+        menu->button_start_p.x    = menu->button_start.x;
+        menu->button_start_p.y    = menu->button_start.y;
+        menu->button_exit_p.x     = menu->button_exit.x;
+        menu->button_exit_p.y     = menu->button_exit.y;
+
+    } else {
+        menu->button_start.enable       = false;
+        menu->button_restart.enable     = true;
+        menu->button_resume.enable      = true;
+        menu->button_exit.enable        = true;
+
+        menu->button_restart.x  = 300;
+        menu->button_restart.y  = 100;
+        menu->button_resume.x   = 300;
+        menu->button_resume.y    = 200;
+        menu->button_exit.x     = 300;
+        menu->button_exit.y     = 300;
+
+        menu->button_restart_p.x  = menu->button_restart.x;
+        menu->button_restart_p.y  = menu->button_restart.y;
+        menu->button_resume_p.x   = menu->button_resume.x;
+        menu->button_resume_p.y   = menu->button_resume.y;
+        menu->button_exit_p.x     = menu->button_exit.x;
+        menu->button_exit_p.y     = menu->button_exit.y;
+
+    }
+
+
+    while (!exit) {
+
+            /******************************************************************************************************************
+                                                        AFFICHAGE
+            *******************************************************************************************************************/
+            SDL_RenderClear     (pRenderer);
+
+            SDL_RenderCopy      (pRenderer, menu->img_background, NULL, NULL);
+
+            if (menu->button_start.enable) {
+                    if (flag_event_down
+                        && current_mouse_x > menu->button_start.x && current_mouse_x < menu->button_start.x + menu->button_start.w
+                        && current_mouse_y > menu->button_start.y && current_mouse_y < menu->button_start.y + menu->button_start.h
+                        )
+                            { affiche_button (&menu->button_start_p, pRenderer); }
+                    else    { affiche_button (&menu->button_start, pRenderer); }
+            }
+            if (menu->button_restart.enable) {
+                    if (flag_event_down
+                        && current_mouse_x > menu->button_restart.x && current_mouse_x < menu->button_restart.x + menu->button_restart.w
+                        && current_mouse_y > menu->button_restart.y && current_mouse_y < menu->button_restart.y + menu->button_restart.h
+                        )
+                            { affiche_button (&menu->button_restart_p, pRenderer); }
+                    else    { affiche_button (&menu->button_restart, pRenderer); }
+            }
+            if (menu->button_resume.enable) {
+                    if (flag_event_down
+                        && current_mouse_x > menu->button_resume.x && current_mouse_x < menu->button_resume.x + menu->button_resume.w
+                        && current_mouse_y > menu->button_resume.y && current_mouse_y < menu->button_resume.y + menu->button_resume.h
+                        )
+                            { affiche_button (&menu->button_resume_p, pRenderer); }
+                    else    { affiche_button (&menu->button_resume, pRenderer); }
+            }
+            if (menu->button_exit.enable) {
+                    if (flag_event_down
+                        && current_mouse_x > menu->button_exit.x && current_mouse_x < menu->button_exit.x + menu->button_exit.w
+                        && current_mouse_y > menu->button_exit.y && current_mouse_y < menu->button_exit.y + menu->button_exit.h
+                        )
+                            { affiche_button (&menu->button_exit_p, pRenderer); }
+                    else    { affiche_button (&menu->button_exit, pRenderer); }
+            }
+
+            SDL_RenderPresent   (pRenderer);
+
+
+            /******************************************************************************************************************
+                                                        GESTION DES EVENEMENTS
+            *******************************************************************************************************************/
+            while (SDL_PollEvent(&event)) {
+
+                switch (event.type){
+
+                    case SDL_QUIT:
+                        exit = true;
+                        break;
+
+                    /***************************************************************************   SOURIS  **/
+#if __WIN32__
+                    case SDL_MOUSEBUTTONDOWN :
+                        SDL_GetMouseState( &current_mouse_x, &current_mouse_y );
+                        flag_event_down = true;
+                        break;
+
+                    case SDL_MOUSEMOTION :
+                        SDL_GetMouseState( &current_mouse_x, &current_mouse_y );
+                        break;
+
+                    case SDL_MOUSEBUTTONUP :
+                        SDL_GetMouseState( &current_mouse_x, &current_mouse_y );
+                        flag_event_down = false;
+                        break;
+#endif
+                    /***************************************************************************   FINGER  **/
+                    case SDL_FINGERDOWN:
+                        current_mouse_x = (int)(event.tfinger.x * my_system->map_taille_x);
+                        current_mouse_y = (int)(event.tfinger.y * my_system->map_taille_y);
+                        flag_event_down = true;
+                        break;
+
+                    case SDL_FINGERMOTION :
+                        current_mouse_x = (int)(event.tfinger.x * my_system->map_taille_x);
+                        current_mouse_y = (int)(event.tfinger.y * my_system->map_taille_y);
+                        break;
+
+                    case SDL_FINGERUP :
+                        current_mouse_x = (int)(event.tfinger.x * my_system->map_taille_x);
+                        current_mouse_y = (int)(event.tfinger.y * my_system->map_taille_y);
+                        flag_event_down = false;
+                        break;
+
+                }
+            }
+    }
+}
+/*****************************************************************
+*****************************************************************/
+void affiche_button (t_button *button, SDL_Renderer *pRenderer){
+
+    SDL_Rect Src;
+    SDL_Rect Dst;
+
+    Src.x = 0;
+    Src.y = 0;
+    Src.w = button->w;
+    Src.h = button->h;
+
+    Dst.x = button->x;
+    Dst.y = button->y;
+    Dst.w = Src.w;
+    Dst.h = Src.h;
+
+    SDL_RenderCopy      ( pRenderer, button->img , &Src, &Dst);
+
 }
