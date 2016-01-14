@@ -120,6 +120,10 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
     int current_mouse_x     = 0;
     int current_mouse_y     = 0;
     bool flag_event_down    = false;
+    bool flag_event_up      = false;
+
+    int  sleep;
+
 
     SDL_Event event;
 
@@ -171,37 +175,43 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
             SDL_RenderCopy      (pRenderer, menu->img_background, NULL, NULL);
 
             if (menu->button_start.enable) {
-                    if (flag_event_down
-                        && current_mouse_x > menu->button_start.x && current_mouse_x < menu->button_start.x + menu->button_start.w
+                    affiche_button (&menu->button_start, pRenderer);
+                    if (   current_mouse_x > menu->button_start.x && current_mouse_x < menu->button_start.x + menu->button_start.w
                         && current_mouse_y > menu->button_start.y && current_mouse_y < menu->button_start.y + menu->button_start.h
-                        )
-                            { affiche_button (&menu->button_start_p, pRenderer); }
-                    else    { affiche_button (&menu->button_start, pRenderer); }
+                        ) {
+                            if      (flag_event_down)  { affiche_button (&menu->button_start_p, pRenderer); }
+                            else if (flag_event_up)    { menu->start = true; exit = true; }
+                        }
             }
             if (menu->button_restart.enable) {
-                    if (flag_event_down
-                        && current_mouse_x > menu->button_restart.x && current_mouse_x < menu->button_restart.x + menu->button_restart.w
+                    affiche_button (&menu->button_restart, pRenderer);
+                    if (   current_mouse_x > menu->button_restart.x && current_mouse_x < menu->button_restart.x + menu->button_restart.w
                         && current_mouse_y > menu->button_restart.y && current_mouse_y < menu->button_restart.y + menu->button_restart.h
-                        )
-                            { affiche_button (&menu->button_restart_p, pRenderer); }
-                    else    { affiche_button (&menu->button_restart, pRenderer); }
+                        ) {
+                            if      (flag_event_down)  { affiche_button (&menu->button_restart_p, pRenderer); }
+                            else if (flag_event_up)    { menu->restart = true; exit = true; }
+                        }
             }
             if (menu->button_resume.enable) {
-                    if (flag_event_down
-                        && current_mouse_x > menu->button_resume.x && current_mouse_x < menu->button_resume.x + menu->button_resume.w
+                    affiche_button (&menu->button_resume, pRenderer);
+                    if (   current_mouse_x > menu->button_resume.x && current_mouse_x < menu->button_resume.x + menu->button_resume.w
                         && current_mouse_y > menu->button_resume.y && current_mouse_y < menu->button_resume.y + menu->button_resume.h
-                        )
-                            { affiche_button (&menu->button_resume_p, pRenderer); }
-                    else    { affiche_button (&menu->button_resume, pRenderer); }
+                        ) {
+                            if      (flag_event_down)  { affiche_button (&menu->button_resume_p, pRenderer); }
+                            else if (flag_event_up)    { menu->resume = true; exit = true; }
+                        }
             }
             if (menu->button_exit.enable) {
-                    if (flag_event_down
-                        && current_mouse_x > menu->button_exit.x && current_mouse_x < menu->button_exit.x + menu->button_exit.w
+                    affiche_button (&menu->button_exit, pRenderer);
+                    if (   current_mouse_x > menu->button_exit.x && current_mouse_x < menu->button_exit.x + menu->button_exit.w
                         && current_mouse_y > menu->button_exit.y && current_mouse_y < menu->button_exit.y + menu->button_exit.h
-                        )
-                            { affiche_button (&menu->button_exit_p, pRenderer); }
-                    else    { affiche_button (&menu->button_exit, pRenderer); }
+                        ) {
+                            if      (flag_event_down)  { affiche_button (&menu->button_exit_p, pRenderer); }
+                            else if (flag_event_up)    { menu->exit = true; exit = true; }
+                        }
             }
+
+            flag_event_up = false;
 
             SDL_RenderPresent   (pRenderer);
 
@@ -215,6 +225,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
 
                     case SDL_QUIT:
                         exit = true;
+                        menu->exit = true;
                         break;
 
                     /***************************************************************************   SOURIS  **/
@@ -231,6 +242,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                     case SDL_MOUSEBUTTONUP :
                         SDL_GetMouseState( &current_mouse_x, &current_mouse_y );
                         flag_event_down = false;
+                        flag_event_up   = true;
                         break;
 #endif
                     /***************************************************************************   FINGER  **/
@@ -253,6 +265,11 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
 
                 }
             }
+
+
+            sleep = (1000 / GAME_FPS);
+            SDL_Delay( sleep );
+
     }
 }
 /*****************************************************************
