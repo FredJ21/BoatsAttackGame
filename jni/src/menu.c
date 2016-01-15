@@ -133,10 +133,10 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
         menu->button_resume.enable     = false;
         menu->button_exit.enable       = true;
 
-        menu->button_start.x    = 200;
+        menu->button_start.x    = (my_system->map_taille_x - menu->button_start.w)/2 ;
         menu->button_start.y    = 100;
-        menu->button_exit.x     = 200;
-        menu->button_exit.y     = 200;
+        menu->button_exit.x     = (my_system->map_taille_x - menu->button_exit.w)/2;
+        menu->button_exit.y     = menu->button_start.y + menu->button_start.h + 30;
         menu->button_start_p.x    = menu->button_start.x;
         menu->button_start_p.y    = menu->button_start.y;
         menu->button_exit_p.x     = menu->button_exit.x;
@@ -148,12 +148,12 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
         menu->button_resume.enable      = true;
         menu->button_exit.enable        = true;
 
-        menu->button_restart.x  = 300;
+        menu->button_restart.x  = (my_system->map_taille_x - menu->button_start.w)/2;
         menu->button_restart.y  = 100;
-        menu->button_resume.x   = 300;
-        menu->button_resume.y    = 200;
-        menu->button_exit.x     = 300;
-        menu->button_exit.y     = 300;
+        menu->button_resume.x   = (my_system->map_taille_x - menu->button_resume.w)/2;
+        menu->button_resume.y    = menu->button_restart.y + menu->button_restart.h + 30;
+        menu->button_exit.x     = (my_system->map_taille_x - menu->button_exit.w)/2;
+        menu->button_exit.y     = menu->button_resume.y + menu->button_resume.h + 30;
 
         menu->button_restart_p.x  = menu->button_restart.x;
         menu->button_restart_p.y  = menu->button_restart.y;
@@ -228,6 +228,18 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                         menu->exit = true;
                         break;
 
+                    case SDL_KEYDOWN:
+                        switch( event.key.keysym.sym ){
+                            case SDLK_ESCAPE:
+                                exit = true;
+                                menu->exit = true;
+                                break;
+                            case SDLK_AC_BACK:
+                                exit = true;
+                                menu->exit = true;
+                                break;
+                        }
+                        break;
                     /***************************************************************************   SOURIS  **/
 #if __WIN32__
                     case SDL_MOUSEBUTTONDOWN :
@@ -261,6 +273,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                         current_mouse_x = (int)(event.tfinger.x * my_system->map_taille_x);
                         current_mouse_y = (int)(event.tfinger.y * my_system->map_taille_y);
                         flag_event_down = false;
+                        flag_event_up   = true;
                         break;
 
                 }
