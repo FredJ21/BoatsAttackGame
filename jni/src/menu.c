@@ -149,7 +149,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
         menu->button_exit.enable        = true;
 
         menu->button_restart.x  = (my_system->map_taille_x - menu->button_start.w)/2;
-        menu->button_restart.y  = 100;
+        menu->button_restart.y  = 20;
         menu->button_resume.x   = (my_system->map_taille_x - menu->button_resume.w)/2;
         menu->button_resume.y    = menu->button_restart.y + menu->button_restart.h + 30;
         menu->button_exit.x     = (my_system->map_taille_x - menu->button_exit.w)/2;
