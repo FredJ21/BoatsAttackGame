@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <SDL_image.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -14,8 +15,9 @@
 void init_animation(t_animation *anim, SDL_Renderer *renderer)  {
 
 
-    SDL_Surface *pSurface_tmp = SDL_LoadBMP ( anim->file );
-            if(!pSurface_tmp) { printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
+    //SDL_Surface *pSurface_tmp = SDL_LoadBMP ( anim->file );
+    SDL_Surface *pSurface_tmp = IMG_Load ( anim->file );
+            if(!pSurface_tmp) { printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
 

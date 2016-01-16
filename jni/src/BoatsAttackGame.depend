@@ -8,7 +8,7 @@
 	"type_system.h"
 	"affichage_texte.h"
 
-1452932488 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\config.h
+1452949171 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\config.h
 
 1452622960 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\affichage_texte.h
 
@@ -26,7 +26,7 @@
 
 1447876903 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\algo_a_star.h
 
-1452323245 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\algo_collision.c
+1452957176 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\algo_collision.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -45,12 +45,13 @@
 
 1452622960 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\tower.h
 
-1452622960 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\algo_collision.h
+1452956267 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\algo_collision.h
 	"type_game.h"
 
-1452717339 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\anim.c
+1452946548 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\anim.c
 	<SDL.h>
 	<SDL_ttf.h>
+	<SDL_image.h>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -76,7 +77,7 @@
 
 1447876903 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\battle_boats.h
 
-1452627426 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\level.c
+1452958687 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\level.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>
@@ -204,7 +205,7 @@
 
 1452202590 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\game.h
 
-1452933045 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\main.c
+1452958758 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\main.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<SDL_image.h>

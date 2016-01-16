@@ -37,10 +37,11 @@ bool test_collision_circle      (int Ax, int Ay, int Aradius, int Bx, int By, in
 /*****************************************************************
 *****************************************************************/
 //void test_collision             (t_tower *tower[], int nb_tower, t_sprite *enemy[], int nb_enemy) {
-void test_collision             (t_game *my_game, t_animation *ANIM_EXPLOSION) {
+void test_collision             (t_game *my_game, t_animation ANIM_EXPLOSION[]) {
 
     int a, b, m, s;
     int nb = 0;
+    int explose_num;
 
     for (a = 0; a < my_game->current_nb_tower; a++) {                        // pour chaque tourelle  A
         for( m = 0; m < TOWER_NB_MISSILE_MAX; m++){         // pour chaque missile   M
@@ -59,7 +60,8 @@ void test_collision             (t_game *my_game, t_animation *ANIM_EXPLOSION) {
                             my_game->sp_TOWER[a]->missile[m].actif = false;
                             my_game->sp_TOWER[b]->actif = false;
 
-                            my_game->sp_EXPLOSION[my_game->current_nb_explosion]    = init_sprite (ANIM_EXPLOSION);
+                            explose_num = rand() % NB_ANIM_EXPLOSION;
+                            my_game->sp_EXPLOSION[my_game->current_nb_explosion]    = init_sprite (&ANIM_EXPLOSION[explose_num]);
                             my_game->sp_EXPLOSION[my_game->current_nb_explosion]->x = my_game->sp_TOWER[b]->x;
                             my_game->sp_EXPLOSION[my_game->current_nb_explosion]->y = my_game->sp_TOWER[b]->y;
                             my_game->current_nb_explosion++;
@@ -80,7 +82,8 @@ void test_collision             (t_game *my_game, t_animation *ANIM_EXPLOSION) {
                                 my_game->sp_TOWER[a]->missile[m].actif = false;
                                 my_game->sp_ENEMY[s]->is_actif = false;
 
-                                my_game->sp_EXPLOSION[my_game->current_nb_explosion]    = init_sprite (ANIM_EXPLOSION);
+                                explose_num = rand() % NB_ANIM_EXPLOSION;
+                                my_game->sp_EXPLOSION[my_game->current_nb_explosion]    = init_sprite (&ANIM_EXPLOSION[explose_num]);
                                 my_game->sp_EXPLOSION[my_game->current_nb_explosion]->x = my_game->sp_ENEMY[s]->x;
                                 my_game->sp_EXPLOSION[my_game->current_nb_explosion]->y = my_game->sp_ENEMY[s]->y;
                                 my_game->current_nb_explosion++;

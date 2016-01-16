@@ -56,6 +56,7 @@
 #define POLICE_SCORE            "fonts/DS-DIGIB.TTF"
 #define POLICE_SCORE_SIZE       30
 
+#define NB_ANIM_EXPLOSION       5
 
 #define MENU_IMG_BACKGROUND     "images/menu_background.bmp"    //images de l'arrière plan
 #define MENU_IMG_START          "images/menu_start.png"         //images des boutonw

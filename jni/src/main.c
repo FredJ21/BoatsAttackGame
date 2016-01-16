@@ -199,8 +199,22 @@ int main( int argc, char* args[] )
         init_animation( &ANIM_MISSILE, pRenderer);
 
 //    t_animation ANIM_EXPLOSION = { "images/explosion_1.bmp", 44, 46, 40, 40, 40, NULL, 1, 1 };
-    t_animation ANIM_EXPLOSION = { "images/explosion_1_2.bmp", 88, 92, 40, 40, 40, NULL, 1, 1 };
-        init_animation( &ANIM_EXPLOSION, pRenderer);
+    t_animation ANIM_EXPLOSION[NB_ANIM_EXPLOSION];
+    strcpy( ANIM_EXPLOSION[0].file, "images/explosion_1.png");  ANIM_EXPLOSION[0].tx = 88;  ANIM_EXPLOSION[0].ty = 93;
+        ANIM_EXPLOSION[0].nb_colonne = 40;  ANIM_EXPLOSION[0].nb_image = 40;  ANIM_EXPLOSION[0].nb_img_by_dir = 40; ANIM_EXPLOSION[0].nb_tour = 1;  ANIM_EXPLOSION[0].vitesse = 1;
+    strcpy( ANIM_EXPLOSION[1].file, "images/explosion_2.png");  ANIM_EXPLOSION[1].tx = 75;  ANIM_EXPLOSION[1].ty = 109;
+        ANIM_EXPLOSION[1].nb_colonne = 30;  ANIM_EXPLOSION[1].nb_image = 30;  ANIM_EXPLOSION[1].nb_img_by_dir = 30; ANIM_EXPLOSION[1].nb_tour = 1;  ANIM_EXPLOSION[1].vitesse = 1;
+    strcpy( ANIM_EXPLOSION[2].file, "images/explosion_3.png");  ANIM_EXPLOSION[2].tx = 103;  ANIM_EXPLOSION[2].ty = 97;
+        ANIM_EXPLOSION[2].nb_colonne = 35;  ANIM_EXPLOSION[2].nb_image = 35;  ANIM_EXPLOSION[2].nb_img_by_dir = 35; ANIM_EXPLOSION[2].nb_tour = 1;  ANIM_EXPLOSION[2].vitesse = 1;
+    strcpy( ANIM_EXPLOSION[3].file, "images/explosion_4.png");  ANIM_EXPLOSION[3].tx = 113;  ANIM_EXPLOSION[3].ty = 105;
+        ANIM_EXPLOSION[3].nb_colonne = 35;  ANIM_EXPLOSION[3].nb_image = 35;  ANIM_EXPLOSION[3].nb_img_by_dir = 35; ANIM_EXPLOSION[3].nb_tour = 1;  ANIM_EXPLOSION[3].vitesse = 1;
+    strcpy( ANIM_EXPLOSION[4].file, "images/explosion_5.png");  ANIM_EXPLOSION[4].tx = 94;  ANIM_EXPLOSION[4].ty = 91;
+        ANIM_EXPLOSION[4].nb_colonne = 35;  ANIM_EXPLOSION[4].nb_image = 35;  ANIM_EXPLOSION[4].nb_img_by_dir = 35; ANIM_EXPLOSION[4].nb_tour = 1;  ANIM_EXPLOSION[4].vitesse = 1;
+    init_animation( &ANIM_EXPLOSION[0], pRenderer);
+    init_animation( &ANIM_EXPLOSION[1], pRenderer);
+    init_animation( &ANIM_EXPLOSION[2], pRenderer);
+    init_animation( &ANIM_EXPLOSION[3], pRenderer);
+    init_animation( &ANIM_EXPLOSION[4], pRenderer);
 
     t_animation IMG_BUTTON_TIR = { "images/Tir_100x80_2.bmp", 100, 80, 1, 1, 1, NULL, 1, 1 };
         init_animation( &IMG_BUTTON_TIR, pRenderer);
@@ -515,7 +529,7 @@ int main( int argc, char* args[] )
 
                             SDL_Log("Fred DEBUG - Change_level Init level 4\n");
                             init_level_chemins(&my_level);
-                            //affiche_map_console ( &my_level);
+                            affiche_map_console ( &my_level);
 
 
                             /** CREATE ENEMY **/
@@ -610,7 +624,7 @@ int main( int argc, char* args[] )
                     SDL_RenderCopy      (pRenderer, my_level.pTexture_MAP, NULL, NULL);
 
                     // Affichage des obstacles (mode Debug)
-                    affiche_obstacle    (pRenderer, &my_level);
+                    //affiche_obstacle    (pRenderer, &my_level);
 
                     // Affichage de l'arrivé
                     anime_sprite(my_game.sp_ARRIVE);
