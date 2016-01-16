@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <SDL_image.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,26 +22,24 @@ void init_menu      (t_menu *my_menu, SDL_Renderer *pRenderer) {
     my_menu->resume  = false;
 
     /** FICHIER background **/
-    pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_BACKGROUND);
-    if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
+    pSurface_tmp                    = IMG_Load (MENU_IMG_BACKGROUND);
+    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->img_background         = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->img_background) {  printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
 
 
     /** FICHIER bouton START**/
-    pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_START);
-    if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
-    SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
+    pSurface_tmp                    = IMG_Load (MENU_IMG_START);
+    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->button_start.img       = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->button_start.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
     my_menu->button_start.w         = pSurface_tmp->w;
     my_menu->button_start.h         = pSurface_tmp->h;
 
-    pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_START_P);
-    if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
-    SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
+    pSurface_tmp                    = IMG_Load (MENU_IMG_START_P);
+    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->button_start_p.img     = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->button_start_p.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
@@ -49,18 +48,16 @@ void init_menu      (t_menu *my_menu, SDL_Renderer *pRenderer) {
 
 
     /** FICHIER bouton RESTART**/
-    pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_RESTART);
-    if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
-    SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
+    pSurface_tmp                    = IMG_Load (MENU_IMG_RESTART);
+    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->button_restart.img     = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->button_restart.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
     my_menu->button_restart.w       = pSurface_tmp->w;
     my_menu->button_restart.h       = pSurface_tmp->h;
 
-    pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_RESTART_P);
-    if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
-    SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
+    pSurface_tmp                    = IMG_Load (MENU_IMG_RESTART_P);
+    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->button_restart_p.img   = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->button_restart_p.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
@@ -69,18 +66,16 @@ void init_menu      (t_menu *my_menu, SDL_Renderer *pRenderer) {
 
 
     /** FICHIER bouton RESUME**/
-    pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_RESUME);
-    if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
-    SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
+    pSurface_tmp                    = IMG_Load (MENU_IMG_RESUME);
+    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->button_resume.img      = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->button_resume.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
     my_menu->button_resume.w        = pSurface_tmp->w;
     my_menu->button_resume.h        = pSurface_tmp->h;
 
-    pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_RESUME_P);
-    if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
-    SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
+    pSurface_tmp                    = IMG_Load (MENU_IMG_RESUME_P);
+    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->button_resume_p.img    = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->button_resume_p.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
@@ -89,18 +84,16 @@ void init_menu      (t_menu *my_menu, SDL_Renderer *pRenderer) {
 
 
     /** FICHIER bouton EXIT**/
-    pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_EXIT);
-    if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
-    SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
+    pSurface_tmp                    = IMG_Load (MENU_IMG_EXIT);
+    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->button_exit.img        = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->button_exit.img){  printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
     my_menu->button_exit.w          = pSurface_tmp->w;
     my_menu->button_exit.h          = pSurface_tmp->h;
 
-    pSurface_tmp                    = SDL_LoadBMP (MENU_IMG_EXIT_P);
-    if(!pSurface_tmp) {             printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
-    SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
+    pSurface_tmp                    = IMG_Load (MENU_IMG_EXIT_P);
+    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->button_exit_p.img      = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
     if(!my_menu->button_exit_p.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
@@ -134,7 +127,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
         menu->button_exit.enable       = true;
 
         menu->button_start.x    = (my_system->map_taille_x - menu->button_start.w)/2 ;
-        menu->button_start.y    = 100;
+        menu->button_start.y    = (my_system->map_taille_y - 60 - 2*menu->button_start.h)/2;
         menu->button_exit.x     = (my_system->map_taille_x - menu->button_exit.w)/2;
         menu->button_exit.y     = menu->button_start.y + menu->button_start.h + 30;
         menu->button_start_p.x    = menu->button_start.x;
@@ -148,8 +141,8 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
         menu->button_resume.enable      = true;
         menu->button_exit.enable        = true;
 
-        menu->button_restart.x  = (my_system->map_taille_x - menu->button_start.w)/2;
-        menu->button_restart.y  = 20;
+        menu->button_restart.x  = (my_system->map_taille_x - menu->button_restart.w)/2;
+        menu->button_restart.y  = (my_system->map_taille_y - 60 - 3*menu->button_restart.h)/2;;
         menu->button_resume.x   = (my_system->map_taille_x - menu->button_resume.w)/2;
         menu->button_resume.y    = menu->button_restart.y + menu->button_restart.h + 30;
         menu->button_exit.x     = (my_system->map_taille_x - menu->button_exit.w)/2;

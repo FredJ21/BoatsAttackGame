@@ -58,14 +58,14 @@
 
 
 #define MENU_IMG_BACKGROUND     "images/menu_background.bmp"    //images de l'arrière plan
-#define MENU_IMG_START          "images/menu_start.bmp"         //images des boutonw
-#define MENU_IMG_EXIT           "images/menu_exit.bmp"
-#define MENU_IMG_RESTART        "images/menu_restart.bmp"
-#define MENU_IMG_RESUME         "images/menu_resume.bmp"
-#define MENU_IMG_START_P        "images/menu_start_p.bmp"       //images des boutons pressés
-#define MENU_IMG_EXIT_P         "images/menu_exit_p.bmp"
-#define MENU_IMG_RESTART_P      "images/menu_restart_p.bmp"
-#define MENU_IMG_RESUME_P       "images/menu_resume_p.bmp"
+#define MENU_IMG_START          "images/menu_start.png"         //images des boutonw
+#define MENU_IMG_EXIT           "images/menu_exit.png"
+#define MENU_IMG_RESTART        "images/menu_restart.png"
+#define MENU_IMG_RESUME         "images/menu_resume.png"
+#define MENU_IMG_START_P        "images/menu_start_p.png"       //images des boutons pressés
+#define MENU_IMG_EXIT_P         "images/menu_exit_p.png"
+#define MENU_IMG_RESTART_P      "images/menu_restart_p.png"
+#define MENU_IMG_RESUME_P       "images/menu_resume_p.png"
 
 
 enum { UP, RIGHT, DOWN, LEFT };

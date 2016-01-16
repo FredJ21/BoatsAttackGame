@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <SDL_image.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -101,6 +102,7 @@ int main( int argc, char* args[] )
                                                 INIT SDL 2  -  Affichage d'une image de chargement ...
     *******************************************************************************************************************/
     // Chargement de l'image
+    //pSurface = SDL_LoadBMP (START_IMG);
     pSurface = SDL_LoadBMP (START_IMG);
     if(!pSurface) {                          printf( "SDL_Surface ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
