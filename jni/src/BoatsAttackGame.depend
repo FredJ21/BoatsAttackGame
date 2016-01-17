@@ -12,9 +12,10 @@
 
 1452622960 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\affichage_texte.h
 
-1453051806 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\algo_a_star.c
+1453073490 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\algo_a_star.c
 	<SDL.h>
 	<SDL_ttf.h>
+	<SDL_image.h>
 	<stdio.h>
 	<stdlib.h>
 	"config.h"
@@ -77,7 +78,7 @@
 
 1447876903 c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\battle_boats.h
 
-1453052318 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\level.c
+1453073026 source:c:\users\fred\documents\fred-dev\boatsattackgame\jni\src\level.c
 	<SDL.h>
 	<SDL_ttf.h>
 	<stdio.h>

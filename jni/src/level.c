@@ -120,7 +120,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     };
 
     int cible[LEVEL_NB_TOTAL][2] = {        /** position de la cible en X et Y **/
-        {  4,  9 },          // level 1
+        {  2,  9 },          // level 1
         {  8, 14 },          // level 2
         {  3,  5 },          // level 3
         { 16, 11 }           // level 4

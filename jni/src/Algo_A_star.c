@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <SDL_image.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -11,6 +12,7 @@
 /*****************************************************************
 *****************************************************************/
 void calcul_chemin( int depart_x, int depart_y, t_level *pLevel) {
+
 
     int x, y, c;
     int fin = false;
@@ -36,9 +38,16 @@ void calcul_chemin( int depart_x, int depart_y, t_level *pLevel) {
     list[data.depart_X][data.depart_Y].parent_y = 0;
     list[data.depart_X][data.depart_Y].is_open  = true;
 
+
     while (!fin) {
 
         current_position = cherche_meilleur_position(list);
+
+        if (current_position.x == -1 && current_position.y == -1) {
+            if (DEBUG) {
+                    SDL_Log("Fred DEBUG - Algo_A_start: pas de chemin !!!"); }
+            return(1);
+        }
 
         list[current_position.x][current_position.y].is_open = false;
         list[current_position.x][current_position.y].is_close = true;
@@ -135,6 +144,9 @@ t_position cherche_meilleur_position (t_table_Algo_A_Star list[MAP_NB_TILE_X][MA
     int x, y;
 
     t_position meilleur;
+    meilleur.x = -1;
+    meilleur.y = -1;
+
     int tmp_poid = 9999;
 
 
