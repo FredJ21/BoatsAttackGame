@@ -1,7 +1,10 @@
 #ifndef CONFIG_H_INCLUDED
 #define CONFIG_H_INCLUDED
 
-// les defines
+
+#define DEBUG       1
+#define DEBUG_MAP   1
+
 #define NOIR    al_map_rgb(0,0,0)
 #define ROUGE   al_map_rgb(255,0,0)
 #define VERT    0x00, 0xFF, 0x00

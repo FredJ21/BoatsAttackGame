@@ -23,80 +23,80 @@ void init_menu      (t_menu *my_menu, SDL_Renderer *pRenderer) {
 
     /** FICHIER background **/
     pSurface_tmp                    = IMG_Load (MENU_IMG_BACKGROUND);
-    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
+    if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->img_background         = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
-    if(!my_menu->img_background) {  printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    if(!my_menu->img_background && DEBUG) {  SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
 
 
     /** FICHIER bouton START**/
     pSurface_tmp                    = IMG_Load (MENU_IMG_START);
-    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
+    if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->button_start.img       = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
-    if(!my_menu->button_start.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    if(!my_menu->button_start.img && DEBUG){ SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
     my_menu->button_start.w         = pSurface_tmp->w;
     my_menu->button_start.h         = pSurface_tmp->h;
 
     pSurface_tmp                    = IMG_Load (MENU_IMG_START_P);
-    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
+    if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->button_start_p.img     = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
-    if(!my_menu->button_start_p.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    if(!my_menu->button_start_p.img && DEBUG){ SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
     my_menu->button_start_p.w       = pSurface_tmp->w;
     my_menu->button_start_p.h       = pSurface_tmp->h;
 
 
     /** FICHIER bouton RESTART**/
     pSurface_tmp                    = IMG_Load (MENU_IMG_RESTART);
-    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
+    if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->button_restart.img     = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
-    if(!my_menu->button_restart.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    if(!my_menu->button_restart.img && DEBUG){ SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
     my_menu->button_restart.w       = pSurface_tmp->w;
     my_menu->button_restart.h       = pSurface_tmp->h;
 
     pSurface_tmp                    = IMG_Load (MENU_IMG_RESTART_P);
-    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
+    if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->button_restart_p.img   = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
-    if(!my_menu->button_restart_p.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    if(!my_menu->button_restart_p.img && DEBUG){ SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
     my_menu->button_restart_p.w     = pSurface_tmp->w;
     my_menu->button_restart_p.h     = pSurface_tmp->h;
 
 
     /** FICHIER bouton RESUME**/
     pSurface_tmp                    = IMG_Load (MENU_IMG_RESUME);
-    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
+    if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->button_resume.img      = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
-    if(!my_menu->button_resume.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    if(!my_menu->button_resume.img && DEBUG){ SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
     my_menu->button_resume.w        = pSurface_tmp->w;
     my_menu->button_resume.h        = pSurface_tmp->h;
 
     pSurface_tmp                    = IMG_Load (MENU_IMG_RESUME_P);
-    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
+    if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->button_resume_p.img    = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
-    if(!my_menu->button_resume_p.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    if(!my_menu->button_resume_p.img && DEBUG){ SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
     my_menu->button_resume_p.w      = pSurface_tmp->w;
     my_menu->button_resume_p.h      = pSurface_tmp->h;
 
 
     /** FICHIER bouton EXIT**/
     pSurface_tmp                    = IMG_Load (MENU_IMG_EXIT);
-    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
+    if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->button_exit.img        = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
-    if(!my_menu->button_exit.img){  printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    if(!my_menu->button_exit.img && DEBUG){  SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
     my_menu->button_exit.w          = pSurface_tmp->w;
     my_menu->button_exit.h          = pSurface_tmp->h;
 
     pSurface_tmp                    = IMG_Load (MENU_IMG_EXIT_P);
-    if(!pSurface_tmp) {             printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
+    if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     my_menu->button_exit_p.img      = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
-    if(!my_menu->button_exit_p.img){ printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    if(!my_menu->button_exit_p.img && DEBUG){ SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
     my_menu->button_exit_p.w        = pSurface_tmp->w;
     my_menu->button_exit_p.h        = pSurface_tmp->h;
 

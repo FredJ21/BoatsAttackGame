@@ -225,8 +225,8 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     *******************************************************************************************************************/
 
     if ( (int)(my_system->window_size_ratio * 100) == 170 ) {            // permet d'ignorer la premiere ligne en ratio 1.7 (16:9)
-        a = 0;
-        //a = 30;
+        a = 30;
+        pLevel->cibleY = pLevel->cibleY - 1;
     } else {
         a = 0;
     }
@@ -243,7 +243,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
 
             SDL_BlitSurface(pSurface_Tuile, &Rect_source, pSurface_TMP, &Rect_Dest);
 
-            //printf("x=%d - y=%d - val=%d - valx=%d - valy=%d\n ", x, y, pLevel->my_map[a], Rect_source.x, Rect_source.y );
+            //if (DEBUG){SDL_Log("x=%d - y=%d - val=%d - valx=%d - valy=%d\n ", x, y, pLevel->my_map[a], Rect_source.x, Rect_source.y );}
 
 
             // creation du tableau des obstacles
@@ -286,7 +286,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
 
 
     pLevel->pTexture_MAP = SDL_CreateTextureFromSurface(pRenderer, pSurface_TMP);
-    if(!pLevel->pTexture_MAP) {                         printf( "SDL_Texture_MAP ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit (-1);}
+    if(!pLevel->pTexture_MAP && DEBUG) {SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_Texture_MAP ERREUR! SDL_GetError: %s\n", SDL_GetError() );exit (-1);}
 
 
     SDL_FreeSurface(pSurface_TMP);
@@ -330,7 +330,7 @@ void init_level_titre       (SDL_Renderer *pRenderer, t_level *pLevel, TTF_Font 
 
     // Création de la texture pour le texte
     pLevel->pTexture_MAP_Titre = SDL_CreateTextureFromSurface(pRenderer, texte);
-    if(!pLevel->pTexture_MAP_Titre) {                  printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(-1);}
+    if(!pLevel->pTexture_MAP_Titre && DEBUG) { SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(-1);}
 
     SDL_FreeSurface(texte);
 
@@ -368,7 +368,7 @@ void init_texture_obstacle  (SDL_Renderer *pRenderer, t_level *pLevel, t_system 
 
     // charge l'image
     pSurface_CroixRouge = SDL_LoadBMP ( "images/CroixRouge32x32.bmp" );
-            if(!pSurface_CroixRouge) { printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
+            if(!pSurface_CroixRouge && DEBUG) { SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     // création d'une surface temporaire de la taille de la map
     pSurface_TMP = SDL_CreateRGBSurface(0,my_system->map_taille_x,my_system->map_taille_y,32,0,0,0,0);
@@ -391,7 +391,7 @@ void init_texture_obstacle  (SDL_Renderer *pRenderer, t_level *pLevel, t_system 
 
 
     pLevel->pTexture_MAP_Obstacles = SDL_CreateTextureFromSurface(pRenderer, pSurface_TMP);
-        if(!pLevel->pTexture_MAP_Obstacles) { printf( "SDL_Texture_MAP ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit (-1);}
+        if(!pLevel->pTexture_MAP_Obstacles && DEBUG) { SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture_MAP ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit (-1);}
 
 
    SDL_FreeSurface(pSurface_CroixRouge);

@@ -17,12 +17,12 @@ void init_animation(t_animation *anim, SDL_Renderer *renderer)  {
 
     //SDL_Surface *pSurface_tmp = SDL_LoadBMP ( anim->file );
     SDL_Surface *pSurface_tmp = IMG_Load ( anim->file );
-            if(!pSurface_tmp) { printf( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
+            if(!pSurface_tmp && DEBUG) { SDL_Log( "IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
     SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
 
     anim->texture = SDL_CreateTextureFromSurface(renderer, pSurface_tmp);
-        if(!anim->texture) { printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+        if(!anim->texture && DEBUG) { SDL_Log( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
 
     SDL_FreeSurface(pSurface_tmp);
 
@@ -158,7 +158,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel, t_system *my_system){
                     Centre.tileX = s->x / TILE_TAILLE_X;
                     Centre.tileY = s->y / TILE_TAILLE_Y;
 
-                    //SDL_Log("Fred DEBUG - Pos : %d x %d - %d x %d\n", Centre.x, Centre.y, Centre.tileX, Centre.tileY );
+                    //if (DEBUG) {SDL_Log("Fred DEBUG - Pos : %d x %d - %d x %d\n", Centre.x, Centre.y, Centre.tileX, Centre.tileY );}
 
                     // permet de demarrer en dehors de la map
                     if (s->in_the_map == false) {
@@ -178,11 +178,11 @@ void avance_sprite(t_sprite *s, t_level *pLevel, t_system *my_system){
                                             // detection des bords
                                             if ( HD.y <= 0 ) {
                                                     s->direction = DOWN;
-                                                    //printf ("1 Detection bord\n");
+                                                    //if (DEBUG){SDL_Log ("1 Detection bord\n");}
                                             }
                                             // detection des obstacles
                                             else if ( pLevel->map_Info[HG.tileX][HG.tileY] != LIBRE || pLevel->map_Info[HD.tileX][HD.tileY] != LIBRE ) {
-                                                    //printf ("1 Detection obstacle\n");
+                                                    //if (DEBUG){SDL_Log ("1 Detection obstacle\n");}
                                                     if ( pLevel->map_Info[HG.tileX][HG.tileY] == LIBRE ) {
 
                                                         s->direction = LEFT;
@@ -222,12 +222,12 @@ void avance_sprite(t_sprite *s, t_level *pLevel, t_system *my_system){
                                             // detection des bords
                                             if ( HD.x >= my_system->map_taille_x ) {
                                                     s->direction = LEFT;
-                                                     //printf ("2 Detection bord\n");
+                                                     //if (DEBUG){SDL_Log ("2 Detection bord\n");}
                                             }
                                             // detection des obstacles
                                             else if ( pLevel->map_Info[HD.tileX][HD.tileY] != LIBRE || pLevel->map_Info[BD.tileX][BD.tileY] != LIBRE ) {
 
-                                                    //printf ("2 Detection obstacle\n");
+                                                    //if (DEBUG){SDL_Log ("2 Detection obstacle\n");}
 
                                                     if ( pLevel->map_Info[HD.tileX][HD.tileY] == LIBRE ) {
 
@@ -268,12 +268,12 @@ void avance_sprite(t_sprite *s, t_level *pLevel, t_system *my_system){
                                             if ( BG.y >= my_system->map_taille_y ) {
 
                                                     s->direction = UP;
-                                                    //printf ("3 Detection bord\n");
+                                                    //if (DEBUG){SDL_Log ("3 Detection bord\n");}
                                             }
                                             // detection des obstacles
                                             else if ( pLevel->map_Info[BG.tileX][BG.tileY] != LIBRE || pLevel->map_Info[BD.tileX][BD.tileY] != LIBRE ) {
 
-                                                    //printf ("3 Detection obstacle\n");
+                                                    //if (DEBUG){SDL_Log ("3 Detection obstacle\n");}
 
                                                     if ( pLevel->map_Info[BG.tileX][BG.tileY] == LIBRE ) {
 
@@ -313,12 +313,12 @@ void avance_sprite(t_sprite *s, t_level *pLevel, t_system *my_system){
                                             // detection des bords
                                             if ( BG.x <= 0 ) {
                                                     s->direction = RIGHT;
-                                                    //printf ("4 Detection bord\n");
+                                                    //if (DEBUG){SDL_Log ("4 Detection bord\n");}
                                             }
                                             // detection des obstacles
                                             else if ( pLevel->map_Info[HG.tileX][HG.tileY] != LIBRE || pLevel->map_Info[BG.tileX][BG.tileY] != LIBRE ) {
 
-                                                    //printf ("4 Detection obstacle\n");
+                                                    //if (DEBUG){SDL_Log ("4 Detection obstacle\n");}
 
                                                     if ( pLevel->map_Info[HG.tileX][HG.tileY] == LIBRE ) {
 
@@ -354,7 +354,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel, t_system *my_system){
                     }
 
 
-                    //printf ("%d = %dx%d %dx%d %dx%d %dx%d %dx%d %dx%d\n", s->in_the_map, HG.tileX, HG.tileY, HD.tileX, HD.tileY, BG.tileX, BG.tileY, BD.tileX, BD.tileY, Centre.tileX, Centre.tileY, pLevel->cibleX, pLevel->cibleY );
+                    //if (DEBUG){SDL_Log ("%d = %dx%d %dx%d %dx%d %dx%d %dx%d %dx%d\n", s->in_the_map, HG.tileX, HG.tileY, HD.tileX, HD.tileY, BG.tileX, BG.tileY, BD.tileX, BD.tileY, Centre.tileX, Centre.tileY, pLevel->cibleX, pLevel->cibleY );}
                     // detection de la position d'arrivé
                     if (
                         (HG.tileX == pLevel->cibleX && HG.tileY == pLevel->cibleY) ||
@@ -364,7 +364,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel, t_system *my_system){
                         (Centre.tileX == pLevel->cibleX && Centre.tileY == pLevel->cibleY)
                         ) {
 
-                        //printf ("Je suis arrive !!!\n");
+                        //if (DEBUG){SDL_Log ("Je suis arrive !!!\n");}
                         s->is_arrive = true;
                     }
 
@@ -395,7 +395,7 @@ void avance_sprite(t_sprite *s, t_level *pLevel, t_system *my_system){
                             }
                 }
     }
-    //printf("%d %d - %d %d\n", s->x, (int)pLevel->cibleX, s->y, (int)pLevel->cibleY );
+    //if (DEBUG){SDL_Log("%d %d - %d %d\n", s->x, (int)pLevel->cibleX, s->y, (int)pLevel->cibleY );}
 
 
 }
@@ -420,7 +420,7 @@ void anime_sprite_once(t_sprite*s){
 
 	if (s->is_actif == true ) {
 
-        //  SDL_Log("Fred DEBUG - ANIM compte tour: %d - Img: %d\n", s->compte_tour,s->img_current);
+        //  if (DEBUG) {SDL_Log("Fred DEBUG - ANIM compte tour: %d - Img: %d\n", s->compte_tour,s->img_current);}
 
           s->compte_tour++;
           if (s->compte_tour > s->nb_tour) {

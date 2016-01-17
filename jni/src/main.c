@@ -22,8 +22,7 @@
 
 int main( int argc, char* args[] )
 {
-    //printf("Go ...!!!\n");
-    SDL_Log("Fred DEBUG - Go 10:14\n");
+    if (DEBUG) {SDL_Log("Fred DEBUG - Go 10:14\n"); }
 
     /******************************************************************************************************************
                                                 VARIABLES
@@ -61,10 +60,10 @@ int main( int argc, char* args[] )
                                                 INIT SDL 2
     *******************************************************************************************************************/
     // Initialize SDL
-    if( SDL_Init( SDL_INIT_VIDEO) != 0 ) {  printf( "SDL_Init ERREUR ! SDL_GetError: %s\n", SDL_GetError() ); return -1; }
+    if( SDL_Init( SDL_INIT_VIDEO) != 0 && DEBUG ) {  SDL_Log( "SDL_Init ERREUR ! SDL_GetError: %s\n", SDL_GetError() ); return -1; }
 
     my_system.Platform = SDL_GetPlatform();
-    SDL_Log("Fred DEBUG - Platform: %s\n", my_system.Platform);
+    if (DEBUG) {SDL_Log("Fred DEBUG - Platform: %s\n", my_system.Platform);}
 
 
     // Création de la fenêtre
@@ -74,7 +73,7 @@ int main( int argc, char* args[] )
 #else
     pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
 #endif
-    if(!pWindow) {                          printf( "SDL_Window ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
+    if(!pWindow && DEBUG ) { SDL_Log( "SDL_Window ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
     SDL_GetWindowSize(pWindow, &my_system.window_size_w, &my_system.window_size_h);
     my_system.window_size_ratio = (float)my_system.window_size_w/(float)my_system.window_size_h;
@@ -87,16 +86,16 @@ int main( int argc, char* args[] )
             my_system.map_taille_x  = MAP_TAILLE_X_160;
             my_system.map_taille_y  = MAP_TAILLE_Y_160;
     }
-    SDL_Log("Fred DEBUG - Window Size: %d x %d - ratio: %f\n", my_system.window_size_w, my_system.window_size_h, my_system.window_size_ratio);
+    if (DEBUG) {SDL_Log("Fred DEBUG - Window Size: %d x %d - ratio: %f\n", my_system.window_size_w, my_system.window_size_h, my_system.window_size_ratio);}
 
     // Création du Renderer
     pRenderer = SDL_CreateRenderer(pWindow, -1, SDL_RENDERER_ACCELERATED);
-    if(!pRenderer) {                        printf( "SDL_Renderer ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
+    if(!pRenderer && DEBUG) { SDL_Log( "SDL_Renderer ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
     // permet d'obtenir les redimensionnements plus doux.
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
     SDL_RenderSetLogicalSize(pRenderer, my_system.map_taille_x, my_system.map_taille_y);
-    SDL_Log("Fred DEBUG - Window Logical Size: %d x %d\n", my_system.map_taille_x, my_system.map_taille_y);
+    if (DEBUG) {SDL_Log("Fred DEBUG - Window Logical Size: %d x %d\n", my_system.map_taille_x, my_system.map_taille_y);}
 
     /******************************************************************************************************************
                                                 INIT SDL 2  -  Affichage d'une image de chargement ...
@@ -104,11 +103,11 @@ int main( int argc, char* args[] )
     // Chargement de l'image
     //pSurface = SDL_LoadBMP (START_IMG);
     pSurface = SDL_LoadBMP (START_IMG);
-    if(!pSurface) {                          printf( "SDL_Surface ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
+    if(!pSurface && DEBUG) {  SDL_Log( "SDL_Surface ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
     // Création de la texture (texture = surface dans le GPU)
     pTexture = SDL_CreateTextureFromSurface(pRenderer, pSurface);
-    if(!pTexture) {                         printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
+    if(!pTexture && DEBUG) { SDL_Log( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
 
     SDL_RenderCopy (pRenderer, pTexture, NULL, NULL);
@@ -120,25 +119,25 @@ int main( int argc, char* args[] )
                                                 INIT SDL 2 TTF
     *******************************************************************************************************************/
     // Initialize SDL TTF
-    if( TTF_Init() != 0 ) {  printf( "TTF_Init ERREUR ! SDL_GetError: %s\n", SDL_GetError() ); return -1; }
+    if( TTF_Init() != 0 && DEBUG) {  SDL_Log( "TTF_Init ERREUR ! SDL_GetError: %s\n", SDL_GetError() ); return -1; }
 
     // pour le titre de chaque level
     police_level_titre = TTF_OpenFont(POLICE_LEVEL_TITRE, POLICE_LEVEL_TITRE_SIZE);
-    if(!police_level_titre) {                  printf( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
+    if(!police_level_titre&& DEBUG ) {  SDL_Log( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
-    SDL_Log("Fred DEBUG - INIT SDL OK\n");
+    if (DEBUG) {SDL_Log("Fred DEBUG - INIT SDL OK\n");}
 
     /******************************************************************************************************************
                                                 INIT MENU
     *******************************************************************************************************************/
-    SDL_Log("Fred DEBUG - INIT MENU\n");
+    if (DEBUG) {SDL_Log("Fred DEBUG - INIT MENU\n");}
     init_menu(&my_menu, pRenderer);
 
 
     /******************************************************************************************************************
                                                 INIT GAME
     *******************************************************************************************************************/
-    SDL_Log("Fred DEBUG - INIT GAME\n");
+    if (DEBUG) {SDL_Log("Fred DEBUG - INIT GAME\n");}
 
     my_game.flag_fin                    = false;        // fin du programme
     my_game.flag_change_level           = true;         // changement de level
@@ -166,9 +165,11 @@ int main( int argc, char* args[] )
     /******************************************************************************************************************
                                                 INIT DES IMAGES / ANNIMATIONS
     *******************************************************************************************************************/
+    if (DEBUG) {SDL_Log("Fred DEBUG - INIT IMAGES/ANIM\n");}
+
     /** FICHIER TUILE (chargement) **/
     pSurface_TUILE = SDL_LoadBMP (TILE_FILE);
-    if(!pSurface_TUILE) { printf( "SDL_Surface_TUILE ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
+    if(!pSurface_TUILE & DEBUG) { SDL_Log( "SDL_Surface_TUILE ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
     /** ANIMATION des ennemis  **/
     t_animation ANIM[3];
@@ -198,24 +199,31 @@ int main( int argc, char* args[] )
     t_animation ANIM_MISSILE = { "images/Missile.bmp", 10, 10, 1, 1, 0, NULL, 0, 1 };
         init_animation( &ANIM_MISSILE, pRenderer);
 
+    if (DEBUG) {SDL_Log("Fred DEBUG - INIT EXPLOSION\n");}
 //    t_animation ANIM_EXPLOSION = { "images/explosion_1.bmp", 44, 46, 40, 40, 40, NULL, 1, 1 };
-    t_animation ANIM_EXPLOSION[NB_ANIM_EXPLOSION];
+    t_animation ANIM_EXPLOSION[5] = {};
     strcpy( ANIM_EXPLOSION[0].file, "images/explosion_1.png");  ANIM_EXPLOSION[0].tx = 88;  ANIM_EXPLOSION[0].ty = 93;
         ANIM_EXPLOSION[0].nb_colonne = 40;  ANIM_EXPLOSION[0].nb_image = 40;  ANIM_EXPLOSION[0].nb_img_by_dir = 40; ANIM_EXPLOSION[0].nb_tour = 1;  ANIM_EXPLOSION[0].vitesse = 1;
+
     strcpy( ANIM_EXPLOSION[1].file, "images/explosion_2.png");  ANIM_EXPLOSION[1].tx = 75;  ANIM_EXPLOSION[1].ty = 109;
         ANIM_EXPLOSION[1].nb_colonne = 30;  ANIM_EXPLOSION[1].nb_image = 30;  ANIM_EXPLOSION[1].nb_img_by_dir = 30; ANIM_EXPLOSION[1].nb_tour = 1;  ANIM_EXPLOSION[1].vitesse = 1;
+
     strcpy( ANIM_EXPLOSION[2].file, "images/explosion_3.png");  ANIM_EXPLOSION[2].tx = 103;  ANIM_EXPLOSION[2].ty = 97;
         ANIM_EXPLOSION[2].nb_colonne = 35;  ANIM_EXPLOSION[2].nb_image = 35;  ANIM_EXPLOSION[2].nb_img_by_dir = 35; ANIM_EXPLOSION[2].nb_tour = 1;  ANIM_EXPLOSION[2].vitesse = 1;
+
     strcpy( ANIM_EXPLOSION[3].file, "images/explosion_4.png");  ANIM_EXPLOSION[3].tx = 113;  ANIM_EXPLOSION[3].ty = 105;
         ANIM_EXPLOSION[3].nb_colonne = 35;  ANIM_EXPLOSION[3].nb_image = 35;  ANIM_EXPLOSION[3].nb_img_by_dir = 35; ANIM_EXPLOSION[3].nb_tour = 1;  ANIM_EXPLOSION[3].vitesse = 1;
+
     strcpy( ANIM_EXPLOSION[4].file, "images/explosion_5.png");  ANIM_EXPLOSION[4].tx = 94;  ANIM_EXPLOSION[4].ty = 91;
         ANIM_EXPLOSION[4].nb_colonne = 35;  ANIM_EXPLOSION[4].nb_image = 35;  ANIM_EXPLOSION[4].nb_img_by_dir = 35; ANIM_EXPLOSION[4].nb_tour = 1;  ANIM_EXPLOSION[4].vitesse = 1;
+
     init_animation( &ANIM_EXPLOSION[0], pRenderer);
     init_animation( &ANIM_EXPLOSION[1], pRenderer);
     init_animation( &ANIM_EXPLOSION[2], pRenderer);
     init_animation( &ANIM_EXPLOSION[3], pRenderer);
     init_animation( &ANIM_EXPLOSION[4], pRenderer);
 
+    if (DEBUG) {SDL_Log("Fred DEBUG - INIT BUTTON\n");}
     t_animation IMG_BUTTON_TIR = { "images/Tir_100x80_2.bmp", 100, 80, 1, 1, 1, NULL, 1, 1 };
         init_animation( &IMG_BUTTON_TIR, pRenderer);
 
@@ -225,6 +233,7 @@ int main( int argc, char* args[] )
     /******************************************************************************************************************
                                                 INIT DES SPRITES  / Objets afficher
     *******************************************************************************************************************/
+    if (DEBUG) {SDL_Log("Fred DEBUG - INIT STRITES\n");}
 
      /* SPRITE ARRIVE */
     my_game.sp_ARRIVE = init_sprite (&DRAPEAU);
@@ -248,13 +257,13 @@ int main( int argc, char* args[] )
     *******************************************************************************************************************/
     // charge la police pour l'affichage du score
     my_score.police = TTF_OpenFont(POLICE_SCORE, POLICE_SCORE_SIZE);
-    if(!my_score.police) {                  printf( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
+    if(!my_score.police && DEBUG) { SDL_Log( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
 
     /******************************************************************************************************************
                                                 BOUCLE PRINCIPALE
     *******************************************************************************************************************/
-    SDL_Log("Fred DEBUG - START MAIN LOOP\n");
+    if (DEBUG) {SDL_Log("Fred DEBUG - START MAIN LOOP\n");}
 
     my_game.flag_game_started = false;
 
@@ -287,40 +296,38 @@ int main( int argc, char* args[] )
 
                             case SDL_QUIT:
                                 my_game.flag_fin = true;
-                                //printf ("By By !!\n");
                                 break;
                             case SDL_USEREVENT:
-                                SDL_Log("Fred DEBUG - SDL_USEREVENT\n");
+                                if (DEBUG) {SDL_Log("Fred DEBUG - SDL_USEREVENT\n");}
                                 break;
                             case SDL_WINDOWEVENT:
-                                SDL_Log("Fred DEBUG - SDL_WINDOWEVENT\n");
+                                if (DEBUG) {SDL_Log("Fred DEBUG - SDL_WINDOWEVENT\n");}
                                 break;
                             case SDL_APP_TERMINATING:
-                                SDL_Log("Fred DEBUG - SDL_APP_TERMINATING\n");
+                                if (DEBUG) {SDL_Log("Fred DEBUG - SDL_APP_TERMINATING\n");}
                                 break;
                             case SDL_MULTIGESTURE:
-                                SDL_Log("Fred DEBUG - SDL_MULTIGESTURE\n");
+                                if (DEBUG) {SDL_Log("Fred DEBUG - SDL_MULTIGESTURE\n");}
                                 break;
 
                             /***************************************************************************  CLAVIER **/
                             case SDL_KEYDOWN:
 
-                                SDL_Log("Fred DEBUG - SDL_KEYDOWN\n");
+                                if (DEBUG) {SDL_Log("Fred DEBUG - SDL_KEYDOWN\n");}
                                 switch( event.key.keysym.sym ){
                                     case SDLK_ESCAPE:
                                         my_game.flag_fin = true;
                                         break;
                                     case SDLK_AC_BACK:
-                                        SDL_Log("Fred DEBUG - SDLK_AC_BACK\n");
+                                        if (DEBUG) {SDL_Log("Fred DEBUG - SDLK_AC_BACK\n");}
                                         my_game.flag_fin = true;
                                         break;
                                     case SDLK_SPACE:
                                         for (a=0; a < my_game.current_nb_tower; a++) {
-                                            SDL_Log("Test: -%d-%d-\n", a, my_game.sp_TOWER[a]->x);
+                                            if (DEBUG) {SDL_Log("Test: -%d-%d-\n", a, my_game.sp_TOWER[a]->x);}
                                         }
                                         break;
                                     default:
-                                        //printf ("KEY\n");
                                         break;
                                 }
                                 break;
@@ -329,19 +336,19 @@ int main( int argc, char* args[] )
             #if __WIN32__
                             case SDL_MOUSEBUTTONDOWN :
                                 SDL_GetMouseState( &my_game.current_mouse_x, &my_game.current_mouse_y );
-                                //SDL_Log("Fred DEBUG - MOUSEBUTTONDOWN : %d x %d\n", current_mouse_x, current_mouse_y);
+                                //if (DEBUG) {SDL_Log("Fred DEBUG - MOUSEBUTTONDOWN : %d x %d\n", current_mouse_x, current_mouse_y);}
                                 my_game.flag_event_DOWN = true;
                                 break;
 
                             case SDL_MOUSEMOTION :
                                 SDL_GetMouseState( &my_game.current_mouse_x, &my_game.current_mouse_y );
-                                //SDL_Log("Fred DEBUG - MOUSEMOTION : %d x %d\n", current_mouse_x, current_mouse_y);
+                                //if (DEBUG) {SDL_Log("Fred DEBUG - MOUSEMOTION : %d x %d\n", current_mouse_x, current_mouse_y);}
                                 my_game.flag_event_MOVE = true;
                                 break;
 
                             case SDL_MOUSEBUTTONUP :
                                 SDL_GetMouseState( &my_game.current_mouse_x, &my_game.current_mouse_y );
-                                //SDL_Log("Fred DEBUG - MOUSEBUTTONUP : %d x %d\n", current_mouse_x, current_mouse_y);
+                                //if (DEBUG) {SDL_Log("Fred DEBUG - MOUSEBUTTONUP : %d x %d\n", current_mouse_x, current_mouse_y);}
                                 my_game.flag_event_UP = true;
                                 break;
             #endif
@@ -350,21 +357,21 @@ int main( int argc, char* args[] )
                             case SDL_FINGERDOWN:
                                 my_game.current_mouse_x = (int)(event.tfinger.x * my_system.map_taille_x);
                                 my_game.current_mouse_y = (int)(event.tfinger.y * my_system.map_taille_y);
-                                //SDL_Log("Fred DEBUG - FINGERDOWN : %d x %d\n", current_mouse_x, current_mouse_y);
+                                //if (DEBUG) {SDL_Log("Fred DEBUG - FINGERDOWN : %d x %d\n", current_mouse_x, current_mouse_y);}
                                 my_game.flag_event_DOWN = true;
                                 break;
 
                             case SDL_FINGERMOTION :
                                 my_game.current_mouse_x = (int)(event.tfinger.x * my_system.map_taille_x);
                                 my_game.current_mouse_y = (int)(event.tfinger.y * my_system.map_taille_y);
-                                //SDL_Log("Fred DEBUG - FINGERMOTION : %d x %d\n", current_mouse_x, current_mouse_y);
+                                //if (DEBUG) {SDL_Log("Fred DEBUG - FINGERMOTION : %d x %d\n", current_mouse_x, current_mouse_y);}
                                 my_game.flag_event_MOVE = true;
                                 break;
 
                             case SDL_FINGERUP :
                                 my_game.current_mouse_x = (int)(event.tfinger.x * my_system.map_taille_x);
                                 my_game.current_mouse_y = (int)(event.tfinger.y * my_system.map_taille_y);
-                                //SDL_Log("Fred DEBUG - FINGERUP : %d x %d\n", current_mouse_x, current_mouse_y);
+                                //if (DEBUG) {SDL_Log("Fred DEBUG - FINGERUP : %d x %d\n", current_mouse_x, current_mouse_y);}
                                 my_game.flag_event_UP = true;
                                break;
 
@@ -379,20 +386,20 @@ int main( int argc, char* args[] )
                             my_game.flag_event_DOWN = false;
 
                             if (my_game.flag_mode_game) {
-                                if (my_game.current_mouse_x > ZONE_BUTTON_TIR_X && my_game.current_mouse_y > ZONE_BUTTON_TIR_Y) {
-                                    SDL_Log("Fred DEBUG - BUTTON TIR\n");
+                                if (my_game.current_mouse_x > ZONE_BUTTON_TIR_X && my_game.current_mouse_y > ZONE_BUTTON_TIR_Y) {           /** CLICK BUTTON TIR **/
+                                    if (DEBUG) {SDL_Log("Fred DEBUG - BUTTON TIR\n");}
 
                                     for (a = 0; a < my_game.current_nb_tower; a++){
-                                        tir_tower(my_game.sp_TOWER[a], my_game.current_nb_tower);
+                                        tir_tower(my_game.sp_TOWER[a], my_game.current_nb_tower);                                               /** ==>  TIR    **/
                                     }
 
                                 }
-                                if (my_game.current_mouse_x < ZONE_BUTTON_TOWER_X && my_game.current_mouse_y > ZONE_BUTTON_TOWER_Y) {
-                                    SDL_Log("Fred DEBUG - BUTTON TOWER\n");
+                                if (my_game.current_mouse_x < ZONE_BUTTON_TOWER_X && my_game.current_mouse_y > ZONE_BUTTON_TOWER_Y) {       /** CLICK BUTTON TOWER **/
+                                    if (DEBUG) {SDL_Log("Fred DEBUG - BUTTON TOWER\n");}
 
                                     if (my_game.current_nb_tower < TOWER_MAX) {
 
-                                        my_game.flag_mode_place_tower = true;
+                                        my_game.flag_mode_place_tower = true;                                                                   /** ==> Passage en mode "place new tower" **/
                                         my_game.flag_mode_game = false;
                                         my_game.sp_TOWER_MOUSE->x = my_system.map_taille_x / 2;
                                         my_game.sp_TOWER_MOUSE->y = my_system.map_taille_y / 2;
@@ -400,8 +407,9 @@ int main( int argc, char* args[] )
                                 }
                             }
                             else if (my_game.flag_mode_place_tower) {
-                                if (my_game.current_mouse_x < ZONE_BUTTON_TOWER_X && my_game.current_mouse_y > ZONE_BUTTON_TOWER_Y) {
-                                    SDL_Log("Fred DEBUG - BUTTON TOWER\n");
+                                if ( (my_game.current_mouse_x < ZONE_BUTTON_TOWER_X && my_game.current_mouse_y > ZONE_BUTTON_TOWER_Y)
+                                    || (my_game.current_mouse_x > ZONE_BUTTON_TIR_X && my_game.current_mouse_y > ZONE_BUTTON_TIR_Y)) {       /** CLICK BUTTON TIR ou TOWER en mode "place TOWER" **/
+                                    if (DEBUG) {SDL_Log("Fred DEBUG - BUTTON TOWER\n");}                                                                     /** ==> Passage en mode "place new tower" **/
                                     my_game.flag_mode_place_tower = false;
                                     my_game.flag_mode_game = true;
                                 }
@@ -432,7 +440,7 @@ int main( int argc, char* args[] )
 
                                 // tentative de placer une nouvelle tour
                                 if (my_game.flag_mode_place_tower && my_game.flag_tower_position_ok ) {
-                                    SDL_Log("Fred DEBUG -  PLACE TOWER\n");
+                                    if (DEBUG) {SDL_Log("Fred DEBUG -  PLACE TOWER\n");}
 
                                     my_game.sp_TOWER[my_game.current_nb_tower] = create_Tower(my_game.current_mouse_x, my_game.current_mouse_y, &ANIM_TOWER);
                                     my_game.current_nb_tower++;
@@ -444,7 +452,7 @@ int main( int argc, char* args[] )
 
                                 // une tourelle est selectionnée , on indique la cible
                                 else if (my_game.flag_mode_tower_selected){
-                                    SDL_Log("Fred DEBUG - TOWER NEW CIBLE\n");
+                                    if (DEBUG) {SDL_Log("Fred DEBUG - TOWER NEW CIBLE\n");}
 
                                     my_game.sp_TOWER[my_game.current_tower]->cible_x = my_game.current_mouse_x;
                                     my_game.sp_TOWER[my_game.current_tower]->cible_y = my_game.current_mouse_y;
@@ -460,7 +468,7 @@ int main( int argc, char* args[] )
                                 else if (my_game.flag_mode_game) {
                                     my_game.current_tower = is_tower_position(my_game.current_mouse_x, my_game.current_mouse_y, my_game.sp_TOWER, my_game.current_nb_tower);
                                     if (my_game.current_tower < TOWER_MAX) {   // TOWER_MAX signifi qu'aucune n'est seletionnée
-                                        SDL_Log("Fred DEBUG - SELECT TOWER\n");
+                                        if (DEBUG) {SDL_Log("Fred DEBUG - SELECT TOWER\n");}
                                         my_game.sp_TOWER[my_game.current_tower]->selected = true;
                                         my_game.flag_mode_tower_selected = true;
                                     }
@@ -476,22 +484,22 @@ int main( int argc, char* args[] )
                     *******************************************************************************************************************/
                     if (my_game.flag_change_level) {
 
-                            SDL_Log("Fred DEBUG - Change_level\n");
+                            if (DEBUG) {SDL_Log("Fred DEBUG - Change_level\n");}
 
                             /** NETTOYAGE **/
-                            SDL_Log("Fred DEBUG - Change_level Nettoyage 1\n");
+                            if (DEBUG) {SDL_Log("Fred DEBUG - Change_level Nettoyage 1\n");}
                             for (a = 0; a < my_game.current_nb_enemy ; a++) {
-                                SDL_Log("Fred DEBUG - clear ENEMY %d\n", a);
+                                if (DEBUG) {SDL_Log("Fred DEBUG - clear ENEMY %d\n", a);}
                                 destroy_sprite(&my_game.sp_ENEMY[a]);
                             }
-                            SDL_Log("Fred DEBUG - Change_level Nettoyage 2\n");
+                            if (DEBUG) {SDL_Log("Fred DEBUG - Change_level Nettoyage 2\n");}
                             for (a = 0; a <  my_game.current_nb_tower; a++) {
-                                SDL_Log("Fred DEBUG - clear TOWER %d\n", a);
+                                if (DEBUG) {SDL_Log("Fred DEBUG - clear TOWER %d\n", a);}
                                 destroy_tower(&my_game.sp_TOWER[a]);
                             }
-                            SDL_Log("Fred DEBUG - Change_level Nettoyage 3\n");
+                            if (DEBUG) {SDL_Log("Fred DEBUG - Change_level Nettoyage 3\n");}
                             for (a = 0; a <  my_game.current_nb_explosion; a++) {
-                                SDL_Log("Fred DEBUG - clear explosions %d\n", a);
+                                if (DEBUG) {SDL_Log("Fred DEBUG - clear explosions %d\n", a);}
                                 destroy_sprite(&my_game.sp_EXPLOSION[a]);
                             }
 
@@ -516,26 +524,25 @@ int main( int argc, char* args[] )
 
 
                             /** LEVEL **/
-                            SDL_Log("Fred DEBUG - Change_level Init level\n");
+                            if (DEBUG) {SDL_Log("Fred DEBUG - Change_level Init level\n");}
                             init_level(&my_level, my_game.current_level, pSurface_TUILE, pRenderer, &my_system);
                             /** DEBUG OBSTACLES **/
-                            //init_texture_obstacle(pRenderer, &my_level, &my_system);
+                            if (DEBUG_MAP) {init_texture_obstacle(pRenderer, &my_level, &my_system);}
 
-                            SDL_Log("Fred DEBUG - Change_level Init level 2\n");
+                            if (DEBUG) {SDL_Log("Fred DEBUG - Change_level Init level 2\n");}
                             init_level_titre(pRenderer, &my_level, police_level_titre, &my_system);
 
-                            SDL_Log("Fred DEBUG - Change_level Init level 3\n");
+                            if (DEBUG) {SDL_Log("Fred DEBUG - Change_level Init level 3\n");}
                             place_sprite(my_game.sp_ARRIVE, my_level.cibleX, my_level.cibleY);
 
-                            SDL_Log("Fred DEBUG - Change_level Init level 4\n");
+                            if (DEBUG) {SDL_Log("Fred DEBUG - Change_level Init level 4\n");}
                             init_level_chemins(&my_level);
-                            affiche_map_console ( &my_level);
+                            if (DEBUG_MAP) {affiche_map_console ( &my_level);}
 
 
                             /** CREATE ENEMY **/
-                            SDL_Log("Fred DEBUG - Change_level Create Enemy\n");
+                            if (DEBUG) {SDL_Log("Fred DEBUG - Change_level Create Enemy\n");}
                             for ( w = 0; w < WAVE_NB; w++ ) {
-                                //printf ("Level %d - Wave %d - ", current_level, w);
                                 b = 0;
                                 // creation en haut
                                 for (a = 0; a < my_level.wave[w].nb_up; a++ ) {
@@ -558,11 +565,10 @@ int main( int argc, char* args[] )
                                     b++;
                                 }
                             }
-                           // printf ("Nombre d'ennemi : %d\n", current_nb_enemy);
 
                             CounterTimeLevel = 0;
 
-                            SDL_Log("Fred DEBUG - Change_level OK\n");
+                            if (DEBUG) {SDL_Log("Fred DEBUG - Change_level OK\n");}
 
                     }
 
@@ -614,7 +620,7 @@ int main( int argc, char* args[] )
                                                                 COLLISION
                     *******************************************************************************************************************/
 
-                    test_collision(&my_game, &ANIM_EXPLOSION);
+                    test_collision(&my_game, ANIM_EXPLOSION);
 
                     /******************************************************************************************************************
                                                                 AFFICHAGE
@@ -624,7 +630,7 @@ int main( int argc, char* args[] )
                     SDL_RenderCopy      (pRenderer, my_level.pTexture_MAP, NULL, NULL);
 
                     // Affichage des obstacles (mode Debug)
-                    //affiche_obstacle    (pRenderer, &my_level);
+                    if (DEBUG_MAP) {affiche_obstacle    (pRenderer, &my_level);}
 
                     // Affichage de l'arrivé
                     anime_sprite(my_game.sp_ARRIVE);
@@ -694,7 +700,7 @@ int main( int argc, char* args[] )
                     t_total_Traitement = (int)(t_Apres_Traitement - t_Avant_Traitement);
                     game_sleep = (1000 / GAME_FPS) - t_total_Traitement;
 
-                   // SDL_Log("Fred DEBUG - total_Traitement: %d - FPS: %d - Sleep: %d\n", t_total_Traitement, 1000 / GAME_FPS, game_sleep);
+                   //if (DEBUG) { SDL_Log("Fred DEBUG - total_Traitement: %d - FPS: %d - Sleep: %d\n", t_total_Traitement, 1000 / GAME_FPS, game_sleep);}
 
                     if ( game_sleep > 0 ) { SDL_Delay( game_sleep ); };
                 }
@@ -702,7 +708,7 @@ int main( int argc, char* args[] )
     /******************************************************************************************************************
                                                     FIN
     *******************************************************************************************************************/
-    SDL_Log("Fred DEBUG - FIN\n");
+    if (DEBUG) {SDL_Log("Fred DEBUG - FIN\n");}
     // Nettoyage
     for (a = 0; a < my_game.current_nb_enemy; a++) {
         destroy_sprite(&my_game.sp_ENEMY[a]);

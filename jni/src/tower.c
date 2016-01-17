@@ -81,7 +81,7 @@ void        calcul_angle_tower      (t_tower *s) {
     } else if   ( xx > 0 && yy < 0 ) {          angle = 180 + angle;
     }
 
-    //printf ("%d  %d   angle = %d\n", xx, yy, angle);
+    //SDL_log("%d  %d   angle = %d\n", xx, yy, angle);
     s->angle = angle;
 
     // mise à jour de l'angle des missiles

@@ -19,7 +19,7 @@
 bool test_collision_circle      (int Ax, int Ay, int Aradius, int Bx, int By, int Bradius ) {
 
 
-  //  printf ("%d %d %d %d %d %d\n", Ax, Ay, Aradius, Bx, By, Bradius);
+  //  if (DEBUG) {SDL_Log ("%d %d %d %d %d %d\n", Ax, Ay, Aradius, Bx, By, Bradius);}
 
     int dx = Ax - Bx;
     int dy = Ay - By;

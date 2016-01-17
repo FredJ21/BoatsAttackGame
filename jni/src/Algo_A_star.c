@@ -187,13 +187,13 @@ void retrouve_chemin_vers_depart (t_Algo_A_Star *data, t_table_Algo_A_Star Algo_
     /** Affichge d'un point pour verifier */
     /*
     SDL_Surface *pSurface_tmp = SDL_LoadBMP ( "./images/point_rouge.bmp" );
-        if(!pSurface_tmp) { printf( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
+        if(!pSurface_tmp) { SDL_Log( "LOAD BMP ERROR : %s\n", SDL_GetError() ); exit(1);}
 
         SDL_SetColorKey(pSurface_tmp, SDL_TRUE, SDL_MapRGB(pSurface_tmp->format, 255, 255, 255));
 
     SDL_Texture *pTexture_tmp;
     pTexture_tmp = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
-        if(!pTexture_tmp) { printf( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+        if(!pTexture_tmp) { SDL_Log( "SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
 
     SDL_Rect Dst;
     Dst.x = x * TILE_TAILLE_X ;
