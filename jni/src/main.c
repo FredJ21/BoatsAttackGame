@@ -536,7 +536,7 @@ int main( int argc, char* args[] )
                             place_sprite(my_game.sp_ARRIVE, my_level.cibleX, my_level.cibleY);
 
                             if (DEBUG) {SDL_Log("Fred DEBUG - Change_level Init level 4\n");}
-                            init_level_chemins(&my_level);
+                            init_level_chemins(&my_level, &my_system);
                             if (DEBUG_MAP) {affiche_map_console ( &my_level);}
 
 

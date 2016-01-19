@@ -14,7 +14,6 @@
 void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile, SDL_Renderer *pRenderer, t_system *my_system) {
 
     int a, x, y;
-    int map_size = MAP_NB_TILE_X * MAP_NB_TILE_Y;
     SDL_Rect Rect_source = { 0, 0, TILE_TAILLE_X, TILE_TAILLE_Y};
     SDL_Rect Rect_Dest   = { 0, 0, TILE_TAILLE_X, TILE_TAILLE_Y};
 
@@ -43,7 +42,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     int DataLevel_current[70] = {};
     /*                          Cible   <---       Départ         --->  <---    Wave 1     --->   <---    Wave 2     --->  <---    Wave 3     --->  <---    Wave 4     --->  <---    Wave 5     --->  <---    Wave 6     --->  <---    Wave 7     --->  <---    Wave 8     --->  <---    Wave 9     --->  <---    Wave 10    --->
                                 x   y   Haut    Droite  Bas     gauche  t,  H,  D,  B,  G, time,  t,  H,  D,  B,  G, time  t,  H,  D,  B,  G, time  t,  H,  D,  B,  G, time  t,  H,  D,  B,  G, time  t,  H,  D,  B,  G, time  t,  H,  D,  B,  G, time  t,  H,  D,  B,  G, time  t,  H,  D,  B,  G, time  t,  H,  D,  B,  G, time   */
-    int DataLevel_1[70]  =  {   2,  9,  10,20,  5,10,   10,20,  5,10,   0,  0, 10,  0,  0,  3,    1, 10, 10, 10,  0, 15,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,  };
+    int DataLevel_1[70]  =  {   4,  7,  10,20,  5,10,   10,20,  5,10,   0,  0, 10,  0,  0,  3,    1, 10, 10, 10,  0, 15,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,  };
     int DataLevel_2[70]  =  {   8, 14,  10,20,  5,10,   10,20,  5,10,   0,  0, 10,  0,  0,  0,    0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,  };
     int DataLevel_3[70]  =  {   3,  5,  10,20,  5,10,   10,20,  5,10,   0,  0, 10,  0,  0,  0,    0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,  };
     int DataLevel_4[70]  =  {  16, 11,  10,20,  5,10,   10,20,  5,10,   0, 80,  0,  0,  0,  0,    1,  0, 80,  0,  0,  0,   2,  0,  0, 80,  0,  0,   0,  0,  0,  0, 80,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,  };
@@ -176,18 +175,24 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     switch (level_number) {
 
         case 0:
-            pLevel->name        = DataLevelName_1;
-
- //   strcpy(pLevel->name, name[level_number]);
-
-            DataLevel_current   = DataLevel_1;
-            DataMap_current     = DataMap_1
+            strcpy(pLevel->name, DataLevelName_1);
+            for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_1[a]; }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_1[a];   }
             break;
         case 1:
+            strcpy(pLevel->name, DataLevelName_2);
+            for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_2[a]; }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_2[a];   }
             break;
         case 2:
+            strcpy(pLevel->name, DataLevelName_3);
+            for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_3[a]; }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_3[a];   }
             break;
         case 3:
+            strcpy(pLevel->name, DataLevelName_4);
+            for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_4[a]; }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_4[a];   }
             break;
         case 4:
             break;
@@ -222,26 +227,26 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
         pLevel->my_map[a] = DataMap_current[a];
     }
 
-    pLevel->StartPos_UP_s    =  DataLevel_current[2];        // TOTO : a transformer en pixel
-    pLevel->StartPos_UP_e    =  DataLevel_current[3];
-    pLevel->StartPos_RIGHT_s =  DataLevel_current[4];
-    pLevel->StartPos_RIGHT_e =  DataLevel_current[5];
-    pLevel->StartPos_DOWN_s  =  DataLevel_current[6];
-    pLevel->StartPos_DOWN_e  =  DataLevel_current[7];
-    pLevel->StartPos_LEFT_s  =  DataLevel_current[8];
-    pLevel->StartPos_LEFT_e  =  DataLevel_current[9];
+    pLevel->StartPos_UP_s    =  DataLevel_current[2] * TILE_TAILLE_X;
+    pLevel->StartPos_UP_e    =  DataLevel_current[3] * TILE_TAILLE_X + TILE_TAILLE_X;
+    pLevel->StartPos_RIGHT_s =  DataLevel_current[4] * TILE_TAILLE_Y;
+    pLevel->StartPos_RIGHT_e =  DataLevel_current[5] * TILE_TAILLE_Y + TILE_TAILLE_Y;
+    pLevel->StartPos_DOWN_s  =  DataLevel_current[6] * TILE_TAILLE_X;
+    pLevel->StartPos_DOWN_e  =  DataLevel_current[7] * TILE_TAILLE_X + TILE_TAILLE_X;
+    pLevel->StartPos_LEFT_s  =  DataLevel_current[8] * TILE_TAILLE_Y;;
+    pLevel->StartPos_LEFT_e  =  DataLevel_current[9] * TILE_TAILLE_Y + TILE_TAILLE_Y;
 
     pLevel->cibleX = DataLevel_current[0];
     pLevel->cibleY = DataLevel_current[1];
 
     // DATA des attacks
     for (a = 0 ; a < WAVE_NB; a++) {
-        pLevel->wave[a].type     =  wave[level_number][a*WAVE_nb_variable_struct_wave + 0];
-        pLevel->wave[a].nb_up    =  wave[level_number][a*WAVE_nb_variable_struct_wave + 1];
-        pLevel->wave[a].nb_right =  wave[level_number][a*WAVE_nb_variable_struct_wave + 2];
-        pLevel->wave[a].nb_down  =  wave[level_number][a*WAVE_nb_variable_struct_wave + 3];
-        pLevel->wave[a].nb_left  =  wave[level_number][a*WAVE_nb_variable_struct_wave + 4];
-        pLevel->wave[a].start_in =  wave[level_number][a*WAVE_nb_variable_struct_wave + 5];
+        pLevel->wave[a].type     =  DataLevel_current[a*6 + 10];
+        pLevel->wave[a].nb_up    =  DataLevel_current[a*6 + 11];
+        pLevel->wave[a].nb_right =  DataLevel_current[a*6 + 12];
+        pLevel->wave[a].nb_down  =  DataLevel_current[a*6 + 13];
+        pLevel->wave[a].nb_left  =  DataLevel_current[a*6 + 14];
+        pLevel->wave[a].start_in =  DataLevel_current[a*6 + 15];
     }
 
     /******************************************************************************************************************
@@ -319,7 +324,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
 }
 /*****************************************************************
 *****************************************************************/
-void init_level_chemins     (t_level *pLevel) {
+void init_level_chemins     (t_level *pLevel, t_system *my_system) {
 
     int x, y;
 
@@ -332,7 +337,12 @@ void init_level_chemins     (t_level *pLevel) {
     for (x = 1; x < MAP_NB_TILE_X; x++ ) {
         y = 0;
         if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
-        y = MAP_NB_TILE_Y - 1;
+
+        if ( (int)(my_system->window_size_ratio * 100) == 170 ) {            // Une ligne en moins en mode ratio 1.7 (16:9)
+            y = MAP_NB_TILE_Y - 2;
+        } else {
+            y = MAP_NB_TILE_Y - 1;
+        }
         if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
     }
 }
