@@ -46,7 +46,7 @@ void calcul_chemin( int depart_x, int depart_y, t_level *pLevel) {
         if (current_position.x == -1 && current_position.y == -1) {
             if (DEBUG) {
                     SDL_Log("Fred DEBUG - Algo_A_start: pas de chemin !!!"); }
-            return(1);
+            return;
         }
 
         list[current_position.x][current_position.y].is_open = false;

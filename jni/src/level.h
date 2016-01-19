@@ -20,7 +20,7 @@ typedef struct {
 // level
 typedef struct {
 
-    char        name[256];
+    char        name[15];
     int         my_map[MAP_NB_TILE_X * MAP_NB_TILE_Y];              // permet de dessiner la map
     int         map_Info[MAP_NB_TILE_X][MAP_NB_TILE_Y];             // info sur la postion des obstacles
     int         map_Direction[MAP_NB_TILE_X][MAP_NB_TILE_Y];        // info sur le parcour vers la cible
