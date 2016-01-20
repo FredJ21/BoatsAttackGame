@@ -101,6 +101,10 @@ void init_menu      (t_menu *my_menu, SDL_Renderer *pRenderer) {
     my_menu->button_exit_p.h        = pSurface_tmp->h;
 
 
+    /** FICHIER bouttons LEVEL **/
+    my_menu->img_button_level       = IMG_Load (MENU_IMG_BUTTON_LEVEL);
+    if(!my_menu->img_button_level && DEBUG) { SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
+
 
 
     SDL_FreeSurface(pSurface_tmp);
@@ -267,6 +271,94 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                         current_mouse_y = (int)(event.tfinger.y * my_system->map_taille_y);
                         flag_event_down = false;
                         flag_event_up   = true;
+                        break;
+
+                }
+            }
+
+
+            sleep = (1000 / GAME_FPS);
+            SDL_Delay( sleep );
+
+    }
+}
+/*****************************************************************
+*****************************************************************/
+void affiche_menu_level       (t_menu *menu, SDL_Renderer *pRenderer, t_system *my_system) {
+
+    bool exit               = false;
+    int current_mouse_x     = 0;
+    int current_mouse_y     = 0;
+    bool flag_event_down    = false;
+    bool flag_event_up      = false;
+
+    int  sleep;
+
+
+    SDL_Event event;
+
+
+    while (!exit) {
+
+            /******************************************************************************************************************
+                                                        AFFICHAGE
+            *******************************************************************************************************************/
+            SDL_RenderClear     (pRenderer);
+
+            SDL_RenderCopy      (pRenderer, menu->img_background, NULL, NULL);
+
+            SDL_RenderPresent   (pRenderer);
+
+
+            /******************************************************************************************************************
+                                                        GESTION DES EVENEMENTS
+            *******************************************************************************************************************/
+            while (SDL_PollEvent(&event)) {
+
+                switch (event.type){
+
+                    case SDL_QUIT:
+                        exit = true;
+                        break;
+
+                    case SDL_KEYDOWN:
+                        switch( event.key.keysym.sym ){
+                            case SDLK_ESCAPE:
+                                exit = true;
+                                break;
+                            case SDLK_AC_BACK:
+                                exit = true;
+                                break;
+                        }
+                        break;
+                    /***************************************************************************   SOURIS  **/
+#if __WIN32__
+                    case SDL_MOUSEBUTTONDOWN :
+                        SDL_GetMouseState( &current_mouse_x, &current_mouse_y );
+                        break;
+
+                    case SDL_MOUSEMOTION :
+                        SDL_GetMouseState( &current_mouse_x, &current_mouse_y );
+                        break;
+
+                    case SDL_MOUSEBUTTONUP :
+                        SDL_GetMouseState( &current_mouse_x, &current_mouse_y );
+                        break;
+#endif
+                    /***************************************************************************   FINGER  **/
+                    case SDL_FINGERDOWN:
+                        current_mouse_x = (int)(event.tfinger.x * my_system->map_taille_x);
+                        current_mouse_y = (int)(event.tfinger.y * my_system->map_taille_y);
+                        break;
+
+                    case SDL_FINGERMOTION :
+                        current_mouse_x = (int)(event.tfinger.x * my_system->map_taille_x);
+                        current_mouse_y = (int)(event.tfinger.y * my_system->map_taille_y);
+                        break;
+
+                    case SDL_FINGERUP :
+                        current_mouse_x = (int)(event.tfinger.x * my_system->map_taille_x);
+                        current_mouse_y = (int)(event.tfinger.y * my_system->map_taille_y);
                         break;
 
                 }

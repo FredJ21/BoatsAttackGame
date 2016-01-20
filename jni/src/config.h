@@ -62,7 +62,7 @@
 #define NB_ANIM_EXPLOSION       5
 
 #define MENU_IMG_BACKGROUND     "images/menu_background.bmp"    //images de l'arrière plan
-#define MENU_IMG_START          "images/menu_start.png"         //images des boutonw
+#define MENU_IMG_START          "images/menu_start.png"         //images des boutons
 #define MENU_IMG_EXIT           "images/menu_exit.png"
 #define MENU_IMG_RESTART        "images/menu_restart.png"
 #define MENU_IMG_RESUME         "images/menu_resume.png"
@@ -70,6 +70,7 @@
 #define MENU_IMG_EXIT_P         "images/menu_exit_p.png"
 #define MENU_IMG_RESTART_P      "images/menu_restart_p.png"
 #define MENU_IMG_RESUME_P       "images/menu_resume_p.png"
+#define MENU_IMG_BUTTON_LEVEL   "images/menu_button_level.png"
 
 
 enum { UP, RIGHT, DOWN, LEFT };

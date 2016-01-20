@@ -31,11 +31,14 @@ typedef struct {
     bool    restart;
     bool    resume;
 
+    SDL_Surface     *img_button_level;
+
 } t_menu;
 
 
 void        init_menu               (t_menu *menu, SDL_Renderer *pRenderer);
 void        affiche_menu            (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_started, t_system *system);
+void        affiche_menu_level      (t_menu *menu, SDL_Renderer *pRenderer, t_system *system);
 void        affiche_button          (t_button *button, SDL_Renderer *pRenderer);
 
 #endif // MENU_H_INCLUDED

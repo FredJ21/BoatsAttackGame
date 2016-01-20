@@ -23,10 +23,10 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     /******************************************************************************************************************
                                                 DATA MAP
     *******************************************************************************************************************/
-   char DataLevelName_1[15]   =   { "LEVEL 1" };
-    char DataLevelName_2[15]   =   { "LEVEL 1" };
-    char DataLevelName_3[15]   =   { "LEVEL 1" };
-    char DataLevelName_4[15]   =   { "LEVEL 1" };
+    char DataLevelName_1[15]   =   { "LEVEL 1" };
+    char DataLevelName_2[15]   =   { "LEVEL 2" };
+    char DataLevelName_3[15]   =   { "LEVEL 3" };
+    char DataLevelName_4[15]   =   { "LEVEL 4" };
     char DataLevelName_5[15]   =   {};
     char DataLevelName_6[15]   =   {};
     char DataLevelName_7[15]   =   {};
