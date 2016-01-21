@@ -55,6 +55,7 @@
 
 #define POLICE_LEVEL_TITRE      "fonts/Alex_Bold.ttf"
 #define POLICE_LEVEL_TITRE_SIZE 150
+#define POLICE_LEVEL_BUTTON_SIZE 50
 
 #define POLICE_SCORE            "fonts/DS-DIGIB.TTF"
 #define POLICE_SCORE_SIZE       30
@@ -70,6 +71,7 @@
 #define MENU_IMG_EXIT_P         "images/menu_exit_p.png"
 #define MENU_IMG_RESTART_P      "images/menu_restart_p.png"
 #define MENU_IMG_RESUME_P       "images/menu_resume_p.png"
+#define MENU_IMG_LEVEL_TITLE    "images/level.png"
 #define MENU_IMG_BUTTON1_LEVEL   "images/menu_button1_level.png"
 #define MENU_IMG_BUTTON2_LEVEL   "images/menu_button2_level.png"
 #define MENU_IMG_BUTTON3_LEVEL   "images/menu_button3_level.png"

@@ -21,6 +21,11 @@ void init_menu      (t_menu *my_menu, SDL_Renderer *pRenderer) {
     my_menu->restart = false;
     my_menu->resume  = false;
 
+    // pour le titre de chaque level
+    my_menu->police_level_titre = TTF_OpenFont(POLICE_LEVEL_TITRE, POLICE_LEVEL_BUTTON_SIZE);
+    if(!my_menu->police_level_titre && DEBUG ) {  SDL_Log( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+
+
     /** FICHIER background **/
     pSurface_tmp                    = IMG_Load (MENU_IMG_BACKGROUND);
     if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
@@ -100,6 +105,15 @@ void init_menu      (t_menu *my_menu, SDL_Renderer *pRenderer) {
     my_menu->button_exit_p.w        = pSurface_tmp->w;
     my_menu->button_exit_p.h        = pSurface_tmp->h;
 
+
+    /** FICHIER TITRE LEVEL **/
+    pSurface_tmp                    = IMG_Load (MENU_IMG_LEVEL_TITLE);
+    if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
+
+    my_menu->menu_level_title.img = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
+    if(!my_menu->menu_level_title.img && DEBUG){  SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    my_menu->menu_level_title.w    = pSurface_tmp->w;
+    my_menu->menu_level_title.h    = pSurface_tmp->h;
 
     /** FICHIER bouttons LEVEL **/
     pSurface_tmp                    = IMG_Load (MENU_IMG_BUTTON1_LEVEL);
@@ -321,12 +335,14 @@ void affiche_menu_level       (t_menu *menu, SDL_Renderer *pRenderer, t_system *
 
     int nb_button_x     = 10;
     int nb_button_y     = 5;
-    int entre_button    =  15;
+    int entre_button    =  17;
     int marge_x         =  (MAP_TAILLE_X_160 - (nb_button_x * (menu->button_menu_level1.w + entre_button )))/2;
-    int marge_y         =  50;
+    int marge_y         =  90;
 
     menu->button_menu_level1.y = 100;
 
+    menu->menu_level_title.x    = (MAP_TAILLE_X_160 - menu->menu_level_title.w)/2;
+    menu->menu_level_title.y    = 10;
 
     SDL_Event event;
 
@@ -338,19 +354,19 @@ void affiche_menu_level       (t_menu *menu, SDL_Renderer *pRenderer, t_system *
             *******************************************************************************************************************/
             SDL_RenderClear     (pRenderer);
 
-            //SDL_RenderCopy      (pRenderer, menu->img_background, NULL, NULL);
+            SDL_RenderCopy      (pRenderer, menu->img_background, NULL, NULL);
+            affiche_button (&menu->menu_level_title, pRenderer);
 
             for (b=0; b<nb_button_y; b++) {
                 for (a=0; a<nb_button_x; a++) {
                     menu->button_menu_level1.x = marge_x + (menu->button_menu_level1.w + entre_button)*a ;
                     menu->button_menu_level1.y = marge_y + (menu->button_menu_level1.h + entre_button)*b ;
-                    affiche_button (&menu->button_menu_level1, pRenderer);
+                    affiche_button_number (&menu->button_menu_level1, (a+1)+b*10, menu->police_level_titre, pRenderer);
                 }
             }
 
 
             SDL_RenderPresent   (pRenderer);
-
 
             /******************************************************************************************************************
                                                         GESTION DES EVENEMENTS
@@ -432,3 +448,54 @@ void affiche_button (t_button *button, SDL_Renderer *pRenderer){
     SDL_RenderCopy      ( pRenderer, button->img , &Src, &Dst);
 
 }
+/*****************************************************************
+*****************************************************************/
+void affiche_button_number (t_button *button, int number, TTF_Font *police, SDL_Renderer *pRenderer){
+
+    SDL_Rect Src;
+    SDL_Rect Dst;
+    SDL_Rect Dst_txt;
+
+    Src.x = 0;
+    Src.y = 0;
+    Src.w = button->w;
+    Src.h = button->h;
+
+    Dst.x = button->x;
+    Dst.y = button->y;
+    Dst.w = Src.w;
+    Dst.h = Src.h;
+
+    Dst_txt.x = button->x + 5;
+    Dst_txt.y = button->y + 5;
+    Dst_txt.w = Src.w - 10;
+    Dst_txt.h = Src.h - 10;
+
+    SDL_Surface *texte = NULL;
+    SDL_Texture *texture = NULL;
+    SDL_Color couleur = {200, 100, 100, 0};
+
+    char name[5];
+    sprintf(name, "%d", number);
+
+    texte   = TTF_RenderText_Blended(police, name , couleur);
+    texture = SDL_CreateTextureFromSurface(pRenderer, texte);
+
+    SDL_RenderCopy      ( pRenderer, button->img, &Src, &Dst );
+    SDL_RenderCopy      ( pRenderer, texture, &Src, &Dst_txt );
+    //SDL_RenderCopy      ( pRenderer, texture, NULL, NULL );
+
+    SDL_FreeSurface(texte);
+    SDL_DestroyTexture(texture);
+}
+
+
+
+
+
+
+
+
+
+
+
