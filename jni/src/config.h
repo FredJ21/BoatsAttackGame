@@ -70,7 +70,9 @@
 #define MENU_IMG_EXIT_P         "images/menu_exit_p.png"
 #define MENU_IMG_RESTART_P      "images/menu_restart_p.png"
 #define MENU_IMG_RESUME_P       "images/menu_resume_p.png"
-#define MENU_IMG_BUTTON_LEVEL   "images/menu_button_level.png"
+#define MENU_IMG_BUTTON1_LEVEL   "images/menu_button1_level.png"
+#define MENU_IMG_BUTTON2_LEVEL   "images/menu_button2_level.png"
+#define MENU_IMG_BUTTON3_LEVEL   "images/menu_button3_level.png"
 
 
 enum { UP, RIGHT, DOWN, LEFT };

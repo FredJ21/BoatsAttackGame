@@ -31,7 +31,9 @@ typedef struct {
     bool    restart;
     bool    resume;
 
-    SDL_Surface     *img_button_level;
+    t_button    button_menu_level1;
+    t_button    button_menu_level2;
+    t_button    button_menu_level3;
 
 } t_menu;
 

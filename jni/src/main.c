@@ -113,7 +113,7 @@ int main( int argc, char* args[] )
     SDL_RenderCopy (pRenderer, pTexture, NULL, NULL);
     SDL_RenderPresent (pRenderer);
 
-    SDL_Delay( 1000 );
+    SDL_Delay( 100 );
 
     /******************************************************************************************************************
                                                 INIT SDL 2 TTF
@@ -265,6 +265,8 @@ int main( int argc, char* args[] )
     *******************************************************************************************************************/
     if (DEBUG) {SDL_Log("Fred DEBUG - START MAIN LOOP\n");}
 
+           affiche_menu_level(&my_menu, pRenderer, &my_system);
+           exit(1);
 
     my_game.flag_game_started = false;
 
@@ -276,14 +278,14 @@ int main( int argc, char* args[] )
         if (my_menu.exit)       { my_game.flag_fin = true; }
         if (my_menu.resume)     { my_menu.resume = false;
                                   my_game.flag_fin = false;}
-        if (my_menu.restart)    { my_menu.restart = false;
-                                  my_game.current_level = 0;
-                                  my_game.flag_change_level = true;
-                                  my_game.flag_fin = false;
-        }
+
         if (my_menu.start || my_menu.restart ) {
 
             my_menu.start = false;
+            my_menu.restart = false;
+            my_game.current_level = 0;              // TODO : a supprimer
+            my_game.flag_change_level = true;
+            my_game.flag_fin = false;
 
             if (DEBUG) {SDL_Log("Fred DEBUG - Affiche menu level\n");}
             affiche_menu_level(&my_menu, pRenderer, &my_system);

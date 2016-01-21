@@ -102,8 +102,30 @@ void init_menu      (t_menu *my_menu, SDL_Renderer *pRenderer) {
 
 
     /** FICHIER bouttons LEVEL **/
-    my_menu->img_button_level       = IMG_Load (MENU_IMG_BUTTON_LEVEL);
-    if(!my_menu->img_button_level && DEBUG) { SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
+    pSurface_tmp                    = IMG_Load (MENU_IMG_BUTTON1_LEVEL);
+    if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
+
+    my_menu->button_menu_level1.img = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
+    if(!my_menu->button_menu_level1.img && DEBUG){  SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    my_menu->button_menu_level1.w    = pSurface_tmp->w;
+    my_menu->button_menu_level1.h    = pSurface_tmp->h;
+
+    pSurface_tmp                    = IMG_Load (MENU_IMG_BUTTON2_LEVEL);
+    if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
+
+    my_menu->button_menu_level2.img  = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
+    if(!my_menu->button_menu_level1.img && DEBUG){  SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    my_menu->button_menu_level2.w    = pSurface_tmp->w;
+    my_menu->button_menu_level2.h    = pSurface_tmp->h;
+
+    pSurface_tmp                    = IMG_Load (MENU_IMG_BUTTON3_LEVEL);
+    if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
+
+    my_menu->button_menu_level3.img  = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
+    if(!my_menu->button_menu_level1.img && DEBUG){  SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    my_menu->button_menu_level3.w    = pSurface_tmp->w;
+    my_menu->button_menu_level3.h    = pSurface_tmp->h;
+
 
 
 
@@ -286,6 +308,8 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
 *****************************************************************/
 void affiche_menu_level       (t_menu *menu, SDL_Renderer *pRenderer, t_system *my_system) {
 
+    int a, b;
+
     bool exit               = false;
     int current_mouse_x     = 0;
     int current_mouse_y     = 0;
@@ -293,6 +317,15 @@ void affiche_menu_level       (t_menu *menu, SDL_Renderer *pRenderer, t_system *
     bool flag_event_up      = false;
 
     int  sleep;
+
+
+    int nb_button_x     = 10;
+    int nb_button_y     = 5;
+    int entre_button    =  15;
+    int marge_x         =  (MAP_TAILLE_X_160 - (nb_button_x * (menu->button_menu_level1.w + entre_button )))/2;
+    int marge_y         =  50;
+
+    menu->button_menu_level1.y = 100;
 
 
     SDL_Event event;
@@ -305,7 +338,16 @@ void affiche_menu_level       (t_menu *menu, SDL_Renderer *pRenderer, t_system *
             *******************************************************************************************************************/
             SDL_RenderClear     (pRenderer);
 
-            SDL_RenderCopy      (pRenderer, menu->img_background, NULL, NULL);
+            //SDL_RenderCopy      (pRenderer, menu->img_background, NULL, NULL);
+
+            for (b=0; b<nb_button_y; b++) {
+                for (a=0; a<nb_button_x; a++) {
+                    menu->button_menu_level1.x = marge_x + (menu->button_menu_level1.w + entre_button)*a ;
+                    menu->button_menu_level1.y = marge_y + (menu->button_menu_level1.h + entre_button)*b ;
+                    affiche_button (&menu->button_menu_level1, pRenderer);
+                }
+            }
+
 
             SDL_RenderPresent   (pRenderer);
 
