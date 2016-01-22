@@ -19,6 +19,7 @@ typedef struct {
     bool flag_tower_position_ok;            // vrai si la tourelle n'est pas dans l'eau
 
     int current_level;                      // Level 0.....x
+    int last_level;                         // dernier niveau effectué par l'utilisateur
     int current_nb_enemy;                   // nombre d'ennemi
     int current_enemy_alive;                // nombre d'ennemi en vie
     int current_nb_tower;                   // nombre de tourelle

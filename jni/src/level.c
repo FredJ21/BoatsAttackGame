@@ -27,17 +27,17 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     char DataLevelName_2[15]   =   { "LEVEL 2" };
     char DataLevelName_3[15]   =   { "LEVEL 3" };
     char DataLevelName_4[15]   =   { "LEVEL 4" };
-    char DataLevelName_5[15]   =   {};
-    char DataLevelName_6[15]   =   {};
-    char DataLevelName_7[15]   =   {};
-    char DataLevelName_8[15]   =   {};
-    char DataLevelName_9[15]   =   {};
-    char DataLevelName_10[15]  =   {};
-    char DataLevelName_11[15]  =   {};
-    char DataLevelName_12[15]  =   {};
-    char DataLevelName_13[15]  =   {};
-    char DataLevelName_14[15]  =   {};
-    char DataLevelName_15[15]  =   {};
+    char DataLevelName_5[15]   =   { "LEVEL 5" };
+    char DataLevelName_6[15]   =   { "LEVEL 6" };
+    char DataLevelName_7[15]   =   { "LEVEL 7" };
+    char DataLevelName_8[15]   =   { "LEVEL 8" };
+    char DataLevelName_9[15]   =   { "LEVEL 9" };
+    char DataLevelName_10[15]  =   { "LEVEL 10" };
+    char DataLevelName_11[15]  =   { "LEVEL 11" };
+    char DataLevelName_12[15]  =   { "LEVEL 12" };
+    char DataLevelName_13[15]  =   { "LEVEL 13" };
+    char DataLevelName_14[15]  =   { "LEVEL 14" };
+    char DataLevelName_15[15]  =   { "LEVEL 15" };
 
     int DataLevel_current[70] = {};
     /*                          Cible   <---       Départ         --->  <---    Wave 1     --->   <---    Wave 2     --->  <---    Wave 3     --->  <---    Wave 4     --->  <---    Wave 5     --->  <---    Wave 6     --->  <---    Wave 7     --->  <---    Wave 8     --->  <---    Wave 9     --->  <---    Wave 10    --->

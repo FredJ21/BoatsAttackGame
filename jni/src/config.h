@@ -3,7 +3,7 @@
 
 
 #define DEBUG       1
-#define DEBUG_MAP   1
+#define DEBUG_MAP   0
 
 #define NOIR    al_map_rgb(0,0,0)
 #define ROUGE   al_map_rgb(255,0,0)

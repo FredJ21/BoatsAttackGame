@@ -320,9 +320,10 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
 }
 /*****************************************************************
 *****************************************************************/
-void affiche_menu_level       (t_menu *menu, SDL_Renderer *pRenderer, t_system *my_system) {
+void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *pRenderer, int *current_level, int *last_level) {
 
-    int a, b;
+
+    int a, b, level, x, y, xx, yy;
 
     bool exit               = false;
     int current_mouse_x     = 0;
@@ -339,7 +340,6 @@ void affiche_menu_level       (t_menu *menu, SDL_Renderer *pRenderer, t_system *
     int marge_x         =  (MAP_TAILLE_X_160 - (nb_button_x * (menu->button_menu_level1.w + entre_button )))/2;
     int marge_y         =  90;
 
-    menu->button_menu_level1.y = 100;
 
     menu->menu_level_title.x    = (MAP_TAILLE_X_160 - menu->menu_level_title.w)/2;
     menu->menu_level_title.y    = 10;
@@ -357,11 +357,41 @@ void affiche_menu_level       (t_menu *menu, SDL_Renderer *pRenderer, t_system *
             SDL_RenderCopy      (pRenderer, menu->img_background, NULL, NULL);
             affiche_button (&menu->menu_level_title, pRenderer);
 
+            level = 0;
             for (b=0; b<nb_button_y; b++) {
                 for (a=0; a<nb_button_x; a++) {
-                    menu->button_menu_level3.x = marge_x + (menu->button_menu_level1.w + entre_button)*a ;
-                    menu->button_menu_level3.y = marge_y + (menu->button_menu_level1.h + entre_button)*b ;
-                    affiche_button_number (&menu->button_menu_level3, (a+1)+b*10, menu->police_level_titre, pRenderer);
+
+                    x = marge_x + (menu->button_menu_level1.w + entre_button)*a;
+                    y = marge_y + (menu->button_menu_level1.h + entre_button)*b;
+                    xx = x + menu->button_menu_level1.w;
+                    yy = y + menu->button_menu_level1.h;
+
+                    if ( level <= *last_level && flag_event_up && current_mouse_x > x && current_mouse_x < xx && current_mouse_y > y && current_mouse_y < yy ) {
+
+                            *current_level = level;
+                            exit = true;
+
+                            menu->button_menu_level1.x = x ;
+                            menu->button_menu_level1.y = y ;
+                            affiche_button_number (&menu->button_menu_level1, (a+1)+b*10, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
+
+                    } else if ( level == *last_level || (flag_event_down && level < *last_level && current_mouse_x > x && current_mouse_x < xx && current_mouse_y > y && current_mouse_y < yy) ) {
+                            menu->button_menu_level1.x = x ;
+                            menu->button_menu_level1.y = y ;
+                            affiche_button_number (&menu->button_menu_level1, (a+1)+b*10, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
+
+                    } else if ( level <= *last_level ) {
+                            menu->button_menu_level2.x = x;
+                            menu->button_menu_level2.y = y;
+                            affiche_button_number (&menu->button_menu_level2, (a+1)+b*10, menu->police_level_titre, 0, pRenderer);      // affiche  bouton bleu
+
+                    } else {
+                            menu->button_menu_level3.x = x ;
+                            menu->button_menu_level3.y = y ;
+                            affiche_button_number (&menu->button_menu_level3, (a+1)+b*10, menu->police_level_titre, 2, pRenderer);      // affiche bouton gris
+                    }
+
+                    level++;
                 }
             }
 
@@ -371,6 +401,8 @@ void affiche_menu_level       (t_menu *menu, SDL_Renderer *pRenderer, t_system *
             /******************************************************************************************************************
                                                         GESTION DES EVENEMENTS
             *******************************************************************************************************************/
+            flag_event_up = false;
+
             while (SDL_PollEvent(&event)) {
 
                 switch (event.type){
@@ -393,6 +425,8 @@ void affiche_menu_level       (t_menu *menu, SDL_Renderer *pRenderer, t_system *
 #if __WIN32__
                     case SDL_MOUSEBUTTONDOWN :
                         SDL_GetMouseState( &current_mouse_x, &current_mouse_y );
+                        flag_event_up = false;
+                        flag_event_down = true;
                         break;
 
                     case SDL_MOUSEMOTION :
@@ -401,12 +435,16 @@ void affiche_menu_level       (t_menu *menu, SDL_Renderer *pRenderer, t_system *
 
                     case SDL_MOUSEBUTTONUP :
                         SDL_GetMouseState( &current_mouse_x, &current_mouse_y );
+                        flag_event_up = true;
+                        flag_event_down = false;
                         break;
 #endif
                     /***************************************************************************   FINGER  **/
                     case SDL_FINGERDOWN:
                         current_mouse_x = (int)(event.tfinger.x * my_system->map_taille_x);
                         current_mouse_y = (int)(event.tfinger.y * my_system->map_taille_y);
+                        flag_event_down = true;
+                        flag_event_up = false;
                         break;
 
                     case SDL_FINGERMOTION :
@@ -417,6 +455,8 @@ void affiche_menu_level       (t_menu *menu, SDL_Renderer *pRenderer, t_system *
                     case SDL_FINGERUP :
                         current_mouse_x = (int)(event.tfinger.x * my_system->map_taille_x);
                         current_mouse_y = (int)(event.tfinger.y * my_system->map_taille_y);
+                        flag_event_up = true;
+                        flag_event_down = false;
                         break;
 
                 }
@@ -450,7 +490,7 @@ void affiche_button (t_button *button, SDL_Renderer *pRenderer){
 }
 /*****************************************************************
 *****************************************************************/
-void affiche_button_number (t_button *button, int number, TTF_Font *police, SDL_Renderer *pRenderer){
+void affiche_button_number (t_button *button, int number, TTF_Font *police, int color_txt, SDL_Renderer *pRenderer){
 
     SDL_Rect Src;
     SDL_Rect Dst;
@@ -466,15 +506,20 @@ void affiche_button_number (t_button *button, int number, TTF_Font *police, SDL_
     Dst.w = Src.w;
     Dst.h = Src.h;
 
-    Dst_txt.x = button->x + 10;
-    Dst_txt.y = button->y + 10;
-    Dst_txt.w = Src.w - 20;
-    Dst_txt.h = Src.h - 20;
+    Dst_txt.x = button->x + 20;
+    Dst_txt.y = button->y + 20;
+    Dst_txt.w = Src.w - 40;
+    Dst_txt.h = Src.h - 40;
 
     SDL_Surface *texte = NULL;
     SDL_Texture *texture = NULL;
-    SDL_Color couleur = {200, 200, 200, 0};
+    SDL_Color couleur;
 
+    if (color_txt == 0 ) {
+            couleur.r = 50; couleur.g = 50; couleur.b = 50;
+    } else {
+            couleur.r = 200; couleur.g = 200; couleur.b = 200;
+    }
     char name[5];
     sprintf(name, "%d", number);
 

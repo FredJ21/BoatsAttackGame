@@ -1,9 +1,77 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="affichage_texte.c" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="level.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1220" topLine="7" />
+			<Cursor1 position="25779" topLine="74" />
+		</Cursor>
+	</File>
+	<File name="config.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1919" topLine="32" />
+		</Cursor>
+	</File>
+	<File name="menu.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="24395" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="12" />
+			<Collapse line="14" />
+			<Collapse line="147" />
+			<Collapse line="149" />
+			<Collapse line="320" />
+			<Collapse line="322" />
+			<Collapse line="459" />
+			<Collapse line="479" />
+			<Collapse line="481" />
+		</Folding>
+	</File>
+	<File name="menu.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1177" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="3" />
+			<Collapse line="14" />
+		</Folding>
+	</File>
+	<File name="main.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="15225" topLine="258" />
+		</Cursor>
+	</File>
+	<File name="tower.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7538" topLine="204" />
+		</Cursor>
+		<Folding>
+			<Collapse line="51" />
+			<Collapse line="66" />
+			<Collapse line="124" />
+			<Collapse line="207" />
+			<Collapse line="242" />
+			<Collapse line="244" />
+		</Folding>
+	</File>
+	<File name="Algo_Collision.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="140" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="tower.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1283" topLine="11" />
+		</Cursor>
+	</File>
+	<File name="Algo_A_star.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="176" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="type_game.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1404" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="anim.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -20,6 +88,11 @@
 			<Collapse line="104" />
 		</Folding>
 	</File>
+	<File name="type_system.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="anim.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="2419" topLine="0" />
@@ -29,28 +102,9 @@
 			<Collapse line="23" />
 		</Folding>
 	</File>
-	<File name="config.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Android.mk" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1919" topLine="32" />
-		</Cursor>
-	</File>
-	<File name="level.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="25779" topLine="305" />
-		</Cursor>
-		<Folding>
-			<Collapse line="326" />
-			<Collapse line="350" />
-		</Folding>
-	</File>
-	<File name="level.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="565" topLine="18" />
-		</Cursor>
-	</File>
-	<File name="main.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="42054" topLine="715" />
+			<Cursor1 position="280" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="main.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -58,71 +112,24 @@
 			<Cursor1 position="121" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="..\..\README.md" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="level.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="450" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="menu.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="22892" topLine="135" />
-		</Cursor>
-		<Folding>
-			<Collapse line="14" />
-			<Collapse line="149" />
-		</Folding>
-	</File>
-	<File name="Android.mk" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="280" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="menu.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1462" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="tower.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="7538" topLine="204" />
-		</Cursor>
-		<Folding>
-			<Collapse line="51" />
-			<Collapse line="66" />
-			<Collapse line="124" />
-			<Collapse line="207" />
-			<Collapse line="242" />
-			<Collapse line="244" />
-		</Folding>
-	</File>
-	<File name="tower.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1283" topLine="11" />
-		</Cursor>
-	</File>
-	<File name="Algo_Collision.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="140" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="type_game.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1404" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Algo_A_star.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="176" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="type_system.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
+			<Cursor1 position="565" topLine="18" />
 		</Cursor>
 	</File>
 	<File name="Algo_Collision.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="268" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\README.md" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="450" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="affichage_texte.c" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1220" topLine="7" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

@@ -265,8 +265,7 @@ int main( int argc, char* args[] )
     *******************************************************************************************************************/
     if (DEBUG) {SDL_Log("Fred DEBUG - START MAIN LOOP\n");}
 
-           affiche_menu_level(&my_menu, pRenderer, &my_system);
-           exit(1);
+    my_game.last_level = LEVEL_NB_TOTAL - 1;         //  A MODIFIER
 
     my_game.flag_game_started = false;
 
@@ -287,10 +286,12 @@ int main( int argc, char* args[] )
             my_game.flag_change_level = true;
             my_game.flag_fin = false;
 
-            if (DEBUG) {SDL_Log("Fred DEBUG - Affiche menu level\n");}
-            affiche_menu_level(&my_menu, pRenderer, &my_system);
+            if (DEBUG) {SDL_Log("Fred DEBUG - Affiche menu level - last_level:%d\n", my_game.last_level);}
+            affiche_menu_level(&my_menu, &my_system, pRenderer, &my_game.current_level, &my_game.last_level);
         }
-        exit(0);
+
+        if (DEBUG) {SDL_Log("Fred DEBUG - current_level = %d\n", my_game.current_level);}
+
 
                 while (!my_game.flag_fin) {
 
