@@ -359,9 +359,9 @@ void affiche_menu_level       (t_menu *menu, SDL_Renderer *pRenderer, t_system *
 
             for (b=0; b<nb_button_y; b++) {
                 for (a=0; a<nb_button_x; a++) {
-                    menu->button_menu_level1.x = marge_x + (menu->button_menu_level1.w + entre_button)*a ;
-                    menu->button_menu_level1.y = marge_y + (menu->button_menu_level1.h + entre_button)*b ;
-                    affiche_button_number (&menu->button_menu_level1, (a+1)+b*10, menu->police_level_titre, pRenderer);
+                    menu->button_menu_level3.x = marge_x + (menu->button_menu_level1.w + entre_button)*a ;
+                    menu->button_menu_level3.y = marge_y + (menu->button_menu_level1.h + entre_button)*b ;
+                    affiche_button_number (&menu->button_menu_level3, (a+1)+b*10, menu->police_level_titre, pRenderer);
                 }
             }
 
@@ -466,14 +466,14 @@ void affiche_button_number (t_button *button, int number, TTF_Font *police, SDL_
     Dst.w = Src.w;
     Dst.h = Src.h;
 
-    Dst_txt.x = button->x + 5;
-    Dst_txt.y = button->y + 5;
-    Dst_txt.w = Src.w - 10;
-    Dst_txt.h = Src.h - 10;
+    Dst_txt.x = button->x + 10;
+    Dst_txt.y = button->y + 10;
+    Dst_txt.w = Src.w - 20;
+    Dst_txt.h = Src.h - 20;
 
     SDL_Surface *texte = NULL;
     SDL_Texture *texture = NULL;
-    SDL_Color couleur = {200, 100, 100, 0};
+    SDL_Color couleur = {200, 200, 200, 0};
 
     char name[5];
     sprintf(name, "%d", number);
