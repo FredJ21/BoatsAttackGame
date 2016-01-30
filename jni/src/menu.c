@@ -119,26 +119,26 @@ void init_menu      (t_menu *my_menu, SDL_Renderer *pRenderer) {
     pSurface_tmp                    = IMG_Load (MENU_IMG_BUTTON1_LEVEL);
     if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
-    my_menu->button_menu_level1.img = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
-    if(!my_menu->button_menu_level1.img && DEBUG){  SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
-    my_menu->button_menu_level1.w    = pSurface_tmp->w;
-    my_menu->button_menu_level1.h    = pSurface_tmp->h;
+    my_menu->button_menu_level_Red.img = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
+    if(!my_menu->button_menu_level_Red.img && DEBUG){  SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    my_menu->button_menu_level_Red.w    = pSurface_tmp->w;
+    my_menu->button_menu_level_Red.h    = pSurface_tmp->h;
 
     pSurface_tmp                    = IMG_Load (MENU_IMG_BUTTON2_LEVEL);
     if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
-    my_menu->button_menu_level2.img  = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
-    if(!my_menu->button_menu_level1.img && DEBUG){  SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
-    my_menu->button_menu_level2.w    = pSurface_tmp->w;
-    my_menu->button_menu_level2.h    = pSurface_tmp->h;
+    my_menu->button_menu_level_Blue.img  = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
+    if(!my_menu->button_menu_level_Red.img && DEBUG){  SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    my_menu->button_menu_level_Blue.w    = pSurface_tmp->w;
+    my_menu->button_menu_level_Blue.h    = pSurface_tmp->h;
 
     pSurface_tmp                    = IMG_Load (MENU_IMG_BUTTON3_LEVEL);
     if(!pSurface_tmp && DEBUG) {             SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"IMG_Load ERROR : %s\n", SDL_GetError() ); exit(1);}
 
-    my_menu->button_menu_level3.img  = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
-    if(!my_menu->button_menu_level1.img && DEBUG){  SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
-    my_menu->button_menu_level3.w    = pSurface_tmp->w;
-    my_menu->button_menu_level3.h    = pSurface_tmp->h;
+    my_menu->button_menu_level_Grey.img  = SDL_CreateTextureFromSurface(pRenderer, pSurface_tmp);
+    if(!my_menu->button_menu_level_Red.img && DEBUG){  SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(1);}
+    my_menu->button_menu_level_Grey.w    = pSurface_tmp->w;
+    my_menu->button_menu_level_Grey.h    = pSurface_tmp->h;
 
 
 
@@ -341,7 +341,7 @@ void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *
     int nb_button_x     = 10;
     int nb_button_y     = 5;
     int entre_button    =  17;
-    int marge_x         =  (MAP_TAILLE_X_160 - (nb_button_x * (menu->button_menu_level1.w + entre_button )))/2;
+    int marge_x         =  (MAP_TAILLE_X_160 - (nb_button_x * (menu->button_menu_level_Red.w + entre_button )))/2;
     int marge_y         =  90;
 
 
@@ -365,46 +365,46 @@ void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *
             for (b=0; b<nb_button_y; b++) {
                 for (a=0; a<nb_button_x; a++) {
 
-                    x = marge_x + (menu->button_menu_level1.w + entre_button)*a;
-                    y = marge_y + (menu->button_menu_level1.h + entre_button)*b;
-                    xx = x + menu->button_menu_level1.w;
-                    yy = y + menu->button_menu_level1.h;
+                    x = marge_x + (menu->button_menu_level_Red.w + entre_button)*a;
+                    y = marge_y + (menu->button_menu_level_Red.h + entre_button)*b;
+                    xx = x + menu->button_menu_level_Red.w;
+                    yy = y + menu->button_menu_level_Red.h;
 
                     if ( level <= *last_level && flag_event_up && current_mouse_x > x && current_mouse_x < xx && current_mouse_y > y && current_mouse_y < yy ) {
 
                             *current_level = level;
                             exit = true;
 
-                            menu->button_menu_level1.x = x ;
-                            menu->button_menu_level1.y = y ;
-                            affiche_button_number (&menu->button_menu_level1, (a+1)+b*10, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
+                            menu->button_menu_level_Red.x = x ;
+                            menu->button_menu_level_Red.y = y ;
+                            affiche_button_number (&menu->button_menu_level_Red, (a+1)+b*10, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
 
                     } else if (flag_event_down && level < *last_level && current_mouse_x > x && current_mouse_x < xx && current_mouse_y > y && current_mouse_y < yy)  {
-                            menu->button_menu_level1.x = x ;
-                            menu->button_menu_level1.y = y ;
-                            affiche_button_number (&menu->button_menu_level1, (a+1)+b*10, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
+                            menu->button_menu_level_Red.x = x ;
+                            menu->button_menu_level_Red.y = y ;
+                            affiche_button_number (&menu->button_menu_level_Red, (a+1)+b*10, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
 
                     } else if ( level == *last_level ) {
                             if (flag_button_red) {
-                                menu->button_menu_level1.x = x ;
-                                menu->button_menu_level1.y = y ;
-                                affiche_button_number (&menu->button_menu_level1, (a+1)+b*10, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
+                                menu->button_menu_level_Red.x = x ;
+                                menu->button_menu_level_Red.y = y ;
+                                affiche_button_number (&menu->button_menu_level_Red, (a+1)+b*10, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
                             } else {
-                                menu->button_menu_level2.x = x ;
-                                menu->button_menu_level2.y = y ;
-                                affiche_button_number (&menu->button_menu_level2, (a+1)+b*10, menu->police_level_titre, 0, pRenderer);      // affiche  bouton bleu
+                                menu->button_menu_level_Blue.x = x ;
+                                menu->button_menu_level_Blue.y = y ;
+                                affiche_button_number (&menu->button_menu_level_Blue, (a+1)+b*10, menu->police_level_titre, 0, pRenderer);      // affiche  bouton bleu
                             }
 
 
                     } else if ( level <= *last_level ) {
-                            menu->button_menu_level2.x = x;
-                            menu->button_menu_level2.y = y;
-                            affiche_button_number (&menu->button_menu_level2, (a+1)+b*10, menu->police_level_titre, 0, pRenderer);      // affiche  bouton bleu
+                            menu->button_menu_level_Blue.x = x;
+                            menu->button_menu_level_Blue.y = y;
+                            affiche_button_number (&menu->button_menu_level_Blue, (a+1)+b*10, menu->police_level_titre, 0, pRenderer);      // affiche  bouton bleu
 
                     } else {
-                            menu->button_menu_level3.x = x ;
-                            menu->button_menu_level3.y = y ;
-                            affiche_button_number (&menu->button_menu_level3, (a+1)+b*10, menu->police_level_titre, 2, pRenderer);      // affiche bouton gris
+                            menu->button_menu_level_Grey.x = x ;
+                            menu->button_menu_level_Grey.y = y ;
+                            affiche_button_number (&menu->button_menu_level_Grey, (a+1)+b*10, menu->police_level_titre, 2, pRenderer);      // affiche bouton gris
                     }
 
                     level++;
