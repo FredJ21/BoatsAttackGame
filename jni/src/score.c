@@ -5,7 +5,7 @@
 
 #include "config.h"
 #include "type_system.h"
-#include "affichage_texte.h"
+#include "score.h"
 
 
 
