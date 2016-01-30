@@ -331,6 +331,10 @@ void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *
     bool flag_event_down    = false;
     bool flag_event_up      = false;
 
+    bool flag_button_red    = true;
+    int flash_button_count  = 0;
+    int flash_button_max    = 3;
+
     int  sleep;
 
 
@@ -375,10 +379,22 @@ void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *
                             menu->button_menu_level1.y = y ;
                             affiche_button_number (&menu->button_menu_level1, (a+1)+b*10, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
 
-                    } else if ( level == *last_level || (flag_event_down && level < *last_level && current_mouse_x > x && current_mouse_x < xx && current_mouse_y > y && current_mouse_y < yy) ) {
+                    } else if (flag_event_down && level < *last_level && current_mouse_x > x && current_mouse_x < xx && current_mouse_y > y && current_mouse_y < yy)  {
                             menu->button_menu_level1.x = x ;
                             menu->button_menu_level1.y = y ;
                             affiche_button_number (&menu->button_menu_level1, (a+1)+b*10, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
+
+                    } else if ( level == *last_level ) {
+                            if (flag_button_red) {
+                                menu->button_menu_level1.x = x ;
+                                menu->button_menu_level1.y = y ;
+                                affiche_button_number (&menu->button_menu_level1, (a+1)+b*10, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
+                            } else {
+                                menu->button_menu_level2.x = x ;
+                                menu->button_menu_level2.y = y ;
+                                affiche_button_number (&menu->button_menu_level2, (a+1)+b*10, menu->police_level_titre, 0, pRenderer);      // affiche  bouton bleu
+                            }
+
 
                     } else if ( level <= *last_level ) {
                             menu->button_menu_level2.x = x;
@@ -465,6 +481,16 @@ void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *
 
             sleep = (1000 / GAME_FPS);
             SDL_Delay( sleep );
+
+
+
+            /***************************************************************************   Flash Button */
+            flash_button_count++;
+            if (flash_button_count >= flash_button_max) {
+                flash_button_count = 0;
+                if (flag_button_red) { flag_button_red = false; } else {flag_button_red = true;}
+
+            }
 
     }
 }

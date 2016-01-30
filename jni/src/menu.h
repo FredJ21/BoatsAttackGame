@@ -35,9 +35,9 @@ typedef struct {
     bool    resume;
 
     t_button        menu_level_title;
-    t_button        button_menu_level1;
-    t_button        button_menu_level2;
-    t_button        button_menu_level3;
+    t_button        button_menu_level1;         // bouton rouge
+    t_button        button_menu_level2;         // bouton bleu
+    t_button        button_menu_level3;         // bouton gris
 
 } t_menu;
 
