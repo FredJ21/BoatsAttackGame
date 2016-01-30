@@ -172,7 +172,7 @@ int main( int argc, char* args[] )
     if(!pSurface_TUILE & DEBUG) { SDL_Log( "SDL_Surface_TUILE ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
     /** ANIMATION des ennemis  **/
-    t_animation ANIM[3];
+    t_animation ANIM[4];
 
     strcpy(ANIM[0].file,   "images/PetitBateau1.bmp");
         ANIM[0].tx              = 48;   ANIM[0].ty              = 48;
@@ -184,10 +184,15 @@ int main( int argc, char* args[] )
         ANIM[1].nb_colonne      = 3;    ANIM[1].nb_image        = 12;   ANIM[1].nb_img_by_dir   = 3;    ANIM[1].nb_tour         = 5;    ANIM[1].vitesse         = 2;
         init_animation( &ANIM[1], pRenderer);
 
-    strcpy(ANIM[2].file,   "images/PetitBateau3.bmp");
-        ANIM[2].tx              = 48;   ANIM[2].ty              = 48;
-        ANIM[2].nb_colonne      = 3;    ANIM[2].nb_image        = 12;   ANIM[2].nb_img_by_dir   = 3;    ANIM[2].nb_tour         = 5;    ANIM[2].vitesse         = 2;
+    strcpy(ANIM[2].file,   "images/Fred-Bateau_soleil_61x55.png");
+        ANIM[2].tx              = 61;   ANIM[2].ty              = 55;
+        ANIM[2].nb_colonne      = 9;    ANIM[2].nb_image        = 36;   ANIM[2].nb_img_by_dir   = 3;    ANIM[2].nb_tour         = 5;    ANIM[2].vitesse         = 2;
         init_animation( &ANIM[2], pRenderer);
+
+    strcpy(ANIM[3].file,   "images/Fred-Bateau_Pirate_61x55.png");
+        ANIM[3].tx              = 61;   ANIM[3].ty              = 55;
+        ANIM[3].nb_colonne      = 4;    ANIM[3].nb_image        = 16;   ANIM[3].nb_img_by_dir   = 3;    ANIM[3].nb_tour         = 5;    ANIM[3].vitesse         = 2;
+        init_animation( &ANIM[3], pRenderer);
 
 
     t_animation DRAPEAU = { "images/Flag.bmp", 31, 40, 11, 11, 11, NULL, 3, 1 };

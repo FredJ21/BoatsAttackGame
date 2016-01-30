@@ -1,4 +1,5 @@
-jni/src/BoatsAttackGame.layout
+/jni/src/BoatsAttackGame.layout
+/jni/src/BoatsAttackGame.depend
 /bin*
 /libs*
 /obj*
