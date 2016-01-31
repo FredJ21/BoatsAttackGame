@@ -265,12 +265,10 @@ int main( int argc, char* args[] )
     my_game.sp_BUTTON_TOWER->x = my_game.sp_BUTTON_TOWER->anim->tx/2 + 15;
     my_game.sp_BUTTON_TOWER->y = my_system.map_taille_y - my_game.sp_BUTTON_TOWER->anim->ty/2 - 15 ;
 
-
-    t_sprite *sp_HEART ;
-    sp_HEART = init_sprite(&HEART);
-    sp_HEART->visible = 255;
-    sp_HEART->is_actif = true;
-    sp_HEART->y = 22;
+    my_game.sp_HEART = init_sprite(&HEART);
+    my_game.sp_HEART->visible = 255;
+    my_game.sp_HEART->is_actif = true;
+    my_game.sp_HEART->y = 22;
 
 
     /******************************************************************************************************************
@@ -725,8 +723,8 @@ int main( int argc, char* args[] )
 
                     // Affichage des vies restantes
                     for (a=0; a<my_game.heart_point; a++){
-                        sp_HEART->x = 30 + (sp_HEART->anim->tx * a);
-                        affiche_sprite (pRenderer, sp_HEART);
+                        my_game.sp_HEART->x = 30 + (my_game.sp_HEART->anim->tx * a);
+                        affiche_sprite (pRenderer, my_game.sp_HEART);
                     }
 
 
