@@ -153,17 +153,18 @@ int main( int argc, char* args[] )
 
     my_game.flag_tower_position_ok      = false;        // vrai si la tourelle n'est pas dans l'eau
 
-    my_game.current_level       = 0;
-    my_game.current_nb_enemy    = 0;
-    my_game.current_enemy_alive = 0;
-    my_game.current_nb_tower    = 0;                // nombre de tourelle
-    my_game.current_tower       = TOWER_MAX;        // id tourelle selectionnée, TOWER_MAX signifi qu'aucune n'est seletionnée
-    my_game.current_nb_missile  = 0;
-    my_game.current_nb_explosion = 0;
+    my_game.current_level               = 0;
+    my_game.current_nb_enemy            = 0;
+    my_game.current_enemy_alive         = 0;
+    my_game.current_nb_tower            = 0;                // nombre de tourelle
+    my_game.current_tower               = TOWER_MAX;        // id tourelle selectionnée, TOWER_MAX signifi qu'aucune n'est seletionnée
+    my_game.current_nb_missile          = 0;
+    my_game.current_nb_explosion        = 0;
 
-    my_game.score               = 0;
-    my_game.heart_point         = SCORE_HEART_POINT;
+    my_game.score                       = 0;
+    my_game.heart_point                 = SCORE_HEART_POINT;
 
+    my_game.last_level                  = 20;         //  A MODIFIER
 
     /******************************************************************************************************************
                                                 INIT DES IMAGES / ANNIMATIONS
@@ -284,8 +285,6 @@ int main( int argc, char* args[] )
                                                 BOUCLE PRINCIPALE
     *******************************************************************************************************************/
     if (DEBUG) {SDL_Log("Fred DEBUG - START MAIN LOOP\n");}
-
-    my_game.last_level = LEVEL_NB_TOTAL - 1;         //  A MODIFIER
 
     my_game.flag_game_started = false;
 
@@ -562,9 +561,9 @@ int main( int argc, char* args[] )
                             if (DEBUG) {SDL_Log("Fred DEBUG - Change_level Init level\n");}
                             init_level(&my_level, my_game.current_level, pSurface_TUILE, pRenderer, &my_system);
                             /** DEBUG OBSTACLES **/
-                            if (DEBUG_MAP) {init_texture_obstacle(pRenderer, &my_level, &my_system);}
+                            if(DEBUG_MAP){init_texture_obstacle(pRenderer, &my_level, &my_system);}
 
-                            if (DEBUG) {SDL_Log("Fred DEBUG - Change_level Init level 2\n");}
+                            if (DEBUG) { SDL_Log("Fred DEBUG - Change_level Init level 2\n"); }
                             init_level_titre(pRenderer, &my_level, police_level_titre, &my_system);
 
                             if (DEBUG) {SDL_Log("Fred DEBUG - Change_level Init level 3\n");}
