@@ -76,6 +76,11 @@
 #define MENU_IMG_BUTTON2_LEVEL   "images/menu_button2_level.png"
 #define MENU_IMG_BUTTON3_LEVEL   "images/menu_button3_level.png"
 
+#define SCORE_DESTROY_TOWER     50      // point PERDU quand on detruit une autre tourelle
+#define SCORE_DESTROY_ENEMY     11      // point GAGNEE quand on tue un ennemi
+#define SCORE_TIR               1       // point PERDU pour chaque TIR
+#define SCORE_HEART_POINT       10
+
 
 enum { UP, RIGHT, DOWN, LEFT };
 

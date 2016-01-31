@@ -53,7 +53,7 @@ t_sprite*   create_Enemy            (int position, int A, int B, t_animation *AN
                                         // *ANIM    --> pointeur sur l'annimation
                                         // Frequence --> Frequence de démarrage entre chaque ennemi
 
-void        avance_sprite           (t_sprite *s, t_level *pLevel, t_system *my_system);
+void        avance_sprite           (t_sprite *s, t_level *pLevel, t_system *my_system, int *heart_point);
 void        anime_sprite            (t_sprite *s);
 void        anime_sprite_once       (t_sprite *s);                      // anime le sprite une fois , et le désactive
 void        affiche_sprite          (SDL_Renderer *r, t_sprite *s);

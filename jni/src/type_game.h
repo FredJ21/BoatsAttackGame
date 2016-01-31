@@ -37,6 +37,10 @@ typedef struct {
     t_sprite *sp_BUTTON_TOWER;                                  // bouton de nouvelle tourelle
     t_sprite *sp_EXPLOSION[(WAVE_NB * WAVE_ENEMY_MAX_BY_WAVE) + TOWER_MAX];                                     // annimation explosions
 
+    int score;
+    int heart_point;
+
+
 } t_game;
 
 

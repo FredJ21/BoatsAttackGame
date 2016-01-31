@@ -48,7 +48,7 @@ void        destroy_tower           (t_tower **s);
 
 void        avance_missile          (t_missile *m, t_system *my_system);
 void        affiche_missile         (SDL_Renderer *r, t_missile *m, t_animation *ANIM);
-void        tir_tower               (t_tower *t, int current_nb_tower);
+void        tir_tower               (t_tower *t, int current_nb_tower, int *score);
 
 
 #endif // TOWER_H_INCLUDED

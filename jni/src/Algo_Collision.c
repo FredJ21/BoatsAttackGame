@@ -65,6 +65,8 @@ void test_collision             (t_game *my_game, t_animation ANIM_EXPLOSION[]) 
                             my_game->sp_EXPLOSION[my_game->current_nb_explosion]->x = my_game->sp_TOWER[b]->x;
                             my_game->sp_EXPLOSION[my_game->current_nb_explosion]->y = my_game->sp_TOWER[b]->y;
                             my_game->current_nb_explosion++;
+
+                            my_game->score -= SCORE_DESTROY_TOWER;
                         }
                     }
                 }
@@ -88,6 +90,7 @@ void test_collision             (t_game *my_game, t_animation ANIM_EXPLOSION[]) 
                                 my_game->sp_EXPLOSION[my_game->current_nb_explosion]->y = my_game->sp_ENEMY[s]->y;
                                 my_game->current_nb_explosion++;
 
+                                my_game->score += SCORE_DESTROY_ENEMY;
                             }
 
                         }

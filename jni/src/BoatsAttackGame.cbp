@@ -47,10 +47,6 @@
 		<Unit filename="Algo_Collision.h" />
 		<Unit filename="Android.mk" />
 		<Unit filename="Android_static.mk" />
-		<Unit filename="affichage_texte.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="affichage_texte.h" />
 		<Unit filename="anim.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -68,6 +64,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="menu.h" />
+		<Unit filename="score.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="score.h" />
 		<Unit filename="tower.c">
 			<Option compilerVar="CC" />
 		</Unit>

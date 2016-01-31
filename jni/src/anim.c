@@ -104,7 +104,7 @@ t_sprite*   create_Enemy( int position, int A, int B, t_animation *ANIM, float F
 }
 /*****************************************************************
 *****************************************************************/
-void avance_sprite(t_sprite *s, t_level *pLevel, t_system *my_system){
+void avance_sprite(t_sprite *s, t_level *pLevel, t_system *my_system, int *heart_point){
 
     // gestion du retardement au démarrage
     if (s->time_before_ativiation > 1 ) {
@@ -364,8 +364,10 @@ void avance_sprite(t_sprite *s, t_level *pLevel, t_system *my_system){
                         (Centre.tileX == pLevel->cibleX && Centre.tileY == pLevel->cibleY)
                         ) {
 
-                        //if (DEBUG){SDL_Log ("Je suis arrive !!!\n");}
+                        if (DEBUG){SDL_Log ("Je suis arrive !!!\n");}
                         s->is_arrive = true;
+
+                        if (*heart_point > 0 ) { *heart_point -= 1; }
                     }
 
 

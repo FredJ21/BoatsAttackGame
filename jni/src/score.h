@@ -2,7 +2,6 @@
 #define AFFICHAGE_TEXTE_H_INCLUDED
 
 
-
 typedef struct {
 
 
@@ -16,9 +15,10 @@ typedef struct {
     SDL_Rect        Score_position_src;
     SDL_Rect        Score_position_dst;
 
+
 } t_score;
 
-void init_score       (SDL_Renderer *pRenderer, t_score *s, t_system *my_system );
+void init_score       (SDL_Renderer *pRenderer, t_score *s, t_system *my_system, int score );
 void affiche_score    (SDL_Renderer *pRenderer, t_score *s, t_system *my_system );
 void clear_score      (t_score *s);
 

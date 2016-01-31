@@ -312,11 +312,11 @@ void        affiche_missile         (SDL_Renderer *r, t_missile *m, t_animation 
 }
 /*****************************************************************
 *****************************************************************/
-void        tir_tower   (t_tower *t, int current_nb_tower ) {
+void        tir_tower   (t_tower *t, int current_nb_tower, int *score ) {
+
+    int a;
 
     if ( t->actif && t->cible_x + t->cible_y > 0 ) {
-
-        int a;
 
         for (a = 0; a < TOWER_NB_MISSILE_MAX; a++) {
 
@@ -326,6 +326,9 @@ void        tir_tower   (t_tower *t, int current_nb_tower ) {
                 t->missile[a].y = t->y;
 
                 t->missile[a].actif = true;
+
+                *score -= SCORE_TIR;
+
                 break;
             }
         }

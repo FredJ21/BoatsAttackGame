@@ -9,17 +9,17 @@
 
 
 
+
 /*****************************************************************
 *****************************************************************/
-void init_score       (SDL_Renderer *pRenderer, t_score *s, t_system *my_system ) {
+void init_score       (SDL_Renderer *pRenderer, t_score *s, t_system *my_system, int score ) {
 
 
     SDL_Surface *s_texte = NULL;
     SDL_Color couleur = {100, 50, 0, 0};
 
-
     char texte[256];
-    sprintf(texte,"Level %d - Enemy:%d   Score:0", s->level, s->NbEnemy);
+    sprintf(texte,"Level %d - Enemy:%d   Score:%d", s->level, s->NbEnemy, score);
 
     s_texte = TTF_RenderText_Blended(s->police, texte, couleur);
     s->Score_position_src.x = 0;

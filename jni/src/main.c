@@ -12,7 +12,7 @@
 #include "level.h"
 #include "anim.h"
 #include "Algo_A_star.h"
-#include "affichage_texte.h"
+#include "score.h"
 #include "tower.h"
 #include "Algo_Collision.h"
 #include "type_game.h"
@@ -161,6 +161,9 @@ int main( int argc, char* args[] )
     my_game.current_nb_missile  = 0;
     my_game.current_nb_explosion = 0;
 
+    my_game.score               = 0;
+    my_game.heart_point         = SCORE_HEART_POINT;
+
 
     /******************************************************************************************************************
                                                 INIT DES IMAGES / ANNIMATIONS
@@ -235,6 +238,12 @@ int main( int argc, char* args[] )
     t_animation IMG_BUTTON_TOWER = { "images/Tower_Botton_100x80_3.bmp", 100, 80, 1, 1, 1, NULL, 1, 1 };
         init_animation( &IMG_BUTTON_TOWER, pRenderer);
 
+
+    t_animation HEART = { "images/coeur_32x32.png", 32, 32, 1, 1, 1, NULL, 1, 1 };
+        init_animation( &HEART, pRenderer);
+
+
+
     /******************************************************************************************************************
                                                 INIT DES SPRITES  / Objets afficher
     *******************************************************************************************************************/
@@ -255,6 +264,12 @@ int main( int argc, char* args[] )
     my_game.sp_BUTTON_TOWER->x = my_game.sp_BUTTON_TOWER->anim->tx/2 + 15;
     my_game.sp_BUTTON_TOWER->y = my_system.map_taille_y - my_game.sp_BUTTON_TOWER->anim->ty/2 - 15 ;
 
+
+    t_sprite *sp_HEART ;
+    sp_HEART = init_sprite(&HEART);
+    sp_HEART->visible = 255;
+    sp_HEART->is_actif = true;
+    sp_HEART->y = 22;
 
 
     /******************************************************************************************************************
@@ -407,7 +422,8 @@ int main( int argc, char* args[] )
                                     if (DEBUG) {SDL_Log("Fred DEBUG - BUTTON TIR\n");}
 
                                     for (a = 0; a < my_game.current_nb_tower; a++){
-                                        tir_tower(my_game.sp_TOWER[a], my_game.current_nb_tower);                                               /** ==>  TIR    **/
+//                                        my_game.score -=1;
+                                        tir_tower(my_game.sp_TOWER[a], my_game.current_nb_tower, &my_game.score);                                               /** ==>  TIR    **/
                                     }
 
                                 }
@@ -532,12 +548,14 @@ int main( int argc, char* args[] )
                             my_game.flag_tower_position_ok      = false;
 
                             // RAZ des variables currentes
-                            my_game.current_nb_enemy = 0;
-                            my_game.current_nb_tower = 0;
-                            my_game.current_nb_explosion = 0;
-                            my_game.current_tower    = TOWER_MAX;   // id tourelle selectionnée, TOWER_MAX signifi qu'aucune n'est seletionnée
+                            my_game.current_nb_enemy            = 0;
+                            my_game.current_nb_tower            = 0;
+                            my_game.current_nb_explosion        = 0;
+                            my_game.current_tower               = TOWER_MAX;   // id tourelle selectionnée, TOWER_MAX signifi qu'aucune n'est seletionnée
 
-                            my_score.level = my_game.current_level + 1;
+                            my_score.level                      = my_game.current_level + 1;
+
+                            my_game.heart_point                 = SCORE_HEART_POINT;
 
 
                             /** LEVEL **/
@@ -603,7 +621,7 @@ int main( int argc, char* args[] )
 
                         // mise à jour du score
                         my_score.NbEnemy = my_game.current_enemy_alive;
-                        init_score( pRenderer, &my_score, &my_system);
+                        init_score( pRenderer, &my_score, &my_system, my_game.score );
 
 
                         // decide du changement de level
@@ -656,7 +674,7 @@ int main( int argc, char* args[] )
                     // Affichage des ENEMY
                     for (a = 0; a < my_game.current_nb_enemy; a++) {
                         anime_sprite    (my_game.sp_ENEMY[a]);
-                        avance_sprite   (my_game.sp_ENEMY[a], &my_level, &my_system);
+                        avance_sprite   (my_game.sp_ENEMY[a], &my_level, &my_system, &my_game.heart_point);
                         affiche_sprite  (pRenderer, my_game.sp_ENEMY[a]);
                     }
                     // Affichage des tourelles
@@ -706,6 +724,13 @@ int main( int argc, char* args[] )
                     // Affichage du score
                     affiche_score( pRenderer, &my_score, &my_system);
 
+                    // Affichage des vies restantes
+                    for (a=0; a<my_game.heart_point; a++){
+                        sp_HEART->x = 30 + (sp_HEART->anim->tx * a);
+                        affiche_sprite (pRenderer, sp_HEART);
+                    }
+
+
                     // Mise a jour de l'affichage
                     SDL_RenderPresent   (pRenderer);
 
@@ -743,6 +768,7 @@ int main( int argc, char* args[] )
     destroy_sprite(&my_game.sp_BUTTON_TOWER);
     destroy_sprite(&my_game.sp_BUTTON_TIR);
 
+
     SDL_DestroyTexture(ANIM[0].texture);
     SDL_DestroyTexture(ANIM[1].texture);
     SDL_DestroyTexture(ANIM[2].texture);
@@ -751,6 +777,7 @@ int main( int argc, char* args[] )
     SDL_DestroyTexture(ANIM_TOWER.texture);
     SDL_DestroyTexture(ANIM_MISSILE.texture);
     SDL_DestroyTexture(my_score.pTexture_Score);
+    SDL_DestroyTexture(HEART.texture);
 
     clear_level (&my_level);
     clear_score (&my_score);
