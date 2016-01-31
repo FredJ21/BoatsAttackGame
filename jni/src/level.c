@@ -1595,6 +1595,35 @@ void init_level_titre       (SDL_Renderer *pRenderer, t_level *pLevel, TTF_Font 
 }
 /*****************************************************************
 *****************************************************************/
+void init_level_gameover_txt  (SDL_Renderer *pRenderer, t_level *pLevel, TTF_Font *police, t_system *my_system) {
+
+
+    char txt[15];
+    strcpy(txt, "Game-Over");
+
+
+    SDL_Surface *texte = NULL;
+    SDL_Color couleur = {200, 100, 100, 0};
+
+    texte = TTF_RenderText_Blended(police, txt, couleur);
+    pLevel->GameOver_position_src.x = 0;
+    pLevel->GameOver_position_src.y = 0;
+    pLevel->GameOver_position_src.h = texte->h;
+    pLevel->GameOver_position_src.w = texte->w;
+    pLevel->GameOver_position_dst.x = (my_system->map_taille_x - texte->w)/2;
+    pLevel->GameOver_position_dst.y = (my_system->map_taille_y - texte->h*2)/2;
+    pLevel->GameOver_position_dst.h = texte->h;
+    pLevel->GameOver_position_dst.w = texte->w;
+
+    // Création de la texture pour le texte
+    pLevel->pTexture_GameOver = SDL_CreateTextureFromSurface(pRenderer, texte);
+    if(!pLevel->pTexture_GameOver && DEBUG) { SDL_LogError( SDL_LOG_CATEGORY_APPLICATION,"SDL_Texture ERREUR! SDL_GetError: %s\n", SDL_GetError() ); exit(-1);}
+
+    SDL_FreeSurface(texte);
+
+}
+/*****************************************************************
+*****************************************************************/
 void clear_level            (t_level *pLevel) {
 
     SDL_DestroyTexture(pLevel->pTexture_MAP);
@@ -1613,6 +1642,13 @@ void affiche_map            (SDL_Renderer *pRenderer, t_level *pLevel) {
 void affiche_titre          (SDL_Renderer *pRenderer, t_level *p) {
 
        SDL_RenderCopy      (pRenderer, p->pTexture_MAP_Titre,  &p->Titre_position_src, &p->Titre_position_dst);
+
+}
+/*****************************************************************
+*****************************************************************/
+void affiche_gameover       (SDL_Renderer *pRenderer, t_level *p) {
+
+       SDL_RenderCopy      (pRenderer, p->pTexture_GameOver,  &p->GameOver_position_src, &p->GameOver_position_dst);
 
 }
 /*****************************************************************

@@ -43,6 +43,10 @@ typedef struct {
     SDL_Rect        Titre_position_src;
     SDL_Rect        Titre_position_dst;
 
+    SDL_Texture     *pTexture_GameOver;
+    SDL_Rect        GameOver_position_src;
+    SDL_Rect        GameOver_position_dst;
+
 
 } t_level;
 
@@ -52,11 +56,13 @@ enum { INCONNU, VERS_LE_HAUT, VERS_LA_DROITE, VERS_LE_BAS, VERS_LA_GAUCHE };
 void init_level             (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile, SDL_Renderer *pRenderer, t_system *my_system);
 void init_level_chemins     (t_level *pLevel, t_system *my_system);
 void init_level_titre       (SDL_Renderer *pRenderer, t_level *pLevel, TTF_Font *police, t_system *my_system);
+void init_level_gameover_txt (SDL_Renderer *pRenderer, t_level *pLevel, TTF_Font *police, t_system *my_system);
 
 void clear_level            (t_level *pLevel);
 
 void affiche_map            (SDL_Renderer *pRenderer, t_level *pLevel);
 void affiche_titre          (SDL_Renderer *pRenderer, t_level *pLevel);
+void affiche_gameover       (SDL_Renderer *pRenderer, t_level *pLevel);
 
 // fonctions de debugage
 void init_texture_obstacle  (SDL_Renderer *pRenderer, t_level *pLevel, t_system *my_system);

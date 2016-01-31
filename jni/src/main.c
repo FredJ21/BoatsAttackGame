@@ -161,10 +161,15 @@ int main( int argc, char* args[] )
     my_game.current_nb_missile          = 0;
     my_game.current_nb_explosion        = 0;
 
+    my_game.flag_game_over              = false;
+
     my_game.score                       = 0;
     my_game.heart_point                 = SCORE_HEART_POINT;
 
     my_game.last_level                  = 20;         //  A MODIFIER
+
+    init_level_gameover_txt (pRenderer, &my_level, police_level_titre, &my_system);
+
 
     /******************************************************************************************************************
                                                 INIT DES IMAGES / ANNIMATIONS
@@ -543,6 +548,7 @@ int main( int argc, char* args[] )
                             my_game.flag_mode_place_tower       = false;
                             my_game.flag_mode_tower_selected    = false;
                             my_game.flag_tower_position_ok      = false;
+                            my_game.flag_game_over              = false;
 
                             // RAZ des variables currentes
                             my_game.current_nb_enemy            = 0;
@@ -562,7 +568,7 @@ int main( int argc, char* args[] )
                             if(DEBUG_MAP){init_texture_obstacle(pRenderer, &my_level, &my_system);}
 
                             if (DEBUG) { SDL_Log("Fred DEBUG - Change_level Init level 2\n"); }
-                            init_level_titre(pRenderer, &my_level, police_level_titre, &my_system);
+                            init_level_titre        (pRenderer, &my_level, police_level_titre, &my_system);
 
                             if (DEBUG) {SDL_Log("Fred DEBUG - Change_level Init level 3\n");}
                             place_sprite(my_game.sp_ARRIVE, my_level.cibleX, my_level.cibleY);
@@ -644,6 +650,10 @@ int main( int argc, char* args[] )
                                 my_game.flag_affiche_level_titre =false;
                         }
 
+                        // ********** GAME OVER ************
+                        if (my_game.heart_point <= 0) { my_game.flag_game_over = true; }
+
+
                         CounterTimeLevel++;
                         CounterSecond = SDL_GetTicks();
 
@@ -710,13 +720,18 @@ int main( int argc, char* args[] )
                     }
 
                     // Afficahge des boutons
-                    if (!my_game.flag_affiche_level_titre) {    affiche_sprite (pRenderer, my_game.sp_BUTTON_TIR);     }
+                    if (!my_game.flag_game_over) {
+                            if (!my_game.flag_affiche_level_titre) {    affiche_sprite (pRenderer, my_game.sp_BUTTON_TIR);     }
 
-                    if (!my_game.flag_affiche_level_titre && my_game.current_nb_tower < TOWER_MAX) {
+                            if (!my_game.flag_affiche_level_titre && my_game.current_nb_tower < TOWER_MAX) {
                                                         affiche_sprite (pRenderer, my_game.sp_BUTTON_TOWER);   }
+                    }
 
                     // Affichage du texte
                     if (my_game.flag_affiche_level_titre) {     affiche_titre(pRenderer, &my_level);        }
+
+                    if (my_game.flag_game_over) {               affiche_gameover(pRenderer, &my_level);     }
+
 
                     // Affichage du score
                     affiche_score( pRenderer, &my_score, &my_system);
