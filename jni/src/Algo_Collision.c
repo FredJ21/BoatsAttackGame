@@ -43,10 +43,26 @@ void test_collision             (t_game *my_game, t_animation ANIM_EXPLOSION[]) 
     int nb = 0;
     int explose_num;
 
-    for (a = 0; a < my_game->current_nb_tower; a++) {                        // pour chaque tourelle  A
-        for( m = 0; m < TOWER_NB_MISSILE_MAX; m++){         // pour chaque missile   M
+    for (a = 0; a < my_game->current_nb_tower; a++) {                     // pour chaque tourelle  A
+
+
+        if (my_game->sp_TOWER[a]->actif && my_game->flag_game_over) {              // detruit toute les tourelles en cas de GAMEOVER
+
+                    my_game->sp_TOWER[a]->actif = false;
+
+                    explose_num = rand() % NB_ANIM_EXPLOSION;
+                    my_game->sp_EXPLOSION[my_game->current_nb_explosion]    = init_sprite (&ANIM_EXPLOSION[explose_num]);
+                    my_game->sp_EXPLOSION[my_game->current_nb_explosion]->x = my_game->sp_TOWER[a]->x;
+                    my_game->sp_EXPLOSION[my_game->current_nb_explosion]->y = my_game->sp_TOWER[a]->y;
+                    my_game->current_nb_explosion++;
+        }
+
+
+
+        for( m = 0; m < TOWER_NB_MISSILE_MAX; m++){                     // test de collision pour chaque missile   M
 
             if (my_game->sp_TOWER[a]->missile[m].actif ) {
+
 
                 // test de collision avec les autres tourelle   B
                 for (b = 0; b < my_game->current_nb_tower; b++) {

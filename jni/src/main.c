@@ -420,12 +420,11 @@ int main( int argc, char* args[] )
                             my_game.flag_event_DOWN = false;
 
                             if (my_game.flag_mode_game) {
-                                if (my_game.current_mouse_x > ZONE_BUTTON_TIR_X && my_game.current_mouse_y > ZONE_BUTTON_TIR_Y) {           /** CLICK BUTTON TIR **/
+                                if (my_game.current_mouse_x > ZONE_BUTTON_TIR_X && my_game.current_mouse_y > ZONE_BUTTON_TIR_Y && !my_game.flag_game_over) { /** CLICK BUTTON TIR **/
                                     if (DEBUG) {SDL_Log("Fred DEBUG - BUTTON TIR\n");}
 
                                     for (a = 0; a < my_game.current_nb_tower; a++){
-//                                        my_game.score -=1;
-                                        tir_tower(my_game.sp_TOWER[a], my_game.current_nb_tower, &my_game.score);                                               /** ==>  TIR    **/
+                                        tir_tower(my_game.sp_TOWER[a], my_game.current_nb_tower, &my_game.score);                                             /** ==>  TIR    **/
                                     }
 
                                 }
@@ -628,7 +627,7 @@ int main( int argc, char* args[] )
 
 
                         // decide du changement de level
-                        if ( my_game.current_enemy_alive == 0 ) {
+                        if ( my_game.current_enemy_alive == 0 && !my_game.flag_game_over) {
 
                             CounterBeforeChgLevel++;
                             if ( CounterBeforeChgLevel > 5 ) {
