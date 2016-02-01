@@ -166,7 +166,7 @@ int main( int argc, char* args[] )
     my_game.score                       = 0;
     my_game.heart_point                 = SCORE_HEART_POINT;
 
-    my_game.last_level                  = 20;         //  A MODIFIER
+    my_game.last_level                  = 4;         //  A MODIFIER
 
     init_level_gameover_txt (pRenderer, &my_level, police_level_titre, &my_system);
 
@@ -631,12 +631,13 @@ int main( int argc, char* args[] )
 
                             CounterBeforeChgLevel++;
                             if ( CounterBeforeChgLevel > 5 ) {
-
                                 CounterBeforeChgLevel = 0;
+
+
                                 my_game.current_level++;
-                                if (my_game.current_level >= LEVEL_NB_TOTAL ) {
-                                    my_game.current_level = 0;
-                                }
+                                if (my_game.current_level >= LEVEL_NB_TOTAL ) {     my_game.current_level = 0; }
+                                if (my_game.current_level > my_game.last_level ){   my_game.last_level = my_game.current_level; }
+
                                 my_game.flag_change_level = true;
                             }
                         }
