@@ -22,7 +22,7 @@
 
 int main( int argc, char* args[] )
 {
-    if (DEBUG) {SDL_Log("Fred DEBUG - Go 10:14\n"); }
+    if (DEBUG) {SDL_Log("Fred DEBUG - Go ...\n"); }
 
     /******************************************************************************************************************
                                                 VARIABLES
@@ -166,9 +166,37 @@ int main( int argc, char* args[] )
     my_game.score                       = 0;
     my_game.heart_point                 = SCORE_HEART_POINT;
 
-    my_game.last_level                  = 4;         //  A MODIFIER
-
     init_level_gameover_txt (pRenderer, &my_level, police_level_titre, &my_system);
+
+    /******************************************************************************************************************
+                                                READ DATA FILE
+    *******************************************************************************************************************/
+
+    SDL_RWops* file = SDL_RWFromFile( DATAFILE, "r+b" );
+    // si le fichier n'existe pas
+    if ( file == NULL ) {
+            if (DEBUG) { SDL_Log("Fred DEBUG - file not found -> create"); }
+
+            // creation du fichier data
+            SDL_RWops* file = SDL_RWFromFile( DATAFILE, "w+b" );
+            if ( file == NULL ) {
+                    if (DEBUG) { SDL_Log("Fred DEBUG - create file failed"); return -1; }
+
+            } else {
+                    my_game.last_level                  = 0;
+                    SDL_RWwrite( file, &my_game.max_level_win, sizeof(int), 1 );
+                    my_game.last_level  =  my_game.max_level_win;
+            }
+    // si le fichier existe --> lecture du fichier
+    } else {
+            if (DEBUG) {SDL_Log("Fred DEBUG - Read File Data"); }
+
+            SDL_RWread( file, &my_game.last_level, sizeof(int), 1 );
+    }
+
+    SDL_RWclose( file );
+
+    if (DEBUG) {SDL_Log("Fred DEBUG - last_level : %d", my_game.last_level); }
 
 
     /******************************************************************************************************************
@@ -635,11 +663,30 @@ int main( int argc, char* args[] )
 
 
                                 my_game.current_level++;
-                                if (my_game.current_level >= LEVEL_NB_TOTAL ) {     my_game.current_level = 0; }
+                                if (my_game.current_level >= LEVEL_NB_TOTAL ) {     my_game.current_level = 0;  }
+
+
                                 if (my_game.current_level > my_game.last_level ){   my_game.last_level = my_game.current_level; }
 
                                 my_game.flag_change_level = true;
                             }
+
+                                // SAUVEGARDE du niveau
+                                if (my_game.current_level > my_game.max_level_win) {
+
+                                        my_game.max_level_win = my_game.current_level ;
+                                        if (DEBUG) { SDL_Log("Fred DEBUG - save data max_level_win : %d", my_game.max_level_win); }
+
+                                        SDL_RWops* file = SDL_RWFromFile( DATAFILE, "w+b" );
+                                        if ( file == NULL ) {
+                                                if (DEBUG) { SDL_Log("Fred DEBUG - save data failed"); return -1; }
+
+                                        } else {
+                                            SDL_RWwrite( file, &my_game.max_level_win, sizeof(int), 1 );
+                                        }
+
+                                        SDL_RWclose( file );
+                                }
                         }
 
                         //Affichage du titre en debut de level

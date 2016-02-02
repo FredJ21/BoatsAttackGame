@@ -22,6 +22,7 @@ typedef struct {
 
     int current_level;                      // Level 0.....x
     int last_level;                         // dernier niveau effectué par l'utilisateur
+    int max_level_win;                      // niveau maximum atteind
     int current_nb_enemy;                   // nombre d'ennemi
     int current_enemy_alive;                // nombre d'ennemi en vie
     int current_nb_tower;                   // nombre de tourelle

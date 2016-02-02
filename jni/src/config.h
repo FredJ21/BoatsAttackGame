@@ -16,6 +16,7 @@
 #define bool    short int
 
 // CONFIG
+#define DATAFILE            "data.bin"
 #define APP_TITRE           "Battle BOATS - By Fred & Mathis"
 #define COULEUR_FENETRE     NOIR
 #define START_IMG           "images/start.bmp"
