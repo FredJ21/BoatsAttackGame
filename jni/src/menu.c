@@ -320,7 +320,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
 }
 /*****************************************************************
 *****************************************************************/
-void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *pRenderer, int *current_level, int *last_level) {
+void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *pRenderer, int *current_level, int *last_level, bool *flag_fin) {
 
 
     int a, b, level, x, y, xx, yy;
@@ -425,14 +425,17 @@ void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *
 
                     case SDL_QUIT:
                         exit = true;
+                        *flag_fin = true;
                         break;
 
                     case SDL_KEYDOWN:
                         switch( event.key.keysym.sym ){
                             case SDLK_ESCAPE:
+                                *flag_fin = true;
                                 exit = true;
                                 break;
                             case SDLK_AC_BACK:
+                                *flag_fin = true;
                                 exit = true;
                                 break;
                         }

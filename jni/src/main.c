@@ -309,7 +309,7 @@ int main( int argc, char* args[] )
             my_game.flag_fin = false;
 
             if (DEBUG) {SDL_Log("Fred DEBUG - Affiche menu level - last_level:%d\n", my_game.last_level);}
-            affiche_menu_level(&my_menu, &my_system, pRenderer, &my_game.current_level, &my_game.last_level);
+            affiche_menu_level(&my_menu, &my_system, pRenderer, &my_game.current_level, &my_game.last_level, &my_game.flag_fin);
         }
 
         if (DEBUG) {SDL_Log("Fred DEBUG - current_level = %d\n", my_game.current_level);}
