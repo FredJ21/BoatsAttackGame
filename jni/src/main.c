@@ -424,11 +424,11 @@ int main( int argc, char* args[] )
                                     if (DEBUG) {SDL_Log("Fred DEBUG - BUTTON TIR\n");}
 
                                     for (a = 0; a < my_game.current_nb_tower; a++){
-                                        tir_tower(my_game.sp_TOWER[a], my_game.current_nb_tower, &my_game.score);                                             /** ==>  TIR    **/
+                                        tir_tower(my_game.sp_TOWER[a], my_game.current_nb_tower, &my_game.score);                                /** ==>  TIR    **/
                                     }
 
                                 }
-                                if (my_game.current_mouse_x < ZONE_BUTTON_TOWER_X && my_game.current_mouse_y > ZONE_BUTTON_TOWER_Y) {       /** CLICK BUTTON TOWER **/
+                                if (my_game.current_mouse_x < ZONE_BUTTON_TOWER_X && my_game.current_mouse_y > ZONE_BUTTON_TOWER_Y && !my_game.flag_game_over) {/** CLICK BUTTON TOWER **/
                                     if (DEBUG) {SDL_Log("Fred DEBUG - BUTTON TOWER\n");}
 
                                     if (my_game.current_nb_tower < TOWER_MAX) {
