@@ -46,6 +46,8 @@ int main( int argc, char* args[] )
 
     srand(time(NULL));
 
+    SDL_RWops* file                 = NULL;
+
     SDL_Window *pWindow             = NULL;
     SDL_Renderer *pRenderer         = NULL;
     SDL_Surface *pSurface           = NULL;
@@ -172,13 +174,13 @@ int main( int argc, char* args[] )
                                                 READ DATA FILE
     *******************************************************************************************************************/
 
-    SDL_RWops* file = SDL_RWFromFile( DATAFILE, "r+b" );
+    file = SDL_RWFromFile( DATAFILE, "r+b" );
     // si le fichier n'existe pas
     if ( file == NULL ) {
             if (DEBUG) { SDL_Log("Fred DEBUG - file not found -> create"); }
 
             // creation du fichier data
-            SDL_RWops* file = SDL_RWFromFile( DATAFILE, "w+b" );
+            file = SDL_RWFromFile( DATAFILE, "w+b" );
             if ( file == NULL ) {
                     if (DEBUG) { SDL_Log("Fred DEBUG - create file failed"); return -1; }
 
@@ -677,7 +679,7 @@ int main( int argc, char* args[] )
                                         my_game.max_level_win = my_game.current_level ;
                                         if (DEBUG) { SDL_Log("Fred DEBUG - save data max_level_win : %d", my_game.max_level_win); }
 
-                                        SDL_RWops* file = SDL_RWFromFile( DATAFILE, "w+b" );
+                                        file = SDL_RWFromFile( DATAFILE, "w+b" );
                                         if ( file == NULL ) {
                                                 if (DEBUG) { SDL_Log("Fred DEBUG - save data failed"); return -1; }
 
