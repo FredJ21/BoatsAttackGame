@@ -59,14 +59,11 @@ int main( int argc, char* args[] )
 
     SDL_Event event;
 
-//The music that will be played
-Mix_Music *gMusic = NULL;
+    //The music that will be played
+    Mix_Music *soundMusic = NULL;
 
-//The sound effects that will be used
-Mix_Chunk *gScratch = NULL;
-Mix_Chunk *gHigh = NULL;
-Mix_Chunk *gMedium = NULL;
-Mix_Chunk *gLow = NULL;
+    //The sound effects that will be used
+    Mix_Chunk *soundStart = NULL;
 
     /******************************************************************************************************************
                                                 INIT SDL 2
@@ -336,41 +333,12 @@ Mix_Chunk *gLow = NULL;
     *******************************************************************************************************************/
 
 	//Load music
-	gMusic = Mix_LoadMUS( "sound/beat.wav" );
-	if( gMusic == NULL )
-	{
-		printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
-		return -1;
-	}
+	soundMusic = Mix_LoadMUS( "sound/beat.wav" );
+	if( soundMusic == NULL && DEBUG) {  		SDL_Log( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
 	//Load sound effects
-	gScratch = Mix_LoadWAV( "sound/r2-d2.wav" );
-	if( gScratch == NULL )
-	{
-		printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
-		return -1;
-	}
-
-	gHigh = Mix_LoadWAV( "sound/high.wav" );
-	if( gHigh == NULL )
-	{
-		printf( "Failed to load high sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
-		return -1;
-	}
-
-	gMedium = Mix_LoadWAV( "sound/medium.wav" );
-	if( gMedium == NULL )
-	{
-		printf( "Failed to load medium sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
-		return -1;
-	}
-
-	gLow = Mix_LoadWAV( "sound/low.wav" );
-	if( gLow == NULL )
-	{
-		printf( "Failed to load low sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
-		return -1;
-	}
+	soundStart = Mix_LoadWAV( "sound/r2-d2.wav" );
+	if( soundStart == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
 
     /******************************************************************************************************************
@@ -378,7 +346,7 @@ Mix_Chunk *gLow = NULL;
     *******************************************************************************************************************/
     if (DEBUG) {SDL_Log("Fred DEBUG - START MAIN LOOP\n");}
 
-    Mix_PlayChannel( -1, gScratch, 0 );
+    Mix_PlayChannel( -1, soundStart, 0 );
 
     my_game.flag_game_started = false;
 
@@ -912,15 +880,10 @@ Mix_Chunk *gLow = NULL;
     TTF_CloseFont(police_level_titre);
 
   	//Free the sound effects
-	Mix_FreeChunk( gScratch );
-	Mix_FreeChunk( gHigh );
-	Mix_FreeChunk( gMedium );
-	Mix_FreeChunk( gLow );
-	gScratch = NULL;
-	gHigh = NULL;
-	gMedium = NULL;
-	gLow = NULL;
+  	soundMusic = NULL;
+	soundStart = NULL;
 
+    Mix_CloseAudio();
 
     TTF_Quit();
 	Mix_Quit();

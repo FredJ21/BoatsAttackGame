@@ -21,7 +21,7 @@ LOCAL_SRC_FILES := $(SDL_PATH)/src/main/android/SDL_android_main.c \
 	tower.c
 
 
-LOCAL_SHARED_LIBRARIES := SDL2 SDL2_ttf SDL2_image
+LOCAL_SHARED_LIBRARIES := SDL2 SDL2_ttf SDL2_image SDL2_mixer
 
 LOCAL_LDLIBS := -lGLESv1_CM -lGLESv2 -llog
 
