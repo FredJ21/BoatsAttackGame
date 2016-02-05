@@ -20,6 +20,7 @@
 #include "type_game.h"
 #include "type_system.h"
 #include "menu.h"
+#include "type_sound.h"
 
 
 int main( int argc, char* args[] )
@@ -34,6 +35,7 @@ int main( int argc, char* args[] )
     t_game      my_game     = {};
     t_system    my_system   = {};
     t_menu      my_menu     = {};
+    t_sound     my_sound    = {};
 
     long t_Avant_Traitement;        // permet de gérer les fps
     long t_Apres_Traitement;
@@ -59,11 +61,6 @@ int main( int argc, char* args[] )
 
     SDL_Event event;
 
-    //The music that will be played
-    Mix_Music *soundMusic = NULL;
-
-    //The sound effects that will be used
-    Mix_Chunk *soundStart = NULL;
 
     /******************************************************************************************************************
                                                 INIT SDL 2
@@ -333,12 +330,12 @@ int main( int argc, char* args[] )
     *******************************************************************************************************************/
 
 	//Load music
-	soundMusic = Mix_LoadMUS( "sound/beat.wav" );
-	if( soundMusic == NULL && DEBUG) {  		SDL_Log( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	my_sound.Music = Mix_LoadMUS( "sound/beat.wav" );
+	if( my_sound.Music == NULL && DEBUG) {  		SDL_Log( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
 	//Load sound effects
-	soundStart = Mix_LoadWAV( "sound/r2-d2.wav" );
-	if( soundStart == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	my_sound.Start = Mix_LoadWAV( "sound/oiseau-exotique.wav" );
+	if( my_sound.Start == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
 
     /******************************************************************************************************************
@@ -346,7 +343,7 @@ int main( int argc, char* args[] )
     *******************************************************************************************************************/
     if (DEBUG) {SDL_Log("Fred DEBUG - START MAIN LOOP\n");}
 
-    Mix_PlayChannel( -1, soundStart, 0 );
+    Mix_PlayChannel( -1, my_sound.Start, 0 );
 
     my_game.flag_game_started = false;
 
@@ -880,8 +877,8 @@ int main( int argc, char* args[] )
     TTF_CloseFont(police_level_titre);
 
   	//Free the sound effects
-  	soundMusic = NULL;
-	soundStart = NULL;
+  	my_sound.Music = NULL;
+	my_sound.Start = NULL;
 
     Mix_CloseAudio();
 
