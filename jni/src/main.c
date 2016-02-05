@@ -1,6 +1,8 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -57,12 +59,20 @@ int main( int argc, char* args[] )
 
     SDL_Event event;
 
+//The music that will be played
+Mix_Music *gMusic = NULL;
+
+//The sound effects that will be used
+Mix_Chunk *gScratch = NULL;
+Mix_Chunk *gHigh = NULL;
+Mix_Chunk *gMedium = NULL;
+Mix_Chunk *gLow = NULL;
 
     /******************************************************************************************************************
                                                 INIT SDL 2
     *******************************************************************************************************************/
     // Initialize SDL
-    if( SDL_Init( SDL_INIT_VIDEO) != 0 && DEBUG ) {  SDL_Log( "SDL_Init ERREUR ! SDL_GetError: %s\n", SDL_GetError() ); return -1; }
+    if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0 && DEBUG ) {  SDL_Log( "SDL_Init ERREUR ! SDL_GetError: %s\n", SDL_GetError() ); return -1; }
 
     my_system.Platform = SDL_GetPlatform();
     if (DEBUG) {SDL_Log("Fred DEBUG - Platform: %s\n", my_system.Platform);}
@@ -128,6 +138,14 @@ int main( int argc, char* args[] )
     if(!police_level_titre&& DEBUG ) {  SDL_Log( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
     if (DEBUG) {SDL_Log("Fred DEBUG - INIT SDL OK\n");}
+
+    /******************************************************************************************************************
+                                                INIT SDL 2 MIXER (Audio)
+    *******************************************************************************************************************/
+
+    //Initialize SDL_mixer
+    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) != 0 )
+    {        SDL_Log("Fred DEBUG - SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() ); return -1;}
 
     /******************************************************************************************************************
                                                 INIT MENU
@@ -313,11 +331,54 @@ int main( int argc, char* args[] )
     my_score.police = TTF_OpenFont(POLICE_SCORE, POLICE_SCORE_SIZE);
     if(!my_score.police && DEBUG) { SDL_Log( "TTF_OpenFont ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
+    /******************************************************************************************************************
+                                                LOAD SOUND
+    *******************************************************************************************************************/
+
+	//Load music
+	gMusic = Mix_LoadMUS( "sound/beat.wav" );
+	if( gMusic == NULL )
+	{
+		printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
+		return -1;
+	}
+
+	//Load sound effects
+	gScratch = Mix_LoadWAV( "sound/r2-d2.wav" );
+	if( gScratch == NULL )
+	{
+		printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+		return -1;
+	}
+
+	gHigh = Mix_LoadWAV( "sound/high.wav" );
+	if( gHigh == NULL )
+	{
+		printf( "Failed to load high sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+		return -1;
+	}
+
+	gMedium = Mix_LoadWAV( "sound/medium.wav" );
+	if( gMedium == NULL )
+	{
+		printf( "Failed to load medium sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+		return -1;
+	}
+
+	gLow = Mix_LoadWAV( "sound/low.wav" );
+	if( gLow == NULL )
+	{
+		printf( "Failed to load low sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+		return -1;
+	}
+
 
     /******************************************************************************************************************
                                                 BOUCLE PRINCIPALE
     *******************************************************************************************************************/
     if (DEBUG) {SDL_Log("Fred DEBUG - START MAIN LOOP\n");}
+
+    Mix_PlayChannel( -1, gScratch, 0 );
 
     my_game.flag_game_started = false;
 
@@ -850,7 +911,20 @@ int main( int argc, char* args[] )
 
     TTF_CloseFont(police_level_titre);
 
+  	//Free the sound effects
+	Mix_FreeChunk( gScratch );
+	Mix_FreeChunk( gHigh );
+	Mix_FreeChunk( gMedium );
+	Mix_FreeChunk( gLow );
+	gScratch = NULL;
+	gHigh = NULL;
+	gMedium = NULL;
+	gLow = NULL;
+
+
     TTF_Quit();
+	Mix_Quit();
+	IMG_Quit();
     SDL_Quit();
 
     //close();
