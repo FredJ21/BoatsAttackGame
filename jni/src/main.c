@@ -331,32 +331,32 @@ int main( int argc, char* args[] )
     *******************************************************************************************************************/
 
 	//Load music
-	my_sound.Music = Mix_LoadMUS( "sound/beat.wav" );
-	if( my_sound.Music == NULL && DEBUG) {  		SDL_Log( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	my_sound.Music      = Mix_LoadMUS( "sound/music.wav" );
+	if( my_sound.Music  == NULL && DEBUG) {  		SDL_Log( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
 	//Load sound effects
-	my_sound.Start = Mix_LoadWAV( "sound/oiseau-exotique.wav" );
+	my_sound.Start      = Mix_LoadWAV( "sound/start.wav" );
 	if( my_sound.Start == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
-	my_sound.Button = Mix_LoadWAV( "sound/button.wav" );
-	if( my_sound.Button == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	my_sound.Click      = Mix_LoadWAV( "sound/click.wav" );
+	if( my_sound.Click  == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
-	my_sound.Exit = Mix_LoadWAV( "sound/exit.wav" );
-	if( my_sound.Exit == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	my_sound.Cancel     = Mix_LoadWAV( "sound/cancel.wav" );
+	if( my_sound.Cancel == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
-	my_sound.Danger = Mix_LoadWAV( "sound/alien_danger.wav" );
-	if( my_sound.Danger == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	my_sound.StartGame  = Mix_LoadWAV( "sound/start_game.wav" );
+	if( my_sound.StartGame == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
-	my_sound.BeBack = Mix_LoadWAV( "sound/t1_be_back.wav" );
-	if( my_sound.BeBack == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	my_sound.Exit       = Mix_LoadWAV( "sound/exit.wav" );
+	if( my_sound.Exit   == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
-	my_sound.Explosion = Mix_LoadWAV( "sound/explosion.wav" );
+	my_sound.Explosion  = Mix_LoadWAV( "sound/explosion.wav" );
 	if( my_sound.Explosion == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
-	my_sound.Tir = Mix_LoadWAV( "sound/tir.wav" );
-	if( my_sound.Tir == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	my_sound.Tir        = Mix_LoadWAV( "sound/tir.wav" );
+	if( my_sound.Tir    == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
-	my_sound.GameOver = Mix_LoadWAV( "sound/game_over.wav" );
+	my_sound.GameOver   = Mix_LoadWAV( "sound/game_over.wav" );
 	if( my_sound.GameOver == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
     /******************************************************************************************************************
@@ -595,7 +595,7 @@ int main( int argc, char* args[] )
                     *******************************************************************************************************************/
                     if (my_game.flag_change_level) {
 
-                            Mix_PlayChannel( -1, my_sound.Danger, 0 );
+                            Mix_PlayChannel( -1, my_sound.StartGame, 0 );
 
                             if (DEBUG) {SDL_Log("Fred DEBUG - Change_level\n");}
 
@@ -867,7 +867,7 @@ int main( int argc, char* args[] )
     *******************************************************************************************************************/
     if (DEBUG) {SDL_Log("Fred DEBUG - FIN\n");}
 
-    Mix_PlayChannel( -1, my_sound.BeBack, 0 );
+    Mix_PlayChannel( -1, my_sound.Exit, 0 );
     SDL_Delay( 2000 );
 
     // Nettoyage

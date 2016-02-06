@@ -215,7 +215,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                         && current_mouse_y > menu->button_start.y && current_mouse_y < menu->button_start.y + menu->button_start.h
                         ) {
                             if      (flag_event_down)  { affiche_button (&menu->button_start_p, pRenderer); }
-                            else if (flag_event_up)    { menu->start = true; exit = true;    Mix_PlayChannel( -1, sound->Button, 0 );}
+                            else if (flag_event_up)    { menu->start = true; exit = true;    Mix_PlayChannel( -1, sound->Click, 0 );}
                         }
             }
             if (menu->button_restart.enable) {
@@ -224,7 +224,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                         && current_mouse_y > menu->button_restart.y && current_mouse_y < menu->button_restart.y + menu->button_restart.h
                         ) {
                             if      (flag_event_down)  { affiche_button (&menu->button_restart_p, pRenderer); }
-                            else if (flag_event_up)    { menu->restart = true; exit = true; Mix_PlayChannel( -1, sound->Button, 0 );}
+                            else if (flag_event_up)    { menu->restart = true; exit = true; Mix_PlayChannel( -1, sound->Click, 0 );}
                         }
             }
             if (menu->button_resume.enable) {
@@ -233,7 +233,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                         && current_mouse_y > menu->button_resume.y && current_mouse_y < menu->button_resume.y + menu->button_resume.h
                         ) {
                             if      (flag_event_down)  { affiche_button (&menu->button_resume_p, pRenderer); }
-                            else if (flag_event_up)    { menu->resume = true; exit = true; Mix_PlayChannel( -1, sound->Button, 0 );}
+                            else if (flag_event_up)    { menu->resume = true; exit = true; Mix_PlayChannel( -1, sound->Click, 0 );}
                         }
             }
             if (menu->button_exit.enable) {
@@ -242,7 +242,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                         && current_mouse_y > menu->button_exit.y && current_mouse_y < menu->button_exit.y + menu->button_exit.h
                         ) {
                             if      (flag_event_down)  { affiche_button (&menu->button_exit_p, pRenderer); }
-                            else if (flag_event_up)    { menu->exit = true; exit = true; Mix_PlayChannel( -1, sound->Exit, 0 );}
+                            else if (flag_event_up)    { menu->exit = true; exit = true; Mix_PlayChannel( -1, sound->Cancel, 0 );}
                         }
             }
 
@@ -380,7 +380,7 @@ void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *
                             *current_level = level;
                             exit = true;
 
-                            Mix_PlayChannel( -1, sound->Button, 0 );
+                            Mix_PlayChannel( -1, sound->Click, 0 );
 
                             menu->button_menu_level_Red.x = x ;
                             menu->button_menu_level_Red.y = y ;
