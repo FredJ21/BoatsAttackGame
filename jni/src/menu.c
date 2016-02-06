@@ -1,12 +1,14 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "config.h"
 #include "type_system.h"
+#include "type_sound.h"
 #include "menu.h"
 
 
@@ -147,7 +149,7 @@ void init_menu      (t_menu *my_menu, SDL_Renderer *pRenderer) {
 }
 /*****************************************************************
 *****************************************************************/
-void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_started, t_system *my_system) {
+void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_started, t_system *my_system, t_sound *sound) {
 
     bool exit               = false;
     int current_mouse_x     = 0;
@@ -213,7 +215,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                         && current_mouse_y > menu->button_start.y && current_mouse_y < menu->button_start.y + menu->button_start.h
                         ) {
                             if      (flag_event_down)  { affiche_button (&menu->button_start_p, pRenderer); }
-                            else if (flag_event_up)    { menu->start = true; exit = true; }
+                            else if (flag_event_up)    { menu->start = true; exit = true;    Mix_PlayChannel( -1, sound->Button, 0 );}
                         }
             }
             if (menu->button_restart.enable) {
@@ -222,7 +224,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                         && current_mouse_y > menu->button_restart.y && current_mouse_y < menu->button_restart.y + menu->button_restart.h
                         ) {
                             if      (flag_event_down)  { affiche_button (&menu->button_restart_p, pRenderer); }
-                            else if (flag_event_up)    { menu->restart = true; exit = true; }
+                            else if (flag_event_up)    { menu->restart = true; exit = true; Mix_PlayChannel( -1, sound->Button, 0 );}
                         }
             }
             if (menu->button_resume.enable) {
@@ -231,7 +233,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                         && current_mouse_y > menu->button_resume.y && current_mouse_y < menu->button_resume.y + menu->button_resume.h
                         ) {
                             if      (flag_event_down)  { affiche_button (&menu->button_resume_p, pRenderer); }
-                            else if (flag_event_up)    { menu->resume = true; exit = true; }
+                            else if (flag_event_up)    { menu->resume = true; exit = true; Mix_PlayChannel( -1, sound->Button, 0 );}
                         }
             }
             if (menu->button_exit.enable) {
@@ -240,7 +242,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                         && current_mouse_y > menu->button_exit.y && current_mouse_y < menu->button_exit.y + menu->button_exit.h
                         ) {
                             if      (flag_event_down)  { affiche_button (&menu->button_exit_p, pRenderer); }
-                            else if (flag_event_up)    { menu->exit = true; exit = true; }
+                            else if (flag_event_up)    { menu->exit = true; exit = true; Mix_PlayChannel( -1, sound->Exit, 0 );}
                         }
             }
 
@@ -259,6 +261,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                     case SDL_QUIT:
                         exit = true;
                         menu->exit = true;
+                        Mix_PlayChannel( -1, sound->Exit, 0 );
                         break;
 
                     case SDL_KEYDOWN:
@@ -266,10 +269,12 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                             case SDLK_ESCAPE:
                                 exit = true;
                                 menu->exit = true;
+                                Mix_PlayChannel( -1, sound->Exit, 0 );
                                 break;
                             case SDLK_AC_BACK:
                                 exit = true;
                                 menu->exit = true;
+                                Mix_PlayChannel( -1, sound->Exit, 0 );
                                 break;
                         }
                         break;
@@ -320,7 +325,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
 }
 /*****************************************************************
 *****************************************************************/
-void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *pRenderer, int *current_level, int *last_level, bool *flag_fin) {
+void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *pRenderer, int *current_level, int *last_level, bool *flag_fin, t_sound *sound) {
 
 
     int a, b, level, x, y, xx, yy;
@@ -375,6 +380,8 @@ void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *
                             *current_level = level;
                             exit = true;
 
+                            Mix_PlayChannel( -1, sound->Button, 0 );
+
                             menu->button_menu_level_Red.x = x ;
                             menu->button_menu_level_Red.y = y ;
                             affiche_button_number (&menu->button_menu_level_Red, (a+1)+b*10, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
@@ -426,6 +433,7 @@ void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *
                     case SDL_QUIT:
                         exit = true;
                         *flag_fin = true;
+                        Mix_PlayChannel( -1, sound->Exit, 0 );
                         break;
 
                     case SDL_KEYDOWN:
@@ -433,10 +441,12 @@ void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *
                             case SDLK_ESCAPE:
                                 *flag_fin = true;
                                 exit = true;
+                                Mix_PlayChannel( -1, sound->Exit, 0 );
                                 break;
                             case SDLK_AC_BACK:
                                 *flag_fin = true;
                                 exit = true;
+                                Mix_PlayChannel( -1, sound->Exit, 0 );
                                 break;
                         }
                         break;

@@ -45,6 +45,7 @@ int main( int argc, char* args[] )
     unsigned int CounterSecond = 0;         // traitement toute les seconds
     int CounterBeforeChgLevel = 0;          // pause avant le changement de level
     int CounterTimeLevel = 0;               // second depuis le demarrage du level
+    int TimerSoundGameOver = 0;             //
 
     int a = 0, b = 0, w = 0;
 
@@ -337,6 +338,26 @@ int main( int argc, char* args[] )
 	my_sound.Start = Mix_LoadWAV( "sound/oiseau-exotique.wav" );
 	if( my_sound.Start == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
+	my_sound.Button = Mix_LoadWAV( "sound/button.wav" );
+	if( my_sound.Button == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+
+	my_sound.Exit = Mix_LoadWAV( "sound/exit.wav" );
+	if( my_sound.Exit == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+
+	my_sound.Danger = Mix_LoadWAV( "sound/alien_danger.wav" );
+	if( my_sound.Danger == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+
+	my_sound.BeBack = Mix_LoadWAV( "sound/t1_be_back.wav" );
+	if( my_sound.BeBack == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+
+	my_sound.Explosion = Mix_LoadWAV( "sound/explosion.wav" );
+	if( my_sound.Explosion == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+
+	my_sound.Tir = Mix_LoadWAV( "sound/tir.wav" );
+	if( my_sound.Tir == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+
+	my_sound.GameOver = Mix_LoadWAV( "sound/game_over.wav" );
+	if( my_sound.GameOver == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
     /******************************************************************************************************************
                                                 BOUCLE PRINCIPALE
@@ -350,7 +371,7 @@ int main( int argc, char* args[] )
     while (!my_menu.exit) {
 
         if (DEBUG) {SDL_Log("Fred DEBUG - Affiche menu\n");}
-        affiche_menu(&my_menu, pRenderer, my_game.flag_game_started, &my_system);
+        affiche_menu(&my_menu, pRenderer, my_game.flag_game_started, &my_system, &my_sound);
 
         if (my_menu.exit)       { my_game.flag_fin = true; }
         if (my_menu.resume)     { my_menu.resume = false;
@@ -365,7 +386,7 @@ int main( int argc, char* args[] )
             my_game.flag_fin = false;
 
             if (DEBUG) {SDL_Log("Fred DEBUG - Affiche menu level - last_level:%d\n", my_game.last_level);}
-            affiche_menu_level(&my_menu, &my_system, pRenderer, &my_game.current_level, &my_game.last_level, &my_game.flag_fin);
+            affiche_menu_level(&my_menu, &my_system, pRenderer, &my_game.current_level, &my_game.last_level, &my_game.flag_fin, &my_sound);
         }
 
         if (DEBUG) {SDL_Log("Fred DEBUG - current_level = %d\n", my_game.current_level);}
@@ -480,7 +501,7 @@ int main( int argc, char* args[] )
                                     if (DEBUG) {SDL_Log("Fred DEBUG - BUTTON TIR\n");}
 
                                     for (a = 0; a < my_game.current_nb_tower; a++){
-                                        tir_tower(my_game.sp_TOWER[a], my_game.current_nb_tower, &my_game.score);                                /** ==>  TIR    **/
+                                        tir_tower(my_game.sp_TOWER[a], my_game.current_nb_tower, &my_game.score, &my_sound);                           /** ==>  TIR    **/
                                     }
 
                                 }
@@ -574,6 +595,8 @@ int main( int argc, char* args[] )
                     *******************************************************************************************************************/
                     if (my_game.flag_change_level) {
 
+                            Mix_PlayChannel( -1, my_sound.Danger, 0 );
+
                             if (DEBUG) {SDL_Log("Fred DEBUG - Change_level\n");}
 
                             /** NETTOYAGE **/
@@ -660,6 +683,7 @@ int main( int argc, char* args[] )
                             }
 
                             CounterTimeLevel = 0;
+                            TimerSoundGameOver = 0;
 
                             if (DEBUG) {SDL_Log("Fred DEBUG - Change_level OK\n");}
 
@@ -726,8 +750,12 @@ int main( int argc, char* args[] )
                         }
 
                         // ********** GAME OVER ************
-                        if (my_game.heart_point <= 0) { my_game.flag_game_over = true; }
+                        if (my_game.heart_point <= 0 ) {
+                                my_game.flag_game_over = true;
 
+                                TimerSoundGameOver++;
+                                if (TimerSoundGameOver == 3) {    Mix_PlayChannel( -1, my_sound.GameOver, 0 ); }
+                        }
 
                         CounterTimeLevel++;
                         CounterSecond = SDL_GetTicks();
@@ -737,7 +765,7 @@ int main( int argc, char* args[] )
                                                                 COLLISION
                     *******************************************************************************************************************/
 
-                    test_collision(&my_game, ANIM_EXPLOSION);
+                    test_collision(&my_game, ANIM_EXPLOSION, &my_sound);
 
                     /******************************************************************************************************************
                                                                 AFFICHAGE
@@ -838,6 +866,10 @@ int main( int argc, char* args[] )
                                                     FIN
     *******************************************************************************************************************/
     if (DEBUG) {SDL_Log("Fred DEBUG - FIN\n");}
+
+    Mix_PlayChannel( -1, my_sound.BeBack, 0 );
+    SDL_Delay( 2000 );
+
     // Nettoyage
     for (a = 0; a < my_game.current_nb_enemy; a++) {
         destroy_sprite(&my_game.sp_ENEMY[a]);
@@ -876,9 +908,16 @@ int main( int argc, char* args[] )
 
     TTF_CloseFont(police_level_titre);
 
+/*
   	//Free the sound effects
   	my_sound.Music = NULL;
 	my_sound.Start = NULL;
+	my_sound.Exit  = NULL;
+	my_sound.Danger = NULL;
+	my_sound.BeBack = NULL;
+	my_sound.Tir = NULL;
+    my_sound.BeBack = NULL;
+*/
 
     Mix_CloseAudio();
 

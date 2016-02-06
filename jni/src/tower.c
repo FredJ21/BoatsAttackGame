@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -8,6 +9,7 @@
 #include "config.h"
 #include "level.h"
 #include "anim.h"
+#include "type_sound.h"
 #include "tower.h"
 
 
@@ -312,7 +314,7 @@ void        affiche_missile         (SDL_Renderer *r, t_missile *m, t_animation 
 }
 /*****************************************************************
 *****************************************************************/
-void        tir_tower   (t_tower *t, int current_nb_tower, int *score ) {
+void        tir_tower   (t_tower *t, int current_nb_tower, int *score, t_sound *sound) {
 
     int a;
 
@@ -326,6 +328,8 @@ void        tir_tower   (t_tower *t, int current_nb_tower, int *score ) {
                 t->missile[a].y = t->y;
 
                 t->missile[a].actif = true;
+
+                Mix_PlayChannel( -1, sound->Tir, 0 );
 
                 *score -= SCORE_TIR;
 

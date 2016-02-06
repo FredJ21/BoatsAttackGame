@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -37,7 +38,7 @@ bool test_collision_circle      (int Ax, int Ay, int Aradius, int Bx, int By, in
 /*****************************************************************
 *****************************************************************/
 //void test_collision             (t_tower *tower[], int nb_tower, t_sprite *enemy[], int nb_enemy) {
-void test_collision             (t_game *my_game, t_animation ANIM_EXPLOSION[]) {
+void test_collision             (t_game *my_game, t_animation ANIM_EXPLOSION[], t_sound *sound) {
 
     int a, b, m, s;
     int nb = 0;
@@ -55,6 +56,7 @@ void test_collision             (t_game *my_game, t_animation ANIM_EXPLOSION[]) 
                     my_game->sp_EXPLOSION[my_game->current_nb_explosion]->x = my_game->sp_TOWER[a]->x;
                     my_game->sp_EXPLOSION[my_game->current_nb_explosion]->y = my_game->sp_TOWER[a]->y;
                     my_game->current_nb_explosion++;
+                    Mix_PlayChannel( -1, sound->Explosion, 0 );
         }
 
 
@@ -82,6 +84,8 @@ void test_collision             (t_game *my_game, t_animation ANIM_EXPLOSION[]) 
                             my_game->sp_EXPLOSION[my_game->current_nb_explosion]->y = my_game->sp_TOWER[b]->y;
                             my_game->current_nb_explosion++;
 
+                            Mix_PlayChannel( -1, sound->Explosion, 0 );
+
                             my_game->score -= SCORE_DESTROY_TOWER;
                         }
                     }
@@ -105,6 +109,8 @@ void test_collision             (t_game *my_game, t_animation ANIM_EXPLOSION[]) 
                                 my_game->sp_EXPLOSION[my_game->current_nb_explosion]->x = my_game->sp_ENEMY[s]->x;
                                 my_game->sp_EXPLOSION[my_game->current_nb_explosion]->y = my_game->sp_ENEMY[s]->y;
                                 my_game->current_nb_explosion++;
+
+                                Mix_PlayChannel( -1, sound->Explosion, 0 );
 
                                 my_game->score += SCORE_DESTROY_ENEMY;
                             }
