@@ -3,9 +3,9 @@
      com.gamemaker.game
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="org.fredj21.testjeu"
+      package="org.fredj21.boatsattackgame"
       android:versionCode="1"
-      android:versionName="1.0"
+      android:versionName="1.1"
       android:installLocation="auto">
 
     <!-- Create a Java class extending testjeuActivity and place it in a
@@ -22,7 +22,7 @@
                  android:allowBackup="true"
                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
                  android:hardwareAccelerated="true" >
-        <activity android:name="testjeuActivity"
+        <activity android:name="BoatsAttackGame"
                   android:label="@string/app_name"
                   android:configChanges="keyboardHidden|orientation"
                   android:screenOrientation="landscape"
