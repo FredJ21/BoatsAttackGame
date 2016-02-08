@@ -433,7 +433,7 @@ void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *
                     case SDL_QUIT:
                         exit = true;
                         *flag_fin = true;
-                        Mix_PlayChannel( -1, sound->Exit, 0 );
+                        Mix_PlayChannel( -1, sound->Cancel, 0 );
                         break;
 
                     case SDL_KEYDOWN:
@@ -441,12 +441,12 @@ void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *
                             case SDLK_ESCAPE:
                                 *flag_fin = true;
                                 exit = true;
-                                Mix_PlayChannel( -1, sound->Exit, 0 );
+                                Mix_PlayChannel( -1, sound->Cancel, 0 );
                                 break;
                             case SDLK_AC_BACK:
                                 *flag_fin = true;
                                 exit = true;
-                                Mix_PlayChannel( -1, sound->Exit, 0 );
+                                Mix_PlayChannel( -1, sound->Cancel, 0 );
                                 break;
                         }
                         break;

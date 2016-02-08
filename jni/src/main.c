@@ -137,6 +137,14 @@ int main( int argc, char* args[] )
     /******************************************************************************************************************
                                                 INIT SDL 2 MIXER (Audio)
     *******************************************************************************************************************/
+// load support for the OGG and MOD sample/music formats
+int flags=MIX_INIT_OGG|MIX_INIT_MOD;
+int initted=Mix_Init(flags);
+if(initted&flags != flags) {
+    printf("Mix_Init: Failed to init required ogg and mod support!\n");
+    printf("Mix_Init: %s\n", Mix_GetError());
+    // handle error
+}
 
     //Initialize SDL_mixer
     if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) != 0 )
@@ -335,29 +343,29 @@ int main( int argc, char* args[] )
 	if( my_sound.Music  == NULL && DEBUG) {  		SDL_Log( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
 	//Load sound effects
-	my_sound.Start      = Mix_LoadWAV( "sound/start.wav" );
-	if( my_sound.Start == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	my_sound.Start      = Mix_LoadWAV( "sound/start.ogg" );
+	if( my_sound.Start == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
 	my_sound.Click      = Mix_LoadWAV( "sound/click.wav" );
-	if( my_sound.Click  == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	if( my_sound.Click  == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
 	my_sound.Cancel     = Mix_LoadWAV( "sound/cancel.wav" );
-	if( my_sound.Cancel == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	if( my_sound.Cancel == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
 	my_sound.StartGame  = Mix_LoadWAV( "sound/start_game.wav" );
-	if( my_sound.StartGame == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	if( my_sound.StartGame == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
 	my_sound.Exit       = Mix_LoadWAV( "sound/exit.wav" );
-	if( my_sound.Exit   == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	if( my_sound.Exit   == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
 	my_sound.Explosion  = Mix_LoadWAV( "sound/explosion.wav" );
-	if( my_sound.Explosion == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	if( my_sound.Explosion == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
 	my_sound.Tir        = Mix_LoadWAV( "sound/tir.wav" );
-	if( my_sound.Tir    == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	if( my_sound.Tir    == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
 	my_sound.GameOver   = Mix_LoadWAV( "sound/game_over.wav" );
-	if( my_sound.GameOver == NULL && DEBUG)	{		SDL_Log( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	if( my_sound.GameOver == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
     /******************************************************************************************************************
                                                 BOUCLE PRINCIPALE
