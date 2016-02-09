@@ -242,7 +242,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                         && current_mouse_y > menu->button_exit.y && current_mouse_y < menu->button_exit.y + menu->button_exit.h
                         ) {
                             if      (flag_event_down)  { affiche_button (&menu->button_exit_p, pRenderer); }
-                            else if (flag_event_up)    { menu->exit = true; exit = true; Mix_PlayChannel( -1, sound->Cancel, 0 );}
+                            else if (flag_event_up)    { menu->exit = true; exit = true; }
                         }
             }
 
@@ -261,7 +261,6 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                     case SDL_QUIT:
                         exit = true;
                         menu->exit = true;
-                        Mix_PlayChannel( -1, sound->Exit, 0 );
                         break;
 
                     case SDL_KEYDOWN:
@@ -269,12 +268,10 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
                             case SDLK_ESCAPE:
                                 exit = true;
                                 menu->exit = true;
-                                Mix_PlayChannel( -1, sound->Exit, 0 );
                                 break;
                             case SDLK_AC_BACK:
                                 exit = true;
                                 menu->exit = true;
-                                Mix_PlayChannel( -1, sound->Exit, 0 );
                                 break;
                         }
                         break;

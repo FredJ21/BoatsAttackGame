@@ -18,6 +18,8 @@ typedef struct {
     Mix_Chunk *Tir;
     Mix_Chunk *Explosion;
 
+    Mix_Chunk *PlaceTower;
+
 } t_sound;
 
 

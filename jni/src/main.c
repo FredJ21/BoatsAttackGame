@@ -137,14 +137,13 @@ int main( int argc, char* args[] )
     /******************************************************************************************************************
                                                 INIT SDL 2 MIXER (Audio)
     *******************************************************************************************************************/
-// load support for the OGG and MOD sample/music formats
-int flags=MIX_INIT_OGG|MIX_INIT_MOD;
-int initted=Mix_Init(flags);
-if(initted&flags != flags) {
-    printf("Mix_Init: Failed to init required ogg and mod support!\n");
-    printf("Mix_Init: %s\n", Mix_GetError());
-    // handle error
-}
+    // load support for the OGG and MOD sample/music formats
+    int flags=MIX_INIT_OGG;
+    int initted=Mix_Init(flags);
+    if(initted&flags != flags) {
+
+            if(!police_level_titre&& DEBUG ) {  SDL_Log( "Mix_Init: %s\n", Mix_GetError() ); return -1;}
+    }
 
     //Initialize SDL_mixer
     if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) != 0 )
@@ -344,28 +343,31 @@ if(initted&flags != flags) {
 
 	//Load sound effects
 	my_sound.Start      = Mix_LoadWAV( "sound/start.ogg" );
-	if( my_sound.Start == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	if( my_sound.Start == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect 1 ! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
-	my_sound.Click      = Mix_LoadWAV( "sound/click.wav" );
-	if( my_sound.Click  == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	my_sound.Click      = Mix_LoadWAV( "sound/click.ogg" );
+	if( my_sound.Click  == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect 2 ! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
-	my_sound.Cancel     = Mix_LoadWAV( "sound/cancel.wav" );
-	if( my_sound.Cancel == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	my_sound.Cancel     = Mix_LoadWAV( "sound/cancel.ogg" );
+	if( my_sound.Cancel == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect 3 ! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
-	my_sound.StartGame  = Mix_LoadWAV( "sound/start_game.wav" );
-	if( my_sound.StartGame == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	my_sound.StartGame  = Mix_LoadWAV( "sound/start_game.ogg" );
+	if( my_sound.StartGame == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect 4 ! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
-	my_sound.Exit       = Mix_LoadWAV( "sound/exit.wav" );
-	if( my_sound.Exit   == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	my_sound.Exit       = Mix_LoadWAV( "sound/exit.ogg" );
+	if( my_sound.Exit   == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect 5 ! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
-	my_sound.Explosion  = Mix_LoadWAV( "sound/explosion.wav" );
-	if( my_sound.Explosion == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	my_sound.Explosion  = Mix_LoadWAV( "sound/explosion.ogg" );
+	if( my_sound.Explosion == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect 6 ! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
-	my_sound.Tir        = Mix_LoadWAV( "sound/tir.wav" );
-	if( my_sound.Tir    == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	my_sound.Tir        = Mix_LoadWAV( "sound/tir.ogg" );
+	if( my_sound.Tir    == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect 7 ! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
-	my_sound.GameOver   = Mix_LoadWAV( "sound/game_over.wav" );
-	if( my_sound.GameOver == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+	my_sound.GameOver   = Mix_LoadWAV( "sound/game_over.ogg" );
+	if( my_sound.GameOver == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect 8 ! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
+
+	my_sound.PlaceTower = Mix_LoadWAV( "sound/place_tower.ogg" );
+	if( my_sound.PlaceTower == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect 9 ! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
     /******************************************************************************************************************
                                                 BOUCLE PRINCIPALE
@@ -561,6 +563,8 @@ if(initted&flags != flags) {
                                 if (my_game.flag_mode_place_tower && my_game.flag_tower_position_ok ) {
                                     if (DEBUG) {SDL_Log("Fred DEBUG -  PLACE TOWER\n");}
 
+                                    Mix_PlayChannel( -1, my_sound.PlaceTower, 0 );
+
                                     my_game.sp_TOWER[my_game.current_nb_tower] = create_Tower(my_game.current_mouse_x, my_game.current_mouse_y, &ANIM_TOWER);
                                     my_game.current_nb_tower++;
 
@@ -572,6 +576,7 @@ if(initted&flags != flags) {
                                 // une tourelle est selectionnée , on indique la cible
                                 else if (my_game.flag_mode_tower_selected){
                                     if (DEBUG) {SDL_Log("Fred DEBUG - TOWER NEW CIBLE\n");}
+
 
                                     my_game.sp_TOWER[my_game.current_tower]->cible_x = my_game.current_mouse_x;
                                     my_game.sp_TOWER[my_game.current_tower]->cible_y = my_game.current_mouse_y;
@@ -587,6 +592,8 @@ if(initted&flags != flags) {
                                 else if (my_game.flag_mode_game) {
                                     my_game.current_tower = is_tower_position(my_game.current_mouse_x, my_game.current_mouse_y, my_game.sp_TOWER, my_game.current_nb_tower);
                                     if (my_game.current_tower < TOWER_MAX) {   // TOWER_MAX signifi qu'aucune n'est seletionnée
+
+
                                         if (DEBUG) {SDL_Log("Fred DEBUG - SELECT TOWER\n");}
                                         my_game.sp_TOWER[my_game.current_tower]->selected = true;
                                         my_game.flag_mode_tower_selected = true;
