@@ -146,7 +146,7 @@ int main( int argc, char* args[] )
     }
 
     //Initialize SDL_mixer
-    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) != 0 )
+    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 512 ) != 0 )
     {        SDL_Log("Fred DEBUG - SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() ); return -1;}
 
     /******************************************************************************************************************
