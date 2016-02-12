@@ -4,8 +4,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="org.fredj21.boatsattackgame"
-      android:versionCode="2"
-      android:versionName="2"
+      android:versionCode="3"
+      android:versionName="FredTest"
       android:installLocation="auto">
 
     <!-- Create a Java class extending testjeuActivity and place it in a
