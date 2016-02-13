@@ -100,7 +100,7 @@ void test_collision             (t_game *my_game, t_animation ANIM_EXPLOSION[], 
                                                             // test de collision entre le missile M de la tourelle A
                         if ( test_collision_circle( my_game->sp_TOWER[a]->missile[m].x, my_game->sp_TOWER[a]->missile[m].y, 5, my_game->sp_ENEMY[s]->x, my_game->sp_ENEMY[s]->y, my_game->sp_ENEMY[s]->anim->tx/2 )) {
 
-                            if ( my_game->sp_TOWER[a]->missile[m].actif ) {
+                            if ( my_game->sp_TOWER[a]->missile[m].actif && my_game->sp_ENEMY[s]->pv <= 1 ) {
                                 my_game->sp_TOWER[a]->missile[m].actif = false;
                                 my_game->sp_ENEMY[s]->is_actif = false;
 
@@ -113,6 +113,10 @@ void test_collision             (t_game *my_game, t_animation ANIM_EXPLOSION[], 
                                 Mix_PlayChannel( -1, sound->Explosion, 0 );
 
                                 my_game->score += SCORE_DESTROY_ENEMY;
+
+                            } else if ( my_game->sp_TOWER[a]->missile[m].actif && my_game->sp_ENEMY[s]->pv > 1 ) {
+                                my_game->sp_TOWER[a]->missile[m].actif = false;
+                                my_game->sp_ENEMY[s]->pv--;
                             }
 
                         }

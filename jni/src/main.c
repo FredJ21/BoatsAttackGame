@@ -120,7 +120,11 @@ int main( int argc, char* args[] )
     SDL_RenderCopy (pRenderer, pTexture, NULL, NULL);
     SDL_RenderPresent (pRenderer);
 
-    SDL_Delay( 1000 );
+#if __WIN32__
+    SDL_Delay( 300 );
+#else
+    SDL_Delay( 3000 );
+#endif
 
     /******************************************************************************************************************
                                                 INIT SDL 2 TTF
@@ -146,7 +150,7 @@ int main( int argc, char* args[] )
     }
 
     //Initialize SDL_mixer
-    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 512 ) != 0 )
+    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 1024 ) != 0 )
     {        SDL_Log("Fred DEBUG - SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() ); return -1;}
 
     /******************************************************************************************************************
@@ -231,27 +235,39 @@ int main( int argc, char* args[] )
     if(!pSurface_TUILE & DEBUG) { SDL_Log( "SDL_Surface_TUILE ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
     /** ANIMATION des ennemis  **/
-    t_animation ANIM[4];
+    t_animation ANIM[5];
+    a = 0;
 
-    strcpy(ANIM[0].file,   "images/PetitBateau1.png");
-        ANIM[0].tx              = 48;   ANIM[0].ty              = 48;
-        ANIM[0].nb_colonne      = 3;    ANIM[0].nb_image        = 12;   ANIM[0].nb_img_by_dir   = 3;    ANIM[0].nb_tour         = 5; ANIM[0].vitesse         = 2;
-        init_animation( &ANIM[0], pRenderer);
+    strcpy(ANIM[a].file,   "images/Enemy-PetitBateau1.png");
+        ANIM[a].tx              = 48;   ANIM[a].ty              = 48;
+        ANIM[a].nb_colonne      = 3;    ANIM[a].nb_image        = 12;   ANIM[a].nb_img_by_dir   = 3;    ANIM[a].nb_tour         = 5; ANIM[a].vitesse         = 2;
+        ANIM[a].pv              = 1;
+        init_animation( &ANIM[a], pRenderer); a++;
 
-    strcpy(ANIM[1].file,   "images/PetitBateau2.png");
+    strcpy(ANIM[a].file,   "images/Enemy-PetitBateau2.png");
         ANIM[1].tx              = 48;   ANIM[1].ty              = 48;
         ANIM[1].nb_colonne      = 3;    ANIM[1].nb_image        = 12;   ANIM[1].nb_img_by_dir   = 3;    ANIM[1].nb_tour         = 5;    ANIM[1].vitesse         = 2;
-        init_animation( &ANIM[1], pRenderer);
+        ANIM[1].pv              = 1;
+        init_animation( &ANIM[1], pRenderer); a++;
 
-    strcpy(ANIM[2].file,   "images/Fred-Bateau_soleil_61x55.png");
+
+    strcpy(ANIM[2].file,   "images/Enemy-Bateau_soleil_61x55.png");
         ANIM[2].tx              = 61;   ANIM[2].ty              = 55;
         ANIM[2].nb_colonne      = 9;    ANIM[2].nb_image        = 36;   ANIM[2].nb_img_by_dir   = 3;    ANIM[2].nb_tour         = 5;    ANIM[2].vitesse         = 2;
-        init_animation( &ANIM[2], pRenderer);
+        ANIM[2].pv              = 1;
+        init_animation( &ANIM[2], pRenderer); a++;
 
-    strcpy(ANIM[3].file,   "images/Fred-Bateau_Pirate_61x55.png");
+    strcpy(ANIM[3].file,   "images/Enemy-Bateau_Pirate_61x55.png");
         ANIM[3].tx              = 61;   ANIM[3].ty              = 55;
         ANIM[3].nb_colonne      = 4;    ANIM[3].nb_image        = 16;   ANIM[3].nb_img_by_dir   = 3;    ANIM[3].nb_tour         = 5;    ANIM[3].vitesse         = 2;
-        init_animation( &ANIM[3], pRenderer);
+        ANIM[3].pv              = 1;
+        init_animation( &ANIM[3], pRenderer); a++;
+
+    strcpy(ANIM[a].file,   "images/Enemy-Bateau_Pirate_90x81.png");
+        ANIM[a].tx              = 90;   ANIM[a].ty              = 81;
+        ANIM[a].nb_colonne      = 4;    ANIM[a].nb_image        = 16;   ANIM[a].nb_img_by_dir   = 3;    ANIM[a].nb_tour         = 5;    ANIM[a].vitesse         = 2;
+        ANIM[a].pv              = 5;
+        init_animation( &ANIM[4], pRenderer); a++;
 
 
     t_animation DRAPEAU = { "images/Flag.png", 31, 40, 11, 11, 11, NULL, 3, 1 };

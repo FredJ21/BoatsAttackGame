@@ -20,6 +20,8 @@ typedef struct {
     SDL_Texture *texture;       // les images de l'animation
     int     nb_tour;            // frequence des image
     int     vitesse;            // vitesse de deplacement de l'animation
+    int     pv;                 // point de vie
+
 } t_animation;
 
 // sprite
@@ -38,6 +40,7 @@ typedef struct {
 	bool    in_the_map;          // vrai quand le sprite est rentré entierement dans la map , en debut de jeu
 	bool    is_actif;            // si false -->  pas de mouvement ou deplacement
 	int     visible;             // effet de transparence  255->visible  0->invisible
+    int     pv;                 // point de vie
 
 } t_sprite;
 

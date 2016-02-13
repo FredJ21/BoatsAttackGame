@@ -97,6 +97,7 @@ t_sprite*   create_Enemy( int position, int A, int B, t_animation *ANIM, float F
 	s->in_the_map = false;
 	s->time_before_ativiation = (GAME_FPS * Frequence) +1 ;
 	s->visible = 255;
+	s->pv = ANIM->pv;
 
 	if (s->time_before_ativiation == 0 ) { s->is_actif = true; }
 
