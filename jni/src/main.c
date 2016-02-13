@@ -108,8 +108,8 @@ int main( int argc, char* args[] )
                                                 INIT SDL 2  -  Affichage d'une image de chargement ...
     *******************************************************************************************************************/
     // Chargement de l'image
-    //pSurface = SDL_LoadBMP (START_IMG);
-    pSurface = SDL_LoadBMP (START_IMG);
+    //pSurface = IMG_Load (START_IMG);
+    pSurface = IMG_Load (START_IMG);
     if(!pSurface && DEBUG) {  SDL_Log( "SDL_Surface ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
     // Création de la texture (texture = surface dans le GPU)
@@ -120,7 +120,7 @@ int main( int argc, char* args[] )
     SDL_RenderCopy (pRenderer, pTexture, NULL, NULL);
     SDL_RenderPresent (pRenderer);
 
-    SDL_Delay( 100 );
+    SDL_Delay( 1000 );
 
     /******************************************************************************************************************
                                                 INIT SDL 2 TTF
@@ -227,18 +227,18 @@ int main( int argc, char* args[] )
     if (DEBUG) {SDL_Log("Fred DEBUG - INIT IMAGES/ANIM\n");}
 
     /** FICHIER TUILE (chargement) **/
-    pSurface_TUILE = SDL_LoadBMP (TILE_FILE);
+    pSurface_TUILE = IMG_Load (TILE_FILE);
     if(!pSurface_TUILE & DEBUG) { SDL_Log( "SDL_Surface_TUILE ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
     /** ANIMATION des ennemis  **/
     t_animation ANIM[4];
 
-    strcpy(ANIM[0].file,   "images/PetitBateau1.bmp");
+    strcpy(ANIM[0].file,   "images/PetitBateau1.png");
         ANIM[0].tx              = 48;   ANIM[0].ty              = 48;
         ANIM[0].nb_colonne      = 3;    ANIM[0].nb_image        = 12;   ANIM[0].nb_img_by_dir   = 3;    ANIM[0].nb_tour         = 5; ANIM[0].vitesse         = 2;
         init_animation( &ANIM[0], pRenderer);
 
-    strcpy(ANIM[1].file,   "images/PetitBateau2.bmp");
+    strcpy(ANIM[1].file,   "images/PetitBateau2.png");
         ANIM[1].tx              = 48;   ANIM[1].ty              = 48;
         ANIM[1].nb_colonne      = 3;    ANIM[1].nb_image        = 12;   ANIM[1].nb_img_by_dir   = 3;    ANIM[1].nb_tour         = 5;    ANIM[1].vitesse         = 2;
         init_animation( &ANIM[1], pRenderer);
@@ -254,13 +254,13 @@ int main( int argc, char* args[] )
         init_animation( &ANIM[3], pRenderer);
 
 
-    t_animation DRAPEAU = { "images/Flag.bmp", 31, 40, 11, 11, 11, NULL, 3, 1 };
+    t_animation DRAPEAU = { "images/Flag.png", 31, 40, 11, 11, 11, NULL, 3, 1 };
         init_animation( &DRAPEAU, pRenderer);
 
-    t_animation ANIM_TOWER = { "images/Tower1.bmp", 48, 48, 3, 12, 0, NULL, 0, 1 };
+    t_animation ANIM_TOWER = { "images/Tower1.png", 48, 48, 3, 12, 0, NULL, 0, 1 };
         init_animation( &ANIM_TOWER, pRenderer);
 
-    t_animation ANIM_MISSILE = { "images/Missile.bmp", 10, 10, 1, 1, 0, NULL, 0, 1 };
+    t_animation ANIM_MISSILE = { "images/Missile.png", 10, 10, 1, 1, 0, NULL, 0, 1 };
         init_animation( &ANIM_MISSILE, pRenderer);
 
     if (DEBUG) {SDL_Log("Fred DEBUG - INIT EXPLOSION\n");}
@@ -288,10 +288,10 @@ int main( int argc, char* args[] )
     init_animation( &ANIM_EXPLOSION[4], pRenderer);
 
     if (DEBUG) {SDL_Log("Fred DEBUG - INIT BUTTON\n");}
-    t_animation IMG_BUTTON_TIR = { "images/Tir_100x80_2.bmp", 100, 80, 1, 1, 1, NULL, 1, 1 };
+    t_animation IMG_BUTTON_TIR = { "images/Tir_100x80_2.png", 100, 80, 1, 1, 1, NULL, 1, 1 };
         init_animation( &IMG_BUTTON_TIR, pRenderer);
 
-    t_animation IMG_BUTTON_TOWER = { "images/Tower_Botton_100x80_3.bmp", 100, 80, 1, 1, 1, NULL, 1, 1 };
+    t_animation IMG_BUTTON_TOWER = { "images/Tower_Botton_100x80_3.png", 100, 80, 1, 1, 1, NULL, 1, 1 };
         init_animation( &IMG_BUTTON_TOWER, pRenderer);
 
 
