@@ -235,39 +235,72 @@ int main( int argc, char* args[] )
     if(!pSurface_TUILE & DEBUG) { SDL_Log( "SDL_Surface_TUILE ERREUR! SDL_GetError: %s\n", SDL_GetError() ); return -1;}
 
     /** ANIMATION des ennemis  **/
-    t_animation ANIM[5];
+    t_animation ANIM[9];
     a = 0;
 
-    strcpy(ANIM[a].file,   "images/Enemy-PetitBateau1.png");
+    // 0
+    strcpy(ANIM[a].file,   "images/Enemy-PetitBateau1_48x48.png");
         ANIM[a].tx              = 48;   ANIM[a].ty              = 48;
         ANIM[a].nb_colonne      = 3;    ANIM[a].nb_image        = 12;   ANIM[a].nb_img_by_dir   = 3;    ANIM[a].nb_tour         = 5; ANIM[a].vitesse         = 2;
         ANIM[a].pv              = 1;
-        init_animation( &ANIM[a], pRenderer); a++;
-
-    strcpy(ANIM[a].file,   "images/Enemy-PetitBateau2.png");
-        ANIM[1].tx              = 48;   ANIM[1].ty              = 48;
-        ANIM[1].nb_colonne      = 3;    ANIM[1].nb_image        = 12;   ANIM[1].nb_img_by_dir   = 3;    ANIM[1].nb_tour         = 5;    ANIM[1].vitesse         = 2;
-        ANIM[1].pv              = 1;
-        init_animation( &ANIM[1], pRenderer); a++;
-
-
-    strcpy(ANIM[2].file,   "images/Enemy-Bateau_soleil_61x55.png");
-        ANIM[2].tx              = 61;   ANIM[2].ty              = 55;
-        ANIM[2].nb_colonne      = 9;    ANIM[2].nb_image        = 36;   ANIM[2].nb_img_by_dir   = 3;    ANIM[2].nb_tour         = 5;    ANIM[2].vitesse         = 2;
-        ANIM[2].pv              = 1;
-        init_animation( &ANIM[2], pRenderer); a++;
-
-    strcpy(ANIM[3].file,   "images/Enemy-Bateau_Pirate_61x55.png");
-        ANIM[3].tx              = 61;   ANIM[3].ty              = 55;
-        ANIM[3].nb_colonne      = 4;    ANIM[3].nb_image        = 16;   ANIM[3].nb_img_by_dir   = 3;    ANIM[3].nb_tour         = 5;    ANIM[3].vitesse         = 2;
-        ANIM[3].pv              = 1;
-        init_animation( &ANIM[3], pRenderer); a++;
-
+        init_animation( &ANIM[a], pRenderer);
+        a++;
+    // 1
+    strcpy(ANIM[a].file,   "images/Enemy-PetitBateau2_48x48.png");
+        ANIM[a].tx              = 48;   ANIM[a].ty              = 48;
+        ANIM[a].nb_colonne      = 3;    ANIM[a].nb_image        = 12;   ANIM[a].nb_img_by_dir   = 3;    ANIM[a].nb_tour         = 5; ANIM[a].vitesse         = 2;
+        ANIM[a].pv              = 1;
+        init_animation( &ANIM[a], pRenderer);
+        a++;
+    // 2
+    strcpy(ANIM[a].file,   "images/Enemy-PetitBateau3_48x48.png");
+        ANIM[a].tx              = 48;   ANIM[a].ty              = 48;
+        ANIM[a].nb_colonne      = 3;    ANIM[a].nb_image        = 12;   ANIM[a].nb_img_by_dir   = 3;    ANIM[a].nb_tour         = 5; ANIM[a].vitesse         = 2;
+        ANIM[a].pv              = 1;
+        init_animation( &ANIM[a], pRenderer);
+        a++;
+    // 3
+    strcpy(ANIM[a].file,   "images/Enemy-Bateau_soleil_61x55.png");
+        ANIM[a].tx              = 61;   ANIM[a].ty              = 55;
+        ANIM[a].nb_colonne      = 9;    ANIM[a].nb_image        = 36;   ANIM[a].nb_img_by_dir   = 9;    ANIM[a].nb_tour         = 5; ANIM[a].vitesse         = 2;
+        ANIM[a].pv              = 1;
+        init_animation( &ANIM[a], pRenderer);
+        a++;
+    // 4
+    strcpy(ANIM[a].file,   "images/Enemy-Bateau_Pirate_61x55.png");
+        ANIM[a].tx              = 61;   ANIM[a].ty              = 55;
+        ANIM[a].nb_colonne      = 4;    ANIM[a].nb_image        = 16;   ANIM[a].nb_img_by_dir   = 4;    ANIM[a].nb_tour         = 5; ANIM[a].vitesse         = 2;
+        ANIM[a].pv              = 1;
+        init_animation( &ANIM[a], pRenderer);
+        a++;
+    // 5
+    strcpy(ANIM[a].file,   "images/Enemy-Bateau_3mats_60x60.png");
+        ANIM[a].tx              = 60;   ANIM[a].ty              = 60;
+        ANIM[a].nb_colonne      = 4;    ANIM[a].nb_image        = 16;   ANIM[a].nb_img_by_dir   = 4;    ANIM[a].nb_tour         = 5; ANIM[a].vitesse         = 2;
+        ANIM[a].pv              = 1;
+        init_animation( &ANIM[a], pRenderer);
+        a++;
+    // 6
+    strcpy(ANIM[a].file,   "images/Enemy-Bateau_Pirate2_60x56.png");
+        ANIM[a].tx              = 60;   ANIM[a].ty              = 56;
+        ANIM[a].nb_colonne      = 4;    ANIM[a].nb_image        = 16;   ANIM[a].nb_img_by_dir   = 4;    ANIM[a].nb_tour         = 5; ANIM[a].vitesse         = 2;
+        ANIM[a].pv              = 1;
+        init_animation( &ANIM[a], pRenderer);
+        a++;
+    // 7
     strcpy(ANIM[a].file,   "images/Enemy-Bateau_Pirate_90x81.png");
         ANIM[a].tx              = 90;   ANIM[a].ty              = 81;
-        ANIM[a].nb_colonne      = 4;    ANIM[a].nb_image        = 16;   ANIM[a].nb_img_by_dir   = 3;    ANIM[a].nb_tour         = 5;    ANIM[a].vitesse         = 2;
-        ANIM[a].pv              = 5;
-        init_animation( &ANIM[4], pRenderer); a++;
+        ANIM[a].nb_colonne      = 4;    ANIM[a].nb_image        = 16;   ANIM[a].nb_img_by_dir   = 4;    ANIM[a].nb_tour         = 5; ANIM[a].vitesse         = 2;
+        ANIM[a].pv              = 10;
+        init_animation( &ANIM[a], pRenderer);
+        a++;
+    // 8
+    strcpy(ANIM[a].file,   "images/Enemy-Bateau_Pirate2_90x84.png");
+        ANIM[a].tx              = 90;   ANIM[a].ty              = 84;
+        ANIM[a].nb_colonne      = 4;    ANIM[a].nb_image        = 16;   ANIM[a].nb_img_by_dir   = 4;    ANIM[a].nb_tour         = 5; ANIM[a].vitesse         = 2;
+        ANIM[a].pv              = 10;
+        init_animation( &ANIM[a], pRenderer);
+        a++;
 
 
     t_animation DRAPEAU = { "images/Flag.png", 31, 40, 11, 11, 11, NULL, 3, 1 };
