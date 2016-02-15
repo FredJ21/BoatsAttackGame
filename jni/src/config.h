@@ -51,7 +51,7 @@
 #define WAVE_ENEMY_MAX_BY_WAVE  100
 #define WAVE_NB                  10
 #define TOWER_MAX                 5
-#define TOWER_NB_MISSILE_MAX      10          // par tourelle
+#define TOWER_NB_MISSILE_MAX      1          // par tourelle
 #define MISSILE_SPEED            15
 
 #define POLICE_LEVEL_TITRE      "fonts/Alex_Bold.ttf"
