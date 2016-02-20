@@ -144,7 +144,7 @@ int main( int argc, char* args[] )
     // load support for the OGG and MOD sample/music formats
     int flags=MIX_INIT_OGG;
     int initted=Mix_Init(flags);
-    if(initted&flags != flags) {
+    if(initted & (flags != flags)) {
 
             if(!police_level_titre&& DEBUG ) {  SDL_Log( "Mix_Init: %s\n", Mix_GetError() ); return -1;}
     }
@@ -222,7 +222,10 @@ int main( int argc, char* args[] )
 
     SDL_RWclose( file );
 
-    if (DEBUG) {SDL_Log("Fred DEBUG - last_level : %d", my_game.last_level); }
+    if (DEBUG) {    SDL_Log("Fred DEBUG - last_level : %d", my_game.last_level); }
+    if (DEBUG_ALL_MAP) {
+            my_game.last_level      =   LEVEL_NB_TOTAL;
+            SDL_Log("Fred DEBUG - last_level : %d", my_game.last_level); }
 
 
     /******************************************************************************************************************
