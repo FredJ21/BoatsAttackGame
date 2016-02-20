@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="19" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="32x32_map_tile v3.1 [MARGINLESS]" tilewidth="32" tileheight="32" tilecount="667">
+  <image source="C:/Users/Mathis/Desktop/32x32_map_tile v3.1 [MARGINLESS].png" width="736" height="928"/>
+ </tileset>
+ <layer name="Calque de Tile 1" width="30" height="19">
+  <data encoding="base64" compression="zlib">
+   eJy9ll0OgjAMgNt5A+OD8QbEB/H+6CWMZ1iC3sCf2EaIs8LaxcLDFx4Y/baubYgIEBVWAaCGMjZBj6uxoxh3fPPAX8cNP+979g7esT1M5fiXhjh0HGeM1xJAuXjS86rERFoXEhYDOeR4lw4tXmtYw6xF7VYjbm+kl1nO4OV6rcN3v6TexqlGND+T9smJOBu+t9RJCRYvO7chf1el+7DUp6wRnmdytlSOubCeNaJ/z1j7Qa6xuHPzypLjIa/FnZtXaR/IXtC8vdvrzku8U8/Juf4dJC/v7ppL
+  </data>
+ </layer>
+ <layer name="Calque 2" width="30" height="19">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAd6DAyMOgyQti7oHgnkvxiMswkFeyigx2jYHiA3UC8aIDsBeElVDBLHJjfJBipYBCJQA9op/4A2CsKtFNsAOxFLtvoBQaiLNuFhPHJDwQYKLtHeh4DlVOg8qqXxvYi57HdSLiXhnYDAGXcFJQ=
+  </data>
+ </layer>
+</map>

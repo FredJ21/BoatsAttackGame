@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="32x32_map_tile v3.1 [MARGINLESS]" tilewidth="32" tileheight="32" tilecount="667">
+  <image source="C:/Users/Mathis/Desktop/32x32_map_tile v3.1 [MARGINLESS].png" width="736" height="928"/>
+ </tileset>
+ <layer name="Calque de Tile 1" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJzl09ENQDAAQMF2ZCXBEmIJrKAxBOkQlW5hjPvwkhvhtRhCgwp2YS/2YBnrsIT12ICN2ITN2Iod2I5t2ILp/yt2Yyf29z6iD8RQ
+  </data>
+ </layer>
+</map>
