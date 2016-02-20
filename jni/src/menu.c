@@ -325,7 +325,7 @@ void affiche_menu   (t_menu *menu, SDL_Renderer *pRenderer, bool flag_game_start
 void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *pRenderer, int *current_level, int *last_level, bool *flag_fin, t_sound *sound) {
 
 
-    int a, b, level, x, y, xx, yy;
+    int a, b, level, x, y, xx, yy, number;
 
     bool exit               = false;
     int current_mouse_x     = 0;
@@ -372,45 +372,49 @@ void affiche_menu_level       (t_menu *menu, t_system *my_system, SDL_Renderer *
                     xx = x + menu->button_menu_level_Red.w;
                     yy = y + menu->button_menu_level_Red.h;
 
-                    if ( level <= *last_level && flag_event_up && current_mouse_x > x && current_mouse_x < xx && current_mouse_y > y && current_mouse_y < yy ) {
+                    number = (a+1)+b*10;
 
-                            *current_level = level;
-                            exit = true;
+                    if (number < LEVEL_NB_TOTAL +1) {
 
-                            Mix_PlayChannel( -1, sound->Click, 0 );
+                        if ( level <= *last_level && flag_event_up && current_mouse_x > x && current_mouse_x < xx && current_mouse_y > y && current_mouse_y < yy ) {
 
-                            menu->button_menu_level_Red.x = x ;
-                            menu->button_menu_level_Red.y = y ;
-                            affiche_button_number (&menu->button_menu_level_Red, (a+1)+b*10, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
+                                *current_level = level;
+                                exit = true;
 
-                    } else if (flag_event_down && level < *last_level && current_mouse_x > x && current_mouse_x < xx && current_mouse_y > y && current_mouse_y < yy)  {
-                            menu->button_menu_level_Red.x = x ;
-                            menu->button_menu_level_Red.y = y ;
-                            affiche_button_number (&menu->button_menu_level_Red, (a+1)+b*10, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
+                                Mix_PlayChannel( -1, sound->Click, 0 );
 
-                    } else if ( level == *last_level ) {
-                            if (flag_button_red) {
                                 menu->button_menu_level_Red.x = x ;
                                 menu->button_menu_level_Red.y = y ;
-                                affiche_button_number (&menu->button_menu_level_Red, (a+1)+b*10, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
-                            } else {
-                                menu->button_menu_level_Blue.x = x ;
-                                menu->button_menu_level_Blue.y = y ;
-                                affiche_button_number (&menu->button_menu_level_Blue, (a+1)+b*10, menu->police_level_titre, 0, pRenderer);      // affiche  bouton bleu
-                            }
+                                affiche_button_number (&menu->button_menu_level_Red, level + 1, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
+
+                        } else if (flag_event_down && level < *last_level && current_mouse_x > x && current_mouse_x < xx && current_mouse_y > y && current_mouse_y < yy)  {
+                                menu->button_menu_level_Red.x = x ;
+                                menu->button_menu_level_Red.y = y ;
+                                affiche_button_number (&menu->button_menu_level_Red, level + 1, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
+
+                        } else if ( level == *last_level ) {
+                                if (flag_button_red) {
+                                    menu->button_menu_level_Red.x = x ;
+                                    menu->button_menu_level_Red.y = y ;
+                                    affiche_button_number (&menu->button_menu_level_Red, level + 1, menu->police_level_titre, 1, pRenderer);      // affiche bouton rouge
+                                } else {
+                                    menu->button_menu_level_Blue.x = x ;
+                                    menu->button_menu_level_Blue.y = y ;
+                                    affiche_button_number (&menu->button_menu_level_Blue, level + 1, menu->police_level_titre, 0, pRenderer);      // affiche  bouton bleu
+                                }
 
 
-                    } else if ( level <= *last_level ) {
-                            menu->button_menu_level_Blue.x = x;
-                            menu->button_menu_level_Blue.y = y;
-                            affiche_button_number (&menu->button_menu_level_Blue, (a+1)+b*10, menu->police_level_titre, 0, pRenderer);      // affiche  bouton bleu
+                        } else if ( level <= *last_level ) {
+                                menu->button_menu_level_Blue.x = x;
+                                menu->button_menu_level_Blue.y = y;
+                                affiche_button_number (&menu->button_menu_level_Blue, level + 1, menu->police_level_titre, 0, pRenderer);      // affiche  bouton bleu
 
-                    } else {
-                            menu->button_menu_level_Grey.x = x ;
-                            menu->button_menu_level_Grey.y = y ;
-                            affiche_button_number (&menu->button_menu_level_Grey, (a+1)+b*10, menu->police_level_titre, 2, pRenderer);      // affiche bouton gris
+                        } else {
+                                menu->button_menu_level_Grey.x = x ;
+                                menu->button_menu_level_Grey.y = y ;
+                                affiche_button_number (&menu->button_menu_level_Grey, level + 1, menu->police_level_titre, 2, pRenderer);      // affiche bouton gris
+                        }
                     }
-
                     level++;
                 }
             }
