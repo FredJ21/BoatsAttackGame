@@ -418,6 +418,9 @@ int main( int argc, char* args[] )
 	my_sound.PlaceTower = Mix_LoadWAV( "sound/place_tower.ogg" );
 	if( my_sound.PlaceTower == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect 9 ! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
+	my_sound.Oh_non = Mix_LoadWAV( "sound/oh_non.ogg" );
+	if( my_sound.Oh_non == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect 9 ! SDL_mixer Error: %s\n", Mix_GetError() );		return -1; }
+
     /******************************************************************************************************************
                                                 BOUCLE PRINCIPALE
     *******************************************************************************************************************/
@@ -848,7 +851,7 @@ int main( int argc, char* args[] )
                     // Affichage des ENEMY
                     for (a = 0; a < my_game.current_nb_enemy; a++) {
                         anime_sprite    (my_game.sp_ENEMY[a]);
-                        avance_sprite   (my_game.sp_ENEMY[a], &my_level, &my_system, &my_game.heart_point);
+                        avance_sprite   (my_game.sp_ENEMY[a], &my_level, &my_system, &my_game.heart_point, &my_sound);
                         affiche_sprite  (pRenderer, my_game.sp_ENEMY[a]);
                     }
                     // Affichage des tourelles

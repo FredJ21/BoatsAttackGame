@@ -19,6 +19,8 @@ typedef struct {
     Mix_Chunk *Explosion;
 
     Mix_Chunk *PlaceTower;
+    Mix_Chunk *Oh_non;
+
 
 } t_sound;
 

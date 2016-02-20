@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -105,7 +106,7 @@ t_sprite*   create_Enemy( int position, int A, int B, t_animation *ANIM, float F
 }
 /*****************************************************************
 *****************************************************************/
-void avance_sprite(t_sprite *s, t_level *pLevel, t_system *my_system, int *heart_point){
+void avance_sprite(t_sprite *s, t_level *pLevel, t_system *my_system, int *heart_point, t_sound *sound){
 
     // gestion du retardement au démarrage
     if (s->time_before_ativiation > 1 ) {
@@ -367,6 +368,9 @@ void avance_sprite(t_sprite *s, t_level *pLevel, t_system *my_system, int *heart
 
                         if (DEBUG){SDL_Log ("Je suis arrive !!!\n");}
                         s->is_arrive = true;
+
+                        Mix_PlayChannel( -1, sound->Oh_non, 0 );
+
 
                         if (*heart_point > 0 ) { *heart_point -= 1; }
                     }
