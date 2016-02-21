@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1455989638 source:c:\users\fred\documents\fred-dev\boatsattackgame\doc\maps_to_level\main.c
+	<stdio.h>
+	<stdlib.h>
+

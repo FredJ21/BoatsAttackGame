@@ -130,7 +130,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
 
     int DataMap_current[MAP_NB_TILE_X * MAP_NB_TILE_Y] = {};
 
-
+// START Auto-generated section
 
     int DataMap_1[MAP_NB_TILE_X * MAP_NB_TILE_Y] = {
                                                     48,48,48,48,48,48,507,561,398,489,  489,489,489,489,489,489,489,489,489,489,  489,489,489,489,489,489,489,489,489,489,
@@ -1185,7 +1185,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
 
 
 
-
+// STOP Auto-generated section
 
     /******************************************************************************************************************
                                                 DATA COPY
