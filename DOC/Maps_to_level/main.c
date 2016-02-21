@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define level_NB        12
+#define level_NB        10
 #define map_nb_ligne    19
 
 #define FILE_SRC        "../../jni/src/level.c"
-#define FILE_TMP        "level_tmp.c"
+#define FILE_TMP        "../../jni/src/level.c.new"
 
 #define true            1
 #define false           0
@@ -14,8 +14,8 @@
 int main()
 {
 
-    char    level_filename[level_NB][30];
-    int     a;
+    char    level_filename[level_NB+1][30];
+    int     aaa;
     int     character_position;
     int     line_ok;
 
@@ -83,12 +83,12 @@ int main()
         Traitement des fichiers MAP
 *********************************************************************/
 
-    for (a=0; a < level_NB; a++) {
+    for (aaa=1; aaa < level_NB+1; aaa++) {
 
-        sprintf(level_filename[a],"../Maps/map-%d.txt", a+1);
+        sprintf(level_filename[aaa],"../Maps/map-%d.txt", aaa);
 
 
-        pFile_map = fopen (level_filename[a],"r");
+        pFile_map = fopen (level_filename[aaa],"r");
         if (pFile_map!=NULL) {
 
 
@@ -108,18 +108,18 @@ int main()
                     if (line[0] >= 48 &&  line[0] <= 57) {  // premier caractere entre 0 et 9
 
                         if (line_ok == 0 ) {
-                                                            //printf("\tint DataMap_1_Layer1[MAP_NB_TILE_X * MAP_NB_TILE_Y] = {\n");
+                                                            //printf("\tint DataMap_1[MAP_NB_TILE_X * MAP_NB_TILE_Y] = {\n");
                                                             fputs ("\tint DataMap_",pFile_tmp);
-                                                            sprintf(ch,"%d",a);
+                                                            sprintf(ch,"%d",aaa);
                                                             fputs (ch,pFile_tmp);
-                                                            fputs ("_Layer1[MAP_NB_TILE_X * MAP_NB_TILE_Y] = {\n",pFile_tmp);
+                                                            fputs ("[MAP_NB_TILE_X * MAP_NB_TILE_Y] = {\n",pFile_tmp);
                         }
                         if (line_ok == map_nb_ligne ) {
                                                             //printf("};\n");
                                                             fputs ("};\n",pFile_tmp);
                                                             //printf("\tint DataMap_1_Layer2[MAP_NB_TILE_X * MAP_NB_TILE_Y] = {\n");
                                                             fputs ("\tint DataMap_",pFile_tmp);
-                                                            sprintf(ch,"%d",a);
+                                                            sprintf(ch,"%d",aaa);
                                                             fputs (ch,pFile_tmp);
                                                             fputs ("_Layer2[MAP_NB_TILE_X * MAP_NB_TILE_Y] = {\n",pFile_tmp);
                         }
@@ -140,16 +140,34 @@ int main()
             } while (character != EOF);
 
             fclose (pFile_map);
-            printf ("Level %d : [%s]  --> OK --> %d lignes\n", a, level_filename[a], line_ok) ;
+            printf ("Level %d : [%s]  --> OK --> %d lignes\n", aaa, level_filename[aaa], line_ok) ;
 
         } else {
 
-           printf ("Level %d : [%s]  --> Fichier abscent\n", a, level_filename[a]) ;
+           printf ("Level %d : [%s]  --> Fichier abscent\n", aaa, level_filename[aaa]) ;
            fclose (pFile_map);
         }
 
     }
 
+
+/********************************************************************
+        MAPS VIDES
+*********************************************************************/
+   for (aaa=level_NB+1; aaa < 51; aaa++) {
+
+        fputs ("\tint DataMap_",pFile_tmp);
+        sprintf(ch,"%d",aaa);
+        fputs (ch,pFile_tmp);
+        fputs ("[MAP_NB_TILE_X * MAP_NB_TILE_Y] = {};\n",pFile_tmp);
+
+        fputs ("\tint DataMap_",pFile_tmp);
+        sprintf(ch,"%d",aaa);
+        fputs (ch,pFile_tmp);
+        fputs ("_Layer2[MAP_NB_TILE_X * MAP_NB_TILE_Y] = {};\n",pFile_tmp);
+
+
+   }
 
 /********************************************************************
         Lecture du fichier source depuis la balise STOP
