@@ -857,6 +857,10 @@ int main( int argc, char* args[] )
                         avance_sprite   (my_game.sp_ENEMY[a], &my_level, &my_system, &my_game.heart_point, &my_sound);
                         affiche_sprite  (pRenderer, my_game.sp_ENEMY[a]);
                     }
+
+                    // Affichage de la map layer 2
+                    SDL_RenderCopy      (pRenderer, my_level.pTexture_MAP_layer2, NULL, NULL);
+
                     // Affichage des tourelles
                     for (a = 0; a < my_game.current_nb_tower; a++){
 

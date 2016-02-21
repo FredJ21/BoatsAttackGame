@@ -37,6 +37,7 @@ typedef struct {
     t_wave          wave[WAVE_NB];
 
     SDL_Texture     *pTexture_MAP;
+    SDL_Texture     *pTexture_MAP_layer2;
     SDL_Texture     *pTexture_MAP_Obstacles;        // pour le debug
 
     SDL_Texture     *pTexture_MAP_Titre;

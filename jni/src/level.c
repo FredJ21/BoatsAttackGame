@@ -20,6 +20,10 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     SDL_Surface *pSurface_TMP;
     pSurface_TMP = SDL_CreateRGBSurface(0,my_system->map_taille_x,my_system->map_taille_y,32,0,0,0,0);
 
+    SDL_Surface *pSurface_TMP2;
+    pSurface_TMP2 = SDL_CreateRGBSurface(0,my_system->map_taille_x,my_system->map_taille_y,32,0,0,0,0);
+
+
     /******************************************************************************************************************
                                                 DATA MAP
     *******************************************************************************************************************/
@@ -129,6 +133,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     int DataLevel_50[70]    =  {   8, 14,  10,20,  5,10,   10,20,  5,10,   0,  0, 10,  0,  0,  0,    0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,  };
 
     int DataMap_current[MAP_NB_TILE_X * MAP_NB_TILE_Y] = {};
+    int DataMap_Layer2_current[MAP_NB_TILE_X * MAP_NB_TILE_Y] = {};
 
 // START Auto-generated section
 
@@ -643,252 +648,252 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
         case 0:
             strcpy(pLevel->name, DataLevelName_1);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_1[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_1[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_1[a];   DataMap_Layer2_current[a]     = DataMap_1_Layer2[a]; }
             break;
         case 1:
             strcpy(pLevel->name, DataLevelName_2);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_2[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_2[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_2[a];   DataMap_Layer2_current[a]     = DataMap_2_Layer2[a]; }
             break;
         case 2:
             strcpy(pLevel->name, DataLevelName_3);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_3[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_3[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_3[a];   DataMap_Layer2_current[a]     = DataMap_3_Layer2[a]; }
             break;
         case 3:
             strcpy(pLevel->name, DataLevelName_4);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_4[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_4[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_4[a];   DataMap_Layer2_current[a]     = DataMap_4_Layer2[a]; }
             break;
         case 4:
             strcpy(pLevel->name, DataLevelName_5);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_5[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_5[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_5[a];   DataMap_Layer2_current[a]     = DataMap_5_Layer2[a]; }
             break;
         case 5:
             strcpy(pLevel->name, DataLevelName_6);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_6[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_6[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_6[a];   DataMap_Layer2_current[a]     = DataMap_6_Layer2[a]; }
             break;
         case 6:
             strcpy(pLevel->name, DataLevelName_7);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_7[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_7[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_7[a];   DataMap_Layer2_current[a]     = DataMap_7_Layer2[a]; }
             break;
         case 7:
             strcpy(pLevel->name, DataLevelName_8);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_8[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_8[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_8[a];   DataMap_Layer2_current[a]     = DataMap_8_Layer2[a]; }
             break;
         case 8:
             strcpy(pLevel->name, DataLevelName_9);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_9[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_9[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_9[a];   DataMap_Layer2_current[a]     = DataMap_9_Layer2[a]; }
             break;
         case 9:
             strcpy(pLevel->name, DataLevelName_10);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_10[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_10[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_10[a];   DataMap_Layer2_current[a]     = DataMap_10_Layer2[a]; }
             break;
         case 10:
             strcpy(pLevel->name, DataLevelName_11);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_11[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_11[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_11[a];   DataMap_Layer2_current[a]     = DataMap_11_Layer2[a]; }
             break;
         case 11:
             strcpy(pLevel->name, DataLevelName_12);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_12[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_12[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_12[a];   DataMap_Layer2_current[a]     = DataMap_12_Layer2[a]; }
             break;
         case 12:
             strcpy(pLevel->name, DataLevelName_13);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_13[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_13[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_13[a];   DataMap_Layer2_current[a]     = DataMap_13_Layer2[a]; }
             break;
         case 13:
             strcpy(pLevel->name, DataLevelName_14);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_14[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_14[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_14[a];   DataMap_Layer2_current[a]     = DataMap_14_Layer2[a]; }
             break;
         case 14:
             strcpy(pLevel->name, DataLevelName_15);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_15[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_15[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_15[a];   DataMap_Layer2_current[a]     = DataMap_15_Layer2[a]; }
             break;
         case 15:
             strcpy(pLevel->name, DataLevelName_16);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_16[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_16[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_16[a];   DataMap_Layer2_current[a]     = DataMap_16_Layer2[a]; }
             break;
         case 16:
             strcpy(pLevel->name, DataLevelName_17);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_17[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_17[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_17[a];   DataMap_Layer2_current[a]     = DataMap_17_Layer2[a]; }
             break;
         case 17:
             strcpy(pLevel->name, DataLevelName_18);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_18[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_18[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_18[a];   DataMap_Layer2_current[a]     = DataMap_18_Layer2[a]; }
             break;
         case 18:
             strcpy(pLevel->name, DataLevelName_19);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_19[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_19[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_19[a];   DataMap_Layer2_current[a]     = DataMap_19_Layer2[a]; }
             break;
         case 19:
             strcpy(pLevel->name, DataLevelName_20);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_20[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_20[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_20[a];   DataMap_Layer2_current[a]     = DataMap_20_Layer2[a]; }
             break;
         case 20:
             strcpy(pLevel->name, DataLevelName_21);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_21[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_21[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_21[a];   DataMap_Layer2_current[a]     = DataMap_21_Layer2[a]; }
             break;
         case 21:
             strcpy(pLevel->name, DataLevelName_22);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_22[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_22[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_22[a];   DataMap_Layer2_current[a]     = DataMap_22_Layer2[a]; }
             break;
         case 22:
             strcpy(pLevel->name, DataLevelName_23);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_23[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_23[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_23[a];   DataMap_Layer2_current[a]     = DataMap_23_Layer2[a]; }
             break;
         case 23:
             strcpy(pLevel->name, DataLevelName_24);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_24[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_24[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_24[a];   DataMap_Layer2_current[a]     = DataMap_24_Layer2[a]; }
             break;
         case 24:
             strcpy(pLevel->name, DataLevelName_25);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_25[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_25[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_25[a];   DataMap_Layer2_current[a]     = DataMap_25_Layer2[a]; }
             break;
         case 25:
             strcpy(pLevel->name, DataLevelName_26);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_26[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_26[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_26[a];   DataMap_Layer2_current[a]     = DataMap_26_Layer2[a]; }
             break;
         case 26:
             strcpy(pLevel->name, DataLevelName_27);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_27[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_27[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_27[a];   DataMap_Layer2_current[a]     = DataMap_27_Layer2[a]; }
             break;
         case 27:
             strcpy(pLevel->name, DataLevelName_28);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_28[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_28[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_28[a];   DataMap_Layer2_current[a]     = DataMap_28_Layer2[a]; }
             break;
         case 28:
             strcpy(pLevel->name, DataLevelName_29);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_29[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_29[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_29[a];   DataMap_Layer2_current[a]     = DataMap_29_Layer2[a]; }
             break;
         case 29:
             strcpy(pLevel->name, DataLevelName_30);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_30[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_30[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_30[a];   DataMap_Layer2_current[a]     = DataMap_30_Layer2[a]; }
             break;
         case 30:
             strcpy(pLevel->name, DataLevelName_31);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_31[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_31[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_31[a];   DataMap_Layer2_current[a]     = DataMap_31_Layer2[a]; }
             break;
         case 31:
             strcpy(pLevel->name, DataLevelName_32);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_32[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_32[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_32[a];   DataMap_Layer2_current[a]     = DataMap_32_Layer2[a]; }
             break;
         case 32:
             strcpy(pLevel->name, DataLevelName_33);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_33[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_33[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_33[a];   DataMap_Layer2_current[a]     = DataMap_33_Layer2[a]; }
             break;
         case 33:
             strcpy(pLevel->name, DataLevelName_34);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_34[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_34[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_34[a];   DataMap_Layer2_current[a]     = DataMap_34_Layer2[a]; }
             break;
         case 34:
             strcpy(pLevel->name, DataLevelName_35);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_35[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_35[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_35[a];   DataMap_Layer2_current[a]     = DataMap_35_Layer2[a]; }
             break;
         case 35:
             strcpy(pLevel->name, DataLevelName_36);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_36[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_36[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_36[a];   DataMap_Layer2_current[a]     = DataMap_36_Layer2[a]; }
             break;
         case 36:
             strcpy(pLevel->name, DataLevelName_37);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_37[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_37[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_37[a];   DataMap_Layer2_current[a]     = DataMap_37_Layer2[a]; }
             break;
         case 37:
             strcpy(pLevel->name, DataLevelName_38);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_38[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_38[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_38[a];   DataMap_Layer2_current[a]     = DataMap_38_Layer2[a]; }
             break;
         case 38:
             strcpy(pLevel->name, DataLevelName_39);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_39[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_39[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_39[a];   DataMap_Layer2_current[a]     = DataMap_39_Layer2[a]; }
             break;
         case 39:
             strcpy(pLevel->name, DataLevelName_40);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_40[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_40[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_40[a];   DataMap_Layer2_current[a]     = DataMap_40_Layer2[a]; }
             break;
         case 40:
             strcpy(pLevel->name, DataLevelName_41);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_41[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_41[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_41[a];   DataMap_Layer2_current[a]     = DataMap_41_Layer2[a]; }
             break;
         case 41:
             strcpy(pLevel->name, DataLevelName_42);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_42[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_42[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_42[a];   DataMap_Layer2_current[a]     = DataMap_42_Layer2[a]; }
             break;
         case 42:
             strcpy(pLevel->name, DataLevelName_43);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_43[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_43[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_43[a];   DataMap_Layer2_current[a]     = DataMap_43_Layer2[a]; }
             break;
         case 43:
             strcpy(pLevel->name, DataLevelName_44);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_44[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_44[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_44[a];   DataMap_Layer2_current[a]     = DataMap_44_Layer2[a]; }
             break;
         case 44:
             strcpy(pLevel->name, DataLevelName_45);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_45[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_45[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_45[a];   DataMap_Layer2_current[a]     = DataMap_45_Layer2[a]; }
             break;
         case 45:
             strcpy(pLevel->name, DataLevelName_46);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_46[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_46[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_46[a];   DataMap_Layer2_current[a]     = DataMap_46_Layer2[a]; }
             break;
         case 46:
             strcpy(pLevel->name, DataLevelName_47);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_47[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_47[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_47[a];   DataMap_Layer2_current[a]     = DataMap_47_Layer2[a]; }
             break;
         case 47:
             strcpy(pLevel->name, DataLevelName_48);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_48[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_48[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_48[a];   DataMap_Layer2_current[a]     = DataMap_48_Layer2[a]; }
             break;
         case 48:
             strcpy(pLevel->name, DataLevelName_49);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_49[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_49[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_49[a];   DataMap_Layer2_current[a]     = DataMap_49_Layer2[a]; }
             break;
         case 49:
             strcpy(pLevel->name, DataLevelName_50);
             for(a = 0 ; a < 70 ; a++)   {                                   DataLevel_current[a]   = DataLevel_50[a]; }
-            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_50[a];   }
+            for(a = 0 ; a < MAP_NB_TILE_X * MAP_NB_TILE_Y ; a++)   {        DataMap_current[a]     = DataMap_50[a];   DataMap_Layer2_current[a]     = DataMap_50_Layer2[a]; }
             break;
 
     }
@@ -940,7 +945,7 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     for (y = 0; y < MAP_NB_TILE_Y; y++ ) {
         for (x = 0; x < MAP_NB_TILE_X; x++ ) {
 
-
+            // Creation de la texture de la map
             Rect_source.y = (pLevel->my_map[a]-1) / TILE_FILE_NB_COLONNE  * (TILE_TAILLE_Y + 1) + 1;
             Rect_source.x = ((pLevel->my_map[a]-1) % TILE_FILE_NB_COLONNE)  * (TILE_TAILLE_Y + 1) + 1;
 
@@ -949,8 +954,21 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
 
             SDL_BlitSurface(pSurface_Tuile, &Rect_source, pSurface_TMP, &Rect_Dest);
 
-            //if (DEBUG){SDL_Log("x=%d - y=%d - val=%d - valx=%d - valy=%d\n ", x, y, pLevel->my_map[a], Rect_source.x, Rect_source.y );}
+            // Creation de la texture de la map layer 2
+            Rect_source.y = (DataMap_Layer2_current[a]-1) / TILE_FILE_NB_COLONNE  * (TILE_TAILLE_Y + 1) + 1;
+            Rect_source.x = ((DataMap_Layer2_current[a]-1) % TILE_FILE_NB_COLONNE)  * (TILE_TAILLE_Y + 1) + 1;
 
+            if (Rect_source.y < 0) { Rect_source.y = 0; }
+            if (Rect_source.x < 0) { Rect_source.x = 0; }
+            printf ("Rect_source.y = %d  Rect_source.y = %d\n",Rect_source.x,Rect_source.y);
+
+            Rect_Dest.x = x * TILE_TAILLE_X;
+            Rect_Dest.y = y * TILE_TAILLE_Y;
+
+            SDL_BlitSurface(pSurface_Tuile, &Rect_source, pSurface_TMP2, &Rect_Dest);
+
+
+            //if (DEBUG){SDL_Log("x=%d - y=%d - val=%d - valx=%d - valy=%d\n ", x, y, pLevel->my_map[a], Rect_source.x, Rect_source.y );}
 
             // creation du tableau des obstacles
             if ( pLevel->my_map[a] == 369 ||
@@ -994,8 +1012,14 @@ void init_level (t_level *pLevel, int level_number, SDL_Surface *pSurface_Tuile,
     pLevel->pTexture_MAP = SDL_CreateTextureFromSurface(pRenderer, pSurface_TMP);
     if(!pLevel->pTexture_MAP && DEBUG) {SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_Texture_MAP ERREUR! SDL_GetError: %s\n", SDL_GetError() );exit (-1);}
 
+    SDL_SetColorKey(pSurface_TMP2, SDL_TRUE, SDL_MapRGB(pSurface_TMP2->format, 255, 255, 255));
+
+    pLevel->pTexture_MAP_layer2 = SDL_CreateTextureFromSurface(pRenderer, pSurface_TMP2);
+    if(!pLevel->pTexture_MAP_layer2 && DEBUG) {SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_Texture_MAP ERREUR! SDL_GetError: %s\n", SDL_GetError() );exit (-1);}
+
 
     SDL_FreeSurface(pSurface_TMP);
+    SDL_FreeSurface(pSurface_TMP2);
 }
 /*****************************************************************
 *****************************************************************/
@@ -1080,6 +1104,7 @@ void init_level_gameover_txt  (SDL_Renderer *pRenderer, t_level *pLevel, TTF_Fon
 void clear_level            (t_level *pLevel) {
 
     SDL_DestroyTexture(pLevel->pTexture_MAP);
+    SDL_DestroyTexture(pLevel->pTexture_MAP_layer2);
     SDL_DestroyTexture(pLevel->pTexture_MAP_Titre);
     SDL_DestroyTexture(pLevel->pTexture_MAP_Obstacles);
 
