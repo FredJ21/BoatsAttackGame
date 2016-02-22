@@ -7,6 +7,7 @@
 
 #define FILE_SRC        "../../jni/src/level.c"
 #define FILE_TMP        "../../jni/src/level.c.new"
+#define FILE_CSV        "../BoatsAttackGame.csv"
 
 #define true            1
 #define false           0
@@ -28,18 +29,77 @@ int main()
     FILE * pFile_map;
     FILE * pFile_source;
     FILE * pFile_tmp;
+    FILE * pFile_csv;
 
+/********************************************************************
+        Traitement du fichier BoatsAttackGame.csv
+*********************************************************************/
+
+    pFile_csv = fopen (FILE_CSV,"r");
+    if (pFile_csv == NULL) {
+            printf ("Fichier source ");
+            printf (FILE_SRC);
+            printf (" introuvable !!!\n");
+            exit(1);
+    }
+    printf ("\nLecture du fichier ");
+    printf (FILE_CSV);
+    printf ("\n");
+
+
+    line_ok = 0;
+    do {
+            // Lecture d'une ligne
+            char    line[1000] = {};
+            character_position = 0;
+            do {
+                character = getc(pFile_csv);
+                line[character_position] = character;
+                character_position++;
+            } while ((character != '\n') && (character != EOF));
+            line_ok++;
+
+            if (character != EOF && line_ok > 2 ) {     // a partir de la 2eme ligne
+                printf ("%d --> %s", line_ok, line);
+            }
+
+    } while (character != EOF);
+
+
+    fclose(pFile_csv);
+
+
+exit(1);
 
 /********************************************************************
         Ouverture du fichier temporaire pour écriture
 *********************************************************************/
-  pFile_tmp = fopen (FILE_TMP,"w");
-  if (pFile_tmp == NULL) {
+    pFile_tmp = fopen (FILE_TMP,"w");
+    if (pFile_tmp == NULL) {
         printf ("Impossible de creer le fichier ");
         printf (FILE_TMP);
         printf ("\n");
         exit (1);
-  }
+    }
+
+    line_ok = 0;
+    do {
+            // Lecture d'une ligne
+            char    line[1000] = {};
+            character_position = 0;
+            do {
+                character = getc(pFile_source);
+                line[character_position] = character;
+                character_position++;
+            } while ((character != '\n') && (character != EOF));
+
+            //printf ("%s", line);
+            fputs (line,pFile_tmp);
+            line_ok++;
+
+            if ( strncmp(line,"// START Auto-generated section", 10) == 0 ) {  flag_section_start = true; }
+
+    } while (character != EOF && flag_section_start != true);
 
 /********************************************************************
         Lecture du fichier source jusqu'a la balise START
