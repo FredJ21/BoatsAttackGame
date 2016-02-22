@@ -68,7 +68,6 @@ int main()
 
     fclose(pFile_csv);
 
-
 exit(1);
 
 /********************************************************************
@@ -81,25 +80,6 @@ exit(1);
         printf ("\n");
         exit (1);
     }
-
-    line_ok = 0;
-    do {
-            // Lecture d'une ligne
-            char    line[1000] = {};
-            character_position = 0;
-            do {
-                character = getc(pFile_source);
-                line[character_position] = character;
-                character_position++;
-            } while ((character != '\n') && (character != EOF));
-
-            //printf ("%s", line);
-            fputs (line,pFile_tmp);
-            line_ok++;
-
-            if ( strncmp(line,"// START Auto-generated section", 10) == 0 ) {  flag_section_start = true; }
-
-    } while (character != EOF && flag_section_start != true);
 
 /********************************************************************
         Lecture du fichier source jusqu'a la balise START
