@@ -266,5 +266,8 @@ int main()
 *********************************************************************/
 
     fclose(pFile_tmp);
+
+    remove (FILE_SRC);
+    rename(FILE_TMP,FILE_SRC);
     exit(0);
 }
