@@ -32,45 +32,6 @@ int main()
     FILE * pFile_csv;
 
 /********************************************************************
-        Traitement du fichier BoatsAttackGame.csv
-*********************************************************************/
-
-    pFile_csv = fopen (FILE_CSV,"r");
-    if (pFile_csv == NULL) {
-            printf ("Fichier source ");
-            printf (FILE_SRC);
-            printf (" introuvable !!!\n");
-            exit(1);
-    }
-    printf ("\nLecture du fichier ");
-    printf (FILE_CSV);
-    printf ("\n");
-
-
-    line_ok = 0;
-    do {
-            // Lecture d'une ligne
-            char    line[1000] = {};
-            character_position = 0;
-            do {
-                character = getc(pFile_csv);
-                line[character_position] = character;
-                character_position++;
-            } while ((character != '\n') && (character != EOF));
-            line_ok++;
-
-            if (character != EOF && line_ok > 2 ) {     // a partir de la 2eme ligne
-                printf ("%d --> %s", line_ok, line);
-            }
-
-    } while (character != EOF);
-
-
-    fclose(pFile_csv);
-
-exit(1);
-
-/********************************************************************
         Ouverture du fichier temporaire pour écriture
 *********************************************************************/
     pFile_tmp = fopen (FILE_TMP,"w");
@@ -118,6 +79,60 @@ exit(1);
     //printf("\n");
     fputs ("\n",pFile_tmp);
     printf ("\t--> %d lignes\n\n", line_ok);
+
+/********************************************************************
+        Traitement du fichier BoatsAttackGame.csv
+*********************************************************************/
+
+    pFile_csv = fopen (FILE_CSV,"r");
+    if (pFile_csv == NULL) {
+            printf ("Fichier source ");
+            printf (FILE_SRC);
+            printf (" introuvable !!!\n");
+            exit(1);
+    }
+    printf ("Traitement du fichier ");
+    printf (FILE_CSV);
+    printf ("\n\n");
+
+
+    line_ok = 0;
+    do {
+            // Lecture d'une ligne
+            char    line[1000] = {};
+            int     flag_premier_separation = false;
+            int     flag_ok      = false;
+
+            character_position = 0;
+            do {
+                character = getc(pFile_csv);
+
+
+                if (character == ';') { character = ','; flag_premier_separation = true; }
+
+                if (flag_ok == true ){
+                    line[character_position] = character;
+                    character_position++;
+                }
+                if (flag_premier_separation) {flag_ok = true;}
+
+            } while ((character != '\n') && (character != EOF));
+            line_ok++;
+
+            if (character != EOF && line_ok > 2 ) {     // a partir de la 2eme ligne
+                fputs ("int DataLevel_",pFile_tmp);
+                sprintf(ch,"%d",line_ok - 2);
+                fputs (ch,pFile_tmp);
+                fputs ("[70]    =  {  ",pFile_tmp);
+                fputs (line,pFile_tmp);
+                fputs ("};\n",pFile_tmp);
+            }
+
+    } while (character != EOF);
+
+    fputs("\n\n\n",pFile_tmp);
+
+    fclose(pFile_csv);
 
 /********************************************************************
         Traitement des fichiers MAP
@@ -208,6 +223,8 @@ exit(1);
 
 
    }
+
+    fputs ("\n",pFile_tmp);
 
 /********************************************************************
         Lecture du fichier source depuis la balise STOP
