@@ -75,7 +75,7 @@ int main( int argc, char* args[] )
 
     // Création de la fenêtre
 #if __WIN32__
-    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X_177, MAP_TAILLE_Y_177, SDL_WINDOW_SHOWN );
+    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X_160, MAP_TAILLE_Y_160, SDL_WINDOW_SHOWN );
 //    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
 #else
     pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
@@ -845,7 +845,7 @@ int main( int argc, char* args[] )
                     SDL_RenderCopy      (pRenderer, my_level.pTexture_MAP, NULL, NULL);
 
                     // Affichage des obstacles (mode Debug)
-                    if (DEBUG_MAP) {affiche_obstacle    (pRenderer, &my_level);}
+                    if (DEBUG_MAP2) {affiche_obstacle    (pRenderer, &my_level);}
 
                     // Affichage de l'arrivé
                     anime_sprite(my_game.sp_ARRIVE);
