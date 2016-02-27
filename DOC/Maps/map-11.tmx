@@ -5,12 +5,12 @@
  </tileset>
  <layer name="Calque de Tile 1" width="30" height="19">
   <data encoding="base64" compression="zlib">
-   eJwzYGBgMCCAhZgYGJ4zUhcTsvM3UI0hne2llZ247AXZ94eGduKyl1B8MgLlmZAwMxnuIydsJZhQ9UhRwV5i0u5gsJfctIduryYR8aUPsheKyU172NIVMXbTIj1TWkYxEpHWqW0vyE5tJsJpDpe95IY1sWmd2vXBQNmLnNbxpXd89tIyXQ9E3TsS7QUAoDp5mA==
+   eJx7zsjA8HwUY8V7gHgvEO+js/mXgbifgYHhKo3sxWX+KyB+DcRvaBQehMwn1b20xuS6l1aYlukRn9mUhj+5ZlOaHikxGx8mFB60SjeDLT1SKw3Q0hxqlR2kmkOtuBrKcT6YMADrTPwn
   </data>
  </layer>
  <layer name="Calque 2" width="30" height="19">
   <data encoding="base64" compression="zlib">
-   eJzFlesNgCAMhOsQPobwMalLoEuoU7iFY1gSGy8YgmLFL+kPTOUs5WqbEXUcQnusc44CnmuD+xtY1xzNh7qyf8lRJdBDZjrPNxXm0P26nz6enu/I0XOskXpVZI1Wc4rUtNieDi/ejwV7+ub7XcQfPrCnodwn3PGHcXJnBd2QP7BGydXQDfkDa9SaVduNHM0ahYXO3vlw57N4SvNu+/hjPg90nc+afgqBdyp17UKKf9MOlkUZuA==
+   eJxjYBgFAwmcGQfG3n8DY+2QBK8G2gEjALgOQD5wB9rpMkD5bxQMPfBmoB0wCsgGABxhA+w=
   </data>
  </layer>
 </map>

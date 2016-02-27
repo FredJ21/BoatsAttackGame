@@ -75,8 +75,8 @@ int main( int argc, char* args[] )
 
     // Création de la fenêtre
 #if __WIN32__
-//    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X_177 , MAP_TAILLE_Y_177 , SDL_WINDOW_SHOWN );
-    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X_160, MAP_TAILLE_Y_160, SDL_WINDOW_SHOWN );
+    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X_177 , MAP_TAILLE_Y_177 , SDL_WINDOW_SHOWN );
+//    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X_160, MAP_TAILLE_Y_160, SDL_WINDOW_SHOWN );
 //    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
 #else
     pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
@@ -253,14 +253,14 @@ int main( int argc, char* args[] )
     strcpy(ANIM[a].file,   "images/Enemy-PetitBateau2_48x48.png");
         ANIM[a].tx              = 48;   ANIM[a].ty              = 48;
         ANIM[a].nb_colonne      = 3;    ANIM[a].nb_image        = 12;   ANIM[a].nb_img_by_dir   = 3;    ANIM[a].nb_tour         = 5; ANIM[a].vitesse         = 2;
-        ANIM[a].pv              = 1;
+        ANIM[a].pv              = 2;
         init_animation( &ANIM[a], pRenderer);
         a++;
     // 2
     strcpy(ANIM[a].file,   "images/Enemy-PetitBateau3_48x48.png");
         ANIM[a].tx              = 48;   ANIM[a].ty              = 48;
         ANIM[a].nb_colonne      = 3;    ANIM[a].nb_image        = 12;   ANIM[a].nb_img_by_dir   = 3;    ANIM[a].nb_tour         = 5; ANIM[a].vitesse         = 2;
-        ANIM[a].pv              = 1;
+        ANIM[a].pv              = 3;
         init_animation( &ANIM[a], pRenderer);
         a++;
     // 3
@@ -274,21 +274,21 @@ int main( int argc, char* args[] )
     strcpy(ANIM[a].file,   "images/Enemy-Bateau_Pirate_61x55.png");
         ANIM[a].tx              = 61;   ANIM[a].ty              = 55;
         ANIM[a].nb_colonne      = 4;    ANIM[a].nb_image        = 16;   ANIM[a].nb_img_by_dir   = 4;    ANIM[a].nb_tour         = 5; ANIM[a].vitesse         = 2;
-        ANIM[a].pv              = 1;
+        ANIM[a].pv              = 3;
         init_animation( &ANIM[a], pRenderer);
         a++;
     // 5
     strcpy(ANIM[a].file,   "images/Enemy-Bateau_3mats_60x60.png");
         ANIM[a].tx              = 60;   ANIM[a].ty              = 60;
         ANIM[a].nb_colonne      = 4;    ANIM[a].nb_image        = 16;   ANIM[a].nb_img_by_dir   = 4;    ANIM[a].nb_tour         = 5; ANIM[a].vitesse         = 2;
-        ANIM[a].pv              = 1;
+        ANIM[a].pv              = 2;
         init_animation( &ANIM[a], pRenderer);
         a++;
     // 6
     strcpy(ANIM[a].file,   "images/Enemy-Bateau_Pirate2_60x56.png");
         ANIM[a].tx              = 60;   ANIM[a].ty              = 56;
         ANIM[a].nb_colonne      = 4;    ANIM[a].nb_image        = 16;   ANIM[a].nb_img_by_dir   = 4;    ANIM[a].nb_tour         = 5; ANIM[a].vitesse         = 2;
-        ANIM[a].pv              = 1;
+        ANIM[a].pv              = 3;
         init_animation( &ANIM[a], pRenderer);
         a++;
     // 7
