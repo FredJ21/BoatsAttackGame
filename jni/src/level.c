@@ -1084,6 +1084,8 @@ void init_level_chemins     (t_level *pLevel, t_system *my_system) {
 
     int x, y;
 
+    if (DEBUG) {SDL_Log("Fred DEBUG - Arrive : x=%d y=%d\n", pLevel->cibleX, pLevel->cibleY);}
+/*
     for (y = 1; y < MAP_NB_TILE_Y; y++){
         x = 0;
         if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
@@ -1101,6 +1103,19 @@ void init_level_chemins     (t_level *pLevel, t_system *my_system) {
         }
         if ( pLevel->map_Info[x][y] == LIBRE ) {    calcul_chemin(x, y, pLevel);    }
     }
+*/
+
+    for (x = 0; x < MAP_NB_TILE_X; x++ ){
+        for (y = 0; y < MAP_NB_TILE_Y; y++) {
+
+            if ( pLevel->map_Info[x][y] == LIBRE && pLevel->map_Direction[x][y] == INCONNU && !(x == pLevel->cibleX && y == pLevel->cibleY)) {
+
+                    calcul_chemin(x, y, pLevel);
+            }
+        }
+    }
+
+
 }
 /*****************************************************************
 *****************************************************************/
@@ -1252,6 +1267,8 @@ void affiche_map_console    (t_level *pLevel) {
                 printf ("v");
             } else if ( pLevel->map_Direction[x][y] == VERS_LA_GAUCHE) {
                 printf ("<");
+            } else if ( x == pLevel->cibleX && y == pLevel->cibleY ) {
+                printf ("X");
             } else {
                 printf (" ");
             }
