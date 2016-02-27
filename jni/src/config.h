@@ -2,10 +2,10 @@
 #define CONFIG_H_INCLUDED
 
 
-#define DEBUG           1
-#define DEBUG_MAP       1
+#define DEBUG           0
+#define DEBUG_MAP       0
 #define DEBUG_MAP2      0
-#define DEBUG_ALL_MAP   1
+#define DEBUG_ALL_MAP   0
 
 #define NOIR    al_map_rgb(0,0,0)
 #define ROUGE   al_map_rgb(255,0,0)
@@ -18,7 +18,7 @@
 #define bool    short int
 
 // CONFIG
-#define DATAFILE            "data.bin"
+#define DATAFILE            "data160227.bin"
 #define APP_TITRE           "Battle BOATS - By Fred & Mathis"
 #define COULEUR_FENETRE     NOIR
 #define START_IMG           "images/start.png"
@@ -52,7 +52,7 @@
 #define LEVEL_NB_TOTAL            10
 #define WAVE_ENEMY_MAX_BY_WAVE  100
 #define WAVE_NB                  10
-#define TOWER_MAX                 5
+#define TOWER_MAX                 3
 #define TOWER_NB_MISSILE_MAX      1          // par tourelle
 #define MISSILE_SPEED            15
 

@@ -75,7 +75,8 @@ int main( int argc, char* args[] )
 
     // Création de la fenêtre
 #if __WIN32__
-    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X_160, MAP_TAILLE_Y_160, SDL_WINDOW_SHOWN );
+    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X_177 , MAP_TAILLE_Y_177 , SDL_WINDOW_SHOWN );
+//    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, MAP_TAILLE_X_160, MAP_TAILLE_Y_160, SDL_WINDOW_SHOWN );
 //    pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
 #else
     pWindow = SDL_CreateWindow( APP_TITRE , SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP );
@@ -422,7 +423,7 @@ int main( int argc, char* args[] )
 	if( my_sound.PlaceTower == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect 9 ! SDL_mixer Error: %s\n", Mix_GetError() );		return -1;	}
 
 	my_sound.Oh_non = Mix_LoadWAV( "sound/oh_non.ogg" );
-	if( my_sound.Oh_non == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect 9 ! SDL_mixer Error: %s\n", Mix_GetError() );		return -1; }
+	if( my_sound.Oh_non == NULL && DEBUG)	{		SDL_Log( "Failed to load sound effect 10 ! SDL_mixer Error: %s\n", Mix_GetError() );		return -1; }
 
     /******************************************************************************************************************
                                                 BOUCLE PRINCIPALE
