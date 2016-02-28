@@ -5,7 +5,7 @@
  </tileset>
  <layer name="Calque de Tile 1" width="30" height="19">
   <data encoding="base64" compression="zlib">
-   eJztlVEKwjAQRDfxBsVLSIvVk3oh8RKlZygUb2AVJ9CPUJvNhEUU9ONBobN5G5psByey9SIH4aiQHdwr7Bpx/a95Wzzf3Xu9N2QmcFzUB/c0v9N6KPWmfGtoPbDeEl+uB20dNvfnuziDywece5yPnsw7ZP3MxnCuOnASzhucdXSXdgY36106c3c9xwgEtY1Pf+OU0+Jl9qzNZav3Aa6F3jAnLTNrVJyBtX+Z1ckS75l1PgEKtoYj
+   eJzdlf0JAjEMxdO6gbiEKH5MJ05xU4hLiEuIMxTFDTzFFBoItU3THor4x4OD5vX3Lr3mnAGYWIAV6DTGWoeeC5Or2IP8NZ5/4S7x+WE+y71jTY9aB/+WsfuwJmWo5cY8r03wEdspMmi5Ei8lKQPfJ+bm6ko8TYbcPtq6X9eeZd99mXlAHc37mUoZh2Ql5gK/j3OBS0yDtTZoZNvY3nNCdSBzOXPG7tKUsYdy4+w5pnTXNdwrCtA7t+kzlpitXLqTUq9Lc7mFy3v9RN0quX5OpmZbTa+JGc+f3L+MM1tmFp9/KT+t83fWMl8dXH4l
   </data>
  </layer>
  <layer name="Calque 2" width="30" height="19">

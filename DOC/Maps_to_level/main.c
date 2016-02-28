@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define level_NB        10
+#define level_NB        19
 #define map_nb_ligne    19
 
 #define FILE_SRC        "../../jni/src/level.c"
