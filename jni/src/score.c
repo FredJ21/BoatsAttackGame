@@ -16,7 +16,7 @@ void init_score       (SDL_Renderer *pRenderer, t_score *s, t_system *my_system,
 
 
     SDL_Surface *s_texte = NULL;
-    SDL_Color couleur = {100, 50, 0, 0};
+    SDL_Color couleur = {180, 50, 0, 0};
 
     char texte[256];
     sprintf(texte,"Level %d - Enemy:%d   Score:%d", s->level, s->NbEnemy, score);

@@ -5,12 +5,12 @@
  </tileset>
  <layer name="Calque de Tile 1" width="30" height="19">
   <data encoding="base64" compression="zlib">
-   eJx7zsjA8HwUY8V7gHgvEO+js/mXgbifgYHhKo3sxWX+KyB+DcRvaBQehMwn1b20xuS6l1aYlukRn9mUhj+5ZlOaHikxGx8mFB60SjeDLT1SKw3Q0hxqlR2kmkOtuBrKcT6YMADrTPwn
+   eJx7zsjA8HwUY8V7gHgvEO+js/mXgbifgYHhKo3sxWX+KyB+DcRvaBQehMwn1b20xuS6lxZpghrhT24YUxr++NyNL4wpTY+0SjeEzKVVuhmI9EgtTK20S6o51EoDpJpDrbgaynE+mDAAelT8Jw==
   </data>
  </layer>
  <layer name="Calque 2" width="30" height="19">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFAwmcGbGLG+AQpxb4R1vjaQIYaRAm4kAzJQiY+4r61jLoAe3Up3EcDyZ7RYF2iuGx15VGbtIBmquLw2x3RuLiHxtYTJmzRuOfTgBf/JMK3lDHmFEwAAAAVi4Haw==
+   eJxjYBgFAwmcGbGLG+AQpxb4R1vjaQIYaRAm4kAzJQiY+4r61jLoAe3Up3Eck2qvO1DclUZuEgWaKzYA/tUB2qmLx15i4h8bWEy+k8BgMMY/LcFgjX9SwBvqGDMKBgAAALp+B2s=
   </data>
  </layer>
 </map>
