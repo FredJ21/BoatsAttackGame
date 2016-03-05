@@ -88,12 +88,22 @@ int main( int argc, char* args[] )
 
     if ( my_system.window_size_ratio > 1.7 && my_system.window_size_ratio < 1.8 ) {
             my_system.window_size_ratio = 1.7;
-            my_system.map_taille_x  = MAP_TAILLE_X_177;
-            my_system.map_taille_y  = MAP_TAILLE_Y_177;
+            my_system.map_taille_x      = MAP_TAILLE_X_177;
+            my_system.map_taille_y      = MAP_TAILLE_Y_177;
+            my_game.zone_button_tir_x   = MAP_TAILLE_X_177 - 150;
+            my_game.zone_button_tir_y   = MAP_TAILLE_Y_177 - 130;
+            my_game.zone_button_tower_x = 150;
+            my_game.zone_button_tower_y = MAP_TAILLE_Y_177 - 130;
     } else {
-            my_system.map_taille_x  = MAP_TAILLE_X_160;
-            my_system.map_taille_y  = MAP_TAILLE_Y_160;
+            my_system.map_taille_x      = MAP_TAILLE_X_160;
+            my_system.map_taille_y      = MAP_TAILLE_Y_160;
+            my_game.zone_button_tir_x   = MAP_TAILLE_X_160 - 150;
+            my_game.zone_button_tir_y   = MAP_TAILLE_Y_160 - 130;
+            my_game.zone_button_tower_x = 150;
+            my_game.zone_button_tower_y = MAP_TAILLE_Y_160 - 130;
     }
+
+
     if (DEBUG) {SDL_Log("Fred DEBUG - Window Size: %d x %d - ratio: %f\n", my_system.window_size_w, my_system.window_size_h, my_system.window_size_ratio);}
 
     // Création du Renderer
@@ -563,7 +573,7 @@ int main( int argc, char* args[] )
                             my_game.flag_event_DOWN = false;
 
                             if (my_game.flag_mode_game) {
-                                if (my_game.current_mouse_x > ZONE_BUTTON_TIR_X && my_game.current_mouse_y > ZONE_BUTTON_TIR_Y && !my_game.flag_game_over) { /** CLICK BUTTON TIR **/
+                                if (my_game.current_mouse_x > my_game.zone_button_tir_x && my_game.current_mouse_y > my_game.zone_button_tir_y && !my_game.flag_game_over) { /** CLICK BUTTON TIR **/
                                     if (DEBUG) {SDL_Log("Fred DEBUG - BUTTON TIR\n");}
 
                                     for (a = 0; a < my_game.current_nb_tower; a++){
@@ -571,7 +581,7 @@ int main( int argc, char* args[] )
                                     }
 
                                 }
-                                if (my_game.current_mouse_x < ZONE_BUTTON_TOWER_X && my_game.current_mouse_y > ZONE_BUTTON_TOWER_Y && !my_game.flag_game_over) {/** CLICK BUTTON TOWER **/
+                                if (my_game.current_mouse_x < my_game.zone_button_tower_x && my_game.current_mouse_y > my_game.zone_button_tower_y && !my_game.flag_game_over) {/** CLICK BUTTON TOWER **/
                                     if (DEBUG) {SDL_Log("Fred DEBUG - BUTTON TOWER\n");}
 
                                     if (my_game.current_nb_tower < TOWER_MAX) {
@@ -584,8 +594,8 @@ int main( int argc, char* args[] )
                                 }
                             }
                             else if (my_game.flag_mode_place_tower) {
-                                if ( (my_game.current_mouse_x < ZONE_BUTTON_TOWER_X && my_game.current_mouse_y > ZONE_BUTTON_TOWER_Y)
-                                    || (my_game.current_mouse_x > ZONE_BUTTON_TIR_X && my_game.current_mouse_y > ZONE_BUTTON_TIR_Y)) {       /** CLICK BUTTON TIR ou TOWER en mode "place TOWER" **/
+                                if ( (my_game.current_mouse_x < my_game.zone_button_tower_x && my_game.current_mouse_y > my_game.zone_button_tower_y)
+                                    || (my_game.current_mouse_x > my_game.zone_button_tir_x && my_game.current_mouse_y > my_game.zone_button_tir_y)) {       /** CLICK BUTTON TIR ou TOWER en mode "place TOWER" **/
                                     if (DEBUG) {SDL_Log("Fred DEBUG - BUTTON TOWER\n");}                                                                     /** ==> Passage en mode "place new tower" **/
                                     my_game.flag_mode_place_tower = false;
                                     my_game.flag_mode_game = true;
@@ -603,7 +613,7 @@ int main( int argc, char* args[] )
                                 my_game.sp_TOWER_MOUSE->x = my_game.current_mouse_x;
                                 my_game.sp_TOWER_MOUSE->y = my_game.current_mouse_y;
                                // verifie si la position est valide afin de changer la couleur de souris
-                                if ( is_tower_new_valid_position(my_game.sp_TOWER_MOUSE, &my_level, my_game.sp_TOWER, my_game.current_nb_tower) ) {
+                                if ( is_tower_new_valid_position(my_game.sp_TOWER_MOUSE, &my_level, my_game.sp_TOWER, my_game.current_nb_tower, my_game.zone_button_tower_x, my_game.zone_button_tower_y) ) {
                                     my_game.flag_tower_position_ok = true;
                                 } else {
                                     my_game.flag_tower_position_ok = false;

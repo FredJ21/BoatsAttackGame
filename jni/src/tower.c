@@ -158,7 +158,7 @@ void        affiche_tower(SDL_Renderer *r, t_tower *s){
 }
 /*****************************************************************
 *****************************************************************/
-bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel, t_tower *tower[], int current_nb_tower) {
+bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel, t_tower *tower[], int current_nb_tower, int z_button_tower_x, int z_button_tower_y) {
 
     int a;
 
@@ -191,7 +191,7 @@ bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel, t_tower *to
     BG.tileY = BD.tileY;
 
     // test si la tourelle n'est pas sous le bouton TOWER
-    if ( BG.x < ZONE_BUTTON_TOWER_X && BG.y > ZONE_BUTTON_TOWER_Y ) {
+    if ( BG.x < z_button_tower_x && BG.y > z_button_tower_y ) {
 
         return false;
     }

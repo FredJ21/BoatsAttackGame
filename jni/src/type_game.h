@@ -45,6 +45,11 @@ typedef struct {
     int score;
     int heart_point;
 
+    int zone_button_tir_x;
+    int zone_button_tir_y;
+    int zone_button_tower_x;
+    int zone_button_tower_y;
+
 
 } t_game;
 

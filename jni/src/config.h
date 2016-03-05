@@ -2,10 +2,10 @@
 #define CONFIG_H_INCLUDED
 
 
-#define DEBUG           0
-#define DEBUG_MAP       0       // permet de voir les chemins en console
+#define DEBUG           1
+#define DEBUG_MAP       1       // permet de voir les chemins en console
 #define DEBUG_MAP2      0       // positionne des croix rouge sur les obstacles
-#define DEBUG_ALL_MAP   0       // permet d'accèder à toutes les map
+#define DEBUG_ALL_MAP   1       // permet d'accèder à toutes les map
 
 #define NOIR    al_map_rgb(0,0,0)
 #define ROUGE   al_map_rgb(255,0,0)
@@ -39,11 +39,6 @@
 
 #define MAP_NB_TILE_X         30
 #define MAP_NB_TILE_Y         19
-
-#define ZONE_BUTTON_TIR_X    845        // superieur à cette valeur
-#define ZONE_BUTTON_TIR_Y    445        // superieur à cette valeur
-#define ZONE_BUTTON_TOWER_X  115        // inferieur à cette valeur
-#define ZONE_BUTTON_TOWER_Y  445        // superieur à cette valeur
 
 #define TILE_TAILLE_X         32
 #define TILE_TAILLE_Y         32
