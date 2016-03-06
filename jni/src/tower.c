@@ -15,7 +15,7 @@
 
 /*****************************************************************
 *****************************************************************/
-t_tower*   create_Tower( int x, int y, t_animation *ANIM) {
+t_tower*   create_Tower( int x, int y, t_animation *ANIM, t_animation *ANIM_SELECTED) {
 
     int a;
 
@@ -38,6 +38,7 @@ t_tower*   create_Tower( int x, int y, t_animation *ANIM) {
 	s->compte_tour  = 0;
 	s->nb_tour      = ANIM->nb_tour;
 	s->anim         = ANIM;
+	s->anim_selected = ANIM_SELECTED;
 	s->visible      = 254;
 	s->actif        = true;
 
@@ -150,12 +151,38 @@ void        affiche_tower(SDL_Renderer *r, t_tower *s){
             SDL_SetRenderDrawColor (r, 254, 0, 0, 50);
             SDL_RenderDrawRect(r, &Dst);
             SDL_SetRenderDrawColor (r, 0, 0, 0, 50);
+
+            affiche_tower_selected( r, s);
         }
         SDL_RenderCopyEx(r, s->anim->texture, &Src, &Dst, s->angle, NULL, 0);
+    }
+
+}
+/*****************************************************************
+*****************************************************************/
+void        affiche_tower_selected(SDL_Renderer *r, t_tower *s){
+
+    if (s->actif) {
+
+        SDL_Rect Src;
+        SDL_Rect Dst;
+
+        // Affichage de l'aide au positionnement
+        Src.x = 0;
+        Src.y = 0;
+        Src.w = s->anim_selected->tx;
+        Src.h = s->anim_selected->ty;
+
+        Dst.x = s->x - s->anim_selected->tx/2;
+        Dst.y = s->y - s->anim_selected->ty/2;
+        Dst.w = s->anim_selected->tx;
+        Dst.h = s->anim_selected->ty;
+        SDL_RenderCopy ( r, s->anim_selected->texture , &Src, &Dst);
 
 
     }
 }
+
 /*****************************************************************
 *****************************************************************/
 bool        is_tower_new_valid_position(t_tower *s, t_level *pLevel, t_tower *tower[], int current_nb_tower, int z_button_tower_x, int z_button_tower_y) {

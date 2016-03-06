@@ -323,6 +323,12 @@ int main( int argc, char* args[] )
     t_animation ANIM_TOWER = { "images/Tower1.png", 48, 48, 3, 12, 0, NULL, 0, 1 };
         init_animation( &ANIM_TOWER, pRenderer);
 
+    t_animation ANIM_TOWER_SELECTED = { "images/Tower_Selected.png", 240, 240, 1, 1, 0, NULL, 0, 1};
+        init_animation( &ANIM_TOWER_SELECTED, pRenderer);
+
+    t_animation ANIM_TOWER_TARGET = { "images/Target_80x80.png", 120, 120, 1, 1, 1, NULL, 1, 1};
+        init_animation( &ANIM_TOWER_TARGET, pRenderer);
+
     t_animation ANIM_MISSILE = { "images/Missile.png", 10, 10, 1, 1, 0, NULL, 0, 1 };
         init_animation( &ANIM_MISSILE, pRenderer);
 
@@ -372,7 +378,7 @@ int main( int argc, char* args[] )
     my_game.sp_ARRIVE = init_sprite (&DRAPEAU);
 
     /* SPRITE TOWER */
-    my_game.sp_TOWER_MOUSE = create_Tower (0,0,&ANIM_TOWER);  // tourelle d'aide au positionnement, sous le pointeur souris
+    my_game.sp_TOWER_MOUSE = create_Tower (0,0,&ANIM_TOWER, &ANIM_TOWER_SELECTED);  // tourelle d'aide au positionnement, sous le pointeur souris
 
      /* SPRITE BUTTON */
     my_game.sp_BUTTON_TIR = init_sprite (&IMG_BUTTON_TIR);
@@ -388,6 +394,8 @@ int main( int argc, char* args[] )
     my_game.sp_HEART->is_actif = true;
     my_game.sp_HEART->y = 22;
 
+     /* SPRITE TOWER CIBLE */
+    my_game.sp_TOWER_TARGET = init_sprite(&ANIM_TOWER_TARGET);
 
     /******************************************************************************************************************
                                                 INIT POLICE DE CARACTERE
@@ -529,7 +537,7 @@ int main( int argc, char* args[] )
 
                             case SDL_MOUSEMOTION :
                                 SDL_GetMouseState( &my_game.current_mouse_x, &my_game.current_mouse_y );
-                                //if (DEBUG) {SDL_Log("Fred DEBUG - MOUSEMOTION : %d x %d\n", current_mouse_x, current_mouse_y);}
+                                //if (DEBUG) {SDL_Log("Fred DEBUG - MOUSEMOTION : %d x %d\n", my_game.current_mouse_x, my_game.current_mouse_y);}
                                 my_game.flag_event_MOVE = true;
                                 break;
 
@@ -551,7 +559,7 @@ int main( int argc, char* args[] )
                             case SDL_FINGERMOTION :
                                 my_game.current_mouse_x = (int)(event.tfinger.x * my_system.map_taille_x);
                                 my_game.current_mouse_y = (int)(event.tfinger.y * my_system.map_taille_y);
-                                //if (DEBUG) {SDL_Log("Fred DEBUG - FINGERMOTION : %d x %d\n", current_mouse_x, current_mouse_y);}
+                                //if (DEBUG) {SDL_Log("Fred DEBUG - FINGERMOTION : %d x %d\n", my_game.current_mouse_x, my_game.current_mouse_y);}
                                 my_game.flag_event_MOVE = true;
                                 break;
 
@@ -588,8 +596,11 @@ int main( int argc, char* args[] )
 
                                         my_game.flag_mode_place_tower = true;                                                                   /** ==> Passage en mode "place new tower" **/
                                         my_game.flag_mode_game = false;
-                                        my_game.sp_TOWER_MOUSE->x = my_system.map_taille_x / 2;
-                                        my_game.sp_TOWER_MOUSE->y = my_system.map_taille_y / 2;
+                                        my_game.sp_TOWER_MOUSE->x = my_game.current_mouse_x;
+                                        my_game.sp_TOWER_MOUSE->y = my_game.current_mouse_y;
+
+                                        my_game.sp_TOWER[my_game.current_tower]->selected = false;                  // retire la selection , si une tourelle est selectionnée
+                                        my_game.flag_mode_tower_selected = false;
                                     }
                                 }
                             }
@@ -631,7 +642,7 @@ int main( int argc, char* args[] )
 
                                     Mix_PlayChannel( -1, my_sound.PlaceTower, 0 );
 
-                                    my_game.sp_TOWER[my_game.current_nb_tower] = create_Tower(my_game.current_mouse_x, my_game.current_mouse_y, &ANIM_TOWER);
+                                    my_game.sp_TOWER[my_game.current_nb_tower] = create_Tower(my_game.current_mouse_x, my_game.current_mouse_y, &ANIM_TOWER, &ANIM_TOWER_SELECTED);
                                     my_game.current_nb_tower++;
 
                                     my_game.flag_mode_place_tower = false;
@@ -905,6 +916,18 @@ int main( int argc, char* args[] )
                         my_game.sp_TOWER_MOUSE->visible = 254;
                         my_game.sp_TOWER_MOUSE->img_current = 2;
                         affiche_tower (pRenderer, my_game.sp_TOWER_MOUSE);
+                        affiche_tower_selected (pRenderer, my_game.sp_TOWER_MOUSE);
+                    }
+
+
+                    // Affichage de l'aide à la visé
+                    if (my_game.flag_mode_tower_selected) {
+
+                        my_game.sp_TOWER_TARGET->x = my_game.current_mouse_x;
+                        my_game.sp_TOWER_TARGET->y = my_game.current_mouse_y;
+                        anime_sprite(my_game.sp_TOWER_TARGET);
+                        affiche_sprite (pRenderer, my_game.sp_TOWER_TARGET);
+
                     }
 
                     // Afficahge des boutons
