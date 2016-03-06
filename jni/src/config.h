@@ -2,10 +2,10 @@
 #define CONFIG_H_INCLUDED
 
 
-#define DEBUG           1
-#define DEBUG_MAP       1       // permet de voir les chemins en console
+#define DEBUG           0
+#define DEBUG_MAP       0       // permet de voir les chemins en console
 #define DEBUG_MAP2      0       // positionne des croix rouge sur les obstacles
-#define DEBUG_ALL_MAP   1       // permet d'accèder à toutes les map
+#define DEBUG_ALL_MAP   0       // permet d'accèder à toutes les map
 
 #define NOIR    al_map_rgb(0,0,0)
 #define ROUGE   al_map_rgb(255,0,0)
