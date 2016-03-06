@@ -326,7 +326,7 @@ int main( int argc, char* args[] )
     t_animation ANIM_TOWER_SELECTED = { "images/Tower_Selected.png", 240, 240, 1, 1, 0, NULL, 0, 1};
         init_animation( &ANIM_TOWER_SELECTED, pRenderer);
 
-    t_animation ANIM_TOWER_TARGET = { "images/Target_80x80.png", 120, 120, 1, 1, 1, NULL, 1, 1};
+    t_animation ANIM_TOWER_TARGET = { "images/Target_80x80.png", 240, 240, 1, 1, 1, NULL, 1, 1};
         init_animation( &ANIM_TOWER_TARGET, pRenderer);
 
     t_animation ANIM_MISSILE = { "images/Missile.png", 10, 10, 1, 1, 0, NULL, 0, 1 };
@@ -589,7 +589,7 @@ int main( int argc, char* args[] )
                                     }
 
                                 }
-                                if (my_game.current_mouse_x < my_game.zone_button_tower_x && my_game.current_mouse_y > my_game.zone_button_tower_y && !my_game.flag_game_over) {/** CLICK BUTTON TOWER **/
+                                else if (my_game.current_mouse_x < my_game.zone_button_tower_x && my_game.current_mouse_y > my_game.zone_button_tower_y && !my_game.flag_game_over) {/** CLICK BUTTON TOWER **/
                                     if (DEBUG) {SDL_Log("Fred DEBUG - BUTTON TOWER\n");}
 
                                     if (my_game.current_nb_tower < TOWER_MAX) {
@@ -603,6 +603,21 @@ int main( int argc, char* args[] )
                                         my_game.flag_mode_tower_selected = false;
                                     }
                                 }
+
+                                else {
+
+                                    // selection d'une tourelle
+                                    my_game.current_tower = is_tower_position(my_game.current_mouse_x, my_game.current_mouse_y, my_game.sp_TOWER, my_game.current_nb_tower);
+                                    if (my_game.current_tower < TOWER_MAX) {    // TOWER_MAX signifi qu'aucune n'est seletionnée
+
+                                        if (DEBUG) {SDL_Log("Fred DEBUG - SELECT TOWER\n");}
+                                        my_game.sp_TOWER[my_game.current_tower]->selected = true;
+                                        my_game.flag_mode_tower_selected = true;
+                                    }
+                                }
+
+
+
                             }
                             else if (my_game.flag_mode_place_tower) {
                                 if ( (my_game.current_mouse_x < my_game.zone_button_tower_x && my_game.current_mouse_y > my_game.zone_button_tower_y)
@@ -612,6 +627,7 @@ int main( int argc, char* args[] )
                                     my_game.flag_mode_game = true;
                                 }
                             }
+
                         }
 
                         /***************************************************************/
@@ -664,19 +680,6 @@ int main( int argc, char* args[] )
                                     my_game.flag_mode_tower_selected = false;
                                     my_game.flag_mode_game = true;
                                 }
-
-                                // selection d'une tourelle
-                                else if (my_game.flag_mode_game) {
-                                    my_game.current_tower = is_tower_position(my_game.current_mouse_x, my_game.current_mouse_y, my_game.sp_TOWER, my_game.current_nb_tower);
-                                    if (my_game.current_tower < TOWER_MAX) {   // TOWER_MAX signifi qu'aucune n'est seletionnée
-
-
-                                        if (DEBUG) {SDL_Log("Fred DEBUG - SELECT TOWER\n");}
-                                        my_game.sp_TOWER[my_game.current_tower]->selected = true;
-                                        my_game.flag_mode_tower_selected = true;
-                                    }
-                                }
-
 
                         }
 
